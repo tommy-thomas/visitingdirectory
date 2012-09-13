@@ -1,1 +1,18 @@
 * text=auto !eol
+webapp/_classes/Application.class.php -text
+webapp/_classes/Collection.class.php -text
+webapp/_classes/Committee.class.php -text
+webapp/_classes/CommitteeMember.class.php -text
+webapp/_classes/CommitteeMemberManager.class.php -text
+webapp/_classes/autoload.php -text
+webapp/_classes/cURL.class.php -text
+webapp/_classes/work1.php -text
+webapp/_templates/index.html.cs -text
+webapp/_templates/member.html.cs -text
+webapp/_templates/results.html.cs -text
+webapp/_templates/search.html.cs -text
+webapp/index.php -text
+webapp/j/jquery.dataTables.min.js -text
+webapp/member.php -text
+webapp/results.php -text
+webapp/search.php -text
