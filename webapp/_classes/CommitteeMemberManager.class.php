@@ -113,7 +113,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	
 	public function getOneMember( $xml )
 	{
-		$member = new CommitteeMember();
+		$member = new CommitteeMember();		
 		$id = $xml['entity_info']->xpath('//ENTITY/ID_NUMBER') ;
 		$fname = $xml['entity_info']->xpath('//ENTITY/FIRST_NAME') ;
 		$lname = $xml['entity_info']->xpath('//ENTITY/LAST_NAME') ;
@@ -125,7 +125,9 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			$member->setMiddleName( (string)$middle[0] );	
 		}		
 		$member->setLastName( (string)$lname[0] );
-		$address = $xml['address_info']->xpath("//ADDRESS[@Address_Type='H']") ;	
+		$address = $xml['address_info']->xpath("//ADDRESS[@Address_Type='H']") ;
+		$phone = $xml['address_info']->xpath("//PHONE_NUMBER[@Address_Type='H']");
+		$email = $xml['address_info']->xpath("//EMAIL_ADDRESSES/EMAIL_ADDRESS[@Address_Type='E']");				
 		if( is_array( $address ) )
 		{
 			$member->setStreetOne( (string)$address[0]->STREET1 );
@@ -136,7 +138,16 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			$member->setZip( (string)$address[0]->ZIPCODE );
 			$member->setForeignCityZip( (string)$address[0]->FOREIGN_CITYZIP );
 			$member->setCountryCode( (string)$address[0]->COUNTRY_CODE );
-		}		
+		}
+		if( is_array($phone) )
+		{
+			$member->setPhoneAreaCode( (string)$phone[0]->PHONE_AREA_CODE );
+			$member->setPhoneNumber( (string)$phone[0]->PHONE_NUMBER );
+		}
+		if( is_array($email) )
+			{
+				$member->setEmail( (string)$email[0] );
+			}		
 		$degree_info = $xml['degree_info']->xpath("//ENTITY/DEGREES/DEGREE");				
 		$degrees = array();
 		foreach ( $degree_info as $d )
