@@ -17,7 +17,7 @@ class Collection
 	
 	private $active_committees;
 	
-	public function __construct( Application $app , $curl = null )
+	public function __construct( Application $app , cURL $curl = null )
 	{	
 		$this->app = $app;
 		$this->curl = $curl;
@@ -245,10 +245,14 @@ class Collection
 		$this->curl->createCurlMultiple( $this->urls['all_affiliations'] , $list );
 		$committee_list = $this->curl->getNodes();
 		$arr = array();
+		$obj = null;
 		foreach ( $committee_list as $c )
 		{
-			$obj = simplexml_load_string( curl_multi_getcontent($c) );			
-			$arr[(string)$obj->ID_NUMBER] = $obj->xpath('//COMMITTEE[COMMITTEE_STATUS_CODE = "A" and contains(COMMITTEE_SRC_CODE, "VSC")]');								
+			$obj = simplexml_load_string( curl_multi_getcontent($c) );
+			if( is_a($obj, 'SimpleXMLElement'))
+			{
+				$arr[(string)$obj->ID_NUMBER] = $obj->xpath('//COMMITTEE[COMMITTEE_STATUS_CODE = "A" and contains(COMMITTEE_SRC_CODE, "VSC")]');
+			}											
 		}
 		foreach ( $xml as $m )
 		{
@@ -281,6 +285,10 @@ class Collection
 			{
 				$$member['employment_info'] = $this->xml->xpath('//EMPLOYMENT');				
 			}
+			$url = sprintf(  $this->urls['all_affiliations'] , $id_number );
+			$this->curl->createCurl( $url );
+			$xml = $this->curl->asSimpleXML();			
+			$member['committee_info'] = $xml->xpath('//COMMITTEE[COMMITTEE_STATUS_CODE = "A" and contains(COMMITTEE_SRC_CODE, "VSC")]');							
 			return $member;
 		}
 	}

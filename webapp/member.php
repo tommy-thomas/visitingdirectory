@@ -25,5 +25,12 @@ $member  = $manager->getOneMember($member);
 $template = $app->template('member.html.cs');
 $id_number = $member->getIdNumber();
 $member->addClassDataTemplate( $template , "CommitteeMember.$id_number.");
+$committees = $member->getCommittees();
+$committee_list = array();
+foreach( $committees as $key=>$value)
+{
+	$committee_list[] = "<a href=\"results.php?c=".$key."\">".$value."</a>";
+}
+$template->add_data('committee_list', $committee_list , false );
 $template->show();
 ?>

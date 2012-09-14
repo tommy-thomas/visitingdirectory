@@ -38,7 +38,7 @@
 		}
 		
 		public function setCommittees($ids=array(), $committees=array())
-		{
+		{			
 			if( !empty($ids) && !empty($committees) )
 			{
 			foreach ( $ids as $key=>$xml )
@@ -60,6 +60,23 @@
 			}				
 		}
 		
+		public function setCommitteesFromXML( $xml , $committees )
+		{			
+			if( is_array($xml) )
+			{
+				foreach ( $xml as $x )
+				{
+					foreach ( $committees as $c )
+					{
+						if( (string)$x->COMMITTEE_CODE == (string)$c->getCOMMITTEE_CODE())
+						{
+							$this->Committees[(string)$x->COMMITTEE_CODE] = (string)$c->getSHORT_DESC();
+						}
+					}
+				}
+			}
+		}
+		
 		public function getCommitteesDisplay()
 		{
 			if( !empty($this->Committees) )
@@ -69,6 +86,5 @@
 				return $this->CommitteesDisplay;
 			}
 		}
-
 	}
 ?>

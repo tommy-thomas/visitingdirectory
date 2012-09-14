@@ -14,7 +14,6 @@ if( isset($_SESSION['authtoken'])  && !isset($_SESSION['all_member_data']) )
 {
 	$collection->setAllMemberData($_SESSION['authtoken']);
 }
-
 $manager = new CommitteeMemberManager( $_SESSION['all_member_data'] );
 /**
  * Start populating the CS template.
@@ -24,11 +23,19 @@ $template = $app->template('results.html.cs');
 
 if( isset($_SESSION['authtoken']) )
 {
-	if( isset($_POST['search_by_committee']) )
+	if( isset($_POST['search_by_committee']) || isset( $_GET['c']) )
 	{
-		$template->add_data('Committee' , Collection::getCommittee($_POST['committee']) );	
-		$members = $collection->getMemberData( $_POST['committee'] , $_SESSION['authtoken'] );
-		$member_list = $manager->load( $_POST['committee'] , $members)->getCommiteeMemberList();
+		if( isset($_POST['committee']) )
+		{
+			$code = $_POST['committee'];
+		}
+		elseif( $_GET['c'] )
+		{
+			$code = $_GET['c'];
+		}
+		$template->add_data('Committee' , Collection::getCommittee($code) );
+		$members = $collection->getMemberData( $code , $_SESSION['authtoken'] );
+		$member_list = $manager->load( $code , $members)->getCommiteeMemberList();
 		foreach( $member_list as $m )
 		{
 			$id_number = $m->getIdNumber();		
@@ -47,6 +54,7 @@ if( isset($_SESSION['authtoken']) )
 	{
 		$xml  = $manager->searchMembersByName( htmlClean($_POST['f_name']) , htmlClean($_POST['l_name']) );
 		$members = $collection->getMembersAndCommittees($xml, $_SESSION['authtoken']);
+		$count = count( $members );
 		if( count($members) > 0 )
 		{
 			foreach( $members as $m )
@@ -55,6 +63,7 @@ if( isset($_SESSION['authtoken']) )
 				$m->addClassDataTemplate( $template , "CommitteeMember.$id_number.");
 			}
 		}
+		$template->add_data('count', $count );
 		$template->add_data('ShowSearchResults', true );		
 	}	
 }

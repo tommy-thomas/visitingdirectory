@@ -18,7 +18,10 @@
 	Phone: <?cs var:m.PhoneAreaCode ?> <?cs var:m.PhoneNumber ?><br />
 	<?cs var:m.StreetOne ?><br />
 	<?cs var:m.City ?>, <?cs var:m.State ?> <?cs var:m.Zip ?><br />
-	<strong>Committees:</strong>
+	<strong>Committees:</strong><br />
+	<?cs each:c=committee_list ?>	
+		<?cs var:c ?><br />
+  	<?cs /each ?>
 	</p>
    <?cs /each ?>
 	</body>
