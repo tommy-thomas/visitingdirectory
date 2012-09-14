@@ -1,0 +1,18 @@
+* text=auto !eol
+_classes/Application.class.php -text
+_classes/Collection.class.php -text
+_classes/Committee.class.php -text
+_classes/CommitteeMember.class.php -text
+_classes/CommitteeMemberManager.class.php -text
+_classes/autoload.php -text
+_classes/cURL.class.php -text
+_classes/work1.php -text
+_templates/index.html.cs -text
+_templates/member.html.cs -text
+_templates/results.html.cs -text
+_templates/search.html.cs -text
+/index.php -text
+j/jquery.dataTables.min.js -text
+/member.php -text
+/results.php -text
+/search.php -text
