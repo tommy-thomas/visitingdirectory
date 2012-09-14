@@ -11,6 +11,12 @@ webapp/_templates/index.html.cs -text
 webapp/_templates/member.html.cs -text
 webapp/_templates/results.html.cs -text
 webapp/_templates/search.html.cs -text
+webapp/c/datatable/demo_page.css -text
+webapp/c/datatable/demo_table.css -text
+webapp/c/datatable/demo_table_jui.css -text
+webapp/c/datatable/jquery.dataTables.css -text
+webapp/c/datatable/jquery.dataTables_themeroller.css -text
+webapp/c/demo_table_jui.css -text
 webapp/index.php -text
 webapp/j/jquery.dataTables.min.js -text
 webapp/member.php -text
