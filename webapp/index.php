@@ -8,11 +8,14 @@ $app = Application::app();
 
 $authentication_error = null;
 $social_auth_errror = null;
-
 if( $app->isShibbAuth() )
 {
-	if( $app->isValidService()  )
-	{	
+	if( isset($_SESSION['email']) )
+	{
+		$app->redirect('./search.php');
+	}
+	elseif( $app->isValidService()  )
+	{		
 		$curl = new cURL(null);
 		$collection = Collection::instance($app , $curl );	
 		$curl->authenticate( $collection->getLoginUrl() );
@@ -29,7 +32,7 @@ if( $app->isShibbAuth() )
 			}
 			else
 			{
-				$_SESSION['email'] =  $_SERVER['mail'];	
+				$_SESSION['email'] =  $_SERVER['mail'];
 				$app->redirect('./search.php');
 			}	
 		}		
