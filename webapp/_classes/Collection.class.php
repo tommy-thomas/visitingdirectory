@@ -350,14 +350,14 @@ class Collection
 			$member['entity_info'] = $this->curl->asSimpleXML();
 			$member['address_info'] = $this->getAddressInfo( $id_number , $token );
 			$member['degree_info'] = $this->getDegreeInfo( $id_number , $token );
-			if( is_a($this->xml, 'SimpleXMLElement') )
+			if( is_a($member['entity_info'], 'SimpleXMLElement') )
 			{
-				$$member['employment_info'] = $this->xml->xpath('//EMPLOYMENT');				
+				$member['employment_info'] = $member['entity_info']->xml->xpath('//EMPLOYMENT');				
 			}
 			$url = sprintf(  $this->urls['all_affiliations'] , $id_number );
 			$this->curl->createCurl( $url );
 			$xml = $this->curl->asSimpleXML();			
-			$member['committee_info'] = $xml->xpath('//COMMITTEE[COMMITTEE_STATUS_CODE = "A" and contains(COMMITTEE_SRC_CODE, "VSC")]');							
+			$member['committee_info'] = $xml->xpath('//COMMITTEE[COMMITTEE_STATUS_CODE = "A" and contains(COMMITTEE_SRC_CODE, "VSC")]');					
 			return $member;
 		}
 	}
