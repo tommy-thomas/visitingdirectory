@@ -140,7 +140,7 @@ class Collection
 		foreach ( $xml as $com )
 		{			
 			$c = new Committee($com);
-			if( is_a($c, Committee))
+			if( is_a($c, 'Committee'))
 			{
 				$arr[] = $c;				
 			}			
