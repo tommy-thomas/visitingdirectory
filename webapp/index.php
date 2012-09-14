@@ -11,7 +11,7 @@ $social_auth_errror = null;
 
 if( $app->isShibbAuth() )
 {
-	if( $app->isValidService() || isset($_SESSION['email']) )
+	if( $app->isValidService()  )
 	{	
 		$curl = new cURL(null);
 		$collection = Collection::instance($app , $curl );	
