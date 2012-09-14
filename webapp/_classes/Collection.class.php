@@ -69,18 +69,81 @@ class Collection
 	}
 	
 	public function setCommittees( $token )
-	{		
-		libxml_use_internal_errors(true);
-		$this->curl->setPost($token);		
-		$this->curl->createCurl( $this->urls['active_committees'] );
-		$result = $this->curl->asSimpleXML();
-		$list = $result->xpath('//ROW[STATUS_CODE = "A" and contains(SHORT_DESC, "VSC")]');
+	{
+//		libxml_use_internal_errors(true);
+//		$this->curl->setPost($token);		
+//		$this->curl->createCurl( $this->urls['active_committees'] );
+//		$result = $this->curl->asSimpleXML();
+//		$list = $result->xpath('//ROW[STATUS_CODE = "A" and contains(SHORT_DESC, "VSC")]');
+//		$_SESSION['active_committees'] = array();
+//		$arr = array();
+//		foreach ( $list as $xml )
+//		{
+//			$c = new Committee($xml);
+//			$arr[] = $c;			
+//		}
+//		$_SESSION['active_committees'] = $arr;
+//		protected $COMMITTEE_CODE;
+//		protected $SHORT_DESC;
+//		protected $FULL_DESC;
+		$committees = array(
+			array('COMMITTEE_CODE' => 'VCGS',
+				'SHORT_DESC' => 'Council on the Graham School'),					
+			array('COMMITTEE_CODE' => 'VCLD',
+				'SHORT_DESC' => 'Pub Pol Stds Visit Committee'),			
+			array('COMMITTEE_CODE' => 'VCLY',
+				'SHORT_DESC' => 'Council on Chicago Booth'),				
+			array('COMMITTEE_CODE' => 'VCLZ',
+				'SHORT_DESC' => 'Visiting Committee for UCMC'),				
+			array('COMMITTEE_CODE' => 'VCPC',
+				'SHORT_DESC' => 'Visiting Committee for the Paris Center'),			
+			array('COMMITTEE_CODE' => 'VCSA',
+				 'SHORT_DESC' => 'Coll and Student Act Vis Committee'),			
+			array('COMMITTEE_CODE' => 'VSVC',
+				'SHORT_DESC' => 'SSA Visiting Committee'),			
+			array('COMMITTEE_CODE' => 'VVCL',
+				'SHORT_DESC' => 'College Visiting Committee'),			
+			array('COMMITTEE_CODE' => 'VVHM',
+				'SHORT_DESC' => 'HUM Div Visiting Committee'),			
+			array('COMMITTEE_CODE' => 'VVIP',
+				'SHORT_DESC' => 'Stud Prgr/Facs Visit Committee'),			
+			array('COMMITTEE_CODE' => 'VVLB',
+				'SHORT_DESC' => 'Library Visiting Committee'),			
+			array('COMMITTEE_CODE' => 'VVLW',
+				'SHORT_DESC' => 'Law School Visiting Committee'),			
+			array('COMMITTEE_CODE' => 'VVME',
+				'SHORT_DESC' => 'Far East Visiting Committee'),			
+			array('COMMITTEE_CODE' => 'VVMS',
+				'SHORT_DESC' => 'Music Dept Visiting Committee'),			
+			array('COMMITTEE_CODE' => 'VVOI',
+				'SHORT_DESC' => 'Oriental Inst Visiting Committee'),			
+			array('COMMITTEE_CODE' => 'VVPS',
+				'SHORT_DESC' => 'Phys Scis Div Visiting Committee'),			
+			array('COMMITTEE_CODE' => 'VVRT',
+				'SHORT_DESC' => 'Art History Visiting Committee'),			
+			array('COMMITTEE_CODE' => 'VVSS',
+				'SHORT_DESC' => 'Soc Scis Div Visiting Committee'),			
+			array('COMMITTEE_CODE' => 'VVTH',
+				'SHORT_DESC' => 'DIV Visiting Committee'),			
+			array('COMMITTEE_CODE' => 'VVUR',
+			 	'SHORT_DESC' => 'Univ-School Relations Visit Committee')
+		);
 		$_SESSION['active_committees'] = array();
-		$arr = array();
-		foreach ( $list as $xml )
+		$root = "<root></root>";
+		$xml = new SimpleXMLElement($root);
+		foreach ( $committees as $arr )
 		{
-			$c = new Committee($xml);
-			$arr[] = $c;			
+			$committee = $xml->addChild('COMMITTEE');
+			$committee->addChild('COMMITTEE_CODE',$arr['COMMITTEE_CODE'] );
+			$committee->addChild('SHORT_DESC',$arr['SHORT_DESC']);
+		}
+		foreach ( $xml as $com )
+		{			
+			$c = new Committee($com);
+			if( is_a($c, Committee))
+			{
+				$arr[] = $c;				
+			}			
 		}
 		$_SESSION['active_committees'] = $arr;
 		$this->setActiveCommitteeUrlList();
@@ -88,24 +151,30 @@ class Collection
 	
 	public function setActiveCommitteeUrlList()
 	{
-		$list = array();
+		$list = array();		
 		if( isset($_SESSION['active_committees']) )
 		{
 			foreach ( $_SESSION['active_committees'] as $c )
 			{
-				$list[] = $c->getCOMMITTEE_CODE();
-				
+				if( is_a($c, 'Committee'))
+				{
+					$list[] = $c->getCOMMITTEE_CODE();
+				}								
 			}
 		}
 		$_SESSION['active_committee_url_list'] = implode(",", $list);		
 	}
 	
 	public function loadCommitteeTemplateData( $template )
-	{			
+	{		
 		foreach( $_SESSION['active_committees'] as $c )
-		{			
-			$code = $c->getCOMMITTEE_CODE();	
-			$c->addClassDataTemplate( $template , "Committee.$code.");			
+		{	
+			if( is_a($c,'Committee') )
+			{			
+				$code = $c->getCOMMITTEE_CODE();	
+				$c->addClassDataTemplate( $template , "Committee.$code.");
+			}		
+					
 		}
 	}
 	
@@ -118,7 +187,7 @@ class Collection
 	{
 	    foreach ($_SESSION['active_committees'] as $c)
 	    {  
-	        if( $c->getCOMMITTEE_CODE() == $code )
+	        if( is_a($c, 'Committee') && $c->getCOMMITTEE_CODE() == $code )
 	        {
 	        	return $c->getSHORT_DESC();
 	        } 

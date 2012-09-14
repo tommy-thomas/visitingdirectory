@@ -6,8 +6,8 @@ require('_classes/autoload.php');
  */
 $app = Application::app();
 
-$authentication_error = null;
-$social_auth_errror = null;
+$auth_err = false;
+$soc_auth_err = false;
 if( $app->isShibbAuth() )
 {
 	if( isset($_SESSION['email']) )
@@ -19,27 +19,39 @@ if( $app->isShibbAuth() )
 		$curl = new cURL(null);
 		$collection = Collection::instance($app , $curl );	
 		$curl->authenticate( $collection->getLoginUrl() );
-		$_SESSION['authtoken'] = array( 'authtoken' => $curl->__toString());		
-		if( !is_null( $collection->getServiceUrl('email_validation' , $_SERVER['mail'] ) ) )
-		{			
+		$_SESSION['authtoken'] = array( 'authtoken' => $curl->__toString());
+		$collection->setCommittees($_SESSION['authtoken']);
+		if( $app->userIsFromSocialAuth() && isset($_SERVER['mail']) )
+		{
 			$curl->setPost($_SESSION['authtoken']);	
-				
-			$collection->setCommittees($_SESSION['authtoken']);
-			$curl->createCurl( $collection->getServiceUrl('email_validation', 'crupright@sflaw.com' ) );			
+			$curl->createCurl( $collection->getServiceUrl('email_validation', $_SERVER['mail'] ) );	
 			if( !$curl->xmlChildExists($curl->asSimpleXML(), '//ID_NUMBER'))
 			{
-				$authentication_error = "You are not authorized to log into this site.";
+				$auth_err = true;
 			}
 			else
 			{
 				$_SESSION['email'] =  $_SERVER['mail'];
 				$app->redirect('./search.php');
 			}	
-		}		
+		}
+		elseif( $app->userIsFromShibb() )
+		{	
+			if( !$app->isValidGroup() )
+			{
+					print "ok";
+				$auth_err = true;
+			}
+			else
+			{
+				$_SESSION['email'] =  $_SERVER['mail'];
+				$app->redirect('./search.php');
+			}
+		}
 	}
 	else
 	{
-		$social_auth_errror = "You have tried to aunthenticate from an unauthorized service.";
+		$soc_auth_err = true;
 	}
 }
 
@@ -54,16 +66,16 @@ $template->add_data( "base" , $app->base() );
 /*
  * Add authentication error if set.
  */
-if( !is_null($authentication_error) )
+if( $auth_err )
 {
-	$template->add_data( "authentication_error" , $authentication_error );
+	$template->add_data( "authentication_error" , $app->get_error_message(0) );
 }
 /*
  * Add soaicl auth error if set.
  */
-if( !is_null($social_auth_errror) )
+if( $soc_auth_err )
 {
-	$template->add_data( "social_auth_errror" , $social_auth_errror );
+	$template->add_data( "social_auth_errror" , $app->get_error_message(1) );
 }
 $template->show();
 	

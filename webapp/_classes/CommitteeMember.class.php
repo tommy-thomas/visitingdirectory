@@ -49,7 +49,7 @@
 				{	
 					foreach ( $xml as $value)
 					{
-						if( (string)$value->COMMITTEE_CODE == (string)$c->getCOMMITTEE_CODE())
+						if( is_a($c, 'Committee') && (string)$value->COMMITTEE_CODE == (string)$c->getCOMMITTEE_CODE())
 						{									
 							$this->Committees[(string)$c->getCOMMITTEE_CODE()] = (string)$c->getSHORT_DESC();
 						}								
@@ -68,7 +68,7 @@
 				{
 					foreach ( $committees as $c )
 					{
-						if( (string)$x->COMMITTEE_CODE == (string)$c->getCOMMITTEE_CODE())
+						if( is_a($c,'Committee') && (string)$x->COMMITTEE_CODE == (string)$c->getCOMMITTEE_CODE())
 						{
 							$this->Committees[(string)$x->COMMITTEE_CODE] = (string)$c->getSHORT_DESC();
 						}

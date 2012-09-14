@@ -21,8 +21,9 @@ class Committee extends WS_DynamicGetterSetter
 	{
 		if( isset($this->SHORT_DESC) )
 		{
-			$arr = explode(":",$this->SHORT_DESC);
-			return $arr[1];
+			//$arr = explode(":",$this->SHORT_DESC);
+			//return $arr[1];
+			return $this->SHORT_DESC;
 		}
 	}
 }
