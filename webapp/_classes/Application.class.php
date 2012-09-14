@@ -11,8 +11,7 @@ class Application extends WS_Application
 	
 	const SHIBB_AUTH_PROVIDER = "urn:mace:incommon:uchicago.edu";
 	
-	const SOCIAL_AUTH_GATEWAY = "https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/metadata.php";
-	
+	const SOCIAL_AUTH_GATEWAY = "https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/metadata.php";	
 	
 	public function __construct()
 	{
@@ -80,21 +79,14 @@ class Application extends WS_Application
 	}
 	
 	public function isValidGroup()
-	{
-		$is_valid_group = false;
+	{	
+		$groups = array();
 		if( isset( $_SERVER['ucisMemberOf']) )
 		{
 			$groups = explode(";",  $_SERVER['ucisMemberOf']);
 		}
-		foreach ( $groups as $g )
-		{
-			if( in_array($g, $this->group_white_list))
-			{
-				$is_valid_group = true;
-				break;
-			}
-		}
-		return $is_valid_group;
+		$result = array_intersect($this->group_white_list, $groups);
+		return count($result) > 0 ? true : false;
 	}
 	
 	public function userIsFromShibb()
@@ -109,14 +101,7 @@ class Application extends WS_Application
 	
 	public function isAuthorized()
 	{
-		if( isset($_SESSION['email']) )
-		{ 
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return isset($_SESSION['email']);
 	}
 }
 ?>
