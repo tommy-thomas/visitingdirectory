@@ -128,7 +128,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		$address = $xml['address_info']->xpath("//ADDRESS[@Address_Type='H']") ;
 		$phone = $xml['address_info']->xpath("//PHONE_NUMBER[@Address_Type='H']");
 		$email = $xml['address_info']->xpath("//EMAIL_ADDRESSES/EMAIL_ADDRESS[@Address_Type='E']");				
-		if( is_array( $address ) )
+		if( isset( $address[0] ) )
 		{
 			$member->setStreetOne( (string)$address[0]->STREET1 );
 			$member->setStreetTwo( (string)$address[0]->STREET2 );
@@ -139,12 +139,12 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			$member->setForeignCityZip( (string)$address[0]->FOREIGN_CITYZIP );
 			$member->setCountryCode( (string)$address[0]->COUNTRY_CODE );
 		}
-		if( is_array($phone) )
+		if( isset($phone[0]) )
 		{
 			$member->setPhoneAreaCode( (string)$phone[0]->PHONE_AREA_CODE );
 			$member->setPhoneNumber( (string)$phone[0]->PHONE_NUMBER );
 		}
-		if( is_array($email) )
+		if( isset($email[0]) )
 			{
 				$member->setEmail( (string)$email[0] );
 			}		
