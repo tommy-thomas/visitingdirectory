@@ -26,6 +26,8 @@
 											<p>
 												<strong><?cs var:m.FirstName ?> <?cs var:m.MiddleName ?><?cs var:m.LastName ?></strong><br />
 												<?cs var:m.DegreeInfo ?><br />
+												<?cs var:m.JobTitle ?><br />
+												<?cs var:m.EmployerName ?><br />
 												<?cs var:m.Email ?><br />
 												Phone: <?cs var:m.PhoneAreaCode ?> <?cs var:m.PhoneNumber ?>
 											</p>

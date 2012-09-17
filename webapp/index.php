@@ -38,8 +38,7 @@ if( $app->isShibbAuth() )
 		elseif( $app->userIsFromShibb() )
 		{	
 			if( !$app->isValidGroup() )
-			{
-					print "ok";
+			{				
 				$auth_err = true;
 			}
 			else
@@ -75,7 +74,7 @@ if( $auth_err )
  */
 if( $soc_auth_err )
 {
-	$template->add_data( "social_auth_errror" , $app->get_error_message(1) );
+	$template->add_data( "authentication_error" , $app->get_error_message(1) );
 }
 $template->show();
 	

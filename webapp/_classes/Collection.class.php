@@ -42,7 +42,7 @@ class Collection
 			'address_info' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s/addresses',
 			'affiliations' => 'https://grif-uat-soa.uchicago.edu/api/griffin/membershipaffiliation/%s',
 			'all_affiliations' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s/membershipaffiliation',
-			'all_members' => 'https://grif-uat-soa.uchicago.edu/api/griffin/membershipaffiliation/%s',								
+			'all_members' => 'https://grif-uat-soa.uchicago.edu/api/griffin/membershipaffiliation/%s',							
 			'degree_info' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s/degrees',		
 			'entity_info' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s',	
 			'email_validation' => 'https://grif-uat-soa.uchicago.edu/api/griffin/membershipaffiliation/%s?emailaddress=%s'			
@@ -253,9 +253,24 @@ class Collection
 			$this->curl->setPost($token);
 			$url = sprintf( $this->urls['degree_info'] , $id_number );
 			$this->curl->createCurl( $url );
-			return $this->curl->asSimpleXML();				
+			return $this->curl->asSimpleXML();	
 		}
 		
+	}
+	
+	public function getEmplymentInfo( $id_number = null , $token = null )
+	{
+		if( !is_null($token) && !is_null($id_number) )
+		{
+			/*
+			 * Suppress xml warnings. 
+			 */
+			libxml_use_internal_errors(true);
+			$this->curl->setPost($token);
+			$url = sprintf( $this->urls['entity_info'] , $id_number );
+			$this->curl->createCurl( $url );
+			return $this->curl->asSimpleXML();			
+		}
 	}
 	
 	public function getMemberData( $code=null , $token=null )
@@ -275,16 +290,33 @@ class Collection
 				$this->curl->setPost($token);
 				$this->curl->createCurlMultiple( $this->urls[$key] , $list );
 				$data[$key] = $this->curl->getNodes();					
-			}
+			}			
 			foreach ( $info as $key )
 			{
 				foreach ( $data[$key] as $obj )
-				{
+				{			
 					$obj = simplexml_load_string( curl_multi_getcontent($obj) );
 					if( $key == 'entity_info' && is_a($obj, 'SimpleXMLElement') )
-					{
-						$employment = $obj->xpath('//EMPLOYMENT');
-						$members['employment_info'][(string)$obj->ENTITY->ID_NUMBER] = $employment;						
+					{	
+						$total = $obj->xpath('//EMPLOYMENT/JOB[@JOB_STATUS_CODE="C"]');
+						$employment = (count($total) > 1) ? $obj->xpath('//EMPLOYMENT/JOB[@JOB_STATUS_CODE="C" and not(@START_DT <= preceding-sibling::JOB/@START_DT) 
+									and not(@START_DT <= following-sibling::JOB/@START_DT)]') : $total;
+						if( $total > 0 && !empty($employment))
+						{							
+							$employment[0]->addChild('JOB' , (string)$employment[0] );
+							$attributes = $employment[0]->attributes();
+							$employer_id = trim($attributes['EMPLOYER_ID_NUMBER']);
+							$employer_name = trim($attributes['EMPLOYER_NAME1']);
+							if( !empty($employer_id) && empty($employer_name) )
+							{
+								$employment = $this->getEmployerDataByID($employment, $employer_id, $token);
+							}
+							else
+							{
+								$employment[0]->addChild('EMPLOYER' , $employer_name );
+							}
+						}																							
+						$members['employment_info'][(string)$obj->ENTITY->ID_NUMBER] = $employment;				
 					}
 					elseif( is_a($obj, 'SimpleXMLElement') )
 					{
@@ -346,14 +378,28 @@ class Collection
 			$member = array();
 			$this->curl->setPost($token);
 			$url = sprintf( $this->urls['entity_info'] , $id_number );
-			$this->curl->createCurl( $url );
-			$member['entity_info'] = $this->curl->asSimpleXML();
+			$this->curl->createCurl( $url );					
+			$member['entity_info'] = $this->curl->asSimpleXML();			
 			$member['address_info'] = $this->getAddressInfo( $id_number , $token );
 			$member['degree_info'] = $this->getDegreeInfo( $id_number , $token );
 			if( is_a($member['entity_info'], 'SimpleXMLElement') )
 			{
-				$member['employment_info'] = $member['entity_info']->xml->xpath('//EMPLOYMENT');				
-			}
+				$total = $member['entity_info']->xpath('//EMPLOYMENT/JOB[@JOB_STATUS_CODE="C"]');
+				$member['employment_info'] = (count($total) > 1) ? $member['entity_info']->xpath('//EMPLOYMENT/JOB[@JOB_STATUS_CODE="C" and not(@START_DT <= preceding-sibling::JOB/@START_DT) 
+									and not(@START_DT <= following-sibling::JOB/@START_DT)]') : $total;				
+				if( $total > 0 && !empty($member['employment_info']))
+				{
+					$attributes = $member['employment_info'][0]->attributes();							
+					$member['employment_info'][0]->addChild('JOB' , (string)$member['employment_info'][0] );
+					$attributes =$member['employment_info'][0]->attributes();
+					$employer_id = trim($attributes['EMPLOYER_ID_NUMBER']);
+					$employer_name = trim($attributes['EMPLOYER_NAME1']);
+					if( !empty($employer_id) && empty($employer_name) )
+					{
+						$member['employment_info'] = $this->getEmployerDataByID($member['employment_info'], $employer_id, $token);					
+					}
+				}																		
+			}				
 			$url = sprintf(  $this->urls['all_affiliations'] , $id_number );
 			$this->curl->createCurl( $url );
 			$xml = $this->curl->asSimpleXML();			
@@ -361,5 +407,24 @@ class Collection
 			return $member;
 		}
 	}
+	
+	public function getEmployerDataByID( $member , $employer_id , $token )
+	{
+		if( !is_null($token) && !is_null($employer_id) )
+		{
+			/*
+			 * Suppress xml warnings. 
+			 */				
+			libxml_use_internal_errors(true);
+			$this->curl->setPost($token);
+			$url = sprintf( $this->urls['entity_info'] , $employer_id );
+			$this->curl->createCurl( $url );					
+			$xml = $this->curl->asSimpleXML();
+			$employer_element = $xml->xpath('//ENTITY/NAMES/NAME[@NAME_TYPE_CODE="00"]');
+			$member[0]->addChild('EMPLOYER' , (string)$employer_element[0]->REPORT_NAME );		
+		}
+		return $member;
+	}
+	
 }
 ?>

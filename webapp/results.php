@@ -55,7 +55,7 @@ if( isset($_SESSION['authtoken']) )
 		$xml  = $manager->searchMembersByName( htmlClean($_POST['f_name']) , htmlClean($_POST['l_name']) );
 		$members = $collection->getMembersAndCommittees($xml, $_SESSION['authtoken']);
 		$count = count( $members );
-		if( count($members) > 0 )
+		if( $count > 0 )
 		{
 			foreach( $members as $m )
 			{

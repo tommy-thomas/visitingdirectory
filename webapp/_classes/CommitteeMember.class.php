@@ -18,6 +18,8 @@
 		protected $PhoneNumber;
 		protected $Email;
 		protected $DegreeInfo;
+		protected $JobTitle;
+		protected $EmployerName;
 		protected $Committees = array();
 		protected $CommitteesDisplay;
 		
@@ -26,6 +28,10 @@
 			if( isset($this->PhoneNumber) && strlen($this->PhoneNumber) == 7)
 			{
 				return preg_replace('~(\d{3})[^\d]*(\d{4})$~', '$1-$2', $this->PhoneNumber);
+			}
+			else
+			{
+				return "";
 			}
 		}
 		

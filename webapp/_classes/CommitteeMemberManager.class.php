@@ -32,7 +32,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			$this->entity_info = $this->all_member_data->xpath('//COMMITTEE/COMMITTEE_CODE[. ="'.$code.'"]/parent::*');							
 			$this->address_info = isset($members['address_info']) ? $members['address_info'] : array();
 			$this->degree_info = isset($members['degree_info']) ? $members['degree_info'] : array() ;
-			$this->employment_info = isset($members['employment_info']) ? $members['employment_info'] : array() ;					
+			$this->employment_info = isset($members['employment_info']) ? $members['employment_info'] : array() ;			
 		}
 		foreach( $this->entity_info as $key => $obj )
 		{
@@ -103,11 +103,12 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	{
 		if( isset($this->employment_info) && isset($this->employment_info[$id]) )
 		{			
-			$e_xml = $this->employment_info[$id];			
-			if( is_a($e_xml , 'SimpleXMLElement') )
+			$employment = $this->employment_info[$id];
+			if( count($employment) > 0 && isset($employment[0]) )
 			{
-				$employment = $e_xml->xpath("//JOB[@JOB_STATUS_CODE='C']");
-			}						
+				$member->setJobTitle( (string)$employment[0]->JOB );
+				$member->setEmployerName( (string)$employment[0]->EMPLOYER );
+			}			
 		}
 	}
 	
@@ -159,6 +160,12 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		}
 		$member->setDegreeInfo( $degrees );
 		$member->setCommitteesFromXML( $xml['committee_info'] , $_SESSION['active_committees']);
+		$employment = $xml['employment_info'];
+		if( isset($employment[0]) )
+		{
+			$member->setJobTitle( (string)$employment[0]->JOB );
+			$member->setEmployerName( (string)$employment[0]->EMPLOYER );
+		}		
 		return $member;		
 	}
 	

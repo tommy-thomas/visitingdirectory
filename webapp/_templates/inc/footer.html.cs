@@ -71,3 +71,68 @@
 <!-- /#footer-wrapper -->
 
 <script type="text/javascript" src="https://webresources.uchicago.edu/js/jquery-1.4.4.min.js"></script>
+<script src="https://webresources.uchicago.edu/js/jquery-ui-1.8.11.custom.js"></script>	
+<script src="j/jquery.dataTables.min.js"></script>	
+ <!-- Insert all js calls here  (jquery is included in the footer inc) -->
+  <script type="text/javascript" charset="utf-8">
+		/* Formating function for row details */
+		function fnFormatDetails ( aData )
+		{
+			var data = aData.split(":");
+			var sOut = '<table width="100%" border="0" cellspacing="3" cellpadding="3" style="background-color:#ccc; margin:0;">';   
+			sOut +='<tr>';
+			sOut +='<td width="25%" style="align:left;">'+data[0]+'</td>';
+			sOut +='<td width="25%" style="align:left;">&nbsp;</td>';
+			sOut +='<td width="25%" style="align:left;"><em>Mailing Address:</em></td>';
+			sOut +='<td width="25%" style="align:left;"><em>Fax Number:</em></td>';
+			sOut +='</tr>';
+			sOut +='<tr>';
+			sOut +='<td>'+data[5]+'</td>';
+			sOut +='<td>&nbsp;</td>';
+			sOut +='<td>'+data[1]+'</td>';
+			sOut +='<td>&nbsp;</td>';
+			sOut +='</tr>';
+			sOut +='<tr>';
+			sOut +='<td>'+data[6]+'</td>';
+			sOut +='<td>&nbsp;</td>';
+			sOut +='<td>'+data[2]+', '+ data[3] + data[4] +'</td>';
+			sOut +='<td>&nbsp;</td>';
+			sOut +='</tr>';
+			sOut +='</table>';
+			return sOut;
+		}
+		 
+		$(function() {
+			/*
+			 * Initialise DataTables
+			 */			
+			var oTable = $('#results').dataTable(
+			{   
+				"bJQueryUI": true,
+				"aoColumnDefs" : [
+					{
+						"fnRender" : function( oObj , sVal ){
+							return "<a href=\"#\">" + oObj.aData[0] + "</a>";
+						},
+						"aTargets" : [0]
+					}
+				],
+				"aaSorting": [[ 0, 'asc' ] , [1, 'asc']]
+			});
+			$('#results tbody td a').live('click' , function(){
+				var nTr = $(this).parents('tr')[0];
+				var aData = $(this).find('.infodiv').text();
+				if( oTable.fnIsOpen(nTr) )
+				{		
+					 oTable.fnClose( nTr );
+					 return false;
+				}
+				else
+				{
+					oTable.fnOpen( nTr,   fnFormatDetails ( aData ) , "info_row" );
+					return false;
+				}	
+			 });
+
+		});
+		</script>

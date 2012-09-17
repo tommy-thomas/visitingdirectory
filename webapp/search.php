@@ -18,6 +18,5 @@ $template = $app->template('search.html.cs');
 $curl = new cURL(null);
 $collection = new Collection($app,$curl);
 $collection->loadCommitteeTemplateData($template);
-$template->add_data("base", $app->base() );
 $template->show();
 ?>
