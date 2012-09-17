@@ -2,10 +2,7 @@
 			<div class="container_12">
 				<div id="footer" class="">
 					<div class="grid_3">
-						<p>&copy; 2011 <a href="http://www.uchicago.edu/">The University of Chicago</a>
-							<br />
-							<a href="/">UChicago Template</a>
-						</p>
+						<p>&copy; 2012 <a href="http://www.uchicago.edu/">The University of Chicago</a></p>
 						<div class="social ">
 							<div id="block-views-footer-socialmedia" class=" block block-views">
 								<div class="content">
@@ -35,7 +32,7 @@
 							<div class="field-content">United States</div>
 						</div>
 					</div>
-					<div class="grid_3">
+					<!-- <div class="grid_3">
 						<div class="view-footer">
 							<div class="field-content">
 								<a href="http://www.uchicago.edu">Lorem Ipsum</a>
@@ -66,7 +63,7 @@
 								<a href="http://www.uchicago.edu">Pellentesque Ultricies</a>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 <!-- /#footer -->
 			</div>
