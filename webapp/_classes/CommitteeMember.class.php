@@ -88,7 +88,7 @@
 			if( !empty($this->Committees) )
 			{
 				asort($this->Committees);	
-				$this->CommitteesDisplay = implode(",",$this->Committees);
+				$this->CommitteesDisplay = implode(", ",$this->Committees);
 				return $this->CommitteesDisplay;
 			}
 		}

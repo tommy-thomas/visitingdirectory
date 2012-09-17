@@ -396,7 +396,7 @@ class Collection
 					$employer_name = trim($attributes['EMPLOYER_NAME1']);
 					if( !empty($employer_id) && empty($employer_name) )
 					{
-						$member['employment_info'] = $this->getEmployerDataByID($member['employment_info'], $employer_id, $token);					
+						$member['employment_info'] = $this->getEmployerDataByID($member['employment_info'], $employer_id, $token);			
 					}
 				}																		
 			}				

@@ -12,11 +12,11 @@ $curl = new cURL(null);
 $collection = Collection::instance( $app , $curl );
 if( isset($_SESSION['authtoken']) && isset($_GET['id_number']) )
 {
-	$member = $collection->getOneMemberData($_GET['id_number'] , $_SESSION['authtoken'] );	
+	$member_xml = $collection->getOneMemberData($_GET['id_number'] , $_SESSION['authtoken'] );	
 }
 
 $manager = new CommitteeMemberManager();
-$member  = $manager->getOneMember($member);
+$member  = $manager->getOneMember($member_xml);
 
 /**
  * Start populating the CS template.
