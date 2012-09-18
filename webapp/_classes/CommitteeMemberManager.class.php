@@ -190,7 +190,20 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		{
 			$this->search_results = $this->all_member_data->xpath('//COMMITTEE/LAST_NAME[contains(., "'.ucfirst($lastname).'")]/parent::*');
 		}
-		return $this->search_results;
+		$this->xsort($this->search_results, 'LAST_NAME' , 'FIRST_NAME');
+		return $this->search_results;		
 	}
+	
+	public function xsort(&$nodes, $child_name, $second_child =null , $order = SORT_ASC)
+	{
+	    $sort_proxy = array();
+	    foreach ($nodes as $k => $node)
+	    {
+	    	$value = !is_null( $second_child ) ? (string)$node->$child_name .', '.(string)$node->$second_child : (string)$node->$child_name;
+	        $sort_proxy[$k] = $value;
+	    }
+	    array_multisort($sort_proxy, $order, $nodes);
+	}
+	
 }
 ?>
