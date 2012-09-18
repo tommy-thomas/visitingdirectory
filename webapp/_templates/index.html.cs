@@ -14,25 +14,25 @@
 				<div id="main-wrapper" class="">
 					<div id="main" class=" container_12">
 						<div id="content" class="column grid_9 push_3 ">
-						
+						<div class="error"><?cs var:authentication_error ?></div>
 							<h1 id="page-title">Visiting Committees Directory</h1>
 							<div id="bottomrow" class="">
 								<div class="grid_9 alpha">
 									<div class="content region-content">
 										<p>Please log in below to use the directory. If you do not have a CNetID, you may log in with an account you already have with LinkedIn, Google, or Facebook. If you have any trouble logging in, please contact us at xxxxxxxx@uchicago.edu.</p>
-										<p><a href="https://visitingdirectorydev.uchicago.edu/Shibboleth.sso/Login?entityID=urn:mace:incommon:uchicago.edu&target=<?cs var:base ?>index.php">Login with CNetID / UCHADID</a></p>
+										<p><a href="<?cs var:domain ?>/Shibboleth.sso/Login?entityID=urn:mace:incommon:uchicago.edu&target=<?cs var:base ?>index.php">Login with CNetID / UCHADID</a></p>
 										<p>Or log in using an existing account below:</p>
 										<ul>
 											<li>
-												<a href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=https://visitingdirectorydev.uchicago.edu/shibboleth&source=facebook&RelayState=<?cs var:base ?>index.php">Facebook</a>
+												<a href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=<?cs var:domain ?>/shibboleth&source=facebook&RelayState=<?cs var:base ?>index.php">Facebook</a>
 											</li>
 											<li>
-												<a href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=https://visitingdirectorydev.uchicago.edu/shibboleth&source=google&RelayState=<?cs var:base ?>index.php">Google</a></li>
+												<a href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=<?cs var:domain ?>/shibboleth&source=google&RelayState=<?cs var:base ?>index.php">Google</a></li>
 											<li>
-												<a href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=https://visitingdirectorydev.uchicago.edu/shibboleth&source=linkedin&RelayState=<?cs var:base ?>index.php">Login with Linked-In</a></li>
-											<!--// <li> <a href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=https://visitingdirectorydev.uchicago.edu/shibboleth&source=twitter&RelayState=<?cs var:base ?>index.php">Login with Twitter</a></li> //-->
+												<a href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=<?cs var:domain ?>/shibboleth&source=linkedin&RelayState=<?cs var:base ?>index.php">Login with Linked-In</a></li>
+											<!--// <li> <a href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=<?cs var:domain ?>/shibboleth&source=twitter&RelayState=<?cs var:base ?>index.php">Login with Twitter</a></li> //-->
 											<li>
-												<a href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=https://visitingdirectorydev.uchicago.edu/shibboleth&source=yahoo&RelayState=<?cs var:base ?>index.php">Login with Yahoo</a>
+												<a href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=<?cs var:domain ?>/shibboleth&source=yahoo&RelayState=<?cs var:base ?>index.php">Login with Yahoo</a>
 											</li>	
 										</ul>
  

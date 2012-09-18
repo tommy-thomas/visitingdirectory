@@ -27,7 +27,7 @@ if( $app->isShibbAuth() )
 			$curl->createCurl( $collection->getServiceUrl('email_validation', $_SERVER['mail'] ) );	
 			if( !$curl->xmlChildExists($curl->asSimpleXML(), '//ID_NUMBER'))
 			{
-				$auth_err = true;
+				$soc_auth_err = true;
 			}
 			else
 			{
@@ -59,8 +59,8 @@ if( $app->isShibbAuth() )
  * The Clear Silver template.
  */
 $template = $app->template('index.html.cs');
-
-// print $_SESSION['cnetid'];
+//https://visitingdirectorydev.uchicago.edu/workingcopy/tommyt/
+$template->add_data( "domain" , $app->getDomain() );
 $template->add_data( "base" , $app->base() );
 /*
  * Add authentication error if set.

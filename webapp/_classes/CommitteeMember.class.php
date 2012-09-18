@@ -20,6 +20,7 @@
 		protected $DegreeInfo;
 		protected $JobTitle;
 		protected $EmployerName;
+		protected $IsLifeTimeMember;
 		protected $Committees = array();
 		protected $CommitteesDisplay;
 		
@@ -57,7 +58,7 @@
 					{
 						if( is_a($c, 'Committee') && (string)$value->COMMITTEE_CODE == (string)$c->getCOMMITTEE_CODE())
 						{									
-							$this->Committees[(string)$c->getCOMMITTEE_CODE()] = (string)$c->getSHORT_DESC();
+							$this->Committees[(string)$c->getCOMMITTEE_CODE()] = (string)$c->getSHORT_DESC();							
 						}								
 					}							
 				}

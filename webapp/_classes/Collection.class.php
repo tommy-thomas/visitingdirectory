@@ -29,7 +29,7 @@ class Collection
 			'address_info' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s/addresses',
 			'affiliations' => 'https://grif-uat-soa.uchicago.edu/api/griffin/membershipaffiliation/%s',
 			'all_affiliations' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s/membershipaffiliation',
-			'all_members' => 'https://grif-uat-soa.uchicago.edu/api/griffin/membershipaffiliation/%s',								
+			'all_members' => 'https://grif-uat-soa.uchicago.edu/api/griffin/membershipaffiliation/%s',					
 			'degree_info' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s/degrees',		
 			'entity_info' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s',	
 			'email_validation' => 'https://grif-uat-soa.uchicago.edu/api/griffin/membershipaffiliation/%s?emailaddress=%s'		
@@ -299,8 +299,8 @@ class Collection
 					if( $key == 'entity_info' && is_a($obj, 'SimpleXMLElement') )
 					{	
 						$total = $obj->xpath('//EMPLOYMENT/JOB[@JOB_STATUS_CODE="C"]');
-						$employment = (count($total) > 1) ? $obj->xpath('//EMPLOYMENT/JOB[@JOB_STATUS_CODE="C" and not(@START_DT <= preceding-sibling::JOB/@START_DT) 
-									and not(@START_DT <= following-sibling::JOB/@START_DT)]') : $total;
+						$employment = (count($total) > 1) ? $obj->xpath('//EMPLOYMENT/JOB[@JOB_STATUS_CODE="C" and not(@START_DT <= preceding-sibling::JOB/@START_DT) and not(@START_DT <= following-sibling::JOB/@START_DT)]')
+														  : $total;
 						if( $total > 0 && !empty($employment))
 						{							
 							$employment[0]->addChild('JOB' , (string)$employment[0] );
@@ -352,7 +352,7 @@ class Collection
 			$obj = simplexml_load_string( curl_multi_getcontent($c) );
 			if( is_a($obj, 'SimpleXMLElement'))
 			{
-				$arr[(string)$obj->ID_NUMBER] = $obj->xpath('//COMMITTEE[COMMITTEE_STATUS_CODE = "A" and contains(COMMITTEE_SRC_CODE, "VSC")]');
+				$arr[(string)$obj->ID_NUMBER] = $obj->xpath('//COMMITTEE[COMMITTEE_STATUS_CODE = "A" and contains(COMMITTEE_SRC_CODE, "VSC")]');				
 			}											
 		}
 		foreach ( $xml as $m )
@@ -385,8 +385,9 @@ class Collection
 			if( is_a($member['entity_info'], 'SimpleXMLElement') )
 			{
 				$total = $member['entity_info']->xpath('//EMPLOYMENT/JOB[@JOB_STATUS_CODE="C"]');
-				$member['employment_info'] = (count($total) > 1) ? $member['entity_info']->xpath('//EMPLOYMENT/JOB[@JOB_STATUS_CODE="C" and not(@START_DT <= preceding-sibling::JOB/@START_DT) 
-									and not(@START_DT <= following-sibling::JOB/@START_DT)]') : $total;				
+				$member['employment_info'] = (count($total) > 1) 
+												? $member['entity_info']->xpath('//EMPLOYMENT/JOB[@JOB_STATUS_CODE="C" and not(@START_DT <= preceding-sibling::JOB/@START_DT) and not(@START_DT <= following-sibling::JOB/@START_DT)]')
+												: $total;				
 				if( $total > 0 && !empty($member['employment_info']))
 				{
 					$attributes = $member['employment_info'][0]->attributes();							

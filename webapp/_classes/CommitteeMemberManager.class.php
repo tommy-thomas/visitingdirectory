@@ -29,7 +29,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	{				
 		if( !empty($code) )
 		{				
-			$this->entity_info = $this->all_member_data->xpath('//COMMITTEE/COMMITTEE_CODE[. ="'.$code.'"]/parent::*');							
+			$this->entity_info = $this->all_member_data->xpath('//COMMITTEE/COMMITTEE_CODE[. ="'.$code.'"]/parent::*');				
 			$this->address_info = isset($members['address_info']) ? $members['address_info'] : array();
 			$this->degree_info = isset($members['degree_info']) ? $members['degree_info'] : array() ;
 			$this->employment_info = isset($members['employment_info']) ? $members['employment_info'] : array() ;			
@@ -40,9 +40,12 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			$member->setIdNumber( (int)$obj->ID_NUMBER );
 			$member->setCommitteeRoleCode( (string)$obj->COMMITTEE_ROLE_CODE );
 			$member->setFirstName( (string)$obj->FIRST_NAME );
-			$member->setMiddleName( (string)$obj->MIDDLE_NAME );
-			$member->setLastName( (string)$obj->LAST_NAME );				
-			$this->setMemberAddressData( $member, (string)$obj->ID_NUMBER );				
+			$member->setMiddleName( (string)$obj->MIDDLE_NAME );			
+			$last_name = (  isset($obj->COMMITTEE_TITLE) && ((string)$obj->COMMITTEE_TITLE) ==  'Life Member' )
+				? (string)$obj->LAST_NAME."*"
+				: (string)$obj->LAST_NAME;
+			$member->setLastName( $last_name );				
+			$this->setMemberAddressData( $member, (string)$obj->ID_NUMBER );
 			$this->setMemberDegreeData( $member, (string)$obj->ID_NUMBER );
 			$this->setEmploymentData( $member, (string)$obj->ID_NUMBER );
 			$this->committee_members_list[] = $member;
@@ -170,7 +173,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	}
 	
 	public function getCommiteeMemberList()
-	{		
+	{
 		return $this->committee_members_list;
 	}
 	

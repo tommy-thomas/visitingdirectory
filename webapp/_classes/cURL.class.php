@@ -119,12 +119,17 @@ class cURL extends WS_cURL{
 
 	public function authenticate( $login_url )
 	{
-		$opts = array(
-			'username' => self::USERNAME,
-			'password' => self::PASSWORD
-		);
-		$this->setPost($opts);
-		$this->createCurl( $login_url );
+		try {
+			$opts = array(
+				'username' => self::USERNAME,
+				'password' => self::PASSWORD
+			);
+			$this->setPost($opts);
+			$this->createCurl( $login_url );
+		} catch (Exception $e) {
+			Application::handleExceptions($e);
+		}
+		
 	}
 
 	public function xmlChildExists( SimpleXMLElement $xml , $childpath )

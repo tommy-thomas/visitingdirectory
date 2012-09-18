@@ -41,6 +41,13 @@ class Application extends WS_Application
 		return isset( $error_message[$i]) ? $error_message[$i] : array(); 
 	}
 	
+	public function getDomain()
+	{
+		$parts = parse_url( self::$app->base() );
+		$url = $parts['scheme'].'://'.$parts['host'];
+		return $url;
+	}
+	
 	public function isShibbAuth()
 	{
 		if( isset($_SERVER['Shib-Session-ID']) )

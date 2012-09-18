@@ -84,7 +84,7 @@
 			sOut +='<td width="25%" style="align:left;">'+data[0]+'</td>';
 			sOut +='<td width="25%" style="align:left;">&nbsp;</td>';
 			sOut +='<td width="25%" style="align:left;"><em>Mailing Address:</em></td>';
-			sOut +='<td width="25%" style="align:left;"><em>Fax Number:</em></td>';
+			sOut +='<td width="25%" style="align:left;">&nbsp;</td>';
 			sOut +='</tr>';
 			sOut +='<tr>';
 			sOut +='<td>'+data[5]+'</td>';
