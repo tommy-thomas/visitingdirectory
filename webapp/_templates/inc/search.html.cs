@@ -13,6 +13,7 @@
 				<input type="hidden" name="form_build_id" value="form-zaDw2gUuvUepCYAzD9db3pIp5u6WR_LNOHqW_gfxU_o" />
 				<input type="hidden" name="form_id" value="search_block_form" />
 			</div>
+			<div class="clearfix"></div>
 		</form>
 	</div>
 </div>

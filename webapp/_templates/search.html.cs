@@ -22,28 +22,29 @@
 										<p>You may browse the directory by committee or search for a committee member by name.</p>
 										<h2>Browse by Committee</h2>
 										<form action="results.php" method="post" name="by_committee">
-											<select name="committee" size="1">
-												<option selected>-- Select -- </option>
-												<?cs each:c=Committee  ?>		     
-												<option value="<?cs var:c.COMMITTEE_CODE ?>"><?cs var:c.SHORT_DESC ?></option>     	      			
-												<?cs /each ?>
-											</select>
-											<input type="submit" name="search_by_committee" value="Go" />
+											<div>
+												<select name="committee" size="1">
+													<option selected>-- Select -- </option>
+													<?cs each:c=Committee  ?>		     
+													<option value="<?cs var:c.COMMITTEE_CODE ?>"><?cs var:c.SHORT_DESC ?></option>     	      			
+													<?cs /each ?>
+												</select>
+												<input class="btn" type="submit" name="search_by_committee" value="Go" />
+											</div>	
 										</form>
 
 										<h2>Search by Name</h2>
 										<form action="results.php" method="post" name="by_name">
-											<div class="" id="">
+											<div class="w50 first" id="">
 												<label for="f_name">First Name</label>
 												<input name="f_name" type="text" />
 											</div>
-											<div class="" id="">
+											<div class="w50" id="">
 												<label for="l_name">Last Name</label>
 												<input name="l_name" type="text" />
 											</div>
 										
-									
-											<input type="submit" name="search_by_name" value="Search" />
+											<div><input class="btn" type="submit" name="search_by_name" value="Search" /></div>
 										</form>
 									
 									</div>

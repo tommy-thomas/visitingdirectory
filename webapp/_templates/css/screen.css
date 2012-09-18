@@ -591,119 +591,190 @@ div.messages {
 
 #content.wide div.messages { margin: 0 }
 
-/* ---------------- Buttons    ---------------- */
-input.form-submit, a.button {
-    border: 1px solid #e4e4e4;
-    border-bottom: 1px solid #b4b4b4;
-    border-left-color: #d2d2d2;
-    border-right-color: #d2d2d2;
-    cursor: pointer;
-    font-weight: normal;
-    text-align: center;
-    margin-bottom: 1em;
-    margin-right: .6em;
-    padding: 4px 17px;
-    -khtml-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
+
+orm {
+  margin-bottom: 10px;
+  font: normal 1em/1em Helvetica, Arial, sans-serif;
+  position: relative;
+}
+form fieldset {
+  border: none;
+  width: 100%;
+  margin-bottom: 20px;
+  clear: both;
 }
 
-a.button:link, a.button:visited, a.button:hover, a.button:focus, a.button:active {
-    text-decoration: none;
-    color: #5a5a5a;
+form legend {display: none;}
+
+/*-- Form Element Widths---*/
+  
+form div {
+  float: left;
+  width: 100%;
+  margin: 5px 0 10px;
 }
 
-/* -------------- Form Elements   ------------- */
-fieldset {
-    background: #fff;
-    nowhitespace: afterproperty;
-    border: 1px solid #ccc;
-    margin-top: 10px;
-    margin-bottom: 32px;
-    padding: 0 0 10px;
-    position: relative;
-    top: 12px;
-    /* Offsets the negative margin of legends */-khtml-border-radius: 4px;-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;
+form div.w75, form div.w50, form div.w25 {margin-left: 5%;}
+
+form div.w75 {width: 70%;}
+form div.w50 {width: 45%;}
+form div.w25 {width: 20%;}
+
+form div label {margin-bottom: 5px; display: block;}
+form div.first {margin-left: 0;}
+
+/* -- GENERAL input styles -- */
+
+input,
+textarea, select {
+  border: solid 1px #ccc;
+  font: normal 1.25em/1.2em arial;
+  outline:0;
+  margin-right: 5px;
+  padding: 5px 3px;
+  width: 100%;
+  float: left;
+  -moz-box-sizing: border-box;  
+  -webkit-box-sizing: border-box;  
+  box-sizing: border-box;
 }
 
-.fieldset-wrapper { margin-top: 25px }
-
-.node-form .fieldset-wrapper { margin-top: 0 }
-
-fieldset.collapsed {
-    background: transparent;
-    -khtml-border-radius: 0;
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-    border-radius: 0;
+select {width: auto;}
+input[type="radio"],
+input[type="checkbox"] {
+  background: transparent;
+  border: 0;
+  margin: 0 8px;
+  padding: 0;
+  width: 15px;
 }
 
-fieldset legend {
-    background: #dbdbdb;
-    border: 1px solid #ccc;
-    border-bottom: none;
-    color: #3b3b3b;
-    display: block;
-    height: 2em;
-    left: -1px;
-    font-family: "Lucida Grande","Lucida Sans Unicode",Verdana,sans-serif;
-    line-height: 2;
-    padding: 0;
-    position: absolute;
-    text-indent: 10px;
-    text-shadow: 0 1px 0 #fff;
-    top: -12px;
-    width: 100%;
-    -khtml-border-radius-topleft: 4px;
-    -moz-border-radius-topleft: 4px;
-    -webkit-border-top-left-radius: 4px;
-    border-top-left-radius: 4px;
-    -khtml-border-radius-topright: 4px;
-    -moz-border-radius-topright: 4px;
-    -webkit-border-top-right-radius: 4px;
-    border-top-right-radius: 4px;
+/* align checkboxes, radios, text inputs with their label --- by: Thierry Koblentz tjkdesign.com/ez-css/css/base.css  */
+input[type="radio"] { vertical-align: text-bottom; }
+input[type="checkbox"] { vertical-align: bottom; }
+
+input.btn,
+button.btn {
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+  *zoom: 1;
+  float: left;
+  padding: 4px 14px;
+  margin-bottom: 0;
+  font-size: 14px;
+  line-height: 20px;
+  *line-height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  color: #333333;
+  width: auto;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  background-color: #f5f5f5;
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #e6e6e6;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  border: 1px solid #bbbbbb;
+  *border: 0;
+  border-bottom-color: #a2a2a2;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  *margin-left: .3em;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-fieldset.collapsed legend {
-    -khtml-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
+input.btn:hover,
+input.btn:active,
+input.btn.active,
+input.btn.disabled,
+input.btn[disabled],
+button.btn:hover,
+button.btn:active,
+button.btn.active,
+button.btn.disabled,
+button.btn[disabled] {
+  color: #333333;
+  background-color: #e6e6e6;
+  *background-color: #d9d9d9;
+}
+input.btn:active,
+input.btn.active,
+button.btn:active,
+button.btn.active {
+  background-color: #cccccc \9;
+}
+input.btn:first-child,
+button.btn:first-child {
+  *margin-left: 0;
+}
+input.btn:hover,
+button.btn:hover {
+  color: #333333;
+  text-decoration: none;
+  background-color: #e6e6e6;
+  *background-color: #d9d9d9;
+  /* Buttons in IE7 don't get borders, so darken on hover */
+
+  background-position: 0 -15px;
+  -webkit-transition: background-position 0.1s linear;
+  -moz-transition: background-position 0.1s linear;
+  -o-transition: background-position 0.1s linear;
+  transition: background-position 0.1s linear;
+}
+input.btn:focus,
+button.btn:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+input.btn.active,
+input.btn:active,
+button.btn.active,
+button.btn:active {
+  background-color: #e6e6e6;
+  background-color: #d9d9d9 \9;
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-fieldset legend a { color: #3b3b3b }
+.btn-block {
+  float: right;
+  width: auto;
+}
+.btn-block input,
+.btn-block button {float: left; margin: 0 5px;}
 
-fieldset legend a:hover, fieldset legend a:focus, fieldset legend a:active { color: #000 }
-
-fieldset .fieldset-wrapper { padding: 0 10px }
-
-input {
-    margin: 2px 0;
-    padding: 4px;
+.error {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 20px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-color: #fcf8e3;
+  border: 1px solid #fbeed5;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+    background-color: #f2dede;
+  border-color: #eed3d7;
+  color: #b94a48;
 }
 
-input, textarea { font-size: .929em }
-
-textarea { line-height: 1.5 }
-
-textarea.form-textarea { padding: 4px }
-
-input.form-text, textarea.form-textarea { border: 1px solid #ccc }
-
-input.form-submit:hover, input.form-submit:focus { background: #dedede }
-
-.form-item {
-    margin-bottom: 1em;
-    margin-top: 2px;
-}
-
-.form-type-radio .description, .form-type-checkbox .description { margin-left: 2px }
-
-.form-actions { padding-top: 10px }
-
-/* Disabled form elements */
-#edit-actions input { margin-right: .6em }
 
 /* --------------- Search Form ---------------- */
 #block-search-form { padding-bottom: 7px }
@@ -728,7 +799,7 @@ input.form-submit:hover, input.form-submit:focus { background: #dedede }
     overflow: hidden;
     border: none;
 }
-
+#search-block-form div {width: auto !important; float: none;}
 #search-block-form input.form-submit:hover, #search-block-form input.form-submit:focus { background-position: center bottom }
 
 /* --------------- Search Results ---------------- */
@@ -872,137 +943,24 @@ input.form-submit { background: #E6E5E5 }
 
 #dept-title { background: url(../img/masthead.png)no-repeat scroll 0 0 transparent }
 
+
 .clearfix:after {
     content: ".";
     display: block;
-    height: 0;
     clear: both;
     visibility: hidden;
+    line-height: 0;
+    height: 0;
 }
-
-
-/*---------------- Accordion Styles----------------*/
-
-.accordionButton {
-	background: #D6D6CE;
-	color: #184154;
-    cursor: pointer;
+ 
+.clearfix {
+    display: inline-block;
+}
+ 
+html[xmlns] .clearfix {
     display: block;
-    font:normal 1.15em "ProximaNova-Semibold",verdana,sans-serif;
-    letter-spacing: 1px;
-    margin: 0 0 1px;
-    padding: 8px 10px 7px;
-    text-transform: uppercase;
-	}
-	
-.accordionContent {
-	padding: 10px 5px;
 }
-	
-/* Hover states*/
-
-.on {
-	background: url(../img/minus.gif) no-repeat 435px center #969693;
-	color: #fff;	
-}
-	
-.over {
-	background: url(../img/plus.gif) no-repeat 435px center #3E7C97;
-	color: #fff;
-}
-.on.over {background-image: url(../img/minus.gif); }
-
-
-/*---------------- Lightbox Styles----------------*/
-
-#jquery-overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 90;
-	width: 100%;
-	height: 500px;
-}
-#jquery-lightbox {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	z-index: 100;
-	text-align: center;
-	line-height: 0;
-}
-#jquery-lightbox a img { border: none; }
-#lightbox-container-image-box {
-	position: relative;
-	background-color: #fff;
-	width: 250px;
-	height: 250px;
-	margin: 0 auto;
-}
-#lightbox-container-image { padding: 10px; }
-#lightbox-loading {
-	position: absolute;
-	top: 40%;
-	left: 0%;
-	height: 25%;
-	width: 100%;
-	text-align: center;
-	line-height: 0;
-}
-#lightbox-nav {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	height:30px !important;
-	width: 100%;
-	z-index: 10;
-}
-#lightbox-container-image-box > #lightbox-nav { left: 0; }
-#lightbox-nav a { outline: none; height: 30px !important;}
-#lightbox-nav-btnPrev, #lightbox-nav-btnNext {
-	width: 49%;
-	height: 100%;
-	zoom: 1;
-	display: block;
-}
-#lightbox-nav-btnPrev {
-	background: url(../img/lightbox/lightbox-btn-prev.png) no-repeat bottom right !important;
-	left: 0; 
-	float: left;
-}
-#lightbox-nav-btnNext { 
-	background: url(../img/lightbox/lightbox-btn-next.png) no-repeat bottom left !important;
-	right: 0; 
-	float: right;
-}
-#lightbox-container-image-data-box {
-	font: 10px Verdana, Helvetica, sans-serif;
-	background-color: #fff;
-	margin: 0 auto;
-	line-height: 1.4em;
-	overflow: auto;
-	width: 100%;
-	padding:0 10px 0;
-}
-#lightbox-container-image-data {
-	padding: 0 10px; 
-	color: #666; 
-}
-#lightbox-container-image-data #lightbox-image-details { 
-	margin: 0 auto;
-    text-align: center;
-    width: 90%; 
-}	
-#lightbox-image-details-caption { font-weight: bold; }
-#lightbox-image-details-currentNumber {
-	display: block; 
-	clear: left; 
-	padding-bottom: 1.0em;	
-}			
-#lightbox-secNav-btnClose {
-	 position: absolute;
-    right: -12px;
-    top: -12px;
-    width: 30px;
+ 
+* html .clearfix {
+    height: 1%;
 }
