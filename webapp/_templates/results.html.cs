@@ -28,7 +28,7 @@
 						<p>Click on a member's last name to see additional information. You may sort by clicking the first or last name headings. <em>*Denotes a Life Member.</em></p>
 						<p>Didn't find what you were looking for? <a href="search.php">Browse again or start a new search.</a></p>
 						<p><strong><?cs var:Chairman ?></strong></p>  
-						<table border="0" cellspacing="3" cellpadding="3" class="display" id="results">
+						<table border="0" cellspacing="3" cellpadding="3" class="display table table-striped" id="results">
 							<thead>
 								<tr>
 									<th>Last Name</th>
