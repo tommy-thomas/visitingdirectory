@@ -41,7 +41,7 @@ class Application extends WS_Application
 		return isset( $error_message[$i]) ? $error_message[$i] : array(); 
 	}
 	
-	public function getDomain()
+	public function domain()
 	{
 		$parts = parse_url( self::$app->base() );
 		$url = $parts['scheme'].'://'.$parts['host'];

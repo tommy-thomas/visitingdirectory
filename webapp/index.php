@@ -59,7 +59,7 @@ if( $app->isShibbAuth() )
  * The Clear Silver template.
  */
 $template = $app->template('index.html.cs');
-$template->add_data( "domain" , $app->getDomain() );
+$template->add_data( "domain" , $app->domain() );
 $template->add_data( "base" , $app->base() );
 /*
  * Add authentication error if set.
