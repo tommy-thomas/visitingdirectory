@@ -109,6 +109,7 @@
 			var oTable = $('#results').dataTable(
 			{   
 				"bJQueryUI": true,
+				"iDisplayLength": 50,
 				"aoColumnDefs" : [
 					{
 						"fnRender" : function( oObj , sVal ){
