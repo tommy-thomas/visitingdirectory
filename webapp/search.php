@@ -17,6 +17,10 @@ if( !$app->isAuthorized() )
 $template = $app->template('search.html.cs');
 $curl = new cURL(null);
 $collection = new Collection($app,$curl);
+if( isset($_SESSION['authtoken'])  && !apc_exists('all_member_data') )
+{
+	$collection->setAllMemberData($_SESSION['authtoken']);
+}
 $collection->loadCommitteeTemplateData($template);
 $template->show();
 ?>

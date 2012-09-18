@@ -65,7 +65,10 @@ class Collection
 		libxml_use_internal_errors(true);
 		$this->curl->setPost($token);		
 		$this->curl->createCurl( sprintf($this->urls['all_members'], $_SESSION['active_committee_url_list']) );
-		$_SESSION['all_member_data'] = $this->curl->asSimpleXML();		
+		if( !apc_exists('all_member_data') )
+		{
+			apc_store('all_member_data', $this->curl->__toString() , 86400);
+		}		
 	}
 	
 	public function setCommittees( $token )
@@ -173,8 +176,7 @@ class Collection
 			{			
 				$code = $c->getCOMMITTEE_CODE();	
 				$c->addClassDataTemplate( $template , "Committee.$code.");
-			}		
-					
+			}					
 		}
 	}
 	
@@ -190,8 +192,8 @@ class Collection
 	        if( is_a($c, 'Committee') && $c->getCOMMITTEE_CODE() == $code )
 	        {
 	        	return $c->getSHORT_DESC();
-	        } 
-	    } 	
+	        }
+	    }
 	}
 		
 	public function getLoginUrl()
@@ -275,8 +277,10 @@ class Collection
 	
 	public function getMemberData( $code=null , $token=null )
 	{
-		$info = array('address_info' , 'degree_info' , 'entity_info');				
-		$list = $_SESSION['all_member_data']->xpath('//COMMITTEES/COMMITTEE/ID_NUMBER[../COMMITTEE_CODE/text()="'.$code.'"]');
+		$info = array('address_info' , 'degree_info' , 'entity_info');
+		$data = apc_fetch('all_member_data');
+		$xml = simplexml_load_string($data);	
+		$list = $xml->xpath('//COMMITTEES/COMMITTEE/ID_NUMBER[../COMMITTEE_CODE/text()="'.$code.'"]');
 		$members = array();
 		$data = array();
 		if( !is_null($list) && !is_null($token) )

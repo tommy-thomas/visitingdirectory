@@ -6,15 +6,15 @@
 			@import url("_templates/css/screen.css");
 			@import url("_templates/css/small.css");
 		</style>
-		<style type="text/css" media="print">@import url("css/print.css");</style> 
+		<style type="text/css" media="print">@import url("_templates/css/print.css");</style> 
 		<!--[if lte IE 7]>
-			<link type="text/css" rel="stylesheet" href="css/ie7.css" media="all" />
+			<link type="text/css" rel="stylesheet" href="_templates/css/ie7.css" media="all" />
 		<![endif]-->
 		<!--[if IE 6]>
-			<link type="text/css" rel="stylesheet" href="css/ie6.css" media="all" />
+			<link type="text/css" rel="stylesheet" href="_templates/css/ie6.css" media="all" />
 		<![endif]-->
 		<!--[if lte IE 9]>
-			<link type="text/css" rel="stylesheet" href="css/phoenix_ie.css" media="all" />
+			<link type="text/css" rel="stylesheet" href="_templates/css/phoenix_ie.css" media="all" />
 		<![endif]-->
 <!--
 		/*

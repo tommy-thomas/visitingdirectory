@@ -10,11 +10,7 @@ if( !$app->isAuthorized() )
 }
 $curl = new cURL(null);
 $collection = Collection::instance( $app , $curl );
-if( isset($_SESSION['authtoken'])  && !isset($_SESSION['all_member_data']) )
-{
-	$collection->setAllMemberData($_SESSION['authtoken']);
-}
-$manager = new CommitteeMemberManager( $_SESSION['all_member_data'] );
+$manager = new CommitteeMemberManager();
 /**
  * Start populating the CS template.
  * The Clear Silver template.

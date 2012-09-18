@@ -17,18 +17,23 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	
 	private $committee_members_list = array();
 	
-	public function __construct( $all_member_data = array()  )
+	public function __construct()
 	{
-		if( !empty($all_member_data) )
 		{
-			$this->all_member_data = $all_member_data;
+			try
+			{
+				$data = apc_fetch('all_member_data');
+				$this->all_member_data = simplexml_load_string($data);
+			} catch (Exception $e) {
+				Application::handleExceptions($e);
+			}
 		}
 	}
 	
 	public function load( $code="" , $members)
 	{				
 		if( !empty($code) )
-		{				
+		{	
 			$this->entity_info = $this->all_member_data->xpath('//COMMITTEE/COMMITTEE_CODE[. ="'.$code.'"]/parent::*');				
 			$this->address_info = isset($members['address_info']) ? $members['address_info'] : array();
 			$this->degree_info = isset($members['degree_info']) ? $members['degree_info'] : array() ;

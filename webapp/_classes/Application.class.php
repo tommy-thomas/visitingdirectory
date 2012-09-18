@@ -36,7 +36,7 @@ class Application extends WS_Application
 	{
 		$error_message = array(
 			0 => "You are not authorized to log into this site.",
-			1 => "You have tried to aunthenticate from an unauthorized service."
+			1 => "You are not authorized to authenticate from this service."
 		);
 		return isset( $error_message[$i]) ? $error_message[$i] : array(); 
 	}

@@ -59,7 +59,6 @@ if( $app->isShibbAuth() )
  * The Clear Silver template.
  */
 $template = $app->template('index.html.cs');
-//https://visitingdirectorydev.uchicago.edu/workingcopy/tommyt/
 $template->add_data( "domain" , $app->getDomain() );
 $template->add_data( "base" , $app->base() );
 /*
@@ -76,6 +75,7 @@ if( $soc_auth_err )
 {
 	$template->add_data( "authentication_error" , $app->get_error_message(1) );
 }
+
 $template->show();
 	
 ?>
