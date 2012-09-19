@@ -84,8 +84,8 @@
 			<div id="sidebar-first" class="column sidebar grid_3 pull_9">
 			  <?cs include:"inc/login.html.cs" ?>
 			  <?cs include:"inc/navigation.html.cs" ?>
-			  <?cs include:"inc/search.html.cs" ?>
-			  <?cs include:"inc/related-links.html.cs" ?>			  
+			  <!--<?cs include:"inc/search.html.cs" ?>-->	
+			  <?cs include:"inc/related-links.html.cs" ?>		  
 			</div><!-- /#sidebar-first -->
 		  </div><!-- /#main -->
 		</div><!-- /#main-wrapper -->
