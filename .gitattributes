@@ -82,6 +82,50 @@ webapp/c/phoenix_ie.css -text
 webapp/c/print.css -text
 webapp/c/screen.css -text
 webapp/c/small.css -text
+webapp/img/Thumbs.db -text svneol=unset#application/msword
+webapp/img/add.png -text svneol=unset#image/png
+webapp/img/favicon.ico -text
+webapp/img/feed.png -text svneol=unset#image/png
+webapp/img/gallery/R19V30_lg.png -text svneol=unset#image/png
+webapp/img/gallery/R19V30_sm.png -text svneol=unset#image/png
+webapp/img/gallery/R20V20_lg.png -text svneol=unset#image/png
+webapp/img/gallery/R20V20_sm.png -text svneol=unset#image/png
+webapp/img/gallery/R22V9_lg.png -text svneol=unset#image/png
+webapp/img/gallery/R22V9_sm.png -text svneol=unset#image/png
+webapp/img/greybullet.gif -text svneol=unset#image/gif
+webapp/img/ie/headerbg_phoenix.gif -text svneol=unset#image/gif
+webapp/img/ie6icon-over.png -text svneol=unset#image/png
+webapp/img/ie6icon.png -text svneol=unset#image/png
+webapp/img/imce_sprites.png -text svneol=unset#image/png
+webapp/img/insidefooterbg.gif -text svneol=unset#image/gif
+webapp/img/lightbox/fancy_nav_left.png -text svneol=unset#image/png
+webapp/img/lightbox/lightbox-blank.gif -text svneol=unset#image/gif
+webapp/img/lightbox/lightbox-btn-close.gif -text svneol=unset#image/gif
+webapp/img/lightbox/lightbox-btn-close.png -text svneol=unset#image/png
+webapp/img/lightbox/lightbox-btn-next.gif -text svneol=unset#image/gif
+webapp/img/lightbox/lightbox-btn-next.png -text svneol=unset#image/png
+webapp/img/lightbox/lightbox-btn-prev.gif -text svneol=unset#image/gif
+webapp/img/lightbox/lightbox-btn-prev.png -text svneol=unset#image/png
+webapp/img/lightbox/lightbox-ico-loading.gif -text svneol=unset#image/gif
+webapp/img/magnify.png -text svneol=unset#image/png
+webapp/img/magnify_large.png -text svneol=unset#image/png
+webapp/img/maincontentbg_phoenix.gif -text svneol=unset#image/gif
+webapp/img/masthead.png -text svneol=unset#image/png
+webapp/img/minus.gif -text svneol=unset#image/gif
+webapp/img/mobilesprite.png -text svneol=unset#image/png
+webapp/img/modulebg.gif -text svneol=unset#image/gif
+webapp/img/outsidefooterbg.gif -text svneol=unset#image/gif
+webapp/img/plus.gif -text svneol=unset#image/gif
+webapp/img/search-button.png -text svneol=unset#image/png
+webapp/img/slidecontrol.gif -text svneol=unset#image/gif
+webapp/img/slidecontrol_gallery.gif -text svneol=unset#image/gif
+webapp/img/socialsprite.gif -text svneol=unset#image/gif
+webapp/img/socialsprite.png -text svneol=unset#image/png
+webapp/img/space.jpg -text svneol=unset#image/jpeg
+webapp/img/tabs-border.png -text svneol=unset#image/png
+webapp/img/uc_wordmark.gif -text svneol=unset#image/gif
+webapp/img/uc_wordmark.png -text svneol=unset#image/png
+webapp/img/uc_wordmark_phoenix.png -text svneol=unset#image/png
 webapp/index.php -text
 webapp/j/jquery.dataTables.min.js -text
 webapp/member.php -text
