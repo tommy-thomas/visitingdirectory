@@ -22,8 +22,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		{
 			try
 			{
-				$data = apc_fetch('all_member_data');
-				$this->all_member_data = simplexml_load_string($data);
+				$this->all_member_data = simplexml_load_string( apc_fetch('all_member_data') );
 			} catch (Exception $e) {
 				Application::handleExceptions($e);
 			}
@@ -52,7 +51,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			$member->setLastName( $last_name );				
 			$this->setMemberAddressData( $member, (string)$obj->ID_NUMBER );
 			$this->setMemberDegreeData( $member, (string)$obj->ID_NUMBER );
-			$this->setEmploymentData( $member, (string)$obj->ID_NUMBER );
+			$this->setMemberEmploymentData( $member, (string)$obj->ID_NUMBER );
 			$this->committee_members_list[] = $member;
 		}
 		return $this;		
@@ -107,7 +106,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		}
 	}
 	
-	public function setEmploymentData( $member , $id )
+	public function setMemberEmploymentData( $member , $id )
 	{
 		if( isset($this->employment_info) && isset($this->employment_info[$id]) )
 		{			
@@ -167,7 +166,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			}
 		}
 		$member->setDegreeInfo( $degrees );
-		$member->setCommitteesFromXML( $xml['committee_info'] , $_SESSION['active_committees']);
+		$member->setCommitteesFromXML( $xml['committee_info'] , apc_fetch('active_committees'));
 		$employment = $xml['employment_info'];
 		if( isset($employment[0]) )
 		{
@@ -199,7 +198,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			$this->search_results = $this->all_member_data->xpath('//COMMITTEE/LAST_NAME[contains(., "'.ucfirst($lastname).'")]/parent::*');
 		}
 		$this->xsort($this->search_results, 'LAST_NAME' , 'FIRST_NAME');
-		return $this->search_results;		
+		return $this->search_results;
 	}
 	
 	public function xsort(&$nodes, $child_name, $second_child =null , $order = SORT_ASC)
@@ -212,6 +211,5 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	    }
 	    array_multisort($sort_proxy, $order, $nodes);
 	}
-	
 }
 ?>

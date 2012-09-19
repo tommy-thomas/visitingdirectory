@@ -25,18 +25,18 @@
 										<?cs each:m=CommitteeMember ?>
 											<p>
 												<strong><?cs var:m.FirstName ?> <?cs var:m.MiddleName ?><?cs var:m.LastName ?></strong><br />
-												<?cs var:m.DegreeInfo ?><br />
-												<?cs var:m.JobTitle ?><br />
-												<?cs var:m.EmployerName ?><br />
-												<?cs var:m.Email ?><br />
-												Phone: <?cs var:m.PhoneAreaCode ?> <?cs var:m.PhoneNumber ?>
+												<?cs if:m.DegreeInfo ?><?cs var:m.DegreeInfo ?><br /><?cs /if ?>
+												<?cs if:m.JobTitle ?><?cs var:m.JobTitle ?><br /><?cs /if ?>
+												<?cs if:m.EmployerName ?><?cs var:m.EmployerName ?><br /><?cs /if ?>
+												<?cs if:m.Email ?><?cs var:m.Email ?><br /><?cs /if ?>
+												<?cs if:m.PhoneNumber ?>Phone: <?cs var:m.PhoneAreaCode ?> <?cs var:m.PhoneNumber ?><?cs /if ?>
 											</p>
 											<p>
-												<?cs var:m.StreetOne ?><br />
-												<?cs var:m.City ?>, <?cs var:m.State ?> <?cs var:m.Zip ?><br />
+												<?cs if:m.StreetOne ?><?cs var:m.StreetOne ?><br /><?cs /if ?>
+												<?cs if:m.City ?><?cs var:m.City ?>,<?cs /if ?> <?cs if:m.State ?><?cs var:m.State ?><?cs /if ?> <?cs if:m.Zip ?><?cs var:m.Zip ?><?cs /if ?><br />
 												<strong>Committees:</strong><br />
 												<?cs each:c=committee_list ?>	
-												<?cs var:c ?><br />
+												    <?cs var:c ?><br />
 												<?cs /each ?>
 											</p>
 										<?cs /each ?>

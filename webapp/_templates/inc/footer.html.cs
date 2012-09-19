@@ -134,6 +134,23 @@
 					return false;
 				}	
 			 });
+            $('#oButton').live('click',function(){
+			  $('.row-view').each(function(){
+				var aData = $(this).find('.infodiv').text();
+				if( !oTable.fnIsOpen(this) )				{
+					oTable.fnOpen( this,   fnFormatDetails ( aData ) , "info_row" );
+				}	
+			  });								   
+		  });
+			$('#cButton').live('click',function(){
+			  $('.row-view').each(function(){
+				var aData = $(this).find('.infodiv').text();
+				if( oTable.fnIsOpen(this) )
+				{		
+					 oTable.fnClose( this );
+				}
+			  });								   
+		  });
 
 		});
 		</script>

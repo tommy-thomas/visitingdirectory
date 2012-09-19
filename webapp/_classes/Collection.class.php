@@ -64,7 +64,7 @@ class Collection
 	{
 		libxml_use_internal_errors(true);
 		$this->curl->setPost($token);		
-		$this->curl->createCurl( sprintf($this->urls['all_members'], $_SESSION['active_committee_url_list']) );
+		$this->curl->createCurl( sprintf($this->urls['all_members'], apc_fetch('active_committee_url_list') ));
 		if( !apc_exists('all_member_data') )
 		{
 			apc_store('all_member_data', $this->curl->__toString() , 86400);
@@ -99,7 +99,7 @@ class Collection
 			array('COMMITTEE_CODE' => 'VCLZ',
 				'SHORT_DESC' => 'Visiting Committee for UCMC'),				
 			array('COMMITTEE_CODE' => 'VCPC',
-				'SHORT_DESC' => 'Visiting Committee for the Paris Center'),			
+				'SHORT_DESC' => 'Visiting Committee for the Paris Center'),	
 			array('COMMITTEE_CODE' => 'VCSA',
 				 'SHORT_DESC' => 'Coll and Student Act Vis Committee'),			
 			array('COMMITTEE_CODE' => 'VSVC',
@@ -148,29 +148,30 @@ class Collection
 				$arr[] = $c;				
 			}			
 		}
-		$_SESSION['active_committees'] = $arr;
+		apc_store('active_committees' , $arr , 86400);
 		$this->setActiveCommitteeUrlList();
 	}
 	
 	public function setActiveCommitteeUrlList()
 	{
 		$list = array();		
-		if( isset($_SESSION['active_committees']) )
+		if( apc_exists('active_committees') && !apc_exists('active_committee_url_list'))
 		{
-			foreach ( $_SESSION['active_committees'] as $c )
+			$active_committees = apc_fetch('active_committees');
+			foreach ( $active_committees as $c )
 			{
 				if( is_a($c, 'Committee'))
 				{
 					$list[] = $c->getCOMMITTEE_CODE();
 				}								
 			}
+			apc_store('active_committee_url_list' , implode(",", $list) , 86400);
 		}
-		$_SESSION['active_committee_url_list'] = implode(",", $list);		
 	}
 	
 	public function loadCommitteeTemplateData( $template )
-	{		
-		foreach( $_SESSION['active_committees'] as $c )
+	{	
+		foreach( apc_fetch('active_committees') as $c )
 		{	
 			if( is_a($c,'Committee') )
 			{			
@@ -182,12 +183,12 @@ class Collection
 	
 	public function getCommittees()
 	{
-		return $_SESSION['active_committees'];
+		return apc_fetch('active_committees');
 	}
 	
 	public static function getCommittee($code)
-	{
-	    foreach ($_SESSION['active_committees'] as $c)
+	{		
+	    foreach (apc_fetch('active_committees') as $c)
 	    {  
 	        if( is_a($c, 'Committee') && $c->getCOMMITTEE_CODE() == $code )
 	        {
@@ -212,9 +213,9 @@ class Collection
 	{
 		if( !is_null($key) && !is_null($this->urls[$key]) )
 		{
-			if( $key == 'email_validation' && isset($_SESSION['active_committee_url_list']) )
+			if( $key == 'email_validation' && apc_exists('active_committee_url_list') )
 			{
-				return sprintf($this->urls[$key], $_SESSION['active_committee_url_list'] , $value);
+				return sprintf($this->urls[$key], apc_fetch('active_committee_url_list') , $value);
 			}
 			else
 			{
@@ -365,7 +366,7 @@ class Collection
 			$cm->setIdNumber( (string)$m->ID_NUMBER );
 			$cm->setFirstName( (string)$m->FIRST_NAME );
 			$cm->setLastName( (string)$m->LAST_NAME  );	
-			$cm->setCommittees( $arr , $_SESSION['active_committees']);
+			$cm->setCommittees( $arr , apc_fetch('active_committees'));
 			$members[] = $cm;
 		}
 		return $members;

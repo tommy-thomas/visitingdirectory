@@ -27,7 +27,9 @@
 						<h2><?cs var:Committee ?></h2>
 						<p>Click on a member's last name to see additional information. You may sort by clicking the first or last name headings. <em>*Denotes a Life Member.</em></p>
 						<p>Didn't find what you were looking for? <a href="search.php">Browse again or start a new search.</a></p>
-						<p><strong><?cs var:Chairman ?></strong></p>  
+                        <a href="#" id="oButton">button</a>
+						<p><strong><?cs var:Chairman ?></strong></p>
+                        <div style="float:right; margin-right:5px;"><a href="#" id="oButton">+ expand all</a> / <a href="#" id="cButton">- collapse all</a></div>  
 						<table border="0" cellspacing="3" cellpadding="3" class="display table table-striped" id="results">
 							<thead>
 								<tr>
@@ -39,7 +41,7 @@
 							</thead>
 							<tbody>
 							<?cs each:m=CommitteeMember ?>
-								<tr>
+								<tr class="row-view">
 									<td><?cs var:m.LastName ?>
 										<div class="infodiv" style="display:none;"><?cs var:m.DegreeInfo ?>:<?cs var:m.StreetOne ?>:<?cs var:m.City ?>:<?cs var:m.State ?>:<?cs var:m.Zip ?>:<?cs var:m.JobTitle ?>:<?cs var:m.EmployerName ?></div>
 									</td>
