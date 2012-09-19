@@ -1,0 +1,83 @@
+* text=auto !eol
+_classes/Application.class.php -text
+_classes/Collection.class.php -text
+_classes/Committee.class.php -text
+_classes/CommitteeMember.class.php -text
+_classes/CommitteeMemberManager.class.php -text
+_classes/autoload.php -text
+_classes/cURL.class.php -text
+_classes/work1.php -text
+_templates/css/ie6.css -text
+_templates/css/ie7.css -text
+_templates/css/phoenix_ie.css -text
+_templates/css/print.css -text
+_templates/css/screen.css -text
+_templates/css/small.css -text
+_templates/img/Thumbs.db -text svneol=unset#application/msword
+_templates/img/add.png -text svneol=unset#image/png
+_templates/img/favicon.ico -text
+_templates/img/feed.png -text svneol=unset#image/png
+_templates/img/gallery/R19V30_lg.png -text svneol=unset#image/png
+_templates/img/gallery/R19V30_sm.png -text svneol=unset#image/png
+_templates/img/gallery/R20V20_lg.png -text svneol=unset#image/png
+_templates/img/gallery/R20V20_sm.png -text svneol=unset#image/png
+_templates/img/gallery/R22V9_lg.png -text svneol=unset#image/png
+_templates/img/gallery/R22V9_sm.png -text svneol=unset#image/png
+_templates/img/greybullet.gif -text svneol=unset#image/gif
+_templates/img/ie/headerbg_phoenix.gif -text svneol=unset#image/gif
+_templates/img/ie6icon-over.png -text svneol=unset#image/png
+_templates/img/ie6icon.png -text svneol=unset#image/png
+_templates/img/imce_sprites.png -text svneol=unset#image/png
+_templates/img/insidefooterbg.gif -text svneol=unset#image/gif
+_templates/img/lightbox/fancy_nav_left.png -text svneol=unset#image/png
+_templates/img/lightbox/lightbox-blank.gif -text svneol=unset#image/gif
+_templates/img/lightbox/lightbox-btn-close.gif -text svneol=unset#image/gif
+_templates/img/lightbox/lightbox-btn-close.png -text svneol=unset#image/png
+_templates/img/lightbox/lightbox-btn-next.gif -text svneol=unset#image/gif
+_templates/img/lightbox/lightbox-btn-next.png -text svneol=unset#image/png
+_templates/img/lightbox/lightbox-btn-prev.gif -text svneol=unset#image/gif
+_templates/img/lightbox/lightbox-btn-prev.png -text svneol=unset#image/png
+_templates/img/lightbox/lightbox-ico-loading.gif -text svneol=unset#image/gif
+_templates/img/magnify.png -text svneol=unset#image/png
+_templates/img/magnify_large.png -text svneol=unset#image/png
+_templates/img/maincontentbg_phoenix.gif -text svneol=unset#image/gif
+_templates/img/masthead.png -text svneol=unset#image/png
+_templates/img/minus.gif -text svneol=unset#image/gif
+_templates/img/mobilesprite.png -text svneol=unset#image/png
+_templates/img/modulebg.gif -text svneol=unset#image/gif
+_templates/img/outsidefooterbg.gif -text svneol=unset#image/gif
+_templates/img/plus.gif -text svneol=unset#image/gif
+_templates/img/search-button.png -text svneol=unset#image/png
+_templates/img/slidecontrol.gif -text svneol=unset#image/gif
+_templates/img/slidecontrol_gallery.gif -text svneol=unset#image/gif
+_templates/img/socialsprite.gif -text svneol=unset#image/gif
+_templates/img/socialsprite.png -text svneol=unset#image/png
+_templates/img/space.jpg -text svneol=unset#image/jpeg
+_templates/img/tabs-border.png -text svneol=unset#image/png
+_templates/img/uc_wordmark.gif -text svneol=unset#image/gif
+_templates/img/uc_wordmark.png -text svneol=unset#image/png
+_templates/img/uc_wordmark_phoenix.png -text svneol=unset#image/png
+_templates/inc/footer.html.cs -text
+_templates/inc/head.html.cs -text
+_templates/inc/header.html.cs -text
+_templates/inc/navigation.html.cs -text
+_templates/inc/news.html.cs -text
+_templates/inc/related-links.html.cs -text
+_templates/inc/search.html.cs -text
+_templates/index.html.cs -text
+_templates/member.html.cs -text
+_templates/results.html.cs -text
+_templates/search.html.cs -text
+_templates/templates/three-col-temp.php -text
+_templates/templates/two-col-temp.php -text
+c/datatable/demo_page.css -text
+c/datatable/demo_table.css -text
+c/datatable/demo_table_jui.css -text
+c/datatable/jquery.dataTables.css -text
+c/datatable/jquery.dataTables_themeroller.css -text
+c/demo_table_jui.css -text
+/index.php -text
+j/jquery.dataTables.min.js -text
+/member.php -text
+/results.php -text
+/search.php -text
