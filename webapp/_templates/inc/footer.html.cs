@@ -139,8 +139,9 @@
 				var aData = $(this).find('.infodiv').text();
 				if( !oTable.fnIsOpen(this) )				{
 					oTable.fnOpen( this,   fnFormatDetails ( aData ) , "info_row" );
-				}	
-			  });								   
+				}              
+			  });
+                 return false;									   
 		  });
 			$('#cButton').live('click',function(){
 			  $('.row-view').each(function(){
@@ -148,8 +149,9 @@
 				if( oTable.fnIsOpen(this) )
 				{		
 					 oTable.fnClose( this );
-				}
-			  });								   
+				}                
+			  });
+                 return false;									   
 		  });
 
 		});
