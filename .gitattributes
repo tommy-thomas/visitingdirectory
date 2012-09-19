@@ -13,50 +13,6 @@ webapp/_templates/css/phoenix_ie.css -text
 webapp/_templates/css/print.css -text
 webapp/_templates/css/screen.css -text
 webapp/_templates/css/small.css -text
-webapp/_templates/img/Thumbs.db -text svneol=unset#application/msword
-webapp/_templates/img/add.png -text svneol=unset#image/png
-webapp/_templates/img/favicon.ico -text
-webapp/_templates/img/feed.png -text svneol=unset#image/png
-webapp/_templates/img/gallery/R19V30_lg.png -text svneol=unset#image/png
-webapp/_templates/img/gallery/R19V30_sm.png -text svneol=unset#image/png
-webapp/_templates/img/gallery/R20V20_lg.png -text svneol=unset#image/png
-webapp/_templates/img/gallery/R20V20_sm.png -text svneol=unset#image/png
-webapp/_templates/img/gallery/R22V9_lg.png -text svneol=unset#image/png
-webapp/_templates/img/gallery/R22V9_sm.png -text svneol=unset#image/png
-webapp/_templates/img/greybullet.gif -text svneol=unset#image/gif
-webapp/_templates/img/ie/headerbg_phoenix.gif -text svneol=unset#image/gif
-webapp/_templates/img/ie6icon-over.png -text svneol=unset#image/png
-webapp/_templates/img/ie6icon.png -text svneol=unset#image/png
-webapp/_templates/img/imce_sprites.png -text svneol=unset#image/png
-webapp/_templates/img/insidefooterbg.gif -text svneol=unset#image/gif
-webapp/_templates/img/lightbox/fancy_nav_left.png -text svneol=unset#image/png
-webapp/_templates/img/lightbox/lightbox-blank.gif -text svneol=unset#image/gif
-webapp/_templates/img/lightbox/lightbox-btn-close.gif -text svneol=unset#image/gif
-webapp/_templates/img/lightbox/lightbox-btn-close.png -text svneol=unset#image/png
-webapp/_templates/img/lightbox/lightbox-btn-next.gif -text svneol=unset#image/gif
-webapp/_templates/img/lightbox/lightbox-btn-next.png -text svneol=unset#image/png
-webapp/_templates/img/lightbox/lightbox-btn-prev.gif -text svneol=unset#image/gif
-webapp/_templates/img/lightbox/lightbox-btn-prev.png -text svneol=unset#image/png
-webapp/_templates/img/lightbox/lightbox-ico-loading.gif -text svneol=unset#image/gif
-webapp/_templates/img/magnify.png -text svneol=unset#image/png
-webapp/_templates/img/magnify_large.png -text svneol=unset#image/png
-webapp/_templates/img/maincontentbg_phoenix.gif -text svneol=unset#image/gif
-webapp/_templates/img/masthead.png -text svneol=unset#image/png
-webapp/_templates/img/minus.gif -text svneol=unset#image/gif
-webapp/_templates/img/mobilesprite.png -text svneol=unset#image/png
-webapp/_templates/img/modulebg.gif -text svneol=unset#image/gif
-webapp/_templates/img/outsidefooterbg.gif -text svneol=unset#image/gif
-webapp/_templates/img/plus.gif -text svneol=unset#image/gif
-webapp/_templates/img/search-button.png -text svneol=unset#image/png
-webapp/_templates/img/slidecontrol.gif -text svneol=unset#image/gif
-webapp/_templates/img/slidecontrol_gallery.gif -text svneol=unset#image/gif
-webapp/_templates/img/socialsprite.gif -text svneol=unset#image/gif
-webapp/_templates/img/socialsprite.png -text svneol=unset#image/png
-webapp/_templates/img/space.jpg -text svneol=unset#image/jpeg
-webapp/_templates/img/tabs-border.png -text svneol=unset#image/png
-webapp/_templates/img/uc_wordmark.gif -text svneol=unset#image/gif
-webapp/_templates/img/uc_wordmark.png -text svneol=unset#image/png
-webapp/_templates/img/uc_wordmark_phoenix.png -text svneol=unset#image/png
 webapp/_templates/inc/footer.html.cs -text
 webapp/_templates/inc/head.html.cs -text
 webapp/_templates/inc/header.html.cs -text
