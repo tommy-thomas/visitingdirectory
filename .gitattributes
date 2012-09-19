@@ -76,6 +76,12 @@ webapp/c/datatable/demo_table_jui.css -text
 webapp/c/datatable/jquery.dataTables.css -text
 webapp/c/datatable/jquery.dataTables_themeroller.css -text
 webapp/c/demo_table_jui.css -text
+webapp/c/ie6.css -text
+webapp/c/ie7.css -text
+webapp/c/phoenix_ie.css -text
+webapp/c/print.css -text
+webapp/c/screen.css -text
+webapp/c/small.css -text
 webapp/index.php -text
 webapp/j/jquery.dataTables.min.js -text
 webapp/member.php -text
