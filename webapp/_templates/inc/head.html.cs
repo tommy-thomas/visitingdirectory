@@ -1,20 +1,20 @@
 
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="shortcut icon" href="images/favicon.ico" type="image/vnd.microsoft.icon" />
+		<link rel="shortcut icon" href="/img/favicon.ico" type="image/vnd.microsoft.icon" />
 
 		<style type="text/css" media="all">
-			@import url("_templates/css/screen.css");
-			@import url("_templates/css/small.css");
+			@import url("/c/screen.css");
+			@import url("/c/small.css");
 		</style>
-		<style type="text/css" media="print">@import url("_templates/css/print.css");</style> 
+		<style type="text/css" media="print">@import url("/c/print.css");</style> 
 		<!--[if lte IE 7]>
-			<link type="text/css" rel="stylesheet" href="_templates/css/ie7.css" media="all" />
+			<link type="text/css" rel="stylesheet" href="/c/ie7.css" media="all" />
 		<![endif]-->
 		<!--[if IE 6]>
-			<link type="text/css" rel="stylesheet" href="_templates/css/ie6.css" media="all" />
+			<link type="text/css" rel="stylesheet" href="/c/ie6.css" media="all" />
 		<![endif]-->
 		<!--[if lte IE 9]>
-			<link type="text/css" rel="stylesheet" href="_templates/css/phoenix_ie.css" media="all" />
+			<link type="text/css" rel="stylesheet" href="/c/phoenix_ie.css" media="all" />
 		<![endif]-->
 <!--
 		/*

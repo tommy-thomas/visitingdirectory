@@ -2,7 +2,7 @@
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
-		<title>University of Chicago Data | The University of Chicago</title>
+		<title>Visiting Committee Directory | Board of Trustees | The University of Chicago</title>
 		<?cs include:"inc/head.html.cs" ?>	
 	</head>
 	<body class="two-col-temp">
@@ -21,7 +21,7 @@
 							<div id="bottomrow" class="">
 								<div class="grid_9 alpha">
 									<div class="content region-content">
-										<p>Please log in below to use the directory. If you do not have a CNetID, you may log in with an account you already have with LinkedIn, Google, or Facebook. If you have any trouble logging in, please contact us at xxxxxxxx@uchicago.edu.</p>
+										<p>Please log in below to use the directory. If you do not have a CNetID, you may log in with an account you already have with Google, Yahoo, LinkedIn, or Facebook. <em>Please note that the social media account you choose should use an email address we have on file.</em> If you have any trouble logging in, please contact us at xxxxxxxx@uchicago.edu.</p>
 										<p><a href="<?cs var:domain ?>/Shibboleth.sso/Login?entityID=urn:mace:incommon:uchicago.edu&target=<?cs var:base ?>index.php">Login with CNetID / UCHADID</a></p>
 										<p>Or log in using an existing account below:</p>
 										<ul>
