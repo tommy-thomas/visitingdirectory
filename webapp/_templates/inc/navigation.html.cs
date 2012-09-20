@@ -1,8 +1,8 @@
 <div id="leftnav">
 	<div class="content">
 		<ul class="menu ">
-			<li class="first"><a href="/" class="active">Home</a></li>
-			<li class=""><a href="http://trustees.uchicago.edu/">Board of Trustees</a></li>
+			<li class="first"><a href="http://trustees.uchicago.edu" class="active">Home</a></li>
+			<li class=""><a href="http://trustees.uchicago.edu/page/board">Board of Trustees</a></li>
 			<li class=""><a href="http://trustees.uchicago.edu/page/visiting">Visiting Committees</a>
 				<ul class="menu ">
 					<li><a href="/search.php">Directory Search</a></li>

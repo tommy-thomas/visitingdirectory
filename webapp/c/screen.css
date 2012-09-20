@@ -964,3 +964,15 @@ html[xmlns] .clearfix {
 * html .clearfix {
     height: 1%;
 }
+
+
+/*-- login   ----*/
+
+#login-list {list-style: none;}
+
+#login-list li  {
+  background-image: url(../img/login.png);
+  background-repeat: no-repeat;
+}
+
+#login-list li a.facebook 
