@@ -63,7 +63,6 @@
 							  <th>Committees</th>      
 						  </tr>
 					  </thead>
-					  <tfoot><tr colspan="2"><td>&nbsp;</tr></tfoot>
 					  <tbody>
 					  <?cs each:m=CommitteeMember ?>
 						  <tr>
