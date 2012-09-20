@@ -20,10 +20,14 @@ else
 $curl = new cURL(null);
 $collection = Collection::instance( $app , $curl ,  $_SESSION['authtoken']);
 $manager = new CommitteeMemberManager();
+if( (isset($_POST['search_by_committee']) && empty($_POST['committee'])) )
+{
+	$app->redirect('./search.php?error=no_select');
+}
 
 if( isset($_SESSION['authtoken']) )
 {
-	if( isset($_POST['search_by_committee']) || isset( $_GET['c']) )
+	if( (isset($_POST['search_by_committee']) && !empty($_POST['committee'])) || isset( $_GET['c']) )
 	{
 		if( isset($_POST['committee']) )
 		{

@@ -9,7 +9,7 @@
 				</ul>				
 			</li>
 			<li><a href="http://http://trustees.uchicago.edu/page/secretary">Office of the Secretary</a></li>
-            <?cs if:LoggedIn ?><li><a href="https://shibboleth2.uchicago.edu/idp/logout.html">Log Out</a></li><?cs /if ?>
+            <?cs if:LoggedIn ?><li><a href="logout.php">Log Out</a></li><?cs /if ?>
 		</ul>
 	</div>
 </div>

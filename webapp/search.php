@@ -19,5 +19,9 @@ else
 $curl = new cURL(null);
 $collection = new Collection($app , $curl , $_SESSION['authtoken'] );
 $collection->loadCommitteeTemplateData($template);
+if( isset($_GET['error']) && ($_GET['error'] == 'no_select'))
+{
+	$template->add_data( "authentication_error" , 'Please select a commitee.' );
+}
 $template->show();
 ?>
