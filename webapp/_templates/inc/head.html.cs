@@ -2,34 +2,6 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="shortcut icon" href="/img/favicon.ico" type="image/vnd.microsoft.icon" />
 
-<style type="text/css" media="all">
-@import url("/c/layout.css");
-@import url("/c/style.css");
-@import url("/c/colors/phoenix.css");
-@import url("/c/small.css");
-@import url("/c/background.css");
-@import url("/c/base.css");
-</style>
-<style type="text/css" media="print">
-@import url("/c/print.css");
-</style>
-
-<!--[if lte IE 7]>
-<link type="text/css" rel="stylesheet" href="/c/ie7.css" media="all" />
-<![endif]-->
-
-<!--[if IE 6]>
-<link type="text/css" rel="stylesheet" href="/c/ie6.css" media="all" />
-<![endif]-->
-
-<!--[if IE]>
-<link type="text/css" rel="stylesheet" href="/c/ie.css" media="all" />
-<![endif]-->
-
-<!--[if lte IE 9]>
-<link type="text/css" rel="stylesheet" href="/c/colors/phoenix_ie.css" media="all" />
-<![endif]-->
-<!--
 		<style type="text/css" media="all">
 			@import url("/c/screen.css");
 			@import url("/c/small.css");
