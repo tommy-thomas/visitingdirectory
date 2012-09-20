@@ -3,10 +3,10 @@
 }
 
 /* These two together fix the extra gap between li elements in IE6 */
-#leftnav .content ul li a {
+#block-system-main-menu .content ul li a {
 	display:inline-block;
 }
-#leftnav .content ul li a {
+#block-system-main-menu .content ul li a {
 	display:block;
 }
 

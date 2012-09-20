@@ -314,13 +314,7 @@ ul.menu li { margin: 0 }
 
 /* ------------------ Header ------------------ */
 
-#wordmark {
-    background: transparent url(../img/uc_wordmark.png) top right no-repeat;
-    display: block;
-    height: 53px;
-    float: right;
-    text-decoration: none;
-}
+
 
 #dept-title {
     font-family: "ProximaNova-Regular",Helvetica,sans-serif;
@@ -824,7 +818,6 @@ ol.search-results { padding-left: 0 }
 fieldset.search-advanced { display: none }
 
 /* ------------------ Header Styles ------------------ */
-#wordmark { background: transparent url(../img/uc_wordmark_phoenix.png) top right no-repeat }
 
 #page-wrapper { background: #eae9e1 url(../img/maincontentbg_phoenix.gif) top center repeat-y }
 

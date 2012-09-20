@@ -1,0 +1,9 @@
+#header {
+background: url("../../images/ie/headerbg_phoenix.gif") repeat-x scroll 0 0 #770000
+}
+
+/* These styles are repeated here because they are otherwise wrapped in media queries in the phoenix stylesheet */
+#block-views-homepage-feed-block h2, #block-views-news-summarynewsblock h2 { color: #155F83 !important; }
+#block-views-homepage-feed-block, #block-views-news-summarynewsblock { background:#eaeae2 url("../../images/modulebg.gif") bottom left repeat-x; border-top:5px solid #3E7C97; }
+#block-events h2, #block-uceventslist-uceventsblock h2 { color: #800000 !important; }
+#block-events, #block-uceventslist-uceventsblock { border-top:5px solid #8f3931; background:#eaeae2 url("../../images/modulebg.gif") bottom left repeat-x; }

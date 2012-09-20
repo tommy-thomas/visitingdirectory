@@ -1,7 +1,46 @@
 /* Responsive design */
 
-@media screen and (max-width: 600px) {
-.grid_3, .grid_4, .grid_6, .grid_8, .grid_9 {margin:0; width:auto !important; float:none; display:block; position:static}
+@media screen and (min-width: 701px) and (max-width: 980px) {
+.container_12{width:auto;}
+.container_12 .grid_9{width:452px;}
+.container_12 .pull_9{left:-468px;}
+#dept-title.grid_8{width:430px;}
+#page-wrapper{min-width:0px;background:#f7f7ed;}
+#sidebar-second{margin-left:0;}
+
+#site-name {position:relative}
+#site-name a#dept-title{
+	font-family:"ProximaNova-Regular",Helvetica,sans-serif !important; 
+	font-weight:400; 
+	text-indent:0; 
+	background-image:none !important; 
+	font-size:27px;
+	line-height:1em; 
+	height:auto;
+	margin-bottom:20px !important; 
+	width:55%;
+	position:absolute;
+	bottom:-62px
+}
+#wordmark{position:absolute;right:0}
+h1#page-title{font-size:28px}
+
+#footer{padding:20px 0;margin:0}
+#footer .grid_3{width:21%;margin-left:2%;margin-right:2%;}
+
+.view-homepage-features .grid_6, .view-homepage-features .grid_5, .view-homepage-features .grid_3 {margin:0; display:block; float:none; width:auto; left:auto;}
+#mainfeature img{height:auto; width:100%}
+#mainfeature h3{width:436px; margin:0 0 5px; height:auto; position:static; padding:5px 8px 7px 8px}
+.view-homepage-features .view-content{width:452px; height:auto}
+#block-views-homepage-feed-block{margin-left:-8px; margin-right:-8px}
+.homeimage{line-height:0;}
+.homefeature{margin:0;}
+
+}
+
+@media screen and (max-width: 700px) {
+.grid_1, .grid_2, .grid_3, .grid_4, .grid_5, .grid_6, .grid_7, .grid_8, .grid_9, .grid_10, .grid_11, .grid_12 {margin:0; width:auto !important; float:none; display:block; position:static}
+html{-webkit-text-size-adjust: none; /* Prevent font scaling in landscape */}
 #main{width:100%;}
 .container_12{width:auto}
 .container_12 .push_3{left:0}
@@ -16,40 +55,72 @@
 .sidebar .block h2:after{content:"\00a0\203A";}
 .sidebar .block h2+.content{display:none;}
 .sidebar .block .content{margin-bottom:10px}
+.sidebar .block h2.open{margin-bottom:6px}
 /* Some exceptions */
+.sidebar .block-ucaddthis h2{padding:0}
 #block-search-form{padding-bottom:0}
-/* */
-#block-search-form div.content,#block-views-news-summarynewsblock div.content,#block-relatedlinks div.content{padding:0;margin:0;background:#eaeae1;font-size:11px}
-#block-search-form ul,#block-views-news-summarynewsblock ul,#block-relatedlinks ul{padding:0}
-#block-search-form ul li,#block-views-news-summarynewsblock ul li,#block-relatedlinks ul li{padding:8px 4px 8px 24px;margin-bottom:0!important;background:url(../../images/greybullet.gif) no-repeat scroll 10px 14px}
-#block-search-form div.container-inline{padding:10px!important}
+#block-search-form h2.open+.content{padding-bottom:6px;}
+#block-views-homepage-mini-features-block h2:after{content:"";}
+.node-homepage-mini-feature{padding: 0 8px;margin-bottom:20px;}
+.sidebar .node-homepage-mini-feature h2, .node-homepage-mini-feature h2{padding:5px 0;}
+#block-events dd.date, #block-events dt, #block-events dd, #block-uceventslist-uceventsblock dd.date, #block-uceventslist-uceventsblock dt, #block-uceventslist-uceventsblock dd{float:none; width:auto;}
+#block-events dd.date, #block-uceventslist-uceventsblock dd.date{margin-top:0;}
 
 #header{width:100%; background-image:none; height:auto}
 #header .container_12{padding:0 8px}
 #site-name{padding-top: 10px}
-#dept-title{text-indent:0; background-image:none !important; font-size:2.4em; line-height:1em; height:auto; margin-bottom:10px; color:#fff !important}
-#wordmark{height:30px; width:137px; padding-bottom:10px}
+#site-name a#dept-title{
+	font-family:"ProximaNova-Regular",Helvetica,sans-serif !important; 
+	font-weight:400; 
+	text-indent:0; 
+	background-image:none !important; 
+	font-size:27px;
+	line-height:1em; 
+	height:auto;
+	margin-bottom:20px !important; 
+	width:55%;
+}
+h1 #dept-title{font-size:1.768em;}
+#wordmark{height:30px; width:137px; padding-bottom:10px; float:none;}
 #wordmark{text-indent:-9999px; background-size:137px 30px; -webkit-background-size:137px 30px; -o-background-size:137px 30px; background-position:top left}
 
-#leftnav{margin:0 -8px 24px -8px; padding:0 -8px; display:none}
-#leftnav .content a {padding-top:8px; padding-bottom:10px}
-#leftnav .content ul li ul li{padding-top:8px; padding-bottom:8px; background-position:10px 14px}
-#leftnav .content ul li a:after{content:"\00a0\203A";}
+#block-system-main-menu{margin:0 -8px 1px -8px; padding:0 -8px; display:none}
+.not-front #block-system-main-menu{margin-bottom:16px}
+#block-system-main-menu .content a {padding-top:8px; padding-bottom:10px}
+#block-system-main-menu .content ul li ul li{padding-top:8px; padding-bottom:8px; background-position:10px 14px}
+#block-system-main-menu .content ul li a:after{content:"\00a0\203A";}
 
 img{max-width:100%}
+.node-type-image-gallery a.colorbox img{display:block}
 
 #toggle-nav{display:block;float:right; position:relative; top:-38px; padding-right:8px; height:0;}
-#toggle-nav a{color:#fff; display:block; background:url(../images/mobilesprite.png) 60px 19px no-repeat; height:20px; padding:10px 15px 8px; font-size:1.5em}
+#toggle-nav a{color:#ffffff; display:block; background:url(../images/mobilesprite.png) 60px 19px no-repeat; height:20px; padding:10px 15px 8px; font-size:1.5em}
+#toggle-nav.open a{background-position:60px -9px}
 #toggle-nav a:focus, #toggle-nav a:hover{text-decoration:none;}
 
-.not-front #leftnav {margin-top:-32px}
+#mainfeature img{height:auto; width:100%}
+#mainfeature h3{width:100%; margin-top:0; height:auto; position:static; margin-left:-8px; margin-right:0; padding:5px 8px 7px 8px}
+.view-homepage-features .view-content{width:auto; height:auto}
+#block-views-homepage-feed-block{margin-left:-8px; margin-right:-8px}
+.homeimage{line-height:0; margin-left:-8px; margin-right:-8px}
 
-.block ul li {
-    background: url("../images/greybullet.gif") no-repeat scroll 10px 14px transparent !important;
-    margin-bottom: 0 !important;
-    padding: 8px 4px 8px 24px;
-}
+h2.mini-feature-smallscreen {margin: 0 -10px 6px}
+.front #main {padding-top:0}
+.not-front #block-system-main-menu {margin-top:-32px}
+.addthis_toolbox{margin:0 10px}
+.region-content iframe{width:100%; max-width:100%; min-height:250px; height:auto}
 
 #footer{width:auto; margin:0; padding: 8px}
+
+/* Image gallery tweaks */
+.field-slideshow-carousel-wrapper{display:none;}
+.field-slideshow-wrapper{opacity:0.9}
+.field-slideshow-wrapper:before{content:"Click image to view slideshow";font-size:1.2em; color:white; line-height:1.5em}
+#cboxNext{top:50%;right:0;left:auto}
+#cboxPrevious{top:50%}
+#cboxCurrent{left:0}
+#cboxTopLeft, #cboxTopRight{width:5px;height:5px}
+#cboxTopCenter{height:5px}
+#cboxMiddleLeft, #cboxMiddleRight{width:5px}
 
 }
