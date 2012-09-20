@@ -56,7 +56,7 @@
 				  <h2>Name Search Results</h2>
 				  <p><strong><?cs var:count ?> results found.</strong> Click on a member's name to see additional information.</p>
 				  <p>Didn't find what you were looking for? <a href="search.php">Start a new search.</a></p>
-				  <table border="1" cellspacing="3" cellpadding="3" class="display" id="search_resuls">
+				  <table border="0" cellspacing="3" cellpadding="3" class="display table table-striped" id="search_resuls">
 					  <thead>
 						  <tr>
 							  <th width="50%">Name</th>
