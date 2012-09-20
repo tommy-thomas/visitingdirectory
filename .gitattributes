@@ -78,6 +78,7 @@ webapp/img/uc_wordmark.png -text svneol=unset#image/png
 webapp/img/uc_wordmark_phoenix.png -text svneol=unset#image/png
 webapp/index.php -text
 webapp/j/jquery.dataTables.min.js -text
+webapp/logout.php -text
 webapp/member.php -text
 webapp/results.php -text
 webapp/search.php -text
