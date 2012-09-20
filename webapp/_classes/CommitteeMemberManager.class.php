@@ -44,7 +44,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			$member->setIdNumber( (int)$obj->ID_NUMBER );
 			$member->setCommitteeRoleCode( (string)$obj->COMMITTEE_ROLE_CODE );
 			$member->setFirstName( (string)$obj->FIRST_NAME );
-			$member->setMiddleName( (string)$obj->MIDDLE_NAME );			
+			$member->setMiddleName( $this->setValue((string)$obj->MIDDLE_NAME) );			
 			$last_name = (  isset($obj->COMMITTEE_TITLE) && ((string)$obj->COMMITTEE_TITLE) ==  'Life Member' )
 				? (string)$obj->LAST_NAME."*"
 				: (string)$obj->LAST_NAME;
@@ -67,14 +67,14 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			$email = $a_xml->xpath("//EMAIL_ADDRESSES/EMAIL_ADDRESS[@Address_Type='E']");			
 			if( isset($address[0]) )
 			{
-				$member->setStreetOne( (string)$address[0]->STREET1 );
-				$member->setStreetTwo( (string)$address[0]->STREET2 );
-				$member->setStreetThree( (string)$address[0]->STREET3 );
-				$member->setCity( (string)$address[0]->CITY );
-				$member->setState( (string)$address[0]->STATE_CODE );
-				$member->setZip( (string)$address[0]->ZIPCODE );
-				$member->setForeignCityZip( (string)$address[0]->FOREIGN_CITYZIP );
-				$member->setCountryCode( (string)$address[0]->COUNTRY_CODE );					
+				$member->setStreetOne( $this->setValue((string)$address[0]->STREET1));
+				$member->setStreetTwo( $this->setValue((string)$address[0]->STREET2));
+				$member->setStreetThree( $this->setValue((string)$address[0]->STREET3) );
+				$member->setCity( $this->setValue((string)$address[0]->CITY) );
+				$member->setState( $this->setValue((string)$address[0]->STATE_CODE) );
+				$member->setZip( $this->setValue((string)$address[0]->ZIPCODE) );
+				$member->setForeignCityZip( $this->setValue((string)$address[0]->FOREIGN_CITYZIP) );
+				$member->setCountryCode( $this->setValue((string)$address[0]->COUNTRY_CODE) );					
 			}
 			if( isset($phone[0]) )
 			{
@@ -83,7 +83,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			}
 			if( isset($email[0]) )
 			{
-				$member->setEmail( (string)$email[0] );
+				$member->setEmail( $this->setValue((string)$email[0]) );
 			}						
 		}
 	}
@@ -113,8 +113,8 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			$employment = $this->employment_info[$id];
 			if( count($employment) > 0 && isset($employment[0]) )
 			{
-				$member->setJobTitle( (string)$employment[0]->JOB );
-				$member->setEmployerName( (string)$employment[0]->EMPLOYER );
+				$member->setJobTitle( $this->setValue((string)$employment[0]->JOB) );
+			$member->setEmployerName( $this->setValue((string)$employment[0]->EMPLOYER) );
 			}			
 		}
 	}
@@ -138,14 +138,14 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		$email = $xml['address_info']->xpath("//EMAIL_ADDRESSES/EMAIL_ADDRESS[@Address_Type='E']");				
 		if( isset( $address[0] ) )
 		{
-			$member->setStreetOne( (string)$address[0]->STREET1 );
-			$member->setStreetTwo( (string)$address[0]->STREET2 );
-			$member->setStreetThree( (string)$address[0]->STREET3 );
-			$member->setCity( (string)$address[0]->CITY );
-			$member->setState( (string)$address[0]->STATE_CODE );
-			$member->setZip( (string)$address[0]->ZIPCODE );
-			$member->setForeignCityZip( (string)$address[0]->FOREIGN_CITYZIP );
-			$member->setCountryCode( (string)$address[0]->COUNTRY_CODE );
+			$member->setStreetOne( $this->setValue((string)$address[0]->STREET1));
+			$member->setStreetTwo( $this->setValue((string)$address[0]->STREET2));
+			$member->setStreetThree( $this->setValue((string)$address[0]->STREET3) );
+			$member->setCity( $this->setValue((string)$address[0]->CITY) );
+			$member->setState( $this->setValue((string)$address[0]->STATE_CODE) );
+			$member->setZip( $this->setValue((string)$address[0]->ZIPCODE) );
+			$member->setForeignCityZip( $this->setValue((string)$address[0]->FOREIGN_CITYZIP) );
+			$member->setCountryCode( $this->setValue((string)$address[0]->COUNTRY_CODE) );
 		}
 		if( isset($phone[0]) )
 		{
@@ -154,7 +154,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		}
 		if( isset($email[0]) )
 		{
-			$member->setEmail( (string)$email[0] );
+			$member->setEmail( $this->setValue((string)$email[0]) );
 		}		
 		$degree_info = $xml['degree_info']->xpath("//ENTITY/DEGREES/DEGREE");				
 		$degrees = array();
@@ -170,8 +170,8 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		$employment = $xml['employment_info'];
 		if( isset($employment[0]) )
 		{
-			$member->setJobTitle( (string)$employment[0]->JOB );
-			$member->setEmployerName( (string)$employment[0]->EMPLOYER );
+			$member->setJobTitle( $this->setValue((string)$employment[0]->JOB) );
+			$member->setEmployerName( $this->setValue((string)$employment[0]->EMPLOYER) );
 		}		
 		return $member;		
 	}
@@ -210,6 +210,19 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	        $sort_proxy[$k] = $value;
 	    }
 	    array_multisort($sort_proxy, $order, $nodes);
+	}
+	
+	public function setValue($string)
+	{
+		$str = trim((string)$string);
+		if( !empty($str))
+		{
+			return $str;
+		}
+		else
+		{
+			return null;
+		}
 	}
 }
 ?>

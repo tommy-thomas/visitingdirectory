@@ -161,7 +161,7 @@ class Collection
 			foreach ( $committees as $c )
 			{
 				$tmp = new Committee($c);				
-				$arr[] = $tmp;
+				$arr[$c['COMMITTEE_CODE']] = $tmp;
 			}
 			apc_add('active_committees', $arr , 172800);
 		}
@@ -203,14 +203,17 @@ class Collection
 	}
 	
 	public static function getCommittee($code)
-	{		
-	    foreach (apc_fetch('active_committees') as $c)
-	    {  
-	        if( is_a($c, 'Committee') && $c->getCOMMITTEE_CODE() == $code )
-	        {
-	        	return $c->getFULL_DESC();
-	        }
-	    }
+	{	
+		$desc = "";
+		if( apc_exists('active_committees') )
+		{
+			$committees = apc_fetch('active_committees');
+			if( is_a($committees[$code], 'Committee'))
+			{
+				$desc = $committees[$code]->getFULL_DESC();
+			}	
+		}
+		return $desc;
 	}
 		
 	public function getLoginUrl()

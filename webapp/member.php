@@ -25,6 +25,7 @@ $member  = $manager->getOneMember($member_xml);
 $template = $app->template('member.html.cs');
 $id_number = $member->getIdNumber();
 $member->addClassDataTemplate( $template , "CommitteeMember.$id_number.");
+
 $committees = $member->getCommittees();
 $committee_list = array();
 foreach( $committees as $key=>$value)

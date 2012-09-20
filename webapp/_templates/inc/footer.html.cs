@@ -45,7 +45,12 @@
 			sOut +='<tr>';
 			sOut +='<td>'+data[6]+'</td>';
 			sOut +='<td>&nbsp;</td>';
-			sOut +='<td>'+data[2]+', '+ data[3] + data[4] +'</td>';
+             sOut +='<td>';
+            if( data[2] != null )
+            {
+                sOut +=data[2]+', ';
+            }
+            sOut +=data[3] +' '+data[4] +'</td>';
 			sOut +='<td>&nbsp;</td>';
 			sOut +='</tr>';
 			sOut +='</table>';

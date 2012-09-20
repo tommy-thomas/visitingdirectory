@@ -17,6 +17,7 @@ if( $app->isShibbAuth() )
 	{		
 		$curl = new cURL(null);
 		$collection = Collection::instance($app , $curl );
+		//$collection->clearCollection(); exit();
 		$curl->authenticate( $collection->getLoginUrl() );
 		$_SESSION['authtoken'] = array( 'authtoken' => $curl->__toString());
 		if( $app->userIsFromSocialAuth() && isset($_SERVER['mail']) )
