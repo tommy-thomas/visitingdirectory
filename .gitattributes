@@ -57,6 +57,7 @@ webapp/img/lightbox/lightbox-btn-next.png -text svneol=unset#image/png
 webapp/img/lightbox/lightbox-btn-prev.gif -text svneol=unset#image/gif
 webapp/img/lightbox/lightbox-btn-prev.png -text svneol=unset#image/png
 webapp/img/lightbox/lightbox-ico-loading.gif -text svneol=unset#image/gif
+webapp/img/login.png -text svneol=unset#image/png
 webapp/img/magnify.png -text svneol=unset#image/png
 webapp/img/magnify_large.png -text svneol=unset#image/png
 webapp/img/maincontentbg_phoenix.gif -text svneol=unset#image/gif
