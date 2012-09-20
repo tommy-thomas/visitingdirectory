@@ -109,8 +109,3 @@
 
 		});
 		</script>
-
-<script type="text/javascript" src="http://sites.uchicago.edu/sites/all/libraries/colorbox/colorbox/jquery.colorbox-min.js?m6z4fd"></script>
-<script type="text/javascript" src="http://sites.uchicago.edu/sites/all/modules/colorbox/js/colorbox.js?m6z4fd"></script>
-<script type="text/javascript" src="http://sites.uchicago.edu/sites/all/themes/uchicago/scripts/jquery.cycle/jquery.cycle.all.min.js?m6z4fd"></script>
-<script type="text/javascript" src="http://sites.uchicago.edu/sites/all/themes/uchicago/scripts/global.js?m6z4fd"></script>
