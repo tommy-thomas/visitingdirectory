@@ -973,6 +973,49 @@ html[xmlns] .clearfix {
 #login-list li  {
   background-image: url(../img/login.png);
   background-repeat: no-repeat;
+  padding: 0 0 0 40px
 }
 
-#login-list li a.facebook 
+#login-list li.facebook {background-position: 0 0;}
+#login-list li.google {background-position: -32px 0;}
+#login-list li.yahoo {background-position: -64px 0;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -25,15 +25,15 @@
 										<p><a href="<?cs var:domain ?>/Shibboleth.sso/Login?entityID=urn:mace:incommon:uchicago.edu&target=<?cs var:base ?>index.php">Login with CNetID / UCHADID</a></p>
 										<p>Or log in using an existing account below:</p>
 										<ul id="login-list">
-											<li>
-												<a class="facebook" href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=<?cs var:domain ?>/shibboleth&source=facebook&RelayState=<?cs var:base ?>index.php">Facebook</a>
+											<li class="facebook">
+												<a href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=<?cs var:domain ?>/shibboleth&source=facebook&RelayState=<?cs var:base ?>index.php">Facebook</a>
 											</li>
-											<li>
-												<a class="google" href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=<?cs var:domain ?>/shibboleth&source=google&RelayState=<?cs var:base ?>index.php">Google</a></li>
+											<li class="google">
+												<a href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=<?cs var:domain ?>/shibboleth&source=google&RelayState=<?cs var:base ?>index.php">Google</a></li>
 								
 											
-											<li>
-												<a class="yahoo" href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=<?cs var:domain ?>/shibboleth&source=yahoo&RelayState=<?cs var:base ?>index.php">Login with Yahoo</a>
+											<li class="yahoo">
+												<a href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=<?cs var:domain ?>/shibboleth&source=yahoo&RelayState=<?cs var:base ?>index.php">Login with Yahoo</a>
 											</li>	
 										</ul>
  
