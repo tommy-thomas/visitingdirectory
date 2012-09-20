@@ -4,18 +4,22 @@ require('_classes/autoload.php');
  * The Application object.
  */
 $app = Application::app();
-if( !$app->isAuthorized() )
-{
-	$app->redirect('./index.php?error=auth');
-}
-$curl = new cURL(null);
-$collection = Collection::instance( $app , $curl ,  $_SESSION['authtoken']);
-$manager = new CommitteeMemberManager();
 /**
  * Start populating the CS template.
  * The Clear Silver template.
  */
 $template = $app->template('results.html.cs');
+if( !$app->isAuthorized() )
+{
+	$app->redirect('./index.php?error=auth');
+}
+else
+{
+	$template->add_data('LoggedIn' , true);
+}
+$curl = new cURL(null);
+$collection = Collection::instance( $app , $curl ,  $_SESSION['authtoken']);
+$manager = new CommitteeMemberManager();
 
 if( isset($_SESSION['authtoken']) )
 {

@@ -63,7 +63,7 @@ $template->add_data( "base" , $app->base() );
 /*
  * Add authentication error if set.
  */
-if( $auth_err )
+if( $auth_err || ( isset($_GET['error']) && $_GET['error'] == 'auth') )
 {
 	$template->add_data( "authentication_error" , $app->get_error_message(0) );
 }

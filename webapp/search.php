@@ -6,16 +6,16 @@ require('_classes/autoload.php');
  * The Application object.
  */
 $app = Application::app();
+$template = $app->template('search.html.cs');
 if( !$app->isAuthorized() )
 {
 	$app->redirect('./index.php?error=auth');
 }
+else
+{
+	$template->add_data('LoggedIn' , true);
+}
 
-/**
- * Start populating the CS template.
- * The Clear Silver template.
- */
-$template = $app->template('search.html.cs');
 $curl = new cURL(null);
 $collection = new Collection($app , $curl , $_SESSION['authtoken'] );
 $collection->loadCommitteeTemplateData($template);
