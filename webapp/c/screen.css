@@ -971,11 +971,13 @@ html[xmlns] .clearfix {
 #login-list {list-style: none;}
 
 #login-list li  {
-  list-style-image: none;
-  background-image: url(../img/login.png);
-  background-repeat: no-repeat;
-  padding: 0 0 0 40px;
-  font: 1.25em sans-serif;
+  background-image: url("../img/login.png");
+    background-repeat: no-repeat;
+    font: 1.25em/32px sans-serif;
+    height: 32px;
+    list-style-image: none;
+    padding: 0 0 0 40px;
+    margin: 10px 0;
 }
 
 #login-list li.facebook {background-position: 0 0;}
