@@ -24,7 +24,7 @@
 										
 										<?cs each:m=CommitteeMember ?>
 											<p>
-												<strong><?cs var:m.FirstName ?> <?cs var:m.MiddleName ?><?cs var:m.LastName ?></strong><br />
+												<strong><?cs var:m.FirstName ?><?cs if:m.MiddleName ?>&nbsp;<?cs var:m.MiddleName ?><?cs /if ?>&nbsp;<?cs var:m.LastName ?></strong><br />
 												<?cs if:m.DegreeInfo ?><?cs var:m.DegreeInfo ?><br /><?cs /if ?>
 												<?cs if:m.JobTitle ?><?cs var:m.JobTitle ?><br /><?cs /if ?>
 												<?cs if:m.EmployerName ?><?cs var:m.EmployerName ?><br /><?cs /if ?>
@@ -32,7 +32,10 @@
 												<?cs if:m.PhoneNumber ?>Phone: <?cs var:m.PhoneNumber ?><?cs /if ?>
 											</p>
 											<p>
-												<?cs if:m.StreetOne ?><?cs var:m.StreetOne ?><br /><?cs /if ?>
+												<?cs if:m.StreetOne ?><?cs var:m.StreetOne ?><?cs /if ?>
+												<?cs if:m.StreetTwo ?><br /><?cs var:m.StreetTwo ?><?cs /if ?>
+												<?cs if:m.StreetThree ?><br /><?cs var:m.StreetThree ?><?cs /if ?>
+												<br />
 												<?cs if:m.City ?><?cs var:m.City ?>,<?cs /if ?> <?cs if:m.State ?><?cs var:m.State ?><?cs /if ?> <?cs if:m.Zip ?><?cs var:m.Zip ?><?cs /if ?><br />
 												<strong>Committees:</strong><br />
 												<?cs each:c=committee_list ?>	

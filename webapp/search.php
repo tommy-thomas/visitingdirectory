@@ -17,7 +17,7 @@ else
 }
 
 $curl = new cURL(null);
-$collection = new Collection($app , $curl , $_SESSION['authtoken'] );
+$collection = Collection::instance($app , $curl , $_SESSION['authtoken'] );
 $collection->loadCommitteeTemplateData($template);
 if( isset($_GET['error']) && ($_GET['error'] == 'no_select'))
 {

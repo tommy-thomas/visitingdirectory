@@ -21,6 +21,10 @@ class Collection
 	 */
 	private $curl;
 	/*
+	 * Authentication token array passed by curl.
+	 */
+	private $token;
+	/*
 	 * Holder for raw xml or simple exml.
 	 */
 	private $xml;
@@ -39,6 +43,7 @@ class Collection
 	{	
 		$this->app = $app;
 		$this->curl = $curl;
+		$this->token = $token;
 		if( $this->app->isDev() || $this->app->isStage() )
 		{
 			$this->urls = array(
@@ -49,8 +54,8 @@ class Collection
 			'all_members' => 'https://grif-uat-soa.uchicago.edu/api/griffin/membershipaffiliation/%s',					
 			'degree_info' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s/degrees',		
 			'entity_info' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s',	
-			'email_validation' => 'https://grif-uat-soa.uchicago.edu/api/griffin/membershipaffiliation/%s?emailaddress=%s'		
-			);	
+			'email_validation' => 'https://grif-uat-soa.uchicago.edu/api/griffin/membershipaffiliation/%s?emailaddress=%s'
+			);
 		}
 		elseif( $this->app->isProd() )
 		{
@@ -69,43 +74,53 @@ class Collection
 		{
 			$this->setCache($token);
 		}		
-		if( apc_exists('all_member_data') )
+		if( apc_exists('vc_all_member_data') )
 		{
-			$this->all_member_data = simplexml_load_string( apc_fetch('all_member_data') );
+			$this->all_member_data = simplexml_load_string( apc_fetch('vc_all_member_data') );
 		}
 		else
 		{
 			if( !is_null($token))
 			{
 				$this->setCommittees($token);
-				$this->all_member_data = simplexml_load_string( apc_fetch('all_member_data') );
+				$this->all_member_data = simplexml_load_string( apc_fetch('vc_all_member_data') );
 			}
 			
 		}
-		
 		self::$collection = $this;
 	}
-	
-	public static function instance($app,$curl=null)
+	/**
+	 * Collection instance.
+	 * @param $app
+	 * @param $curl
+	 * @param $token
+	 */
+	public static function instance($app,$curl=null,$token=null)
 	{
 		if(!self::$collection)
 		{
-			self::$collection = new Collection($app,$curl);
+			self::$collection = new Collection($app,$curl,$token);
 		}
 		return self::$collection;
 	}
-	
+	/**
+	 * Set all of the member data from the big Griffin api payload the includes 
+	 * fist name, last name, middle, committee tittle and id number. 
+	 * @param $token
+	 */
 	public function setAllMemberData($token)
-	{
+	{		
 		libxml_use_internal_errors(true);
 		$this->curl->setPost($token);		
-		$this->curl->createCurl( sprintf($this->urls['all_members'], apc_fetch('active_committee_url_list') ));
-		if( !apc_exists('all_member_data') )
+		$this->curl->createCurl( sprintf($this->urls['all_members'], apc_fetch('vc_active_committee_url_list') ));
+		if( !apc_exists('vc_all_member_data') )
 		{
-			apc_add('all_member_data', $this->curl->__toString() , 172800);
-		}		
+			apc_add('vc_all_member_data', $this->curl->__toString() , 172800);
+		}
 	}
-	
+	/**
+	 * Cache list of active committees as array of Committee objects.
+	 */
 	public function setCommittees()
 	{
 		$committees = array(
@@ -156,24 +171,26 @@ class Collection
 				'FULL_DESC' => 'Visiting Committee to the School of Social Service Administration')
 		);
 		$arr = array();	
-		if( !apc_exists('active_committees') )
+		if( !apc_exists('vc_active_committees') )
 		{
 			foreach ( $committees as $c )
 			{
 				$tmp = new Committee($c);				
 				$arr[$c['COMMITTEE_CODE']] = $tmp;
 			}
-			apc_add('active_committees', $arr , 172800);
+			apc_add('vc_active_committees', $arr , 172800);
 		}
 		$this->setActiveCommitteeUrlList();
 	}
-	
+	/**
+	 * Create and cache comma seperated list of active committee codes needed to pass in some of the api urls.
+	 */
 	public function setActiveCommitteeUrlList()
 	{
 		$list = array();		
-		if( apc_exists('active_committees') && !apc_exists('active_committee_url_list'))
+		if( apc_exists('vc_active_committees') && !apc_exists('vc_active_committee_url_list'))
 		{
-			$active_committees = apc_fetch('active_committees');
+			$active_committees = apc_fetch('vc_active_committees');
 			foreach ( $active_committees as $c )
 			{
 				if( is_a($c, 'Committee'))
@@ -181,13 +198,17 @@ class Collection
 					$list[] = $c->getCOMMITTEE_CODE();
 				}								
 			}
-			apc_add('active_committee_url_list' , implode(",", $list) , 172800);
+			apc_add('vc_active_committee_url_list' , implode(",", $list) , 172800);
 		}
 	}
-	
+	/**
+	 * Load a template with active committees.
+	 * @param $template
+	 */
 	public function loadCommitteeTemplateData( $template )
 	{	
-		foreach( apc_fetch('active_committees') as $c )
+		$this->checkCache();
+		foreach( apc_fetch('vc_active_committees') as $c )
 		{	
 			if( is_a($c,'Committee') )
 			{			
@@ -196,18 +217,22 @@ class Collection
 			}					
 		}
 	}
-	
+	/**
+	 * Return the array of Committee objects.
+	 */
 	public function getCommittees()
-	{
-		return apc_fetch('active_committees');
+	{		
+		$this->checkCache();
+		return apc_fetch('vc_active_committees');		
 	}
-	
-	public static function getCommittee($code)
-	{	
-		$desc = "";
-		if( apc_exists('active_committees') )
+	/**
+	 * Return committee code key from vc_active_committees cache.
+	 */
+	public static function getCommitteeName($code)
+	{
+		if( apc_exists('vc_active_committees') )
 		{
-			$committees = apc_fetch('active_committees');
+			$committees = apc_fetch('vc_active_committees');
 			if( is_a($committees[$code], 'Committee'))
 			{
 				$desc = $committees[$code]->getFULL_DESC();
@@ -215,7 +240,9 @@ class Collection
 		}
 		return $desc;
 	}
-		
+	/**
+	 * Return griffin login url.
+	 */
 	public function getLoginUrl()
 	{
 		if( $this->app->isDev() || $this->app->isStage() )
@@ -227,14 +254,18 @@ class Collection
 			return 'https://grif-uat-soa.uchicago.edu/api/auth/login';
 		}
 	}
-	
+	/**
+	 * Return a member api url.
+	 * @param $key
+	 * @param $value
+	 */
 	public function getServiceUrl( $key=null , $value = null)
 	{
 		if( !is_null($key) && !is_null($this->urls[$key]) )
 		{
-			if( $key == 'email_validation' && apc_exists('active_committee_url_list') )
+			if( $key == 'email_validation' && apc_exists('vc_active_committee_url_list') )
 			{
-				return sprintf($this->urls[$key], apc_fetch('active_committee_url_list') , $value);
+				return sprintf($this->urls[$key], apc_fetch('vc_active_committee_url_list') , $value);
 			}
 			else
 			{
@@ -247,54 +278,31 @@ class Collection
 			return null;
 		}		
 	}
-	
-	public function getAddressInfo( $id_number = null , $token = null)
+	/**
+	 * Return simple xml obj of committee members info.
+	 * @param $id_number
+	 * @param $token
+	 */
+	public function getInfo( $id_number = null , $token = null , $key=null )
 	{
-		if( !is_null($token) && !is_null($id_number) )
+		if( !is_null($token) && !is_null($id_number) && !is_null($key))
 		{
 			/*
 			 * Suppress xml warnings. 
 			 */
 			libxml_use_internal_errors(true);
 			$this->curl->setPost($token);
-			$url = sprintf( $this->urls['address_info'] , $id_number );
-			$this->curl->createCurl( $url );
-			return $this->curl->asSimpleXML();				
-		}
-		
-	}
-	
-	public function getDegreeInfo( $id_number = null , $token = null)
-	{
-		if( !is_null($token) && !is_null($id_number) )
-		{
-			/*
-			 * Suppress xml warnings. 
-			 */
-			libxml_use_internal_errors(true);
-			$this->curl->setPost($token);
-			$url = sprintf( $this->urls['degree_info'] , $id_number );
-			$this->curl->createCurl( $url );
-			return $this->curl->asSimpleXML();	
-		}
-		
-	}
-	
-	public function getEmplymentInfo( $id_number = null , $token = null )
-	{
-		if( !is_null($token) && !is_null($id_number) )
-		{
-			/*
-			 * Suppress xml warnings. 
-			 */
-			libxml_use_internal_errors(true);
-			$this->curl->setPost($token);
-			$url = sprintf( $this->urls['entity_info'] , $id_number );
+			$which = $key.'_info';
+			$url = sprintf( $this->urls[$which] , $id_number );
 			$this->curl->createCurl( $url );
 			return $this->curl->asSimpleXML();			
 		}
 	}
-	
+	/**
+	 * Get all members as simple xml obj array based on commitee code loaded with address, degree, and employment info.
+	 * @param $code
+	 * @param $token
+	 */
 	public function getMemberData( $code=null , $token=null )
 	{
 		$info = array('address_info' , 'degree_info' , 'entity_info');	
@@ -350,9 +358,14 @@ class Collection
 		}		
 		return $members;
 	}
-	
+	/**
+	 * Get list of members and committee affiliations.
+	 * @param $xml
+	 * @param $token
+	 */
 	public function getMembersAndCommittees( $xml , $token )
 	{
+		$this->checkCache();
 		$list = array();
 		$committee_codes = array();
 		$members  = array();
@@ -383,12 +396,16 @@ class Collection
 			$cm->setIdNumber( (string)$m->ID_NUMBER );
 			$cm->setFirstName( (string)$m->FIRST_NAME );
 			$cm->setLastName( (string)$m->LAST_NAME  );	
-			$cm->setCommittees( $arr , apc_fetch('active_committees'));
+			$cm->setCommittees( $arr , apc_fetch('vc_active_committees'));
 			$members[] = $cm;
 		}
 		return $members;
 	}
-	
+	/**
+	 * Return single member info as simple xml object. 
+	 * @param $id_number
+	 * @param $token
+	 */
 	public function getOneMemberData( $id_number , $token )
 	{
 	if( !is_null($token) && !is_null($id_number) )
@@ -402,8 +419,8 @@ class Collection
 			$url = sprintf( $this->urls['entity_info'] , $id_number );
 			$this->curl->createCurl( $url );					
 			$member['entity_info'] = $this->curl->asSimpleXML();			
-			$member['address_info'] = $this->getAddressInfo( $id_number , $token );
-			$member['degree_info'] = $this->getDegreeInfo( $id_number , $token );
+			$member['address_info'] = $this->getInfo( $id_number , $token , 'address');
+			$member['degree_info'] = $this->getInfo( $id_number , $token , 'degree');
 			if( is_a($member['entity_info'], 'SimpleXMLElement') )
 			{
 				$total = $member['entity_info']->xpath('//EMPLOYMENT/JOB[@JOB_STATUS_CODE="C"]');
@@ -430,7 +447,12 @@ class Collection
 			return $member;
 		}
 	}
-	
+	/**
+	 * Get employer information based on employee id.
+	 * @param $member
+	 * @param $employer_id
+	 * @param $token
+	 */
 	public function getEmployerDataByID( $member , $employer_id , $token )
 	{
 		if( !is_null($token) && !is_null($employer_id) )
@@ -441,31 +463,49 @@ class Collection
 			libxml_use_internal_errors(true);
 			$this->curl->setPost($token);
 			$url = sprintf( $this->urls['entity_info'] , $employer_id );
-			$this->curl->createCurl( $url );					
+			$this->curl->createCurl( $url );
 			$xml = $this->curl->asSimpleXML();
 			$employer_element = $xml->xpath('//ENTITY/NAMES/NAME[@NAME_TYPE_CODE="00"]');
 			$member[0]->addChild('EMPLOYER' , (string)$employer_element[0]->REPORT_NAME );		
 		}
 		return $member;
 	}
-	
+	/**
+	 * Load the big non-distinct Griffin payloads into cache.
+	 */
 	private function setCache($token)
 	{
-		if( !apc_exists('active_committees') )
+		if( !apc_exists('vc_active_committees') )
 		{
 			$this->setCommittees();
 		}
-		if( !apc_exists('all_member_data') )
+		if( !apc_exists('vc_all_member_data') )
 		{			
 			$this->setAllMemberData($token);
 		}
 	}
-	
+	/**
+	 * Check that vc_active_committees is cached , if not set and cache it.
+	 */
+	public function checkCache()
+	{
+		if( !apc_exists('vc_active_committees') )
+		{
+			$this->setCommittees();			
+		}
+		if( isset($this->token) )
+		{
+			$this->setAllMemberData($this->token);
+		}
+	}
+	/**
+	 * Delete the cached items.
+	 */
 	public function clearCollection()
 	{
-		apc_delete('active_committees');
-		apc_delete('all_member_data');
-		apc_delete('active_committee_url_list');
+		apc_delete('vc_active_committees');
+		apc_delete('vc_all_member_data');
+		apc_delete('vc_active_committee_url_list');
 	}
 }
 ?>

@@ -37,20 +37,29 @@
 			sOut +='<td width="25%" style="align:left;">&nbsp;</td>';
 			sOut +='</tr>';
 			sOut +='<tr>';
-			sOut +='<td>'+data[5]+'</td>';
+			sOut +='<td>'+data[7]+'</td>';
 			sOut +='<td>&nbsp;</td>';
-			sOut +='<td>'+data[1]+'</td>';
+			sOut +='<td>'+data[1];
+			if( data[2] != null && data[2] != "")
+			{
+				sOut +='<br />'+data[2];
+			}
+			if( data[3] != null && data[3] != "")
+			{
+				sOut +='<br />'+data[3];
+			}
+			sOut +='</td>';
 			sOut +='<td>&nbsp;</td>';
 			sOut +='</tr>';
 			sOut +='<tr>';
-			sOut +='<td>'+data[6]+'</td>';
+			sOut +='<td>'+data[8]+'</td>';
 			sOut +='<td>&nbsp;</td>';
              sOut +='<td>';
-            if( data[2] != null )
+            if( data[4] != null && data[4] != "")
             {
-                sOut +=data[2]+', ';
+                sOut +=data[4]+', ';
             }
-            sOut +=data[3] +' '+data[4] +'</td>';
+            sOut +=data[5] +'<br />'+data[6] +'</td>';
 			sOut +='<td>&nbsp;</td>';
 			sOut +='</tr>';
 			sOut +='</table>';

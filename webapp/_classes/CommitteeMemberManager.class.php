@@ -62,7 +62,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		if( isset($this->address_info) )
 		{
 			$a_xml = $this->address_info[$id];
-			$address = $a_xml->xpath("//ADDRESS[@Address_Type='H']");
+			$address = $a_xml->xpath("//ADDRESS/ADDR_PREF_IND[. = 'Y']/parent::*");			
 			$phone = $a_xml->xpath("//PHONE_NUMBER[@Address_Type='H']");
 			$email = $a_xml->xpath("//EMAIL_ADDRESSES/EMAIL_ADDRESS[@Address_Type='E']");			
 			if( isset($address[0]) )
@@ -114,7 +114,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			if( count($employment) > 0 && isset($employment[0]) )
 			{
 				$member->setJobTitle( $this->setValue((string)$employment[0]->JOB) );
-			$member->setEmployerName( $this->setValue((string)$employment[0]->EMPLOYER) );
+				$member->setEmployerName( $this->setValue((string)$employment[0]->EMPLOYER) );
 			}			
 		}
 	}
@@ -133,7 +133,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			$member->setMiddleName( (string)$middle[0] );	
 		}		
 		$member->setLastName( (string)$lname[0] );
-		$address = $xml['address_info']->xpath("//ADDRESS[@Address_Type='H']") ;
+		$address = $xml['address_info']->xpath("//ADDRESS/ADDR_PREF_IND[. = 'Y']/parent::*");
 		$phone = $xml['address_info']->xpath("//PHONE_NUMBER[@Address_Type='H']");
 		$email = $xml['address_info']->xpath("//EMAIL_ADDRESSES/EMAIL_ADDRESS[@Address_Type='E']");				
 		if( isset( $address[0] ) )

@@ -42,7 +42,7 @@
 							<?cs each:m=CommitteeMember ?>
 								<tr class="row-view">
 									<td><?cs var:m.LastName ?>
-										<div class="infodiv" style="display:none;"><?cs var:m.DegreeInfo ?>:<?cs var:m.StreetOne ?>:<?cs var:m.City ?>:<?cs var:m.State ?>:<?cs var:m.Zip ?>:<?cs var:m.JobTitle ?>:<?cs var:m.EmployerName ?></div>
+										<div class="infodiv" style="display:none;"><?cs var:m.DegreeInfo ?>:<?cs var:m.StreetOne ?>:<?cs var:m.StreetTwo ?>:<?cs var:m.StreetThree ?>:<?cs var:m.City ?>:<?cs var:m.State ?>:<?cs var:m.Zip ?>:<?cs var:m.JobTitle ?>:<?cs var:m.EmployerName ?></div>
 									</td>
 									<td><?cs var:m.FirstName ?> <?cs var:m.MiddleName ?></td>
 									<td><?cs var:m.Email ?></td>

@@ -16,8 +16,7 @@ if( $app->isShibbAuth() )
 	elseif( $app->isValidService()  )
 	{		
 		$curl = new cURL(null);
-		$collection = Collection::instance($app , $curl );
-		//$collection->clearCollection(); exit();
+		$collection = Collection::instance($app , $curl );	
 		$curl->authenticate( $collection->getLoginUrl() );
 		$_SESSION['authtoken'] = array( 'authtoken' => $curl->__toString());
 		if( $app->userIsFromSocialAuth() && isset($_SERVER['mail']) )
@@ -74,7 +73,5 @@ if( $soc_auth_err )
 {
 	$template->add_data( "authentication_error" , $app->get_error_message(1) );
 }
-
 $template->show();
-	
 ?>
