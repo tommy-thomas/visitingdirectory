@@ -621,7 +621,7 @@ form div.w50 {width: 45%;}
 form div.w25 {width: 20%;}
 
 form div label {margin-bottom: 5px; display: block;}
-form div.first {margin-left: 0;}
+form div.first {margin-left: 0; clear: left;}
 
 /* -- GENERAL input styles -- */
 
@@ -976,7 +976,7 @@ html[xmlns] .clearfix {
     font: 1.25em/24px sans-serif;
     height: 24px;
     list-style-image: none;
-    padding: 0 0 0 40px;
+    padding: 0 0 0 32px;
     margin: 10px 0;
 }
 

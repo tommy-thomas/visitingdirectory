@@ -31,7 +31,7 @@
 													<option value="<?cs var:c.COMMITTEE_CODE ?>"><?cs var:c.SHORT_DESC ?></option>     	      			
 													<?cs /each ?>
 												</select>
-												<input class="btn" type="submit" name="search_by_committee" value="Go" />
+												<div><input class="btn" type="submit" name="search_by_committee" value="Go" /></div>
 											</div>	
 										</form>
 
@@ -41,7 +41,7 @@
 												<label for="f_name">First Name</label>
 												<input name="f_name" type="text" />
 											</div>
-											<div class="w50" id="">
+											<div class="w50 first" id="">
 												<label for="l_name">Last Name</label>
 												<input name="l_name" type="text" />
 											</div>
