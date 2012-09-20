@@ -1,27 +1,44 @@
 <?php
+/**
+ * 
+ * A class used as a catch all for several cURL queries, urls to Griffin api, and setters for
+ * PHP's  Alternative PHP Cache.
+ * @author tommyt
+ *
+ */
 class Collection
 {
+	/*
+	 * Class instance.
+	 */
 	static private $collection;
-	
+	/*
+	 * Application app.
+	 */
 	private $app;
-	
+	/*
+	 * cURL curl.
+	 */
 	private $curl;
-	
+	/*
+	 * Holder for raw xml or simple exml.
+	 */
 	private $xml;
-	
+	/*
+	 * Array of sevice urls.
+	 */
 	private $urls = array();
-	
-	private $xmlreader;
-	
-	private $affiliations_array = array();
-	
-	private $active_committees;
-	
-	public function __construct( Application $app , cURL $curl = null )
+	/*
+	 * All member data as array of simple xml.
+	 */
+	private $all_member_data;
+	/**
+     * Public constructor.
+	 */
+	public function __construct( Application $app , cURL $curl = null  , $token = null)
 	{	
 		$this->app = $app;
 		$this->curl = $curl;
-		$this->xmlreader = new XMLReader();
 		if( $this->app->isDev() || $this->app->isStage() )
 		{
 			$this->urls = array(
@@ -48,6 +65,24 @@ class Collection
 			'email_validation' => 'https://grif-uat-soa.uchicago.edu/api/griffin/membershipaffiliation/%s?emailaddress=%s'			
 			);	
 		}
+		if( !is_null($token) )
+		{
+			$this->setCache($token);
+		}		
+		if( apc_exists('all_member_data') )
+		{
+			$this->all_member_data = simplexml_load_string( apc_fetch('all_member_data') );
+		}
+		else
+		{
+			if( !is_null($token))
+			{
+				$this->setCommittees($token);
+				$this->all_member_data = simplexml_load_string( apc_fetch('all_member_data') );
+			}
+			
+		}
+		
 		self::$collection = $this;
 	}
 	
@@ -67,88 +102,69 @@ class Collection
 		$this->curl->createCurl( sprintf($this->urls['all_members'], apc_fetch('active_committee_url_list') ));
 		if( !apc_exists('all_member_data') )
 		{
-			apc_store('all_member_data', $this->curl->__toString() , 86400);
+			apc_add('all_member_data', $this->curl->__toString() , 172800);
 		}		
 	}
 	
-	public function setCommittees( $token )
+	public function setCommittees()
 	{
-//		libxml_use_internal_errors(true);
-//		$this->curl->setPost($token);		
-//		$this->curl->createCurl( $this->urls['active_committees'] );
-//		$result = $this->curl->asSimpleXML();
-//		$list = $result->xpath('//ROW[STATUS_CODE = "A" and contains(SHORT_DESC, "VSC")]');
-//		$_SESSION['active_committees'] = array();
-//		$arr = array();
-//		foreach ( $list as $xml )
-//		{
-//			$c = new Committee($xml);
-//			$arr[] = $c;			
-//		}
-//		$_SESSION['active_committees'] = $arr;
-//		protected $COMMITTEE_CODE;
-//		protected $SHORT_DESC;
-//		protected $FULL_DESC;
 		$committees = array(
-			array('COMMITTEE_CODE' => 'VCGS',
-				'SHORT_DESC' => 'Council on the Graham School'),					
-			array('COMMITTEE_CODE' => 'VCLD',
-				'SHORT_DESC' => 'Pub Pol Stds Visit Committee'),			
-			array('COMMITTEE_CODE' => 'VCLY',
-				'SHORT_DESC' => 'Council on Chicago Booth'),				
-			array('COMMITTEE_CODE' => 'VCLZ',
-				'SHORT_DESC' => 'Visiting Committee for UCMC'),				
-			array('COMMITTEE_CODE' => 'VCPC',
-				'SHORT_DESC' => 'Visiting Committee for the Paris Center'),	
-			array('COMMITTEE_CODE' => 'VCSA',
-				 'SHORT_DESC' => 'Coll and Student Act Vis Committee'),			
-			array('COMMITTEE_CODE' => 'VSVC',
-				'SHORT_DESC' => 'SSA Visiting Committee'),			
-			array('COMMITTEE_CODE' => 'VVCL',
-				'SHORT_DESC' => 'College Visiting Committee'),			
-			array('COMMITTEE_CODE' => 'VVHM',
-				'SHORT_DESC' => 'HUM Div Visiting Committee'),			
-			array('COMMITTEE_CODE' => 'VVIP',
-				'SHORT_DESC' => 'Stud Prgr/Facs Visit Committee'),			
-			array('COMMITTEE_CODE' => 'VVLB',
-				'SHORT_DESC' => 'Library Visiting Committee'),			
-			array('COMMITTEE_CODE' => 'VVLW',
-				'SHORT_DESC' => 'Law School Visiting Committee'),			
-			array('COMMITTEE_CODE' => 'VVME',
-				'SHORT_DESC' => 'Far East Visiting Committee'),			
-			array('COMMITTEE_CODE' => 'VVMS',
-				'SHORT_DESC' => 'Music Dept Visiting Committee'),			
-			array('COMMITTEE_CODE' => 'VVOI',
-				'SHORT_DESC' => 'Oriental Inst Visiting Committee'),			
-			array('COMMITTEE_CODE' => 'VVPS',
-				'SHORT_DESC' => 'Phys Scis Div Visiting Committee'),			
 			array('COMMITTEE_CODE' => 'VVRT',
-				'SHORT_DESC' => 'Art History Visiting Committee'),			
-			array('COMMITTEE_CODE' => 'VVSS',
-				'SHORT_DESC' => 'Soc Scis Div Visiting Committee'),			
+				'SHORT_DESC' => 'Art History',
+				'FULL_DESC' => 'Visiting Committee to the Department of Art History'),
+			array('COMMITTEE_CODE' => 'VCLZ',
+				'SHORT_DESC' => 'Biological Sciences and Pritzker',
+				'FULL_DESC' => 'Visiting Committee to the Division of the Biological Sciences and the Pritzker School of Medicine '),
+			array('COMMITTEE_CODE' => 'VCLY',
+				'SHORT_DESC' => 'Chicago Booth',
+				'FULL_DESC' => 'Council on the University of Chicago Booth School of Business'),
+			array('COMMITTEE_CODE' => 'VCSA',
+				'SHORT_DESC' => 'College and Student Activities',
+				'FULL_DESC' => 'Visiting Committee on the College and Student Activities'),
 			array('COMMITTEE_CODE' => 'VVTH',
-				'SHORT_DESC' => 'DIV Visiting Committee'),			
-			array('COMMITTEE_CODE' => 'VVUR',
-			 	'SHORT_DESC' => 'Univ-School Relations Visit Committee')
+				'SHORT_DESC' => 'Divinity',
+				'FULL_DESC' => 'Visiting Committee to the Divinity School '),
+			array('COMMITTEE_CODE' => 'VCGS',
+				'SHORT_DESC' => 'Graham School',
+				'FULL_DESC' => 'Council on the Graham School'),
+			array('COMMITTEE_CODE' => 'VVHM',
+				'SHORT_DESC' => 'Humanities',
+				'FULL_DESC' => 'Visiting Committee to the Division of the Humanities'),
+			array('COMMITTEE_CODE' => 'VVLW',
+				'SHORT_DESC' => 'Law School',
+				'FULL_DESC' => 'Visiting Committee to the Law School'),
+			array('COMMITTEE_CODE' => 'VVLB',
+				'SHORT_DESC' => 'Library',
+				'FULL_DESC' => 'Visiting Committee to the Library'),
+			array('COMMITTEE_CODE' => 'VVMS',
+				'SHORT_DESC' => 'Music',
+				'FULL_DESC' => 'Visiting Committee to the Department of Music'),
+			array('COMMITTEE_CODE' => 'VVOI',
+				'SHORT_DESC' => 'Oriental Institute',
+				'FULL_DESC' => 'Visiting Committee to the Oriental Institute'),
+			array('COMMITTEE_CODE' => 'VVPS',
+				'SHORT_DESC' => 'Physical Sciences',
+				'FULL_DESC' => 'Visiting Committee to the Division of the Physical Sciences'),
+			array('COMMITTEE_CODE' => 'VCLD',
+				'SHORT_DESC' => 'Public Policy',
+				'FULL_DESC' => 'Visiting Committee to the Irving B. Harris Graduate School of Public Policy Studies'),
+			array('COMMITTEE_CODE' => 'VVSS',
+				'SHORT_DESC' => 'Social Sciences',
+				'FULL_DESC' => 'Visiting Committee to the Division of the Social Sciences'),
+			array('COMMITTEE_CODE' => 'VSVC',
+				'SHORT_DESC' => 'Social Service Administration',
+				'FULL_DESC' => 'Visiting Committee to the School of Social Service Administration')
 		);
-		$_SESSION['active_committees'] = array();
-		$root = "<root></root>";
-		$xml = new SimpleXMLElement($root);
-		foreach ( $committees as $arr )
+		$arr = array();	
+		if( !apc_exists('active_committees') )
 		{
-			$committee = $xml->addChild('COMMITTEE');
-			$committee->addChild('COMMITTEE_CODE',$arr['COMMITTEE_CODE'] );
-			$committee->addChild('SHORT_DESC',$arr['SHORT_DESC']);
-		}
-		foreach ( $xml as $com )
-		{			
-			$c = new Committee($com);
-			if( is_a($c, 'Committee'))
+			foreach ( $committees as $c )
 			{
-				$arr[] = $c;				
-			}			
+				$tmp = new Committee($c);				
+				$arr[] = $tmp;
+			}
+			apc_add('active_committees', $arr , 172800);
 		}
-		apc_store('active_committees' , $arr , 86400);
 		$this->setActiveCommitteeUrlList();
 	}
 	
@@ -165,7 +181,7 @@ class Collection
 					$list[] = $c->getCOMMITTEE_CODE();
 				}								
 			}
-			apc_store('active_committee_url_list' , implode(",", $list) , 86400);
+			apc_add('active_committee_url_list' , implode(",", $list) , 172800);
 		}
 	}
 	
@@ -192,7 +208,7 @@ class Collection
 	    {  
 	        if( is_a($c, 'Committee') && $c->getCOMMITTEE_CODE() == $code )
 	        {
-	        	return $c->getSHORT_DESC();
+	        	return $c->getFULL_DESC();
 	        }
 	    }
 	}
@@ -278,10 +294,8 @@ class Collection
 	
 	public function getMemberData( $code=null , $token=null )
 	{
-		$info = array('address_info' , 'degree_info' , 'entity_info');
-		$data = apc_fetch('all_member_data');
-		$xml = simplexml_load_string($data);	
-		$list = $xml->xpath('//COMMITTEES/COMMITTEE/ID_NUMBER[../COMMITTEE_CODE/text()="'.$code.'"]');
+		$info = array('address_info' , 'degree_info' , 'entity_info');	
+		$list = $this->all_member_data->xpath('//COMMITTEES/COMMITTEE/ID_NUMBER[../COMMITTEE_CODE/text()="'.$code.'"]');
 		$members = array();
 		$data = array();
 		if( !is_null($list) && !is_null($token) )
@@ -432,5 +446,23 @@ class Collection
 		return $member;
 	}
 	
+	private function setCache($token)
+	{
+		if( !apc_exists('active_committees') )
+		{
+			$this->setCommittees();
+		}
+		if( !apc_exists('all_member_data') )
+		{			
+			$this->setAllMemberData($token);
+		}
+	}
+	
+	public function clearCollection()
+	{
+		apc_delete('active_committees');
+		apc_delete('all_member_data');
+		apc_delete('active_committee_url_list');
+	}
 }
 ?>

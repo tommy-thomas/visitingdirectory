@@ -9,7 +9,7 @@ if( !$app->isAuthorized() )
 	$app->redirect('./index.php?error=auth');
 }
 $curl = new cURL(null);
-$collection = Collection::instance( $app , $curl );
+$collection = Collection::instance( $app , $curl ,  $_SESSION['authtoken']);
 $manager = new CommitteeMemberManager();
 /**
  * Start populating the CS template.

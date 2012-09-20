@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 require('_classes/autoload.php');
 /**
  * The Application object.
@@ -17,10 +16,9 @@ if( $app->isShibbAuth() )
 	elseif( $app->isValidService()  )
 	{		
 		$curl = new cURL(null);
-		$collection = Collection::instance($app , $curl );	
+		$collection = Collection::instance($app , $curl );
 		$curl->authenticate( $collection->getLoginUrl() );
 		$_SESSION['authtoken'] = array( 'authtoken' => $curl->__toString());
-		$collection->setCommittees($_SESSION['authtoken']);
 		if( $app->userIsFromSocialAuth() && isset($_SERVER['mail']) )
 		{
 			$curl->setPost($_SESSION['authtoken']);	
@@ -30,7 +28,7 @@ if( $app->isShibbAuth() )
 				$soc_auth_err = true;
 			}
 			else
-			{
+			{		
 				$_SESSION['email'] =  $_SERVER['mail'];
 				$app->redirect('./search.php');
 			}	

@@ -28,7 +28,15 @@
 		{
 			if( isset($this->PhoneNumber) && strlen($this->PhoneNumber) == 7)
 			{
-				return preg_replace('~(\d{3})[^\d]*(\d{4})$~', '$1-$2', $this->PhoneNumber);
+				$tx = preg_replace('~(\d{3})[^\d]*(\d{4})$~', '$1-$2', $this->PhoneNumber);
+				if( isset($this->PhoneAreaCode) && strlen($this->PhoneAreaCode) == 3)
+				{
+					return $this->PhoneAreaCode.'-'.$tx;
+				}
+				else
+				{
+					return $tx;
+				}
 			}
 			else
 			{
@@ -77,7 +85,7 @@
 					{
 						if( is_a($c,'Committee') && (string)$x->COMMITTEE_CODE == (string)$c->getCOMMITTEE_CODE())
 						{
-							$this->Committees[(string)$x->COMMITTEE_CODE] = (string)$c->getSHORT_DESC();
+							$this->Committees[(string)$x->COMMITTEE_CODE] = (string)$c->getFULL_DESC();
 						}
 					}
 				}

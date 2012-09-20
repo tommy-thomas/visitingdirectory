@@ -29,7 +29,7 @@
 												<?cs if:m.JobTitle ?><?cs var:m.JobTitle ?><br /><?cs /if ?>
 												<?cs if:m.EmployerName ?><?cs var:m.EmployerName ?><br /><?cs /if ?>
 												<?cs if:m.Email ?><?cs var:m.Email ?><br /><?cs /if ?>
-												<?cs if:m.PhoneNumber ?>Phone: <?cs var:m.PhoneAreaCode ?> <?cs var:m.PhoneNumber ?><?cs /if ?>
+												<?cs if:m.PhoneNumber ?>Phone: <?cs var:m.PhoneNumber ?><?cs /if ?>
 											</p>
 											<p>
 												<?cs if:m.StreetOne ?><?cs var:m.StreetOne ?><br /><?cs /if ?>

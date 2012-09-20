@@ -1,18 +1,40 @@
 <?php
+/**
+ * 
+ * Application class
+ * @author tommyt
+ *
+ */
 class Application extends WS_Application
 {
+	/*
+	 * App
+	 */
 	static private $app;
-	
-	private $maxtime = 3600;	
-	
+	/*
+	 * Session timeout variable.
+	 */
+	private $maxtime = 3600;
+	/*
+	 * Whitelist for autorized social auth services.
+	 */
 	private $social_auth_whitelist = array('facebook.com' , 'google.com' , 'yahoo.com' );
-	
+	/*
+	 * Whitelist for u of c user groups.
+	 */
 	private $group_white_list = array('uc:org:nsit:webservices:members','uc:org:ard:griffinusers');
-	
+	/*
+	 * Valid Shibb provider
+	 */
 	const SHIBB_AUTH_PROVIDER = "urn:mace:incommon:uchicago.edu";
-	
+	/*
+	 * Social auth gateway.
+	 */
 	const SOCIAL_AUTH_GATEWAY = "https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/metadata.php";	
 	
+	/**
+	 * Public constructor.
+	 */
 	public function __construct()
 	{
 		parent::__construct(1, $this->maxtime);
@@ -31,7 +53,10 @@ class Application extends WS_Application
 		}
 		return self::$app;
 	}
-	
+	/**
+	 * Return error message.
+	 * @param $i
+	 */
 	public function get_error_message($i)
 	{
 		$error_message = array(
@@ -40,14 +65,18 @@ class Application extends WS_Application
 		);
 		return isset( $error_message[$i]) ? $error_message[$i] : array(); 
 	}
-	
+	/**
+	 * Return url including http(s).
+	 */
 	public function domain()
 	{
 		$parts = parse_url( self::$app->base() );
 		$url = $parts['scheme'].'://'.$parts['host'];
 		return $url;
 	}
-	
+	/**
+	 * Return if authorization being attempted from Shibb?
+	 */
 	public function isShibbAuth()
 	{
 		if( isset($_SERVER['Shib-Session-ID']) )
@@ -59,7 +88,10 @@ class Application extends WS_Application
 			return false;
 		}
 	}
-	
+	/**
+	 * 
+	 * Return if authorization being attempted a valid service.
+	 */
 	public function isValidService()
 	{
 		$is_valid_service = false;
@@ -84,7 +116,10 @@ class Application extends WS_Application
 		}		
 		return $is_valid_service;
 	}
-	
+	/**
+	 * Checks to see if group in $_SERVER['ucisMemberOf']
+	 * returned from Shibb is in $group_white_list.
+	 */
 	public function isValidGroup()
 	{	
 		$groups = array();
@@ -95,20 +130,26 @@ class Application extends WS_Application
 		$result = array_intersect($this->group_white_list, $groups);
 		return count($result) > 0 ? true : false;
 	}
-	
+	/**
+	 * Is user using Shibb to authenticate?
+	 */
 	public function userIsFromShibb()
 	{
 		return ( isset($_SERVER['Shib-Identity-Provider']) && ($_SERVER['Shib-Identity-Provider'] == self::SHIBB_AUTH_PROVIDER));
 	}
-	
+	/**
+	 * Is user using social auth gateway to authenticate?
+	 */
 	public function userIsFromSocialAuth()
 	{
 		return ( isset($_SERVER['Shib-Identity-Provider']) && ($_SERVER['Shib-Identity-Provider'] == self::SOCIAL_AUTH_GATEWAY) && !is_null($_SERVER['PHP_AUTH_USER']));
 	}
-	
+	/**
+	 * If session email variable is set , user is authorized.
+	 */	
 	public function isAuthorized()
 	{
-		return isset($_SESSION['email']);
+		return ( isset($_SESSION['email']) && isset($_SESSION['authtoken']) );
 	}
 }
 ?>

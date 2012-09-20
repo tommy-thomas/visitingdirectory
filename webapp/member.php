@@ -33,4 +33,5 @@ foreach( $committees as $key=>$value)
 }
 $template->add_data('committee_list', $committee_list , false );
 $template->show();
+  
 ?>

@@ -30,9 +30,8 @@
 											</li>
 											<li>
 												<a href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=<?cs var:domain ?>/shibboleth&source=google&RelayState=<?cs var:base ?>index.php">Google</a></li>
-											<li>
-												<a href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=<?cs var:domain ?>/shibboleth&source=linkedin&RelayState=<?cs var:base ?>index.php">Login with Linked-In</a></li>
-											<!--// <li> <a href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=<?cs var:domain ?>/shibboleth&source=twitter&RelayState=<?cs var:base ?>index.php">Login with Twitter</a></li> //-->
+								
+											
 											<li>
 												<a href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=<?cs var:domain ?>/shibboleth&source=yahoo&RelayState=<?cs var:base ?>index.php">Login with Yahoo</a>
 											</li>	

@@ -5,16 +5,22 @@ class Committee extends WS_DynamicGetterSetter
 	protected $SHORT_DESC;
 	protected $FULL_DESC;
 	
-	public function __construct( SimpleXMLElement $xml )
+	public function __construct( $array=array() )
 	{
-		$class_vars = get_class_vars('Committee');
-		foreach ( $class_vars as $key=>$value)
-		{
-			if( isset($xml->$key ) )
+		try {
+			if( !empty($array) )
 			{
-				$this->$key = (string)$xml->$key;
+				foreach( $array as $key=>$value)
+				{
+					if( property_exists($this,$key))
+					{
+						$this->$key = $value;
+					}
+				}
 			}
-		}			
+		} catch (Exception $e) {
+			Application::handleException($e);
+		}				
 	}
 	
 	public function getSHORT_DESC()
