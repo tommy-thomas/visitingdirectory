@@ -17,7 +17,7 @@
 						<?cs if:authentication_error ?>
 							<div class="error"><?cs var:authentication_error ?></div>
 						<?cs /if ?>	
-							<h1 id="page-title">Visiting Committees Directory</h1>
+							<h1 id="page-title">Visiting Committees Directory - beta</h1>
 							<div id="bottomrow" class="">
 								<div class="grid_9 alpha">
 									<div class="content region-content">

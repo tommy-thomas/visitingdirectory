@@ -19,7 +19,7 @@
 		  <div id="main" class=" container_12">
 			<div id="content" class="column grid_9 push_3 ">
 			
-			  <h1 id="page-title">Visiting Committees Directory</h1>
+			  <h1 id="page-title">Visiting Committees Directory - beta</h1>
 			  <div id="bottomrow" class="">
 				<div class="grid_9 alpha">
 					<div class="content region-content">
