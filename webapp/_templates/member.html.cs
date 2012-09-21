@@ -24,7 +24,7 @@
 										
 										<?cs each:m=CommitteeMember ?>
 											<p>
-												<strong><?cs var:m.FirstName ?><?cs if:m.MiddleName ?>&nbsp;<?cs var:m.MiddleName ?><?cs /if ?>&nbsp;<?cs var:m.LastName ?></strong><br />
+												<strong><?cs var:m.FullName ?></strong><br />
 												<?cs if:m.DegreeInfo ?><?cs var:m.DegreeInfo ?><br /><?cs /if ?>
 												<?cs if:m.JobTitle ?><?cs var:m.JobTitle ?><br /><?cs /if ?>
 												<?cs if:m.EmployerName ?><?cs var:m.EmployerName ?><br /><?cs /if ?>

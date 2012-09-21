@@ -6,6 +6,7 @@
 		protected $FirstName;
 		protected $MiddleName;
 		protected $LastName;
+		protected $FullName;
 		protected $StreetOne;
 		protected $StreetTwo;
 		protected $StreetThree;
@@ -50,6 +51,23 @@
 			{
 				return implode(", " , $this->DegreeInfo);
 			}
+		}
+		
+		public function getFullName()
+		{			
+			if( !is_null($this->FirstName) && strlen($this->FirstName) )
+			{
+				$this->FullName .= $this->FirstName." ";
+			}
+			if( !is_null($this->MiddleName) && strlen($this->MiddleName) )
+			{
+				$this->FullName .= $this->MiddleName." ";
+			}
+			if( !is_null($this->LastName) && strlen($this->LastName) )
+			{
+				$this->FullName .= $this->LastName;
+			}
+			return $this->FullName;
 		}
 		
 		public function setCommittees($ids=array(), $committees=array())

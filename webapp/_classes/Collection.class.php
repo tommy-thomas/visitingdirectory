@@ -112,7 +112,7 @@ class Collection
 	{		
 		libxml_use_internal_errors(true);
 		$this->curl->setPost($token);		
-		$this->curl->createCurl( sprintf($this->urls['all_members'], apc_fetch('vc_active_committee_url_list') ));
+		$this->curl->createCurl( sprintf($this->urls['all_members'], apc_fetch('vc_active_committee_code_list') ));
 		if( !apc_exists('vc_all_member_data') )
 		{
 			apc_add('vc_all_member_data', $this->curl->__toString() , 172800);
@@ -188,7 +188,7 @@ class Collection
 	public function setActiveCommitteeUrlList()
 	{
 		$list = array();		
-		if( apc_exists('vc_active_committees') && !apc_exists('vc_active_committee_url_list'))
+		if( apc_exists('vc_active_committees') && !apc_exists('vc_active_committee_code_list'))
 		{
 			$active_committees = apc_fetch('vc_active_committees');
 			foreach ( $active_committees as $c )
@@ -198,7 +198,7 @@ class Collection
 					$list[] = $c->getCOMMITTEE_CODE();
 				}								
 			}
-			apc_add('vc_active_committee_url_list' , implode(",", $list) , 172800);
+			apc_add('vc_active_committee_code_list' , implode(",", $list) , 172800);
 		}
 	}
 	/**
@@ -263,15 +263,14 @@ class Collection
 	{
 		if( !is_null($key) && !is_null($this->urls[$key]) )
 		{
-			if( $key == 'email_validation' && apc_exists('vc_active_committee_url_list') )
+			if( $key == 'email_validation' && apc_exists('vc_active_committee_code_list') )
 			{
-				return sprintf($this->urls[$key], apc_fetch('vc_active_committee_url_list') , $value);
+				return sprintf($this->urls[$key], apc_fetch('vc_active_committee_code_list') , $value);
 			}
 			else
 			{
 				return sprintf($this->urls[$key],  $value);
 			}
-			
 		}
 		else
 		{
@@ -430,8 +429,7 @@ class Collection
 				if( $total > 0 && !empty($member['employment_info']))
 				{
 					$attributes = $member['employment_info'][0]->attributes();							
-					$member['employment_info'][0]->addChild('JOB' , (string)$member['employment_info'][0] );
-					$attributes =$member['employment_info'][0]->attributes();
+					$member['employment_info'][0]->addChild('JOB' , (string)$member['employment_info'][0] );					
 					$employer_id = trim($attributes['EMPLOYER_ID_NUMBER']);
 					$employer_name = trim($attributes['EMPLOYER_NAME1']);
 					if( !empty($employer_id) && empty($employer_name) )
@@ -505,7 +503,7 @@ class Collection
 	{
 		apc_delete('vc_active_committees');
 		apc_delete('vc_all_member_data');
-		apc_delete('vc_active_committee_url_list');
+		apc_delete('vc_active_committee_code_list');
 	}
 }
 ?>
