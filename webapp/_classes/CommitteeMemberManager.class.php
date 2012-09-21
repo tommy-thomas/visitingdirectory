@@ -93,7 +93,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		if( isset($this->degree_info) && !is_null($id) )
 		{
 			$d_xml = $this->degree_info[$id];
-			$degrees = $d_xml->xpath("//DEGREE");
+			$degrees = $d_xml->xpath("//ENTITY/DEGREES/DEGREE/LOCAL_IND[. = 'Y']/parent::*");
 			$degree_info = array();
 			foreach ( $degrees as $d )
 			{				
@@ -155,7 +155,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		if( isset($email[0]) )
 		{
 			$member->setEmail( $this->setValue((string)$email[0]) );
-		}		
+		}
 		$degree_info = $xml['degree_info']->xpath("//ENTITY/DEGREES/DEGREE/LOCAL_IND[. = 'Y']/parent::*");		
 		$degrees = array();
 		foreach ( $degree_info as $d )
