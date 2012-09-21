@@ -70,7 +70,6 @@
 		</div><!-- /#page-wrapper -->
 
 	<?cs include:"inc/footer.html.cs" ?>
-
 	<!-- Insert all js calls here  (jquery is included in the footer inc) -->
 	
 	</body>

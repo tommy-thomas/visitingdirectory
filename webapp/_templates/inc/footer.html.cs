@@ -21,6 +21,7 @@
 <!-- /#footer-wrapper -->
 
 <script type="text/javascript" src="https://webresources.uchicago.edu/js/jquery-1.4.4.min.js"></script>
+<script src="j/cache.js"></script>
 <script src="https://webresources.uchicago.edu/js/jquery-ui-1.8.11.custom.js"></script>	
 <script src="j/jquery.dataTables.min.js"></script>	
  <!-- Insert all js calls here  (jquery is included in the footer inc) -->

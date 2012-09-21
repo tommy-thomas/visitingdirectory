@@ -109,7 +109,7 @@ class Collection
 	 * @param $token
 	 */
 	public function setAllMemberData($token)
-	{		
+	{	
 		libxml_use_internal_errors(true);
 		$this->curl->setPost($token);		
 		$this->curl->createCurl( sprintf($this->urls['all_members'], apc_fetch('vc_active_committee_code_list') ));
@@ -199,6 +199,16 @@ class Collection
 				}								
 			}
 			apc_add('vc_active_committee_code_list' , implode(",", $list) , 172800);
+		}
+	}
+	/**
+	 * Return comma seperated active code list.
+	 */
+	public function getActiveCommitteeUrlList()
+	{
+		if( apc_exists('vc_active_committee_code_list') )
+		{
+			return apc_fetch('vc_active_committee_code_list');
 		}
 	}
 	/**
