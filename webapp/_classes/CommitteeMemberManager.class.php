@@ -22,7 +22,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		{
 			try
 			{
-				$this->all_member_data = simplexml_load_string( apc_fetch('all_member_data') );
+				$this->all_member_data = simplexml_load_string( apc_fetch('vc_all_member_data') );
 			} catch (Exception $e) {
 				Application::handleExceptions($e);
 			}
@@ -156,7 +156,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		{
 			$member->setEmail( $this->setValue((string)$email[0]) );
 		}		
-		$degree_info = $xml['degree_info']->xpath("//ENTITY/DEGREES/DEGREE");				
+		$degree_info = $xml['degree_info']->xpath("//ENTITY/DEGREES/DEGREE/LOCAL_IND[. = 'Y']/parent::*");		
 		$degrees = array();
 		foreach ( $degree_info as $d )
 		{				
