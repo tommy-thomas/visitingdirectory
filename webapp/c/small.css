@@ -12,7 +12,7 @@
 
 /* Collapse sidebar blocks by default */
 .sidebar .block{padding-bottom:0; margin-bottom:1px;}
-.sidebar .block h2{margin-bottom:0; padding:10px;}
+.sidebar .block h2{margin-bottom:0; padding:10px; cursor: pointer;}
 .sidebar .block h2:after{content:"\00a0\203A";}
 .sidebar .block h2+.content{display:none;}
 .sidebar .block .content{margin-bottom:10px}

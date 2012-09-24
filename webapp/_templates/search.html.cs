@@ -32,7 +32,7 @@
 													<?cs /each ?>
 												</select>
 												<div><input class="btn" type="submit" name="search_by_committee" value="Go" /></div>
-											</div>	
+											</div>
 										</form>
 
 										<h2>Search by Name</h2>
@@ -48,7 +48,7 @@
 										
 											<div><input class="btn" type="submit" name="search_by_name" value="Search" /></div>
 										</form>
-									
+										<div class="clear" id=""></div>
 									</div>
 								</div>
 							</div>
