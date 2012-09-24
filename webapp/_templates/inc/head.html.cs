@@ -3,10 +3,17 @@
 		<link rel="shortcut icon" href="/img/favicon.ico" type="image/vnd.microsoft.icon" />
 
 		<style type="text/css" media="all">
-			@import url("/c/screen.css");
-			@import url("/c/small.css");
+			@import url("c/layout.css");
+			@import url("c/style.css");
+			@import url("c/screen.css");
+
+			@import url("c/colors/phoenix.css");
+			@import url("c/small.css");
+			@import url("c/background.css");
+			@import url("c/base.css");
+
 		</style>
-		<style type="text/css" media="print">@import url("/c/print.css");</style> 
+		<style type="text/css" media="print">@import url("c/print.css");</style> 
 		<!--[if lte IE 7]>
 			<link type="text/css" rel="stylesheet" href="/c/ie7.css" media="all" />
 		<![endif]-->

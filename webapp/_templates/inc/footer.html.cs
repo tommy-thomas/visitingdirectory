@@ -21,7 +21,6 @@
 <!-- /#footer-wrapper -->
 
 <script type="text/javascript" src="https://webresources.uchicago.edu/js/jquery-1.4.4.min.js"></script>
-<script src="j/cache.js"></script>
 <script src="https://webresources.uchicago.edu/js/jquery-ui-1.8.11.custom.js"></script>	
 <script src="j/jquery.dataTables.min.js"></script>	
  <!-- Insert all js calls here  (jquery is included in the footer inc) -->
@@ -38,29 +37,20 @@
 			sOut +='<td width="25%" style="align:left;">&nbsp;</td>';
 			sOut +='</tr>';
 			sOut +='<tr>';
-			sOut +='<td>'+data[7]+'</td>';
+			sOut +='<td>'+data[5]+'</td>';
 			sOut +='<td>&nbsp;</td>';
-			sOut +='<td>'+data[1];
-			if( data[2] != null && data[2] != "")
-			{
-				sOut +='<br />'+data[2];
-			}
-			if( data[3] != null && data[3] != "")
-			{
-				sOut +='<br />'+data[3];
-			}
-			sOut +='</td>';
+			sOut +='<td>'+data[1]+'</td>';
 			sOut +='<td>&nbsp;</td>';
 			sOut +='</tr>';
 			sOut +='<tr>';
-			sOut +='<td>'+data[8]+'</td>';
+			sOut +='<td>'+data[6]+'</td>';
 			sOut +='<td>&nbsp;</td>';
              sOut +='<td>';
-            if( data[4] != null && data[4] != "")
+            if( data[2] != null )
             {
-                sOut +=data[4]+', ';
+                sOut +=data[2]+', ';
             }
-            sOut +=data[5] +'<br />'+data[6] +'</td>';
+            sOut +=data[3] +' '+data[4] +'</td>';
 			sOut +='<td>&nbsp;</td>';
 			sOut +='</tr>';
 			sOut +='</table>';
@@ -119,3 +109,8 @@
 
 		});
 		</script>
+
+<script type="text/javascript" src="http://sites.uchicago.edu/sites/all/libraries/colorbox/colorbox/jquery.colorbox-min.js?m6z4fd"></script>
+<script type="text/javascript" src="http://sites.uchicago.edu/sites/all/modules/colorbox/js/colorbox.js?m6z4fd"></script>
+<script type="text/javascript" src="http://sites.uchicago.edu/sites/all/themes/uchicago/scripts/jquery.cycle/jquery.cycle.all.min.js?m6z4fd"></script>
+<script type="text/javascript" src="http://sites.uchicago.edu/sites/all/themes/uchicago/scripts/global.js?m6z4fd"></script>
