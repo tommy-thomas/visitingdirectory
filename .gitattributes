@@ -38,7 +38,6 @@ webapp/c/print.css -text
 webapp/c/screen.css -text
 webapp/c/small.css -text
 webapp/c/style.css -text
-webapp/cache.js -text
 webapp/cache.php -text
 webapp/img/Thumbs.db -text svneol=unset#application/msword
 webapp/img/add.png -text svneol=unset#image/png
@@ -86,7 +85,9 @@ webapp/img/uc_wordmark.gif -text svneol=unset#image/gif
 webapp/img/uc_wordmark.png -text svneol=unset#image/png
 webapp/img/uc_wordmark_phoenix.png -text svneol=unset#image/png
 webapp/index.php -text
+webapp/j/cache.js -text
 webapp/j/jquery.dataTables.min.js -text
+webapp/j/jquery.timer.js -text
 webapp/logout.php -text
 webapp/member.php -text
 webapp/results.php -text

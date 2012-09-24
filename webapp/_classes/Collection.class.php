@@ -72,7 +72,7 @@ class Collection
 		}
 		if( !is_null($token) )
 		{
-			$this->setCache($token);
+			$this->checkCache($token);
 		}		
 		if( apc_exists('vc_all_member_data') )
 		{
@@ -240,6 +240,7 @@ class Collection
 	 */
 	public static function getCommitteeName($code)
 	{
+		$desc = "";
 		if( apc_exists('vc_active_committees') )
 		{
 			$committees = apc_fetch('vc_active_committees');
@@ -477,20 +478,6 @@ class Collection
 			$member[0]->addChild('EMPLOYER' , (string)$employer_element[0]->REPORT_NAME );		
 		}
 		return $member;
-	}
-	/**
-	 * Load the big non-distinct Griffin payloads into cache.
-	 */
-	private function setCache($token)
-	{
-		if( !apc_exists('vc_active_committees') )
-		{
-			$this->setCommittees();
-		}
-		if( !apc_exists('vc_all_member_data') )
-		{			
-			$this->setAllMemberData($token);
-		}
 	}
 	/**
 	 * Check that vc_active_committees is cached , if not set and cache it.
