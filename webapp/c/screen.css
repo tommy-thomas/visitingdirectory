@@ -977,7 +977,9 @@ html[xmlns] .clearfix {
 #login-list li.google {background-position: 0 -24px;}
 #login-list li.yahoo {background-position: 0 -48px;}
 
-
+.hiddenscreen {
+	display: none;
+	}
 
 
 

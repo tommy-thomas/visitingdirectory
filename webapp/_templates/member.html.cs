@@ -19,31 +19,41 @@
 							<div id="bottomrow" class="">
 								<div class="grid_9 alpha">
 									<div class="content region-content">
+									<p>Didn't find what you were looking for? <a href="search.php">Start a new search.</a></p>
+									
 										<h2>Member Information</h2>
-										<p>Didn't find what you were looking for? <a href="search.php">Start a new search.</a></p>
+										<p class="hiddenscreen">Please Note: Member data is not available for printing at this time. Please contact Alumni Relations &amp; Development if you need a copy of this information.</p>
+										<div id="memberdata">
 										
 										<?cs each:m=CommitteeMember ?>
+										
 											<p>
 												<strong><?cs var:m.FullName ?></strong><br />
 												<?cs if:m.DegreeInfo ?><?cs var:m.DegreeInfo ?><br /><?cs /if ?>
 												<?cs if:m.JobTitle ?><?cs var:m.JobTitle ?><br /><?cs /if ?>
 												<?cs if:m.EmployerName ?><?cs var:m.EmployerName ?><br /><?cs /if ?>
-												<?cs if:m.Email ?><?cs var:m.Email ?><br /><?cs /if ?>
-												<?cs if:m.PhoneNumber ?>Phone: <?cs var:m.PhoneNumber ?><?cs /if ?>
 											</p>
+											<h3>Preferred Contact Information</h3>
+											<p>
+												<?cs if:m.Email ?><a href="mailto:<?cs var:m.Email ?>"><?cs var:m.Email ?></a><br /><?cs /if ?>
+												<?cs if:m.PhoneNumber ?>Phone: <a href="tel:<?cs var:m.PhoneNumber ?>"><?cs var:m.PhoneNumber ?></a><?cs /if ?>
+											</p>
+											<h3>Preferred Mailing Address</h3>
 											<p>
 												<?cs if:m.StreetOne ?><?cs var:m.StreetOne ?><?cs /if ?>
 												<?cs if:m.StreetTwo ?><br /><?cs var:m.StreetTwo ?><?cs /if ?>
 												<?cs if:m.StreetThree ?><br /><?cs var:m.StreetThree ?><?cs /if ?>
 												<br />
-												<?cs if:m.City ?><?cs var:m.City ?>,<?cs /if ?> <?cs if:m.State ?><?cs var:m.State ?><?cs /if ?> <?cs if:m.Zip ?><?cs var:m.Zip ?><?cs /if ?><br />
-												<strong>Committees:</strong><br />
-												<?cs each:c=committee_list ?>	
+												<?cs if:m.City ?><?cs var:m.City ?>,<?cs /if ?> <?cs if:m.State ?><?cs var:m.State ?><?cs /if ?> <?cs if:m.Zip ?><?cs var:m.Zip ?><?cs /if ?>
+											</p>
+										
+											<h3>Committees:</h3>
+											<p><?cs each:c=committee_list ?>	
 												    <?cs var:c ?><br />
 												<?cs /each ?>
 											</p>
 										<?cs /each ?>
- 
+ 										</div><!-- end member data div -->
 
 									
 									</div>

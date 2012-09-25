@@ -4,7 +4,7 @@ body,
 input,
 textarea,
 select {
-  color: #000;
+  color: #fff;
   background: none;
 }
 .grid_6 {
@@ -32,3 +32,13 @@ left: 0;
 .comment_forbidden {
   display: none;
 }
+
+/* ----- hiding visting directory content from printing ---- */
+
+#memberdata {
+	display:  none;
+	}
+
+.hiddenscreen {
+	display: inline;
+	}
