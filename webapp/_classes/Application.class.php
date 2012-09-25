@@ -151,5 +151,14 @@ class Application extends WS_Application
 	{
 		return ( isset($_SESSION['email']) && isset($_SESSION['authtoken']) );
 	}
+		/**
+	 * Handle any exception in the application.
+	 * @param object The thrown Exception object
+	 */
+	public static function handleExceptions($e)
+	{
+		$exceptionMessage = 'Caught EXCEPTION ' . __FILE__ . ' @ '. __LINE__ . ':' . $e->getMessage();
+		throw new Exception ($exceptionMessage);
+	}
 }
 ?>
