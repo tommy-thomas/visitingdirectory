@@ -59,15 +59,17 @@ if( isset($_SESSION['authtoken']) )
 		$xml  = $manager->searchMembersByName( htmlClean($_POST['f_name']) , htmlClean($_POST['l_name']) );
 		$members = $collection->getMembersAndCommittees($xml, $_SESSION['authtoken']);
 		$count = count( $members );
+		$total = 0;
 		if( $count > 0 )
 		{
-			foreach( $members as $m )
+			foreach( $members as $key => $m )
 			{
-				$id_number = $m->getIdNumber();
+				$total++; 
+				$id_number = $m->getIdNumber();				
 				$m->addClassDataTemplate( $template , "CommitteeMember.$id_number.");
 			}
 		}
-		$template->add_data('count', $count );
+		$template->add_data('count', $total );
 		$template->add_data('ShowSearchResults', true );		
 	}	
 }

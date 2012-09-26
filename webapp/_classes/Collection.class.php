@@ -407,7 +407,7 @@ class Collection
 			$cm->setFirstName( (string)$m->FIRST_NAME );
 			$cm->setLastName( (string)$m->LAST_NAME  );	
 			$cm->setCommittees( $arr , apc_fetch('vc_active_committees'));
-			$members[] = $cm;
+			$members[(string)$m->ID_NUMBER] = $cm;
 		}
 		return $members;
 	}

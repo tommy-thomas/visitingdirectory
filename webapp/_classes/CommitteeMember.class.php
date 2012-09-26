@@ -94,7 +94,7 @@
 		}
 		
 		public function setCommitteesFromXML( $xml , $committees )
-		{			
+		{	
 			if( is_array($xml) )
 			{
 				foreach ( $xml as $x )

@@ -9,7 +9,7 @@ $auth_err = false;
 $soc_auth_err = false;
 if( $app->isShibbAuth() )
 {
-	if( isset($_SESSION['email']) )
+	if( $app->isAuthorized() )
 	{
 		$app->redirect('./search.php');
 	}

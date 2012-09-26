@@ -96,7 +96,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			$degrees = $d_xml->xpath("//ENTITY/DEGREES/DEGREE/LOCAL_IND[. = 'Y']/parent::*");
 			$degree_info = array();
 			foreach ( $degrees as $d )
-			{				
+			{	
 				if( !empty($d->DEGREE_CODE) && strlen($d->DEGREE_YEAR) > 1 )
 				{
 					$degree_info[] = (string)$d->DEGREE_CODE." '".date("y", mktime(0, 0, 0, 0, 0, intval($d->DEGREE_YEAR)));
@@ -166,7 +166,8 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			}
 		}
 		$member->setDegreeInfo( $degrees );
-		$member->setCommitteesFromXML( $xml['committee_info'] , apc_fetch('vc_active_committees'));
+		
+		$member->setCommitteesFromXML( $xml['committee_info'] ,   apc_fetch('vc_active_committees'));
 		$employment = $xml['employment_info'];
 		if( isset($employment[0]) )
 		{
