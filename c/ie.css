@@ -1,0 +1,17 @@
+/* Since IE doesn't respect media queries, we have to repeat some styles here */
+
+#block-events, #block-views-news-summarynewsblock, #block-uceventslist-uceventsblock {
+margin-bottom:24px;
+}
+
+#block-events h2, #block-views-news-summarynewsblock h2, #block-uceventslist-uceventsblock h2 {
+margin:0 0 5px;
+letter-spacing:1px;
+font-size:1.5em;
+font-family:"ProximaNova-Regular",verdana,sans-serif;
+font-weight:400;
+padding:6px 10px 0 10px;
+text-transform:uppercase;
+background-color:none;
+background:none;
+}

@@ -1,0 +1,37 @@
+<?php
+class Committee extends WS_DynamicGetterSetter
+{
+	protected $COMMITTEE_CODE;
+	protected $SHORT_DESC;
+	protected $FULL_DESC;
+	
+	public function __construct( $array=array() )
+	{
+		try {
+			if( !empty($array) )
+			{
+				foreach( $array as $key=>$value)
+				{
+					if( property_exists($this,$key))
+					{
+						$this->$key = $value;
+					}
+				}
+			}
+		} catch (Exception $e) {
+			Application::handleException($e);
+		}				
+	}
+	
+	public function getSHORT_DESC()
+	{
+		if( isset($this->SHORT_DESC) )
+		{
+			//$arr = explode(":",$this->SHORT_DESC);
+			//return $arr[1];
+			return $this->SHORT_DESC;
+		}
+	}
+}
+	
+?>
