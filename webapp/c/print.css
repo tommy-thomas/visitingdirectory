@@ -4,7 +4,7 @@ body,
 input,
 textarea,
 select {
-  color: #fff;
+  color: #000;
   background: none;
 }
 .grid_6 {
@@ -25,6 +25,8 @@ left: 0;
 }
 
 
+
+
 /* ---------- Node Pages ---------- */
 
 #comments .title,
@@ -36,9 +38,20 @@ left: 0;
 /* ----- hiding visting directory content from printing ---- */
 
 #memberdata {
-	display:  none;
+	display: none;
 	}
 
 .hiddenscreen {
-	display: inline;
+	display: block;
+	}
+
+#results {
+	display: none;
+	}
+.hideprint {
+	display: none;
+	}
+
+.memberdata {
+	display: none;
 	}

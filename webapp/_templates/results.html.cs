@@ -26,9 +26,11 @@
 					<?cs if:ShowCommiteeResults ?>
 						<h2><?cs var:Committee ?></h2>
 						<p>Click on a member's last name to see additional information. You may sort by clicking the first or last name headings. <em>*Denotes a Life Member.</em></p>
-						<p>Didn't find what you were looking for? <a href="search.php">Browse again or start a new search.</a></p>                       
-						<div style="float:left; margin-left:5px;"><strong><?cs var:Chairman ?></strong></div>
-                        <div style="float:right; margin-right:5px;"><a href="#" id="oButton">+ expand all</a> / <a href="#" id="cButton">- collapse all</a></div>  
+						<p>Didn't find what you were looking for? <a href="search.php">Browse again or start a new search.</a></p> 
+						<p class="hiddenscreen">Please Note: Member data is not available for printing at this time. Please contact Alumni Relations &amp; Development if you need a copy of this information.</p>
+						<div class="hideprint" style="float:left; margin-left:5px;"><strong><?cs var:Chairman ?></strong></div>
+                        <div class="hideprint" style="float:right; margin-right:5px;"><a href="#" id="oButton">+ expand all</a> / <a href="#" id="cButton">- collapse all</a></div>  
+                        <div class="memberdata">
 						<table border="0" cellspacing="3" cellpadding="3" class="display table table-striped" id="results">
 							<thead>
 								<tr>
@@ -51,11 +53,14 @@
 							<?cs /each ?>
 							</tbody>
 						</table>
+						</div>
 				  <?cs /if ?>
 				  <?cs if:ShowSearchResults ?>
 				  <h2>Name Search Results</h2>
 				  <p><strong><?cs var:count ?> results found.</strong> Click on a member's name to see additional information.</p>
 				  <p>Didn't find what you were looking for? <a href="search.php">Start a new search.</a></p>
+				  <p class="hiddenscreen">Please Note: Member data is not available for printing at this time. Please contact Alumni Relations &amp; Development if you need a copy of this information.</p>
+				  <div class="memberdata">
 				  <table border="0" cellspacing="3" cellpadding="3" class="display table table-striped" id="search_resuls">
 					  <thead>
 						  <tr>
@@ -72,6 +77,7 @@
 					  <?cs /each ?>
 					  </tbody>
 				  </table>
+				  </div>
 				  <?cs /if ?>
 				  </div>
 				</div>
