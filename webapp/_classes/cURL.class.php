@@ -77,6 +77,7 @@ class cURL extends WS_cURL{
 			curl_setopt($s,CURLOPT_MAXREDIRS,$this->_maxRedirects);
 			curl_setopt($s,CURLOPT_RETURNTRANSFER,true);
 			curl_setopt($s, CURLOPT_VERBOSE, 1);
+			curl_setopt($s, CURLOPT_SSL_VERIFYPEER, FALSE);
 
 			if($this->authentication == 1)
 			{

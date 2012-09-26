@@ -99,7 +99,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			{	
 				if( !empty($d->DEGREE_CODE) && strlen($d->DEGREE_YEAR) > 1 )
 				{
-					$degree_info[] = (string)$d->DEGREE_CODE." '".date("y", mktime(0, 0, 0, 0, 0, intval($d->DEGREE_YEAR)));
+					$degree_info[] = (string)$d->DEGREE_CODE." '".date("y", mktime(0, 0, 0, 1, 1, intval($d->DEGREE_YEAR)));
 				}
 			}
 			$member->setDegreeInfo( $degree_info );
@@ -162,7 +162,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		{				
 			if( !empty($d->DEGREE_CODE) && strlen($d->DEGREE_YEAR) > 1 )
 			{
-				$degrees[] = (string)$d->DEGREE_CODE." '".date("y", mktime(0, 0, 0, 0, 0, intval($d->DEGREE_YEAR)));
+				$degrees[] = (string)$d->DEGREE_CODE." '".date("y", mktime(0, 0, 0, 1, 1, intval($d->DEGREE_YEAR)));
 			}
 		}
 		$member->setDegreeInfo( $degrees );

@@ -60,14 +60,14 @@ class Collection
 		elseif( $this->app->isProd() )
 		{
 			$this->urls = array(
-			'active_committees' => 'https://grif-uat-soa.uchicago.edu/api/griffin/metadata/committee_code',
-			'address_info' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s/addresses',
-			'affiliations' => 'https://grif-uat-soa.uchicago.edu/api/griffin/membershipaffiliation/%s',
-			'all_affiliations' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s/membershipaffiliation',
-			'all_members' => 'https://grif-uat-soa.uchicago.edu/api/griffin/membershipaffiliation/%s',							
-			'degree_info' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s/degrees',		
-			'entity_info' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s',	
-			'email_validation' => 'https://grif-uat-soa.uchicago.edu/api/griffin/membershipaffiliation/%s?emailaddress=%s'			
+			'active_committees' => 'https://soa.griffin.uchicago.edu/api/griffin/metadata/committee_code',
+			'address_info' => 'https://soa.griffin.uchicago.edu/api/griffin/entities/%s/addresses',
+			'affiliations' => 'https://soa.griffin.uchicago.edu/api/griffin/membershipaffiliation/%s',
+			'all_affiliations' => 'https://soa.griffin.uchicago.edu/api/griffin/entities/%s/membershipaffiliation',
+			'all_members' => 'https://soa.griffin.uchicago.edu/api/griffin/membershipaffiliation/%s',							
+			'degree_info' => 'https://soa.griffin.uchicago.edu/api/griffin/entities/%s/degrees',		
+			'entity_info' => 'https://soa.griffin.uchicago.edu/api/griffin/entities/%s',	
+			'email_validation' => 'https://soa.griffin.uchicago.edu/api/griffin/membershipaffiliation/%s?emailaddress=%s'			
 			);	
 		}
 		if( !is_null($token) )
@@ -262,7 +262,7 @@ class Collection
 		}
 		elseif( $this->app->isProd() )
 		{
-			return 'https://grif-uat-soa.uchicago.edu/api/auth/login';
+			return 'https://soa.griffin.uchicago.edu/api/auth/login';
 		}
 	}
 	/**
