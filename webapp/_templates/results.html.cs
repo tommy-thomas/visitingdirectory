@@ -47,8 +47,8 @@
 										<div class="infodiv" style="display:none;"><?cs var:m.DegreeInfo ?>:<?cs var:m.StreetOne ?>:<?cs var:m.StreetTwo ?>:<?cs var:m.StreetThree ?>:<?cs var:m.City ?>:<?cs var:m.State ?>:<?cs var:m.Zip ?>:<?cs var:m.JobTitle ?>:<?cs var:m.EmployerName ?></div>
 									</td>
 									<td><?cs var:m.FirstName ?> <?cs var:m.MiddleName ?></td>
-									<td><?cs var:m.Email ?></td>
-									<td><?cs var:m.PhoneNumber ?></td>
+									<td><a href="mailto:<?cs var:m.Email ?>"><?cs var:m.Email ?></a></td>
+									<td><a href="tel:<?cs var:m.PhoneNumber ?>"><?cs var:m.PhoneNumber ?></a></td>
 								</tr>
 							<?cs /each ?>
 							</tbody>
