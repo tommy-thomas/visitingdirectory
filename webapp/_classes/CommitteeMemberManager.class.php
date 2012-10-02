@@ -251,7 +251,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	    $sort_proxy = array();
 	    foreach ($nodes as $k => $node)
 	    {
-	    	$value = !is_null( $second_child ) ? (string)$node->$child_name .', '.(string)$node->$second_child : (string)$node->$child_name;
+	    	$value = !is_null( $second_child ) ? $this->setValue($node->$child_name) .', '.$this->setValue($node->$second_child) : $this->setValue($node->$child_name);
 	        $sort_proxy[$k] = $value;
 	    }
 	    array_multisort($sort_proxy, $order, $nodes);
