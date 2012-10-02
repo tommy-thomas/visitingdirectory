@@ -1,4 +1,10 @@
 <?php
+/**
+ * 
+ * Value object for Visting Committee object.
+ * @author tommyt
+ *
+ */
 class Committee extends WS_DynamicGetterSetter
 {
 	protected $COMMITTEE_CODE;
@@ -27,8 +33,7 @@ class Committee extends WS_DynamicGetterSetter
 	{
 		if( isset($this->SHORT_DESC) )
 		{
-			//$arr = explode(":",$this->SHORT_DESC);
-			//return $arr[1];
+
 			return $this->SHORT_DESC;
 		}
 	}

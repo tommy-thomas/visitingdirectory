@@ -9,17 +9,31 @@ class cURL extends WS_cURL{
 	 * Password for Service Now web service authentication
 	 */
 	const PASSWORD = "c0Mm1t7e3d@Ta";
-
+	/*
+	 * Client code may have need to dump this for debugging.
+	 */
 	protected $_requestinfo;
-
+	/*
+	 * Array of curl handles from curl multi handle.
+	 */
 	private $nodes = array();
-
+	/*
+	 * Handle for curl multi handle.
+	 */
 	private $master_handle;
-	
+	/*
+	 * Returned curl code after curl multi execute.
+	 */
 	private $mrc;
-
+	/*
+	 * Flag indicating if curl handle is still running.
+	 */
 	private $active = null;
-
+	/**
+	 * Load the master handle with multiple curl handles.
+	 * @param $url
+	 * @param $list
+	 */
 	public function createCurlMultiple( $url , $list = array() )
 	{
 		$this->master_handle = curl_multi_init();
@@ -53,12 +67,17 @@ class cURL extends WS_cURL{
 			Application::handleExceptions($e);
 		}
 	}
-	
+	/**
+	 * @return array of curl handles.
+	 */
 	public function getNodes()
 	{
 		return $this->nodes;
 	}
-
+	/**
+	 * Create and return curl handle.
+	 * @param $url
+	 */
 	public function createHandle( $url = null )
 	{
 		if( !is_null($url) )
@@ -105,7 +124,9 @@ class cURL extends WS_cURL{
 			return $s;
 		}
 	}
-	
+	/**
+	 * Clear old handles from the master handle. 
+	 */
 	public function clear()
 	{
 		if( count($this->nodes) > 0 )
@@ -117,7 +138,10 @@ class cURL extends WS_cURL{
 			curl_multi_close($this->master_handle);
 		}
 	}
-
+	/**
+	 * Create login url with username and password in opts array;
+	 * @param $login_url
+	 */
 	public function authenticate( $login_url )
 	{
 		try {
@@ -132,7 +156,11 @@ class cURL extends WS_cURL{
 		}
 		
 	}
-
+	/**
+	 * Check existence of simple xml child node.
+	 * @param $xml
+	 * @param $childpath
+	 */
 	public function xmlChildExists( SimpleXMLElement $xml , $childpath )
 	{
 		$result = $xml->xpath($childpath);
@@ -146,7 +174,9 @@ class cURL extends WS_cURL{
 	{
 		return simplexml_load_string( $this->_webpage );
 	}
-
+	/**
+	 * Get http status.
+	 */
 	public function getStatus()
 	{
 		return !is_null($this->_status) ? $this->_status : "";

@@ -1,4 +1,10 @@
 <?php
+/**
+ * 
+ * Value object for Committee Member
+ * @author tommyt
+ *
+ */
 	class CommitteeMember extends WS_DynamicGetterSetter
 	{
 		protected $IdNumber;

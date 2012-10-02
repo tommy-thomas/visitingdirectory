@@ -1,22 +1,43 @@
 <?php
+/**
+ * 
+ * Manager class for raw simple xml objects , apc cache , and search.
+ * @author tommyt
+ *
+ */
 class CommitteeMemberManager extends WS_DynamicGetterSetter
 {
-	private $all_member_data;
-	
-	private $data = array();			
-	
+	/*
+	 * All member data only including first name, last name, and id number
+	 */
+	private $all_member_data;		
+	/*
+	 * Payload holds first name , last name , employement info
+	 */
 	private $entity_info;
-	
+	/*
+	 * Payload holds address by committee member id_number
+	 */
 	private $address_info;
-	
+	/*
+	 * Payload holds degree info by committee member id_number
+	 */
 	private $degree_info;
-	
+	/*
+	 * Payload holds employer info by committee member employee number
+	 */
 	private $employment_info;
-	
+	/*
+	 * Xpath search results.
+	 */
 	private $search_results;
-	
+	/*
+	 * Array of CommitteeMember objects.
+	 */
 	private $committee_members_list = array();
-	
+	/*
+	 * all_member_data loaded from apc_cache
+	 */
 	public function __construct()
 	{
 		{
@@ -28,7 +49,9 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			}
 		}
 	}
-	
+	/**
+	 * Fluent load method based on four character committee code and assoc array of simple xml.
+	 */
 	public function load( $code="" , $members)
 	{				
 		if( !empty($code) )
@@ -41,22 +64,24 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		foreach( $this->entity_info as $key => $obj )
 		{
 			$member = new CommitteeMember();
-			$member->setIdNumber( (int)$obj->ID_NUMBER );
-			$member->setCommitteeRoleCode( (string)$obj->COMMITTEE_ROLE_CODE );
-			$member->setFirstName( (string)$obj->FIRST_NAME );
-			$member->setMiddleName( $this->setValue((string)$obj->MIDDLE_NAME) );			
+			$member->setIdNumber( htmlClean((int)$obj->ID_NUMBER) );
+			$member->setCommitteeRoleCode( $this->setValue($obj->COMMITTEE_ROLE_CODE) );
+			$member->setFirstName( $this->setValue($obj->FIRST_NAME) );
+			$member->setMiddleName( $this->setValue($obj->MIDDLE_NAME) );			
 			$last_name = (  isset($obj->COMMITTEE_TITLE) && ((string)$obj->COMMITTEE_TITLE) ==  'Life Member' )
-				? (string)$obj->LAST_NAME."*"
-				: (string)$obj->LAST_NAME;
+				? $this->setValue($obj->LAST_NAME)."*"
+				: $this->setValue($obj->LAST_NAME);
 			$member->setLastName( $last_name );				
-			$this->setMemberAddressData( $member, (string)$obj->ID_NUMBER );
-			$this->setMemberDegreeData( $member, (string)$obj->ID_NUMBER );
-			$this->setMemberEmploymentData( $member, (string)$obj->ID_NUMBER );
+			$this->setMemberAddressData( $member,$this->setValue($obj->ID_NUMBER) );
+			$this->setMemberDegreeData( $member, $this->setValue($obj->ID_NUMBER) );
+			$this->setMemberEmploymentData( $member, $this->setValue($obj->ID_NUMBER) );
 			$this->committee_members_list[] = $member;
 		}
 		return $this;		
 	}
-
+	/**
+	 * Set CommitteeMember object address info.
+	 */
 	public function setMemberAddressData( $member , $id )
 	{
 		if( isset($this->address_info) )
@@ -78,8 +103,8 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			}
 			if( isset($phone[0]) )
 			{
-				$member->setPhoneAreaCode( (string)$phone[0]->PHONE_AREA_CODE );
-				$member->setPhoneNumber( (string)$phone[0]->PHONE_NUMBER );
+				$member->setPhoneAreaCode( $this->setValue($phone[0]->PHONE_AREA_CODE) );
+				$member->setPhoneNumber( $this->setValue($phone[0]->PHONE_NUMBER) );
 			}
 			if( isset($email[0]) )
 			{
@@ -87,7 +112,9 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			}						
 		}
 	}
-	
+	/**
+	 * Set CommitteeMember object degree info.
+	 */
 	public function setMemberDegreeData( $member , $id = null)
 	{
 		if( isset($this->degree_info) && !is_null($id) )
@@ -99,13 +126,15 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			{	
 				if( !empty($d->DEGREE_CODE) && strlen($d->DEGREE_YEAR) > 1 )
 				{
-					$degree_info[] = (string)$d->DEGREE_CODE." '".date("y", mktime(0, 0, 0, 1, 1, intval($d->DEGREE_YEAR)));
+					$degree_info[] =$this->setValue($d->DEGREE_CODE)." '".date("y", mktime(0, 0, 0, 1, 1, intval($d->DEGREE_YEAR)));
 				}
 			}
 			$member->setDegreeInfo( $degree_info );
 		}
 	}
-	
+	/**
+	 * Set CommitteeMember object employment info.
+	 */
 	public function setMemberEmploymentData( $member , $id )
 	{
 		if( isset($this->employment_info) && isset($this->employment_info[$id]) )
@@ -118,7 +147,9 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			}			
 		}
 	}
-	
+	/**
+	 * @return fully loaded CommitteeMember.
+	 */
 	public function getOneMember( $xml )
 	{
 		$member = new CommitteeMember();		
@@ -149,8 +180,8 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		}
 		if( isset($phone[0]) )
 		{
-			$member->setPhoneAreaCode( (string)$phone[0]->PHONE_AREA_CODE );
-			$member->setPhoneNumber( (string)$phone[0]->PHONE_NUMBER );
+			$member->setPhoneAreaCode( $this->setValue((string)$phone[0]->PHONE_AREA_CODE) );
+			$member->setPhoneNumber( $this->setValue((string)$phone[0]->PHONE_NUMBER) );
 		}
 		if( isset($email[0]) )
 		{
@@ -162,7 +193,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		{				
 			if( !empty($d->DEGREE_CODE) && strlen($d->DEGREE_YEAR) > 1 )
 			{
-				$degrees[] = (string)$d->DEGREE_CODE." '".date("y", mktime(0, 0, 0, 1, 1, intval($d->DEGREE_YEAR)));
+				$degrees[] = $this->setValue((string)$d->DEGREE_CODE)." '".date("y", mktime(0, 0, 0, 1, 1, intval($d->DEGREE_YEAR)));
 			}
 		}
 		$member->setDegreeInfo( $degrees );
@@ -176,12 +207,19 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		}		
 		return $member;		
 	}
-	
+	/**
+	 * @return array of CommiteeMember objects.
+	 */
 	public function getCommiteeMemberList()
 	{
 		return $this->committee_members_list;
 	}
-	
+	/**
+	 * Search simple xml object of all member data by first name and/or last name and return search results
+	 * as simple xml.
+	 * @param $firstname
+	 * @param $lastname
+	 */
 	public function searchMembersByName( $firstname = "" , $lastname = "" )
 	{
 		$this->search_results = array();
@@ -201,7 +239,13 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		$this->xsort($this->search_results, 'LAST_NAME' , 'FIRST_NAME');
 		return $this->search_results;
 	}
-	
+	/**
+	 * Search simple xml search results by first name and/or last name.
+	 * @param $nodes
+	 * @param $child_name
+	 * @param $second_child
+	 * @param $order
+	 */
 	public function xsort(&$nodes, $child_name, $second_child =null , $order = SORT_ASC)
 	{
 	    $sort_proxy = array();
@@ -212,10 +256,12 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	    }
 	    array_multisort($sort_proxy, $order, $nodes);
 	}
-	
+	/**
+	 * Cast value to string and htmlClean it.
+	 */
 	public function setValue($string)
 	{
-		$str = trim((string)$string);
+		$str = htmlClean(trim((string)$string));
 		if( !empty($str))
 		{
 			return $str;

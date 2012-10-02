@@ -35,7 +35,7 @@ $committees = $member->getCommittees();
 $committee_list = array();
 foreach( $committees as $key=>$value)
 {
-	$committee_list[] = "<a href=\"results.php?c=".$key."\">".$value."</a>";
+	$committee_list[] = "<a href=\"results.php?c=".htmlClean($key)."\">".htmlClean($value)."</a>";
 }
 $template->add_data('committee_list', $committee_list , false );
 $template->show();

@@ -1,5 +1,4 @@
 <?php 
-// 'crupright@sflaw.com'
 require('_classes/autoload.php');
 //apc_delete('active_committees');
 /**

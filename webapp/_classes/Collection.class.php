@@ -403,9 +403,9 @@ class Collection
 		foreach ( $xml as $m )
 		{
 			$cm = new CommitteeMember();
-			$cm->setIdNumber( (string)$m->ID_NUMBER );
-			$cm->setFirstName( (string)$m->FIRST_NAME );
-			$cm->setLastName( (string)$m->LAST_NAME  );	
+			$cm->setIdNumber( htmlClean((string)$m->ID_NUMBER) );
+			$cm->setFirstName( htmlClean((string)$m->FIRST_NAME) );
+			$cm->setLastName( htmlClean((string)$m->LAST_NAME)  );	
 			$cm->setCommittees( $arr , apc_fetch('vc_active_committees'));
 			$members[(string)$m->ID_NUMBER] = $cm;
 		}
