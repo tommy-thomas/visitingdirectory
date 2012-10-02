@@ -18,8 +18,6 @@ webapp/_templates/index.html.cs -text
 webapp/_templates/member.html.cs -text
 webapp/_templates/results.html.cs -text
 webapp/_templates/search.html.cs -text
-webapp/_templates/templates/three-col-temp.php -text
-webapp/_templates/templates/two-col-temp.php -text
 webapp/c/background.css -text
 webapp/c/base.css -text
 webapp/c/ckeditor.css -text
