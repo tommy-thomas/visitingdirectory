@@ -80,14 +80,14 @@
 				"aoColumnDefs" : [
 					{
 						"fnRender" : function( oObj , sVal ){
-							return "<a href=\"#\">" + oObj.aData[0] + "</a>";
+							return "<a href=\"#\" class=\"handle\">" + oObj.aData[0] + "</a>";
 						},
 						"aTargets" : [0]
 					}
 				],
 				"aaSorting": [[ 0, 'asc' ] , [1, 'asc']]
 			});
-			$('#results tbody td a').live('click' , function(){
+			$('#results tbody td a.handle').live('click' , function(){
 				var nTr = $(this).parents('tr')[0];
 				var aData = $(this).find('.infodiv').text();
 				if( oTable.fnIsOpen(nTr) )
