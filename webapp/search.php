@@ -1,6 +1,5 @@
 <?php 
 require('_classes/autoload.php');
-//apc_delete('active_committees');
 /**
  * The Application object.
  */
