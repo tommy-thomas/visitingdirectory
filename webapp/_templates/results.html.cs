@@ -24,11 +24,20 @@
 				<div class="grid_9 alpha">
 					<div class="content region-content">
 					<?cs if:ShowCommiteeResults ?>
-						<h2><?cs var:Committee ?></h2>
-						<p>Click on a member's last name to see additional information. You may sort by clicking the first or last name headings. <em>*Denotes a Life Member.</em></p>
-						<p>Didn't find what you were looking for? <a href="search.php">Browse again or start a new search.</a></p> 
+						
+						<p>Didn't find what you were looking for? <a href="search.php">Browse again or start a new search.</a></p>
+						
+						<h2 id="cmtname"><?cs var:Committee ?></h2>
+						
+						<p>
+						<ul>
+							<li><strong>Click on a member's last name to see additional information.</strong></li>
+							<li>You may sort by clicking the table's headings headings.</li>
+							<li>Data incorrect or incomplete? <a href="mailto:">Contact us with an update.</a></li>
+						</ul>
+						<em>*Denotes a Life Member.</em></p>
 						<p class="hiddenscreen">Please Note: Member data is not available for printing at this time. Please contact Alumni Relations &amp; Development if you need a copy of this information.</p>
-						<div class="hideprint" style="float:left; margin-left:5px;"><strong><?cs var:Chairman ?></strong></div>
+						<div class="hideprint" style="float:left; margin-left:5px;"><h2><?cs var:Chairman ?></h2></div>
                         <div class="hideprint" style="float:right; margin-right:5px;"><a href="#" id="oButton">+ expand all</a> / <a href="#" id="cButton">- collapse all</a></div>  
                         <div class="memberdata">
 						<table border="0" cellspacing="3" cellpadding="3" class="display table table-striped" id="results">
@@ -43,7 +52,7 @@
 							<tbody>
 							<?cs each:m=CommitteeMember ?>
 								<tr class="row-view">
-									<td><?cs var:m.LastName ?>
+									<td><strong><?cs var:m.LastName ?></strong>
 										<div class="infodiv" style="display:none;"><?cs var:m.DegreeInfo ?>:<?cs var:m.StreetOne ?>:<?cs var:m.StreetTwo ?>:<?cs var:m.StreetThree ?>:<?cs var:m.City ?>:<?cs var:m.State ?>:<?cs var:m.Zip ?>:<?cs var:m.JobTitle ?>:<?cs var:m.EmployerName ?></div>
 									</td>
 									<td><?cs var:m.FirstName ?> <?cs var:m.MiddleName ?></td>

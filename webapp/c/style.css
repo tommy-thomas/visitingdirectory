@@ -407,6 +407,10 @@ margin:0;
 padding:0
 }
 
+ul ul {
+	margin-left: 20px
+	}
+
 .contextual-links-wrapper {
 font-size:small!important
 }
@@ -461,7 +465,7 @@ list-style-image:none;
 
 /* ------------------ Header ------------------ */
 #wordmark {
-background:transparent url("/img/uc_wordmark.png") top right no-repeat;
+background:transparent url("/img/uc_wordmark_phoenix.png") top right no-repeat;
 display:block;
 height:53px;
 text-decoration:none
@@ -683,6 +687,10 @@ height:32px;
 margin:0 0 6px;
 height:auto;
 line-height:1em
+}
+
+h2#cmtname, h2#title {
+font-size: 1.7em;
 }
 
 html.Win32 h1#page-title, html.Win64 h1#page-title {
@@ -2869,3 +2877,4 @@ ul#results {margin:25px 0; font-size: 110%}
 #student-detail {font-size: 110%;}
 
 #student-detail td {line-height: 125%;}
+

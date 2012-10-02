@@ -20,8 +20,9 @@
 								<div class="grid_9 alpha">
 									<div class="content region-content">
 									<p>Didn't find what you were looking for? <a href="search.php">Start a new search.</a></p>
+									<p>Is your info incorrect or incomplete? <a href="mailto:">Contact us with an update.</a></p>
 									
-										<h2>Member Information</h2>
+										<h2 id="title">Member Information</h2>
 										<p class="hiddenscreen">Please Note: Member data is not available for printing at this time. Please contact Alumni Relations &amp; Development if you need a copy of this information.</p>
 										<div id="memberdata">
 										

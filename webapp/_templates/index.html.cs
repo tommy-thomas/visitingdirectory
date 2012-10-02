@@ -21,9 +21,9 @@
 							<div id="bottomrow" class="">
 								<div class="grid_9 alpha">
 									<div class="content region-content">
-										<p>Please log in below to use the directory. If you do not have a CNetID, you may log in with an account you already have with Google, Yahoo, LinkedIn, or Facebook. <em>Please note that the social media account you choose should use an email address we have on file.</em> If you have any trouble logging in, please contact us at xxxxxxxx@uchicago.edu.</p>
-										<p><a href="<?cs var:domain ?>/Shibboleth.sso/Login?entityID=urn:mace:incommon:uchicago.edu&target=<?cs var:base ?>index.php">Login with CNetID / UCHADID</a></p>
-										<p>Or log in using an existing account below:</p>
+										<p>Please log in below to use the directory. If you do not have a CNetID, you may log in with an account you already have with Google, Yahoo, or Facebook. <em>Please note that the social media account you choose should use an email address we have on file.</em> If you have any trouble logging in, please contact us at <a href="mailto:weberror@uchicago.edu?subject=Visiting Committees Directory login problem">weberror@uchicago.edu</a>.</p>
+										<p><a href="<?cs var:domain ?>/Shibboleth.sso/Login?entityID=urn:mace:incommon:uchicago.edu&target=<?cs var:base ?>index.php"><strong>Login with CNetID / UCHADID</strong></a></p>
+										<p>Or log in using an existing account below*:</p>
 										<ul id="login-list">
 											<li class="facebook">
 												<a href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=<?cs var:domain ?>/shibboleth&source=facebook&RelayState=<?cs var:base ?>index.php">Facebook</a>
@@ -37,7 +37,19 @@
 											</li>	
 										</ul>
  
-
+									<p>* <em>Please note that the account you choose should use an email address we have on file.</em> </p>
+									
+									<h2>Need Help?</h2>
+									<ul>
+										<li><em>I have an account above, but it's not linked to an email address on file.</em></li>
+										<ul>
+											<li><a href="mailto:">Contact us</a> and give us the email address we're missing and we will add it to your record.</li>
+										</ul>
+										<li><em>I'd like to create an account above, but I don't know what email address you have on file for me.</em></li>
+										
+											<ul><li><a href="mailto:">Contact us</a> and we'll let you know what email address we have on file for you.</li>
+										</ul>
+									</ul>
 									
 									</div>
 								</div>
