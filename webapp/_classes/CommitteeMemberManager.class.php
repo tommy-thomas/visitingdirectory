@@ -77,7 +77,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			$this->setMemberEmploymentData( $member, $this->setValue($obj->ID_NUMBER) );
 			$this->committee_members_list[] = $member;
 		}
-		return $this;		
+		return $this;
 	}
 	/**
 	 * Set CommitteeMember object address info.

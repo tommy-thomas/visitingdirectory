@@ -127,8 +127,7 @@ class Application extends WS_Application
 		{
 			$groups = explode(";",  $_SERVER['ucisMemberOf']);
 		}
-		$result = array_intersect($this->group_white_list, $groups);
-		return count($result) > 0 ? true : false;
+		return count(array_intersect($this->group_white_list, $groups)) > 0 ? true : false;
 	}
 	/**
 	 * Is user using Shibb to authenticate?

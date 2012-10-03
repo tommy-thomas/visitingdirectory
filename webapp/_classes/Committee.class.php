@@ -28,15 +28,6 @@ class Committee extends WS_DynamicGetterSetter
 			Application::handleException($e);
 		}				
 	}
-	
-	public function getSHORT_DESC()
-	{
-		if( isset($this->SHORT_DESC) )
-		{
-
-			return $this->SHORT_DESC;
-		}
-	}
 }
 	
 ?>

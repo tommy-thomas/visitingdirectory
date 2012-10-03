@@ -104,7 +104,7 @@ class Collection
 		return self::$collection;
 	}
 	/**
-	 * Set all of the member data from the big Griffin api payload the includes 
+	 * Set all of the member data from the big Griffin api payload that includes 
 	 * fist name, last name, middle, committee tittle and id number. 
 	 * @param $token
 	 */

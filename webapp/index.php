@@ -28,7 +28,7 @@ if( $app->isShibbAuth() )
 				$soc_auth_err = true;
 			}
 			else
-			{		
+			{
 				$_SESSION['email'] =  $_SERVER['mail'];
 				$app->redirect('./search.php');
 			}	
@@ -36,7 +36,7 @@ if( $app->isShibbAuth() )
 		elseif( $app->userIsFromShibb() )
 		{	
 			if( !$app->isValidGroup() )
-			{				
+			{
 				$auth_err = true;
 			}
 			else
