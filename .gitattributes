@@ -87,5 +87,6 @@ webapp/j/jquery.dataTables.min.js -text
 webapp/j/jquery.timer.js -text
 webapp/logout.php -text
 webapp/member.php -text
+webapp/restricted/authorization.php -text
 webapp/results.php -text
 webapp/search.php -text

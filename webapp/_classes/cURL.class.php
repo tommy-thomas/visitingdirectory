@@ -4,11 +4,7 @@ class cURL extends WS_cURL{
 	/*
 	 * Username for Service Now web service authentication
 	 */
-	const USERNAME = "visitingConsumer";
-	/*
-	 * Password for Service Now web service authentication
-	 */
-	const PASSWORD = "c0Mm1t7e3d@Ta";
+	const CREDS_FILE_PATH = "restricted/authorization.php";
 	/*
 	 * Client code may have need to dump this for debugging.
 	 */
@@ -29,6 +25,16 @@ class cURL extends WS_cURL{
 	 * Flag indicating if curl handle is still running.
 	 */
 	private $active = null;
+	/**
+	 * Constructor.
+	 */
+	public function __construct($url=null)
+	{
+		parent::__construct($url);
+		require_once (self::CREDS_FILE_PATH);
+		$this->auth_name = $USERNAME;
+		$this->auth_pass = $PASSWORD;		
+	}
 	/**
 	 * Load the master handle with multiple curl handles.
 	 * @param $url

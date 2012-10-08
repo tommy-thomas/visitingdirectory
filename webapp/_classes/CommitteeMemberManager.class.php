@@ -67,7 +67,10 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			$member->setIdNumber( htmlClean((int)$obj->ID_NUMBER) );
 			$member->setCommitteeRoleCode( $this->setValue($obj->COMMITTEE_ROLE_CODE) );
 			$member->setFirstName( $this->setValue($obj->FIRST_NAME) );
-			$member->setMiddleName( $this->setValue($obj->MIDDLE_NAME) );			
+			$member->setMiddleName( $this->setValue($obj->MIDDLE_NAME) );
+			//0003441596 , 0003441596
+			//0003271577
+			//if( (int)$obj->ID_NUMBER == '0003271577' ){ print "Title: ".$obj->COMMITTEE_TITLE;  }			
 			$last_name = (  isset($obj->COMMITTEE_TITLE) && ((string)$obj->COMMITTEE_TITLE) ==  'Life Member' )
 				? $this->setValue($obj->LAST_NAME)."*"
 				: $this->setValue($obj->LAST_NAME);

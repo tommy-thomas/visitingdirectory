@@ -1,7 +1,8 @@
 	/* Formating function for row details */
-		function fnFormatDetails ( aData )
+		function fnFormatDetails ( aData , fData)
 		{
 			var data = aData.split(":");
+			var f_data = fData.split(":");
 			var sOut = '<table width="100%" border="0" cellspacing="3" cellpadding="3" style="background-color:#ccc; margin:0;">';   
 			sOut +='<tr>';
 			sOut +='<td width="25%" style="align:left;">'+data[0]+'</td>';
@@ -32,7 +33,23 @@
             {
                 sOut +=data[4]+', ';
             }
-            sOut +=data[5] +'<br />'+data[6] +'</td>';
+            if( data[5] != null && data[5] != "")
+            {
+            	sOut +=data[5] ;
+            }
+            if( data[6] != null && data[6] != "")
+            {
+            	sOut +='<br />'+data[6];
+            }
+            if( f_data[0] != null && f_data[0] != "")
+            {
+                sOut += f_data[0];
+            }
+            if( f_data[1] != null && f_data[1] != "")
+            {
+                sOut +=', ' + f_data[1];
+            }
+            sOut +='</td>';
 			sOut +='<td>&nbsp;</td>';
 			sOut +='</tr>';
 			sOut +='</table>';
@@ -60,6 +77,7 @@
 			$('#results tbody td a.handle').live('click' , function(){
 				var nTr = $(this).parents('tr')[0];
 				var aData = $(this).find('.infodiv').text();
+				var fData = $(this).find('.infodiv_foreign').text();
 				if( oTable.fnIsOpen(nTr) )
 				{		
 					 oTable.fnClose( nTr );
@@ -67,15 +85,16 @@
 				}
 				else
 				{
-					oTable.fnOpen( nTr,   fnFormatDetails ( aData ) , "info_row" );
+					oTable.fnOpen( nTr,   fnFormatDetails ( aData , fData ) , "info_row" );
 					return false;
 				}	
 			 });
             $('#oButton').live('click',function(){
 			  $('.row-view').each(function(){
 				var aData = $(this).find('.infodiv').text();
+				var fData = $(this).find('.infodiv_foreign').text();
 				if( !oTable.fnIsOpen(this) )				{
-					oTable.fnOpen( this,   fnFormatDetails ( aData ) , "info_row" );
+					oTable.fnOpen( this,   fnFormatDetails ( aData , fData ) , "info_row" );
 				}	
 			  });								   
 		  });
