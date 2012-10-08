@@ -45,7 +45,7 @@
 												<?cs if:m.StreetTwo ?><br /><?cs var:m.StreetTwo ?><?cs /if ?>
 												<?cs if:m.StreetThree ?><br /><?cs var:m.StreetThree ?><?cs /if ?>
 												<br />
-												<?cs if:m.City ?><?cs var:m.City ?>,<?cs /if ?> <?cs if:m.State ?><?cs var:m.State ?><?cs /if ?> <?cs if:m.Zip ?><?cs var:m.Zip ?><?cs /if ?>
+												<?cs if:m.City ?><?cs var:m.City ?>,<?cs /if ?> <?cs if:m.State ?><?cs var:m.State ?><?cs /if ?> <?cs if:m.Zip ?><?cs var:m.Zip ?><?cs /if ?><?cs if:m.ForeignCityZip ?><?cs /if ?><?cs var:m.ForeignCityZip ?><?cs if:m.CountryCode ?>, <?cs var:m.CountryCode ?><?cs /if ?>
 											</p>
 										
 											<h3>Committees:</h3>
