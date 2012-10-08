@@ -152,8 +152,8 @@ class cURL extends WS_cURL{
 	{
 		try {
 			$opts = array(
-				'username' => self::USERNAME,
-				'password' => self::PASSWORD
+				'username' => $this->auth_name,
+				'password' => $this->auth_pass
 			);
 			$this->setPost($opts);
 			$this->createCurl( $login_url );
