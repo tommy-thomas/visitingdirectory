@@ -1,7 +1,8 @@
 // JavaScript Document
 $(function(){
 	$.ajax({
-		 url: "cache.php"
+		 url: "cache.php",
+		 timeout: 300000
 	  });
 	var timer = $.timer(function() {
 		$.ajax({

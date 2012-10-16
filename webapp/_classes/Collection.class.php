@@ -73,7 +73,7 @@ class Collection
 		if( !is_null($token) )
 		{
 			$this->checkCache($token);
-		}		
+		}
 		if( apc_exists('vc_all_member_data') )
 		{
 			$this->all_member_data = simplexml_load_string( apc_fetch('vc_all_member_data') );
@@ -111,10 +111,10 @@ class Collection
 	public function setAllMemberData($token)
 	{	
 		libxml_use_internal_errors(true);
-		$this->curl->setPost($token);		
-		$this->curl->createCurl( sprintf($this->urls['all_members'], apc_fetch('vc_active_committee_code_list') ));
 		if( !apc_exists('vc_all_member_data') )
 		{
+			$this->curl->setPost($token);		
+			$this->curl->createCurl( sprintf($this->urls['all_members'], apc_fetch('vc_active_committee_code_list') ));
 			apc_add('vc_all_member_data', $this->curl->__toString() , 172800);
 		}
 	}
@@ -315,8 +315,8 @@ class Collection
 	 */
 	public function getMemberData( $code=null , $token=null )
 	{
-		$info = array('address_info' , 'degree_info' , 'entity_info');	
-		$list = $this->all_member_data->xpath('//COMMITTEES/COMMITTEE/ID_NUMBER[../COMMITTEE_CODE/text()="'.$code.'"]');
+		$info = array('address_info' , 'degree_info' , 'entity_info');
+		$list = $this->all_member_data->xpath('//COMMITTEES/COMMITTEE/ID_NUMBER[../COMMITTEE_CODE/text()="'.$code.'" and ../RECORD_STATUS_CODE="A" and ../COMMITTEE_ROLE_CODE != "EO"]');
 		$members = array();
 		$data = array();
 		if( !is_null($list) && !is_null($token) )
@@ -338,8 +338,8 @@ class Collection
 					$obj = simplexml_load_string( curl_multi_getcontent($obj) );
 					if( $key == 'entity_info' && is_a($obj, 'SimpleXMLElement') )
 					{	
-						$total = $obj->xpath('//EMPLOYMENT/JOB[@JOB_STATUS_CODE="C"]');
-						$employment = (count($total) > 1) ? $obj->xpath('//EMPLOYMENT/JOB[@JOB_STATUS_CODE="C" and not(@START_DT <= preceding-sibling::JOB/@START_DT) and not(@START_DT <= following-sibling::JOB/@START_DT)]')
+						$total = $obj->xpath('//EMPLOYMENT/JOB[@EMPLOY_RELAT_CODE="PE"]');
+						$employment = (count($total) > 1) ? $obj->xpath('//EMPLOYMENT/JOB[@EMPLOY_RELAT_CODE="PE" and not(@START_DT <= preceding-sibling::JOB/@START_DT) and not(@START_DT <= following-sibling::JOB/@START_DT)]')
 														  : $total;
 						if( $total > 0 && !empty($employment))
 						{							
@@ -397,8 +397,8 @@ class Collection
 			$obj = simplexml_load_string( curl_multi_getcontent($c) );
 			if( is_a($obj, 'SimpleXMLElement'))
 			{
-				$arr[(string)$obj->ID_NUMBER] = $obj->xpath('//COMMITTEE[COMMITTEE_STATUS_CODE = "A" and contains(COMMITTEE_SRC_CODE, "VSC")]');				
-			}											
+				$arr[(string)$obj->ID_NUMBER] = $obj->xpath('//COMMITTEE[COMMITTEE_STATUS_CODE = "A" and RECORD_STATUS_CODE = "A" and COMMITTEE_ROLE_CODE != "EO"]');				
+			}
 		}
 		foreach ( $xml as $m )
 		{
@@ -428,14 +428,14 @@ class Collection
 			$this->curl->setPost($token);
 			$url = sprintf( $this->urls['entity_info'] , $id_number );
 			$this->curl->createCurl( $url );					
-			$member['entity_info'] = $this->curl->asSimpleXML();			
+			$member['entity_info'] = $this->curl->asSimpleXML();		
 			$member['address_info'] = $this->getInfo( $id_number , $token , 'address');
 			$member['degree_info'] = $this->getInfo( $id_number , $token , 'degree');
 			if( is_a($member['entity_info'], 'SimpleXMLElement') )
 			{
-				$total = $member['entity_info']->xpath('//EMPLOYMENT/JOB[@JOB_STATUS_CODE="C"]');
+				$total = $member['entity_info']->xpath('//EMPLOYMENT/JOB[@EMPLOY_RELAT_CODE="PE"]');
 				$member['employment_info'] = (count($total) > 1) 
-												? $member['entity_info']->xpath('//EMPLOYMENT/JOB[@JOB_STATUS_CODE="C" and not(@START_DT <= preceding-sibling::JOB/@START_DT) and not(@START_DT <= following-sibling::JOB/@START_DT)]')
+												? $member['entity_info']->xpath('//EMPLOYMENT/JOB[@EMPLOY_RELAT_CODE="PE" and not(@START_DT <= preceding-sibling::JOB/@START_DT) and not(@START_DT <= following-sibling::JOB/@START_DT)]')
 												: $total;				
 				if( $total > 0 && !empty($member['employment_info']))
 				{
@@ -451,8 +451,8 @@ class Collection
 			}				
 			$url = sprintf(  $this->urls['all_affiliations'] , $id_number );
 			$this->curl->createCurl( $url );
-			$xml = $this->curl->asSimpleXML();			
-			$member['committee_info'] = $xml->xpath('//COMMITTEE[COMMITTEE_STATUS_CODE = "A" and contains(COMMITTEE_SRC_CODE, "VSC")]');					
+			$xml = $this->curl->asSimpleXML();
+			$member['committee_info'] = $xml->xpath('//COMMITTEE[COMMITTEE_STATUS_CODE = "A" and RECORD_STATUS_CODE = "A" and COMMITTEE_ROLE_CODE != "EO"]');			
 			return $member;
 		}
 	}
@@ -474,8 +474,8 @@ class Collection
 			$url = sprintf( $this->urls['entity_info'] , $employer_id );
 			$this->curl->createCurl( $url );
 			$xml = $this->curl->asSimpleXML();
-			$employer_element = $xml->xpath('//ENTITY/NAMES/NAME[@NAME_TYPE_CODE="00"]');
-			$member[0]->addChild('EMPLOYER' , (string)$employer_element[0]->REPORT_NAME );		
+			$employer_element = $xml->xpath('//ENTITY/NAMES/NAME[@NAME_TYPE_CODE="00"]');		
+			$member[0]->addChild('EMPLOYER' , (string)$employer_element[0]->REPORT_NAME );
 		}
 		return $member;
 	}

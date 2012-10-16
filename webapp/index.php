@@ -16,7 +16,7 @@ if( $app->isShibbAuth() )
 	elseif( $app->isValidService()  )
 	{		
 		$curl = new cURL(null);
-		$collection = Collection::instance($app , $curl );	
+		$collection = Collection::instance($app , $curl );
 		$curl->authenticate( $collection->getLoginUrl() );
 		$_SESSION['authtoken'] = array( 'authtoken' => $curl->__toString());
 		if( $app->userIsFromSocialAuth() && isset($_SERVER['mail']) )
@@ -40,7 +40,7 @@ if( $app->isShibbAuth() )
 				$auth_err = true;
 			}
 			else
-			{
+			{				
 				$_SESSION['email'] =  $_SERVER['mail'];
 				$app->redirect('./search.php');
 			}

@@ -67,11 +67,8 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			$member->setIdNumber( htmlClean((int)$obj->ID_NUMBER) );
 			$member->setCommitteeRoleCode( $this->setValue($obj->COMMITTEE_ROLE_CODE) );
 			$member->setFirstName( $this->setValue($obj->FIRST_NAME) );
-			$member->setMiddleName( $this->setValue($obj->MIDDLE_NAME) );
-			//0003441596 , 0003441596
-			//0003271577
-			//if( (int)$obj->ID_NUMBER == '0003271577' ){ print "Title: ".$obj->COMMITTEE_TITLE;  }			
-			$last_name = (  isset($obj->COMMITTEE_TITLE) && ((string)$obj->COMMITTEE_TITLE) ==  'Life Member' )
+			$member->setMiddleName( $this->setValue($obj->MIDDLE_NAME) );		
+			$last_name = (  isset($obj->COMMITTEE_ROLE_CODE ) && ((string)$obj->COMMITTEE_ROLE_CODE ) ==  'LM' )
 				? $this->setValue($obj->LAST_NAME)."*"
 				: $this->setValue($obj->LAST_NAME);
 			$member->setLastName( $last_name );				
@@ -87,7 +84,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	 */
 	public function setMemberAddressData( $member , $id )
 	{
-		if( isset($this->address_info) )
+		if( isset($this->address_info[$id]) )
 		{
 			$a_xml = $this->address_info[$id];
 			$address = $a_xml->xpath("//ADDRESS/ADDR_PREF_IND[. = 'Y']/parent::*");			
@@ -120,7 +117,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	 */
 	public function setMemberDegreeData( $member , $id = null)
 	{
-		if( isset($this->degree_info) && !is_null($id) )
+		if( isset($this->degree_info[$id]) )
 		{
 			$d_xml = $this->degree_info[$id];
 			$degrees = $d_xml->xpath("//ENTITY/DEGREES/DEGREE/LOCAL_IND[. = 'Y']/parent::*");
@@ -229,15 +226,15 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		
 		if( !empty($lastname) && !empty($firstname) )
 		{			
-			$this->search_results =  $this->all_member_data->xpath('//COMMITTEE[contains(LAST_NAME , "'.ucfirst($lastname).'") and contains(FIRST_NAME , "'.ucfirst($firstname).'")]');
+			$this->search_results =  $this->all_member_data->xpath('//COMMITTEE[contains(LAST_NAME , "'.ucfirst($this->restoreString($lastname)).'") and contains(FIRST_NAME , "'.ucfirst($this->restoreString($firstname)).'")]');
 		}
 		elseif( !empty($firstname) )
 		{			
-			$this->search_results = $this->all_member_data->xpath('//COMMITTEE/FIRST_NAME[contains(., "'.ucfirst($firstname).'")]/parent::*');				
+			$this->search_results = $this->all_member_data->xpath('//COMMITTEE/FIRST_NAME[contains(., "'.ucfirst($this->restoreString($firstname)).'")]/parent::*');				
 		}
 		elseif( !empty($lastname) )
 		{
-			$this->search_results = $this->all_member_data->xpath('//COMMITTEE/LAST_NAME[contains(., "'.ucfirst($lastname).'")]/parent::*');
+			$this->search_results = $this->all_member_data->xpath('//COMMITTEE/LAST_NAME[contains(., "'.ucfirst($this->restoreString($lastname)).'")]/parent::*');
 		}
 		$this->xsort($this->search_results, 'LAST_NAME' , 'FIRST_NAME');
 		return $this->search_results;
@@ -262,7 +259,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	/**
 	 * Cast value to string and htmlClean it.
 	 */
-	public function setValue($string)
+	private function setValue($string)
 	{
 		$str = htmlClean(trim((string)$string));
 		if( !empty($str))
@@ -273,6 +270,13 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		{
 			return null;
 		}
+	}
+	/**
+	 * Replace entities in cleaned strings with correct characters for search.
+	 */
+	private function restoreString($string)
+	{
+		return str_replace("&#39;", "'", $string);
 	}
 }
 ?>

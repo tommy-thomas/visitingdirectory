@@ -125,5 +125,21 @@
 				return $this->CommitteesDisplay;
 			}
 		}
+		
+		/**
+		 * Add a object to the ClearSilver Template -
+		 * Template variable names have to match class property names exactly for this to work
+		 * @param object $template - WS_Template object
+		 * @param string $prefix - Prefix for template variable array -- Default - ''
+		 */
+		public function addClassDataTemplate($template, $prefix = '')
+		{
+			$propertyarray = $this->getpropertyarray();
+			foreach ($propertyarray as $propertyname)	{
+				$functionname = 'get' . $propertyname;
+				$template->add_data($prefix . $propertyname, $this->$functionname() , false);	
+			}
+			return;
+		}
 	}
 ?>
