@@ -76,7 +76,7 @@ class Collection
 		}
 		if( apc_exists('vc_all_member_data') )
 		{
-			$this->all_member_data = simplexml_load_string( apc_fetch('vc_all_member_data') );
+			$this->all_member_data = simplexml_load_string( apc_fetch('vc_all_member_data') ) ;
 		}
 		else
 		{
@@ -86,7 +86,7 @@ class Collection
 				$this->all_member_data = simplexml_load_string( apc_fetch('vc_all_member_data') );
 			}
 			
-		}
+		}		
 		self::$collection = $this;
 	}
 	/**
@@ -115,7 +115,14 @@ class Collection
 		{
 			$this->curl->setPost($token);		
 			$this->curl->createCurl( sprintf($this->urls['all_members'], apc_fetch('vc_active_committee_code_list') ));
-			apc_add('vc_all_member_data', $this->curl->__toString() , 172800);
+			apc_add('vc_all_member_data', $this->curl->__toString() , 43200);
+		}
+	}
+	public function filterAllMemberData( $all_member_data = null )
+	{
+		if( !is_null($all_member_data) && is_a($all_member_data,'SimpleXMLElement') && ($all_member_data->count() > 0 ))
+		{
+			return $all_member_data->xpath('//COMMITTEE[COMMITTEE_STATUS_CODE = "A" and RECORD_STATUS_CODE = "A" and COMMITTEE_ROLE_CODE != "EO"]');
 		}
 	}
 	/**
@@ -178,7 +185,7 @@ class Collection
 				$tmp = new Committee($c);				
 				$arr[$c['COMMITTEE_CODE']] = $tmp;
 			}
-			apc_add('vc_active_committees', $arr , 172800);
+			apc_add('vc_active_committees', $arr , 43200);
 		}
 		$this->setActiveCommitteeUrlList();
 	}
@@ -198,7 +205,7 @@ class Collection
 					$list[] = $c->getCOMMITTEE_CODE();
 				}								
 			}
-			apc_add('vc_active_committee_code_list' , implode(",", $list) , 172800);
+			apc_add('vc_active_committee_code_list' , implode(",", $list) , 43200);
 		}
 	}
 	/**
@@ -379,7 +386,7 @@ class Collection
 		$list = array();
 		$committee_codes = array();
 		$members  = array();
-		foreach ( $xml as $m)
+		foreach ( $members as $m)
 		{
 			if( is_a($m, 'SimpleXMLElement'))
 			{
@@ -402,14 +409,28 @@ class Collection
 		}
 		foreach ( $xml as $m )
 		{
-			$cm = new CommitteeMember();
-			$cm->setIdNumber( htmlClean((string)$m->ID_NUMBER) );
-			$cm->setFirstName( htmlClean((string)$m->FIRST_NAME) );
-			$cm->setLastName( htmlClean((string)$m->LAST_NAME)  );	
-			$cm->setCommittees( $arr , apc_fetch('vc_active_committees'));
-			$members[(string)$m->ID_NUMBER] = $cm;
+			if( $this->isValidMember($m))
+			{
+				$cm = new CommitteeMember();
+				$cm->setIdNumber( htmlClean((string)$m->ID_NUMBER) );
+				$cm->setFirstName( htmlClean((string)$m->FIRST_NAME) );
+				$cm->setLastName( htmlClean((string)$m->LAST_NAME)  );	
+				$cm->setCommittees( $arr , apc_fetch('vc_active_committees'));
+				$members[(string)$m->ID_NUMBER] = $cm;
+			}
+			
 		}
 		return $members;
+	}
+	/**
+	 * Filter out non-active ex oficio members.
+	 */
+	public function isValidMember( $member = null )
+	{
+		if( !is_null($member) && is_a($member,'SimpleXMLElement') )
+		{
+			return ( $member->COMMITTEE_STATUS_CODE == "A" && $member->RECORD_STATUS_CODE == "A" && $member->COMMITTEE_ROLE_CD != "EO");
+		}
 	}
 	/**
 	 * Return single member info as simple xml object. 
@@ -452,7 +473,7 @@ class Collection
 			$url = sprintf(  $this->urls['all_affiliations'] , $id_number );
 			$this->curl->createCurl( $url );
 			$xml = $this->curl->asSimpleXML();
-			$member['committee_info'] = $xml->xpath('//COMMITTEE[COMMITTEE_STATUS_CODE = "A" and RECORD_STATUS_CODE = "A" and COMMITTEE_ROLE_CODE != "EO"]');			
+			$member['committee_info'] = $xml->xpath('//COMMITTEE[COMMITTEE_STATUS_CODE = "A" and RECORD_STATUS_CODE = "A" and COMMITTEE_ROLE_CODE != "EO"]');	
 			return $member;
 		}
 	}

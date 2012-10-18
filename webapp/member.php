@@ -27,17 +27,19 @@ if( isset($_SESSION['authtoken']) && isset($_GET['id_number']) )
 
 $manager = new CommitteeMemberManager();
 $member  = $manager->getOneMember($member_xml);
-
-$id_number = $member->getIdNumber();
-$member->addClassDataTemplate( $template , "CommitteeMember.$id_number.");
-
-$committees = $member->getCommittees();
-$committee_list = array();
-foreach( $committees as $key=>$value)
+if( !is_null($member) )
 {
-	$committee_list[] = "<a href=\"results.php?c=".htmlClean($key)."\">".htmlClean($value)."</a>";
+	$id_number = $member->getIdNumber();
+	$member->addClassDataTemplate( $template , "CommitteeMember.$id_number.");
+	
+	$committees = $member->getCommittees();
+	$committee_list = array();
+	foreach( $committees as $key=>$value)
+	{
+		$committee_list[] = "<a href=\"results.php?c=".htmlClean($key)."\">".htmlClean($value)."</a>";
+	}
+	$template->add_data('committee_list', $committee_list , false );
 }
-$template->add_data('committee_list', $committee_list , false );
 $template->show();
   
 ?>

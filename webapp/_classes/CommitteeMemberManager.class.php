@@ -79,6 +79,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		}
 		return $this;
 	}
+
 	/**
 	 * Set CommitteeMember object address info.
 	 */
@@ -152,60 +153,65 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	 */
 	public function getOneMember( $xml )
 	{
-		$member = new CommitteeMember();		
-		$id = $xml['entity_info']->xpath('//ENTITY/ID_NUMBER') ;
-		$fname = $xml['entity_info']->xpath('//ENTITY/FIRST_NAME') ;
-		$lname = $xml['entity_info']->xpath('//ENTITY/LAST_NAME') ;
-		$middle = $xml['entity_info']->xpath('//ENTITY/MIDDLE_NAME') ;
-		$member->setIdNumber( (int)$id[0]  );		
-		$member->setFirstName( (string)$fname[0]);
-		if( is_array($middle) )
+		$member = null;
+		if( isset($xml['entity_info']) && is_a($xml['entity_info'], 'SimpleXMLElement') && $xml['entity_info']->count() > 0 )
 		{
-			$member->setMiddleName( (string)$middle[0] );	
-		}		
-		$member->setLastName( (string)$lname[0] );
-		$address = $xml['address_info']->xpath("//ADDRESS/ADDR_PREF_IND[. = 'Y']/parent::*");
-		$phone = $xml['address_info']->xpath("//PHONE_NUMBER[@Address_Type='H']");
-		$email = $xml['address_info']->xpath("//EMAIL_ADDRESSES/EMAIL_ADDRESS[@Address_Type='E']");				
-		if( isset( $address[0] ) )
-		{
-			$member->setStreetOne( $this->setValue((string)$address[0]->STREET1));
-			$member->setStreetTwo( $this->setValue((string)$address[0]->STREET2));
-			$member->setStreetThree( $this->setValue((string)$address[0]->STREET3) );
-			$member->setCity( $this->setValue((string)$address[0]->CITY) );
-			$member->setState( $this->setValue((string)$address[0]->STATE_CODE) );
-			$member->setZip( $this->setValue((string)$address[0]->ZIPCODE) );
-			$member->setForeignCityZip( $this->setValue((string)$address[0]->FOREIGN_CITYZIP) );
-			$member->setCountryCode( $this->setValue((string)$address[0]->COUNTRY_CODE) );
-		}
-		if( isset($phone[0]) )
-		{
-			$member->setPhoneAreaCode( $this->setValue((string)$phone[0]->PHONE_AREA_CODE) );
-			$member->setPhoneNumber( $this->setValue((string)$phone[0]->PHONE_NUMBER) );
-		}
-		if( isset($email[0]) )
-		{
-			$member->setEmail( $this->setValue((string)$email[0]) );
-		}
-		$degree_info = $xml['degree_info']->xpath("//ENTITY/DEGREES/DEGREE/LOCAL_IND[. = 'Y']/parent::*");		
-		$degrees = array();
-		foreach ( $degree_info as $d )
-		{				
-			if( !empty($d->DEGREE_CODE) && strlen($d->DEGREE_YEAR) > 1 )
+			$member = new CommitteeMember();
+			$id = $xml['entity_info']->xpath('//ENTITY/ID_NUMBER') ;
+			$fname = $xml['entity_info']->xpath('//ENTITY/FIRST_NAME') ;
+			$lname = $xml['entity_info']->xpath('//ENTITY/LAST_NAME') ;
+			$middle = $xml['entity_info']->xpath('//ENTITY/MIDDLE_NAME') ;
+			$member->setIdNumber( (int)$id[0]  );		
+			$member->setFirstName( (string)$fname[0]);
+			if( is_array($middle) )
 			{
-				$degrees[] = $this->setValue((string)$d->DEGREE_CODE)." '".date("y", mktime(0, 0, 0, 1, 1, intval($d->DEGREE_YEAR)));
+				$member->setMiddleName( (string)$middle[0] );	
+			}		
+			$member->setLastName( (string)$lname[0] );
+			$address = $xml['address_info']->xpath("//ADDRESS/ADDR_PREF_IND[. = 'Y']/parent::*");
+			$phone = $xml['address_info']->xpath("//PHONE_NUMBER[@Address_Type='H']");
+			$email = $xml['address_info']->xpath("//EMAIL_ADDRESSES/EMAIL_ADDRESS[@Address_Type='E']");				
+			if( isset( $address[0] ) )
+			{
+				$member->setStreetOne( $this->setValue((string)$address[0]->STREET1));
+				$member->setStreetTwo( $this->setValue((string)$address[0]->STREET2));
+				$member->setStreetThree( $this->setValue((string)$address[0]->STREET3) );
+				$member->setCity( $this->setValue((string)$address[0]->CITY) );
+				$member->setState( $this->setValue((string)$address[0]->STATE_CODE) );
+				$member->setZip( $this->setValue((string)$address[0]->ZIPCODE) );
+				$member->setForeignCityZip( $this->setValue((string)$address[0]->FOREIGN_CITYZIP) );
+				$member->setCountryCode( $this->setValue((string)$address[0]->COUNTRY_CODE) );
 			}
+			if( isset($phone[0]) )
+			{
+				$member->setPhoneAreaCode( $this->setValue((string)$phone[0]->PHONE_AREA_CODE) );
+				$member->setPhoneNumber( $this->setValue((string)$phone[0]->PHONE_NUMBER) );
+			}
+			if( isset($email[0]) )
+			{
+				$member->setEmail( $this->setValue((string)$email[0]) );
+			}
+			$degree_info = $xml['degree_info']->xpath("//ENTITY/DEGREES/DEGREE/LOCAL_IND[. = 'Y']/parent::*");		
+			$degrees = array();
+			foreach ( $degree_info as $d )
+			{				
+				if( !empty($d->DEGREE_CODE) && strlen($d->DEGREE_YEAR) > 1 )
+				{
+					$degrees[] = $this->setValue((string)$d->DEGREE_CODE)." '".date("y", mktime(0, 0, 0, 1, 1, intval($d->DEGREE_YEAR)));
+				}
+			}
+			$member->setDegreeInfo( $degrees );
+			
+			$member->setCommitteesFromXML( $xml['committee_info'] ,   apc_fetch('vc_active_committees'));
+			$employment = $xml['employment_info'];
+			if( isset($employment[0]) )
+			{
+				$member->setJobTitle( $this->setValue((string)$employment[0]->JOB) );
+				$member->setEmployerName( $this->setValue((string)$employment[0]->EMPLOYER) );
+			}		
 		}
-		$member->setDegreeInfo( $degrees );
-		
-		$member->setCommitteesFromXML( $xml['committee_info'] ,   apc_fetch('vc_active_committees'));
-		$employment = $xml['employment_info'];
-		if( isset($employment[0]) )
-		{
-			$member->setJobTitle( $this->setValue((string)$employment[0]->JOB) );
-			$member->setEmployerName( $this->setValue((string)$employment[0]->EMPLOYER) );
-		}		
-		return $member;		
+		return $member;
+
 	}
 	/**
 	 * @return array of CommiteeMember objects.
