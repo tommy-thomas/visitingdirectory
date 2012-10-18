@@ -386,7 +386,7 @@ class Collection
 		$list = array();
 		$committee_codes = array();
 		$members  = array();
-		foreach ( $members as $m)
+		foreach ( $xml as $m)
 		{
 			if( is_a($m, 'SimpleXMLElement'))
 			{
@@ -403,8 +403,8 @@ class Collection
 		{
 			$obj = simplexml_load_string( curl_multi_getcontent($c) );
 			if( is_a($obj, 'SimpleXMLElement'))
-			{
-				$arr[(string)$obj->ID_NUMBER] = $obj->xpath('//COMMITTEE[COMMITTEE_STATUS_CODE = "A" and RECORD_STATUS_CODE = "A" and COMMITTEE_ROLE_CODE != "EO"]');				
+			{				
+				$arr[(string)$obj->ID_NUMBER] = $obj->xpath('//COMMITTEE[COMMITTEE_STATUS_CODE = "A" and RECORD_STATUS_CODE = "A"]');				
 			}
 		}
 		foreach ( $xml as $m )
