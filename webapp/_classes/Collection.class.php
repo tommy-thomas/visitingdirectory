@@ -118,13 +118,6 @@ class Collection
 			apc_add('vc_all_member_data', $this->curl->__toString() , 43200);
 		}
 	}
-	public function filterAllMemberData( $all_member_data = null )
-	{
-		if( !is_null($all_member_data) && is_a($all_member_data,'SimpleXMLElement') && ($all_member_data->count() > 0 ))
-		{
-			return $all_member_data->xpath('//COMMITTEE[COMMITTEE_STATUS_CODE = "A" and RECORD_STATUS_CODE = "A" and COMMITTEE_ROLE_CODE != "EO"]');
-		}
-	}
 	/**
 	 * Cache list of active committees as array of Committee objects.
 	 */
@@ -383,8 +376,10 @@ class Collection
 	public function getMembersAndCommittees( $xml , $token )
 	{
 		$this->checkCache();
+		/*
+		 * array holding list of id numbers for members, passed in curl multiple call
+		 */
 		$list = array();
-		$committee_codes = array();
 		$members  = array();
 		foreach ( $xml as $m)
 		{
@@ -411,6 +406,7 @@ class Collection
 		{
 			if( $this->isValidMember($m))
 			{
+				var_dump($m);
 				$cm = new CommitteeMember();
 				$cm->setIdNumber( htmlClean((string)$m->ID_NUMBER) );
 				$cm->setFirstName( htmlClean((string)$m->FIRST_NAME) );
@@ -429,7 +425,7 @@ class Collection
 	{
 		if( !is_null($member) && is_a($member,'SimpleXMLElement') )
 		{
-			return ( $member->COMMITTEE_STATUS_CODE == "A" && $member->RECORD_STATUS_CODE == "A" && $member->COMMITTEE_ROLE_CD != "EO");
+			return ( $member->COMMITTEE_STATUS_CODE == "A" && $member->RECORD_STATUS_CODE == "A" && $member->COMMITTEE_ROLE_CODE != "EO");
 		}
 	}
 	/**
@@ -489,14 +485,17 @@ class Collection
 		{
 			/*
 			 * Suppress xml warnings. 
-			 */				
-			libxml_use_internal_errors(true);
-			$this->curl->setPost($token);
-			$url = sprintf( $this->urls['entity_info'] , $employer_id );
-			$this->curl->createCurl( $url );
-			$xml = $this->curl->asSimpleXML();
-			$employer_element = $xml->xpath('//ENTITY/NAMES/NAME[@NAME_TYPE_CODE="00"]');		
-			$member[0]->addChild('EMPLOYER' , (string)$employer_element[0]->REPORT_NAME );
+			 */
+			if( $member[0] )
+			{
+				libxml_use_internal_errors(true);
+				$this->curl->setPost($token);
+				$url = sprintf( $this->urls['entity_info'] , $employer_id );
+				$this->curl->createCurl( $url );
+				$xml = $this->curl->asSimpleXML();
+				$employer_element = $xml->xpath('//ENTITY/NAMES/NAME[@NAME_TYPE_CODE="00"]');		
+				$member[0]->addChild('EMPLOYER' , (string)$employer_element[0]->REPORT_NAME );
+			}					
 		}
 		return $member;
 	}
