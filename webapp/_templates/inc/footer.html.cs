@@ -24,6 +24,5 @@
 <script src="j/cache.js"></script>
 <script src="//webresources.uchicago.edu/js/jquery-ui-1.8.11.custom.js"></script>	
 <script src="j/jquery.timer.js"></script>
-<script src="j/cache.js"></script>
 <script src="j/jquery.dataTables.min.js"></script>	
 <script src="j/datatable.js"></script>
