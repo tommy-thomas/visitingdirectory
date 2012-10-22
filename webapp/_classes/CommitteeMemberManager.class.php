@@ -56,7 +56,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	{				
 		if( !empty($code) )
 		{	
-			$this->entity_info = $this->all_member_data->xpath('//COMMITTEE/COMMITTEE_CODE[. ="'.$code.'"]/parent::*');				
+			$this->entity_info = $this->all_member_data->xpath('//COMMITTEE/COMMITTEE_CODE[. ="'.$code.'" and ../RECORD_STATUS_CODE="A" and ../COMMITTEE_ROLE_CODE != "EO"]/parent::*');				
 			$this->address_info = isset($members['address_info']) ? $members['address_info'] : array();
 			$this->degree_info = isset($members['degree_info']) ? $members['degree_info'] : array() ;
 			$this->employment_info = isset($members['employment_info']) ? $members['employment_info'] : array() ;			

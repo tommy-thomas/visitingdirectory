@@ -38,7 +38,7 @@ if( isset($_SESSION['authtoken']) )
 			$code = $_GET['c'];
 		}
 		$template->add_data('Committee' , Collection::getCommitteeName($code) );
-		$members_xml = $collection->getMemberData( $code , $_SESSION['authtoken'] );		
+		$members_xml = $collection->getMemberData( $code , $_SESSION['authtoken'] );	
 		$member_list = $manager->load( $code , $members_xml)->getCommiteeMemberList();
 		foreach( $member_list as $m )
 		{
