@@ -1,7 +1,7 @@
 <?php
 /**
  * 
- * A class used as a catch all for several cURL queries, urls to Griffin api, and setters for
+ * A class used as a catch all for several cURL queries, urls to Griffin api, and getters/setters for
  * PHP's  Alternative PHP Cache.
  * @author tommyt
  *
@@ -536,6 +536,16 @@ class Collection
 	{
 		apc_delete('vc_active_committees');
 		apc_delete('vc_all_member_data');
+		$codes = array();
+		$codes = explode("," , $this->getActiveCommitteeUrlList());
+		if( !empty($codes) )
+		{
+			foreach( $codes as $c )
+			{
+				$key = "vc_".$c."_list";
+				apc_delete($key);
+			}
+		}
 		apc_delete('vc_active_committee_code_list');
 	}
 }

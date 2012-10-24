@@ -1,5 +1,6 @@
 <?php
 require('_classes/autoload.php');
+
 /**
  * The Application object.
  */
@@ -24,6 +25,10 @@ if( (isset($_POST['search_by_committee']) && empty($_POST['committee'])) )
 {
 	$app->redirect('./search.php?error=no_select');
 }
+elseif( isset($_POST['search_by_name']) && empty($_POST['f_name']) && empty($_POST['l_name']) )
+{
+	$app->redirect('./search.php?error=no_name');
+}
 
 if( isset($_SESSION['authtoken']) )
 {
@@ -45,13 +50,13 @@ if( isset($_SESSION['authtoken']) )
 		}
 		else
 		{
-			$members_xml = $collection->getMemberData( $code , $_SESSION['authtoken'] );	
+			$members_xml = $collection->getMemberData( $code , $_SESSION['authtoken'] );
 			$member_list = $manager->load( $code , $members_xml)->getCommiteeMemberList();
 			$collection->setCachedMemberList($code , $member_list );
 		}
 		foreach( $member_list as $m )
 		{
-			$id_number = $m->getIdNumber();		
+			$id_number = $m->getIdNumber();
 			if( $m->getCommitteeRoleCode() == 'CH' )
 			{
 				$name = $m->getFirstName().' ';
