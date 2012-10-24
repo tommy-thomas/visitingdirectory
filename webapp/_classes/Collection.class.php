@@ -234,6 +234,30 @@ class Collection
 		return apc_fetch('vc_active_committees');		
 	}
 	/**
+	 * Get cached array of CommitteeMembers if set
+	 * @param Committee $code
+	 */
+	public function getCachedMemberList( $code=null )
+	{
+		if( !is_null($code) )
+		{
+			$key = "vc_".$code."_list";
+			return (apc_exists($key)) ? apc_fetch($key) : null; 
+		}
+	}
+	/**
+	 * Set cached list of CommitteeMembers if set
+	 * @param array of CommitteeMembers
+	 */
+	public function setCachedMemberList($code=null , $member_list=null )
+	{
+		if( !is_null($code) && !is_null($member_list) )
+		{
+			$key = "vc_".$code."_list";
+			apc_add($key , $member_list , 43200); 
+		}
+	}	
+	/**
 	 * Return committee code key from vc_active_committees cache.
 	 */
 	public static function getCommitteeName($code)
@@ -336,10 +360,8 @@ class Collection
 					$obj = simplexml_load_string( curl_multi_getcontent($obj) );
 					if( $key == 'entity_info' && is_a($obj, 'SimpleXMLElement') )
 					{	
-						$total = $obj->xpath('//EMPLOYMENT/JOB[@EMPLOY_RELAT_CODE="PE"]');
-						$employment = (count($total) > 1) ? $obj->xpath('//EMPLOYMENT/JOB[@EMPLOY_RELAT_CODE="PE" and not(@START_DT <= preceding-sibling::JOB/@START_DT) and not(@START_DT <= following-sibling::JOB/@START_DT)]')
-														  : $total;
-						if( $total > 0 && !empty($employment))
+						$employment = $obj->xpath('//EMPLOYMENT/JOB[@EMPLOY_RELAT_CODE="PE"]');
+						if( !empty($employment))
 						{							
 							$employment[0]->addChild('JOB' , (string)$employment[0] );
 							$attributes = $employment[0]->attributes();
@@ -446,20 +468,17 @@ class Collection
 			$member['address_info'] = $this->getInfo( $id_number , $token , 'address');
 			$member['degree_info'] = $this->getInfo( $id_number , $token , 'degree');
 			if( is_a($member['entity_info'], 'SimpleXMLElement') )
-			{
-				$total = $member['entity_info']->xpath('//EMPLOYMENT/JOB[@EMPLOY_RELAT_CODE="PE"]');
-				$member['employment_info'] = (count($total) > 1) 
-												? $member['entity_info']->xpath('//EMPLOYMENT/JOB[@EMPLOY_RELAT_CODE="PE" and not(@START_DT <= preceding-sibling::JOB/@START_DT) and not(@START_DT <= following-sibling::JOB/@START_DT)]')
-												: $total;				
-				if( $total > 0 && !empty($member['employment_info']))
+			{	
+				$member['employment_info']= $member['entity_info']->xpath('//EMPLOYMENT/JOB[@EMPLOY_RELAT_CODE="PE"]');		
+				if( !empty($member['employment_info']))
 				{
-					$attributes = $member['employment_info'][0]->attributes();							
+					$attributes = $member['employment_info'][0]->attributes();					
 					$member['employment_info'][0]->addChild('JOB' , (string)$member['employment_info'][0] );					
 					$employer_id = trim($attributes['EMPLOYER_ID_NUMBER']);
 					$employer_name = trim($attributes['EMPLOYER_NAME1']);
 					if( !empty($employer_id) && empty($employer_name) )
 					{
-						$member['employment_info'] = $this->getEmployerDataByID($member['employment_info'], $employer_id, $token);			
+						$member['employment_info'] = $this->getEmployerDataByID($member['employment_info'], $employer_id, $token);
 					}
 				}																		
 			}				
@@ -490,8 +509,8 @@ class Collection
 				$url = sprintf( $this->urls['entity_info'] , $employer_id );
 				$this->curl->createCurl( $url );
 				$xml = $this->curl->asSimpleXML();
-				$employer_element = $xml->xpath('//ENTITY/NAMES/NAME[@NAME_TYPE_CODE="00"]');		
-				$member[0]->addChild('EMPLOYER' , (string)$employer_element[0]->REPORT_NAME );
+				$employer_element = $xml->xpath('//ENTITY/NAMES/NAME[@NAME_TYPE_CODE="00"]');	
+				$member[0]->EMPLOYER = (string)$employer_element[0]->REPORT_NAME;
 			}					
 		}
 		return $member;

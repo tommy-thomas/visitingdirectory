@@ -205,7 +205,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			$member->setCommitteesFromXML( $xml['committee_info'] ,   apc_fetch('vc_active_committees'));
 			$employment = $xml['employment_info'];
 			if( isset($employment[0]) )
-			{
+			{				
 				$member->setJobTitle( $this->setValue((string)$employment[0]->JOB) );
 				$member->setEmployerName( $this->setValue((string)$employment[0]->EMPLOYER) );
 			}		

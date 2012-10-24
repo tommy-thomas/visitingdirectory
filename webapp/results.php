@@ -38,8 +38,17 @@ if( isset($_SESSION['authtoken']) )
 			$code = $_GET['c'];
 		}
 		$template->add_data('Committee' , Collection::getCommitteeName($code) );
-		$members_xml = $collection->getMemberData( $code , $_SESSION['authtoken'] );	
-		$member_list = $manager->load( $code , $members_xml)->getCommiteeMemberList();
+		$member_list = array();
+		if( !is_null($collection->getCachedMemberList($code)) )
+		{
+			$member_list = $collection->getCachedMemberList($code);
+		}
+		else
+		{
+			$members_xml = $collection->getMemberData( $code , $_SESSION['authtoken'] );	
+			$member_list = $manager->load( $code , $members_xml)->getCommiteeMemberList();
+			$collection->setCachedMemberList($code , $member_list );
+		}
 		foreach( $member_list as $m )
 		{
 			$id_number = $m->getIdNumber();		
@@ -64,7 +73,7 @@ if( isset($_SESSION['authtoken']) )
 		{
 			foreach( $members as $key => $m )
 			{
-				$total++; 
+				$total++;
 				$id_number = $m->getIdNumber();				
 				$m->addClassDataTemplate( $template , "CommitteeMember.$id_number.");
 			}
