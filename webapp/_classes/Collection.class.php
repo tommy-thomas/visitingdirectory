@@ -528,6 +528,7 @@ class Collection
 		{
 			$this->setAllMemberData($this->token);
 		}
+		
 	}
 	/**
 	 * Delete the cached items.
