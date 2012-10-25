@@ -108,5 +108,6 @@
 	  </div><!-- /#page -->
 	</div><!-- /#page-wrapper -->
   <?cs include:"inc/footer.html.cs" ?>
+  <script src="j/cache_bootstrap.js"></script>	
   </body>
 </html>

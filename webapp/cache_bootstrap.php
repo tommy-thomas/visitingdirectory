@@ -10,10 +10,12 @@ if( $app->isAuthorized() && isset($_SESSION['authtoken']) && !isset($_GET['err']
 	ignore_user_abort(true);
 	set_time_limit(0);
 	/*
-	 * Try to lazy cache 3 large committee list results if not already in cache
+	 * Try to lazy cache 1 large committee list results if not already in cache
 	 */
+	$collection = Collection::instance( $app , $curl ,  $_SESSION['authtoken']);
+	$manager = new CommitteeMemberManager();
 	$count = 0;
-	$max = 3;
+	$max = 1;
 	$codes = explode("," , $collection->getActiveCommitteeUrlList());
 	if( !empty($codes) && isset($_SESSION['current_search']) )
 	{
