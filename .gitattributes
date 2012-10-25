@@ -36,7 +36,6 @@ webapp/c/screen.css -text
 webapp/c/small.css -text
 webapp/c/style.css -text
 webapp/cache.php -text
-webapp/cache_bootstrap.php -text
 webapp/img/add.png -text svneol=unset#image/png
 webapp/img/favicon.ico -text
 webapp/img/feed.png -text svneol=unset#image/png
@@ -83,7 +82,6 @@ webapp/img/uc_wordmark.png -text svneol=unset#image/png
 webapp/img/uc_wordmark_phoenix.png -text svneol=unset#image/png
 webapp/index.php -text
 webapp/j/cache.js -text
-webapp/j/cache_bootstrap.js -text
 webapp/j/datatable.js -text
 webapp/j/jquery.dataTables.min.js -text
 webapp/j/jquery.timer.js -text
