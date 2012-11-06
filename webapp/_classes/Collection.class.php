@@ -361,7 +361,7 @@ class Collection
 					if( $key == 'entity_info' && is_a($obj, 'SimpleXMLElement') )
 					{	
 						$employment = $obj->xpath('//EMPLOYMENT/JOB[@PRIMARY_EMP_IND="Y"]');
-						if( !empty($employment))
+						if( isset($employment[0]))
 						{						
 							$employment[0]->addChild('JOB' , (string)$employment[0] );
 							$attributes = $employment[0]->attributes();
@@ -509,7 +509,7 @@ class Collection
 				$url = sprintf( $this->urls['entity_info'] , $employer_id );
 				$this->curl->createCurl( $url );
 				$xml = $this->curl->asSimpleXML();
-				$employer_element = $xml->xpath('//ENTITY/NAMES/NAME[@NAME_TYPE_CODE="00"]');	
+				$employer_element = $xml->xpath('//ENTITY/NAMES/NAME[@NAME_TYPE_CODE="00"]');
 				$member[0]->EMPLOYER = (string)$employer_element[0]->REPORT_NAME;
 			}					
 		}
