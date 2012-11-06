@@ -360,9 +360,9 @@ class Collection
 					$obj = simplexml_load_string( curl_multi_getcontent($obj) );
 					if( $key == 'entity_info' && is_a($obj, 'SimpleXMLElement') )
 					{	
-						$employment = $obj->xpath('//EMPLOYMENT/JOB[@EMPLOY_RELAT_CODE="PE"]');
+						$employment = $obj->xpath('//EMPLOYMENT/JOB[@PRIMARY_EMP_IND="Y"]');
 						if( !empty($employment))
-						{							
+						{						
 							$employment[0]->addChild('JOB' , (string)$employment[0] );
 							$attributes = $employment[0]->attributes();
 							$employer_id = trim($attributes['EMPLOYER_ID_NUMBER']);
@@ -469,7 +469,7 @@ class Collection
 			$member['degree_info'] = $this->getInfo( $id_number , $token , 'degree');
 			if( is_a($member['entity_info'], 'SimpleXMLElement') )
 			{	
-				$member['employment_info']= $member['entity_info']->xpath('//EMPLOYMENT/JOB[@EMPLOY_RELAT_CODE="PE"]');		
+				$member['employment_info']= $member['entity_info']->xpath('//EMPLOYMENT/JOB[@PRIMARY_EMP_IND="Y"]');		
 				if( !empty($member['employment_info']))
 				{
 					$attributes = $member['employment_info'][0]->attributes();					
