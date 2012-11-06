@@ -468,17 +468,21 @@ class Collection
 			$member['address_info'] = $this->getInfo( $id_number , $token , 'address');
 			$member['degree_info'] = $this->getInfo( $id_number , $token , 'degree');
 			if( is_a($member['entity_info'], 'SimpleXMLElement') )
-			{	
+			{
 				$member['employment_info']= $member['entity_info']->xpath('//EMPLOYMENT/JOB[@PRIMARY_EMP_IND="Y"]');		
 				if( !empty($member['employment_info']))
 				{
-					$attributes = $member['employment_info'][0]->attributes();					
+					$attributes = $member['employment_info'][0]->attributes();			
 					$member['employment_info'][0]->addChild('JOB' , (string)$member['employment_info'][0] );					
 					$employer_id = trim($attributes['EMPLOYER_ID_NUMBER']);
 					$employer_name = trim($attributes['EMPLOYER_NAME1']);
 					if( !empty($employer_id) && empty($employer_name) )
-					{
+					{	
 						$member['employment_info'] = $this->getEmployerDataByID($member['employment_info'], $employer_id, $token);
+					}
+					else
+					{
+						$member['employment_info'][0]->addChild('EMPLOYER' , $employer_name );
 					}
 				}																		
 			}				
