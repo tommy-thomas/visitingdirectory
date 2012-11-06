@@ -44,6 +44,7 @@ class Collection
 		$this->app = $app;
 		$this->curl = $curl;
 		$this->token = $token;
+		//$this->clearCollection();
 		if( $this->app->isDev() || $this->app->isStage() )
 		{
 			$this->urls = array(
@@ -506,7 +507,7 @@ class Collection
 			/*
 			 * Suppress xml warnings. 
 			 */
-			if( $member[0] )
+			if( isset($member[0]) )
 			{
 				libxml_use_internal_errors(true);
 				$this->curl->setPost($token);
@@ -514,7 +515,10 @@ class Collection
 				$this->curl->createCurl( $url );
 				$xml = $this->curl->asSimpleXML();
 				$employer_element = $xml->xpath('//ENTITY/NAMES/NAME[@NAME_TYPE_CODE="00"]');
-				$member[0]->EMPLOYER = (string)$employer_element[0]->REPORT_NAME;
+				if( isset($employer_element[0]) )
+				{
+					$member[0]->EMPLOYER = (string)$employer_element[0]->REPORT_NAME;	
+				}
 			}					
 		}
 		return $member;
