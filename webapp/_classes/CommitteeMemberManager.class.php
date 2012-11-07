@@ -89,7 +89,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		{
 			$a_xml = $this->address_info[$id];
 			$address = $a_xml->xpath("//ADDRESS/ADDR_PREF_IND[. = 'Y']/parent::*");			
-			$phone = $a_xml->xpath("//PHONE_NUMBER[@Address_Type='H']");
+			$phone = $a_xml->xpath("//PHONE_NUMBER/parent::*[@Address_Type='H']");
 			$email = $a_xml->xpath("//EMAIL_ADDRESSES/EMAIL_ADDRESS[@Address_Type='E']");			
 			if( isset($address[0]) )
 			{
@@ -169,7 +169,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			}		
 			$member->setLastName( (string)$lname[0] );
 			$address = $xml['address_info']->xpath("//ADDRESS/ADDR_PREF_IND[. = 'Y']/parent::*");
-			$phone = $xml['address_info']->xpath("//PHONE_NUMBER[@Address_Type='H']");
+			$phone = $xml['address_info']->xpath("//PHONE_NUMBER/parent::*[@Address_Type='H']") ;
 			$email = $xml['address_info']->xpath("//EMAIL_ADDRESSES/EMAIL_ADDRESS[@Address_Type='E']");				
 			if( isset( $address[0] ) )
 			{

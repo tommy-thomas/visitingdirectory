@@ -19,10 +19,11 @@ if( $app->isShibbAuth() )
 		$collection = Collection::instance($app , $curl );
 		$curl->authenticate( $collection->getLoginUrl() );
 		$_SESSION['authtoken'] = array( 'authtoken' => $curl->__toString());
+		$collection->checkCache($_SESSION['authtoken']);
 		if( $app->userIsFromSocialAuth() && isset($_SERVER['mail']) )
 		{
-			$curl->setPost($_SESSION['authtoken']);	
-			$curl->createCurl( $collection->getServiceUrl('email_validation', $_SERVER['mail'] ) );	
+			$curl->setPost($_SESSION['authtoken']);
+			$curl->createCurl( $collection->getServiceUrl('email_validation', $_SERVER['mail'] ) );
 			if( !$curl->xmlChildExists($curl->asSimpleXML(), '//ID_NUMBER'))
 			{
 				$soc_auth_err = true;
