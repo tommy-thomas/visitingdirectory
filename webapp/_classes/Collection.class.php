@@ -44,7 +44,6 @@ class Collection
 		$this->app = $app;
 		$this->curl = $curl;
 		$this->token = $token;
-		$this->clearCollection();
 		if( $this->app->isDev() || $this->app->isStage() )
 		{
 			$this->urls = array(
