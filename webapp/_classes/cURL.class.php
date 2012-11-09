@@ -163,17 +163,6 @@ class cURL extends WS_cURL{
 		
 	}
 	/**
-	 * Check existence of simple xml child node.
-	 * @param $xml
-	 * @param $childpath
-	 */
-	public function xmlChildExists( SimpleXMLElement $xml , $childpath )
-	{
-		$result = $xml->xpath($childpath);
-		return (bool)(count($result));
-	}
-
-	/**
 	 * Convert instance response xml to simple xml object.
 	 */
 	public function asSimpleXML()

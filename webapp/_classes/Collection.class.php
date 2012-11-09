@@ -530,6 +530,16 @@ class Collection
     	return str_replace(array('&', '<', '>', '\'', '"'), array('&amp;', '&lt;', '&gt;', '&apos;', '&quot;'), (string)$string);
 	}
 	/**
+	 * Check existence of simple xml child node.
+	 * @param $xml
+	 * @param $childpath
+	 */
+	public function xmlChildExists( SimpleXMLElement $xml , $childpath )
+	{
+		$result = $xml->xpath($childpath);
+		return (bool)(count($result));
+	}
+	/**
 	 * Check that vc_active_committees is cached , if not set and cache it.
 	 */
 	public function checkCache()

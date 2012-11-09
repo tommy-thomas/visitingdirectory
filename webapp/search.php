@@ -27,7 +27,7 @@ $error_messages = array(
 );
 if( isset($_GET['error']) &&  isset($error_messages[$_GET['error']]) )
 {
-		$template->add_data( "authentication_error" , $error_messages[$_GET['error']] );	
+		$template->add_data( "authentication_error" , $error_messages[$_GET['error']] );
 }
 $template->show();
 ?>
