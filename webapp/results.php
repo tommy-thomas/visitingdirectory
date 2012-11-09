@@ -42,10 +42,6 @@ if( isset($_SESSION['authtoken']) )
 		{
 			$code = $_GET['c'];
 		}
-		/*
-		 * Use this as filter when caching ajax async so as not to create conflict
-		 */
-		$_SESSION['current_search'] = $code;
 		$template->add_data('Committee' , Collection::getCommitteeName($code) );
 		$member_list = array();
 		if( !is_null($collection->getCachedMemberList($code)) )
