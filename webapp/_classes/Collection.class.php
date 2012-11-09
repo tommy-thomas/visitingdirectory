@@ -469,11 +469,11 @@ class Collection
 			$member['degree_info'] = $this->getInfo( $id_number , $token , 'degree');
 			if( is_a($member['entity_info'], 'SimpleXMLElement') )
 			{
-				$member['employment_info']= $member['entity_info']->xpath('//EMPLOYMENT/JOB[@PRIMARY_EMP_IND="Y"]');		
+				$member['employment_info']= $member['entity_info']->xpath('//EMPLOYMENT/JOB[@PRIMARY_EMP_IND="Y"]');	
 				if( !empty($member['employment_info']))
 				{
 					$attributes = $member['employment_info'][0]->attributes();			
-					$member['employment_info'][0]->addChild('JOB' , (string)$member['employment_info'][0] );					
+					$member['employment_info'][0]->addChild('JOB' , $this->xmlEscape($member['employment_info'][0]) );
 					$employer_id = trim($attributes['EMPLOYER_ID_NUMBER']);
 					$employer_name = trim($attributes['EMPLOYER_NAME1']);
 					if( !empty($employer_id) && empty($employer_name) )
@@ -482,7 +482,7 @@ class Collection
 					}
 					else
 					{
-						$member['employment_info'][0]->addChild('EMPLOYER' , $employer_name );
+						$member['employment_info'][0]->addChild('EMPLOYER' , $this->xmlEscape( $employer_name ) );
 					}
 				}																		
 			}				
@@ -513,7 +513,7 @@ class Collection
 				$url = sprintf( $this->urls['entity_info'] , $employer_id );
 				$this->curl->createCurl( $url );
 				$xml = $this->curl->asSimpleXML();
-				$employer_element = $xml->xpath('//ENTITY/NAMES/NAME[@NAME_TYPE_CODE="00"]');
+				$employer_element = $xml->xpath('//ENTITY/NAMES/NAME[@NAME_TYPE_CODE="00"]');				
 				if( isset($employer_element[0]) )
 				{
 					$member[0]->EMPLOYER = (string)$employer_element[0]->REPORT_NAME;	
@@ -521,6 +521,13 @@ class Collection
 			}					
 		}
 		return $member;
+	}
+	/**
+	 * Escape reserved characters.
+	 */
+	public function xmlEscape($string)
+	{
+    	return str_replace(array('&', '<', '>', '\'', '"'), array('&amp;', '&lt;', '&gt;', '&apos;', '&quot;'), (string)$string);
 	}
 	/**
 	 * Check that vc_active_committees is cached , if not set and cache it.
