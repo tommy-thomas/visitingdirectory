@@ -33,7 +33,7 @@
 						<ul>
 							<li><strong>Click on a member's last name to see additional information.</strong></li>
 							<li>You may sort by clicking the table's headings headings.</li>
-							<li>Data incorrect or incomplete? <a href="mailto:">Contact us with an update.</a></li>
+							<li>Data incorrect or incomplete? <a href="mailto:spaepen@uchicago.edu?subject=Update for Visiting Committee Member">Contact us with an update.</a></li>
 						</ul>
 						<em>*Denotes a Life Member.</em></p>
 						<p class="hiddenscreen">Please Note: Member data is not available for printing at this time. Please contact Alumni Relations &amp; Development if you need a copy of this information.</p>
