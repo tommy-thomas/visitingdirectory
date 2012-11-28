@@ -49,8 +49,8 @@
 											</p>
 										
 											<h3>Committees:</h3>
-											<p><?cs each:c=committee_list ?>	
-												    <?cs var:c ?><br />
+											<p><?cs each:c=committee_list ?>												  
+												   <a href="results.php?c=<?cs var:c.key ?>"><?cs var:c.value ?></a><br />
 												<?cs /each ?>
 											</p>
 										<?cs /each ?>

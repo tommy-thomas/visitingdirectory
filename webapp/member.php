@@ -36,7 +36,8 @@ if( !is_null($member) )
 	$committee_list = array();
 	foreach( $committees as $key=>$value)
 	{
-		$committee_list[] = "<a href=\"results.php?c=".htmlClean($key)."\">".htmlClean($value)."</a>";
+		$committee_list[] = array("key" => $key , "value" => $value);
+		
 	}
 	$template->add_data('committee_list', $committee_list , false );
 }

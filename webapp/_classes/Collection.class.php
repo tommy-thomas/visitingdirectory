@@ -427,7 +427,7 @@ class Collection
 			if( $this->isValidMember($m))
 			{
 				$cm = new CommitteeMember();
-				$cm->setIdNumber( htmlClean((string)$m->ID_NUMBER) );
+				$cm->setIdNumber( (string)$m->ID_NUMBER );
 				$cm->setFirstName( htmlClean((string)$m->FIRST_NAME) );
 				$cm->setLastName( htmlClean((string)$m->LAST_NAME)  );	
 				$cm->setCommittees( $arr , apc_fetch('vc_active_committees'));

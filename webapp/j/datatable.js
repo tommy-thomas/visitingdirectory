@@ -1,8 +1,15 @@
 	/* Formating function for row details */
+
+		function getTextNodeValue( element, index, array ){
+			return ( element != null && element != null) ? (document.createTextNode( element )).nodeValue : ""; 
+		}
+		
 		function fnFormatDetails ( aData , fData)
 		{
-			var data = aData.split(":");
-			var f_data = fData.split(":");
+			var raw_data = aData.split(":");
+			var raw_f_data = fData.split(":");
+			var data = raw_data.map(getTextNodeValue);
+			var f_data = raw_f_data.map(getTextNodeValue);
 			var sOut = '<table width="100%" border="0" cellspacing="3" cellpadding="3" style="background-color:#ccc; margin:0;">';   
 			sOut +='<tr>';
 			sOut +='<td width="25%" style="align:left;">'+data[0]+'</td>';
@@ -59,7 +66,7 @@
 		$(function() {
 			/*
 			 * Initialise DataTables
-			 */			
+			 */	
 			var oTable = $('#results').dataTable(
 			{   
 				"bJQueryUI": true,

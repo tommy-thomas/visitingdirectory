@@ -64,7 +64,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		foreach( $this->entity_info as $key => $obj )
 		{
 			$member = new CommitteeMember();
-			$member->setIdNumber( htmlClean((int)$obj->ID_NUMBER) );
+			$member->setIdNumber( (int)$obj->ID_NUMBER );
 			$member->setCommitteeRoleCode( $this->setValue($obj->COMMITTEE_ROLE_CODE) );
 			$member->setFirstName( $this->setValue($obj->FIRST_NAME) );
 			$member->setMiddleName( $this->setValue($obj->MIDDLE_NAME) );		
@@ -90,7 +90,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			$a_xml = $this->address_info[$id];
 			$address = $a_xml->xpath("//ADDRESS/ADDR_PREF_IND[. = 'Y']/parent::*");			
 			$phone = $a_xml->xpath("//PHONE_NUMBER/parent::*[@Address_Type='H']");
-			$email = $a_xml->xpath("//EMAIL_ADDRESSES/EMAIL_ADDRESS[@Address_Type='E']");			
+			$email = $a_xml->xpath("//EMAIL_ADDRESSES/EMAIL_ADDRESS[@Address_Type='E']");
 			if( isset($address[0]) )
 			{
 				$member->setStreetOne( $this->setValue((string)$address[0]->STREET1));
@@ -245,7 +245,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		return $this->search_results;
 	}
 	/**
-	 * Search simple xml search results by first name and/or last name.
+	 * Sort simple xml search results by first name and/or last name.
 	 * @param $nodes
 	 * @param $child_name
 	 * @param $second_child
