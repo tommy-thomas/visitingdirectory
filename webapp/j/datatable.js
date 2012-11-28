@@ -1,7 +1,7 @@
 	/* Formating function for row details */
 
 		function getTextNodeValue( element, index, array ){
-			return ( element != null && element != null) ? (document.createTextNode( element )).nodeValue : ""; 
+			return ( element != null) ? (document.createTextNode( element )).nodeValue : "";
 		}
 		
 		function fnFormatDetails ( aData , fData)
