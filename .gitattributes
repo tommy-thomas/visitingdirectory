@@ -20,11 +20,6 @@ webapp/_templates/search.html.cs -text
 webapp/c/background.css -text
 webapp/c/base.css -text
 webapp/c/ckeditor.css -text
-webapp/c/datatable/demo_page.css -text
-webapp/c/datatable/demo_table.css -text
-webapp/c/datatable/demo_table_jui.css -text
-webapp/c/datatable/jquery.dataTables.css -text
-webapp/c/datatable/jquery.dataTables_themeroller.css -text
 webapp/c/demo_table_jui.css -text
 webapp/c/ie.css -text
 webapp/c/ie6.css -text

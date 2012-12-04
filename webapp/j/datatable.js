@@ -10,7 +10,7 @@
 			var raw_f_data = fData.split(":");
 			var data = raw_data.map(getTextNodeValue);
 			var f_data = raw_f_data.map(getTextNodeValue);
-			var sOut = '<table width="100%" border="0" cellspacing="3" cellpadding="3" style="background-color:#ccc; margin:0;">';   
+			var sOut = '<table width="100%" border="0" cellspacing="3" cellpadding="3" style="margin:0;">';   
 			sOut +='<tr>';
 			sOut +='<td width="25%" style="align:left;">'+data[0]+'</td>';
 			sOut +='<td width="25%" style="align:left;">&nbsp;</td>';
@@ -96,7 +96,8 @@
 					return false;
 				}	
 			 });
-            $('#oButton').live('click',function(){
+		    $('#oButton').live('click',function(){
+			  $('table#results').addClass('expanded');
 			  $('.row-view').each(function(){
 				var aData = $(this).find('.infodiv').text();
 				var fData = $(this).find('.infodiv_foreign').text();
@@ -106,6 +107,7 @@
 			  });								   
 		  });
 			$('#cButton').live('click',function(){
+			  $('table#results').removeClass('expanded');
 			  $('.row-view').each(function(){
 				var aData = $(this).find('.infodiv').text();
 				if( oTable.fnIsOpen(this) )
