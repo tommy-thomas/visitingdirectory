@@ -207,10 +207,18 @@ table.display td.center {
 
 
 table.display td.info_row {padding:0;}
-table.display td.info_row table tr td {background-color:#eaeae1;}
 table.display td.info_row table tr td:first-child {padding-left:25px;}
 table.display td.info_row table tr td:last-child {padding-right:25px;}
-table.table-striped.expanded tbody tr td {background-color:#ccc; border:none;}
+
+table.table-striped tbody tr, table.table-striped tbody tr td {border:none;}
+table.table-striped tbody tr td.info_row {border-top:1px solid #aaa;}
+
+table.table-striped tbody tr.row-view.odd td,
+table.table-striped tbody tr.row-view.odd + tr td.info_row {background-color:#ccc;}
+table.table-striped tbody tr.row-view.even td,
+table.table-striped tbody tr.row-view.even + tr td.info_row {background-color:#eaeae1;}
+
+table.table-striped tbody tr td.info_row table tr td {background-color:inherit;}
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
