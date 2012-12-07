@@ -351,7 +351,7 @@ class Collection
 				libxml_use_internal_errors(true);
 				$this->curl->setPost($token);
 				$this->curl->createCurlMultiple( $this->urls[$key] , $list );
-				$data[$key] = $this->curl->getNodes();					
+				$data[$key] = $this->curl->getNodes();
 			}			
 			foreach ( $info as $key )
 			{
@@ -428,8 +428,8 @@ class Collection
 			{
 				$cm = new CommitteeMember();
 				$cm->setIdNumber( (string)$m->ID_NUMBER );
-				$cm->setFirstName( htmlClean((string)$m->FIRST_NAME) );
-				$cm->setLastName( htmlClean((string)$m->LAST_NAME)  );	
+				$cm->setFirstName( (string)$m->FIRST_NAME );
+				$cm->setLastName( (string)$m->LAST_NAME  );	
 				$cm->setCommittees( $arr , apc_fetch('vc_active_committees'));
 				$members[(string)$m->ID_NUMBER] = $cm;
 			}

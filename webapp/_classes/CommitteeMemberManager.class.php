@@ -266,7 +266,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	 */
 	private function setValue($string)
 	{
-		$str = htmlClean(trim((string)$string));
+		$str = trim((string)$string);
 		if( !empty($str))
 		{
 			return $str;
