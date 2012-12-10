@@ -2,7 +2,7 @@
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
-		<title>Visiting Committee Directory | Board of Trustees | The University of Chicago</title>
+		<title>Visiting Committees Directory | Board of Trustees | The University of Chicago</title>
 		<?cs include:"inc/head.html.cs" ?>	
 	</head>
 	<body class="two-col-temp">
