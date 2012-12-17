@@ -8,8 +8,8 @@
 		{
 			var raw_data = aData.split(":");
 			var raw_f_data = fData.split(":");
-			var data = raw_data.map(getTextNodeValue);
-			var f_data = raw_f_data.map(getTextNodeValue);
+			var data = $.map(raw_data, getTextNodeValue);
+			var f_data = $.map(raw_f_data,getTextNodeValue);
 			var sOut = '<table width="100%" border="0" cellspacing="3" cellpadding="3" style="margin:0;">';   
 			sOut +='<tr>';
 			sOut +='<td width="25%" style="align:left;">'+data[0]+'</td>';
