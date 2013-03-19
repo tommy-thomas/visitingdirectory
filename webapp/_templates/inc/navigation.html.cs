@@ -7,10 +7,10 @@
 				<ul class="menu clearfix">
 					<?cs each:c=Committee ?>
 					<li class="leaf"><a href="committee.php?c=<?cs var:c.COMMITTEE_CODE ?>"><?cs var:c.FULL_DESC ?></a></li>
-					<?cs /each ?>
-					<?cs if:LoggedIn ?><li><a href="https://shibboleth2.uchicago.edu/idp/logout.html">Log Out</a></li><?cs /if ?>
-				</ul>				
+					<?cs /each ?>					
+				</ul>	
 			</li>
+			<?cs if:LoggedIn ?><li><a href="https://shibboleth2.uchicago.edu/idp/logout.html">Log Out</a></li><?cs /if ?>
             
 		</ul>
 	</div>
