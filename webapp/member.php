@@ -20,9 +20,10 @@ else
 
 $curl = new cURL(null);
 $collection = Collection::instance( $app , $curl , $_SESSION['authtoken']);
+$collection->loadCommitteeTemplateData($template);
 if( isset($_SESSION['authtoken']) && isset($_GET['id_number']) )
 {
-	$member_xml = $collection->getOneMemberData($_GET['id_number'] , $_SESSION['authtoken'] );	
+	$member_xml = $collection->getOneMemberData($_GET['id_number'] , $_SESSION['authtoken'] );
 }
 
 $manager = new CommitteeMemberManager();

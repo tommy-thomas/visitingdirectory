@@ -516,7 +516,7 @@ class Collection
 				$employer_element = $xml->xpath('//ENTITY/NAMES/NAME[@NAME_TYPE_CODE="00"]');				
 				if( isset($employer_element[0]) )
 				{
-					$member[0]->EMPLOYER = (string)$employer_element[0]->REPORT_NAME;	
+					$member[0]->EMPLOYER = (string)$employer_element[0]->REPORT_NAME;
 				}
 			}					
 		}

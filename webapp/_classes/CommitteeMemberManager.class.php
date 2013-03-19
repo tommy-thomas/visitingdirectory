@@ -52,14 +52,15 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	/**
 	 * Fluent load method based on four character committee code and assoc array of simple xml.
 	 */
-	public function load( $code="" , $members)
+	public function load( $code="" , $members , $sort=false)
 	{				
 		if( !empty($code) )
 		{	
 			$this->entity_info = $this->all_member_data->xpath('//COMMITTEE/COMMITTEE_CODE[. ="'.$code.'" and ../RECORD_STATUS_CODE="A" and ../COMMITTEE_ROLE_CODE != "EO"]/parent::*');				
 			$this->address_info = isset($members['address_info']) ? $members['address_info'] : array();
 			$this->degree_info = isset($members['degree_info']) ? $members['degree_info'] : array() ;
-			$this->employment_info = isset($members['employment_info']) ? $members['employment_info'] : array() ;			
+			$this->employment_info = isset($members['employment_info']) ? $members['employment_info'] : array() ;
+			$return = ($sort) ? $this->xsort($this->entity_info, 'LAST_NAME' , 'FIRST_NAME') : '';			
 		}
 		foreach( $this->entity_info as $key => $obj )
 		{
@@ -88,7 +89,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		if( isset($this->address_info[$id]) )
 		{
 			$a_xml = $this->address_info[$id];
-			$address = $a_xml->xpath("//ADDRESS/ADDR_PREF_IND[. = 'Y']/parent::*");			
+			$address = $a_xml->xpath("//ADDRESS/ADDR_PREF_IND[. = 'Y']/parent::*");
 			$phone = $a_xml->xpath("//PHONE_NUMBER/parent::*[@Address_Type='H']");
 			$email = $a_xml->xpath("//EMAIL_ADDRESSES/EMAIL_ADDRESS[@Address_Type='E']");
 			if( isset($address[0]) )
@@ -106,11 +107,11 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			{
 				$member->setPhoneAreaCode( $this->setValue($phone[0]->PHONE_AREA_CODE) );
 				$member->setPhoneNumber( $this->setValue($phone[0]->PHONE_NUMBER) );
-			}
+			}			
 			if( isset($email[0]) )
 			{
 				$member->setEmail( $this->setValue((string)$email[0]) );
-			}						
+			} 					
 		}
 	}
 	/**
@@ -275,7 +276,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		{
 			return null;
 		}
-	}
+	}	
 	/**
 	 * Replace entities in cleaned strings with correct characters for search.
 	 */

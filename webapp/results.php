@@ -20,6 +20,7 @@ else
 }
 $curl = new cURL(null);
 $collection = Collection::instance( $app , $curl ,  $_SESSION['authtoken']);
+$collection->loadCommitteeTemplateData($template);
 $manager = new CommitteeMemberManager();
 if( (isset($_POST['search_by_committee']) && empty($_POST['committee'])) )
 {
