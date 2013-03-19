@@ -28,7 +28,6 @@ if( isset($_SESSION['authtoken']) && isset($_GET['c']) )
 	$code = $_GET['c'];
 	$template->add_data('Committee' , Collection::getCommitteeName($code) );
 	$member_list = array();
-	$collection->clearCollection();
 	if( !is_null($collection->getCachedMemberList($code)) )
 	{			
 		$member_list = $collection->getCachedMemberList($code);
