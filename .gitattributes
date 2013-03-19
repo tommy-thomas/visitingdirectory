@@ -17,6 +17,7 @@ webapp/_templates/index.html.cs -text
 webapp/_templates/member.html.cs -text
 webapp/_templates/results.html.cs -text
 webapp/_templates/search.html.cs -text
+webapp/_templates/visiting.html.cs -text
 webapp/c/background.css -text
 webapp/c/base.css -text
 webapp/c/ckeditor.css -text
@@ -85,3 +86,4 @@ webapp/member.php -text
 webapp/restricted/authorization.php -text
 webapp/results.php -text
 webapp/search.php -text
+webapp/visiting.php -text
