@@ -5,7 +5,7 @@ require('_classes/autoload.php');
  */
 $app = Application::app();
 $template = $app->template('index.html.cs');
-
+$template->add_data( "base" , $app->base() );
 $auth_err = false;
 $soc_auth_err = false;
 /**

@@ -10,6 +10,7 @@ $app = Application::app();
  * The Clear Silver template.
  */
 $template = $app->template('results.html.cs');
+$template->add_data( "base" , $app->base() );
 if( !$app->isAuthorized() )
 {
 	$app->redirect('./index.php?error=auth');

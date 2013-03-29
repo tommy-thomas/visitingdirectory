@@ -2,11 +2,11 @@
 	<div class="content">
 		<ul class="menu ">
 			<li class="first"><a href="http://trustees.uchicago.edu/" class="active">Board of Trustees</a></li>
-			<li class=""><a href="/index.php">Directory Search</a></li>
-			<li class=""><a href="/visiting/visiting.php">Visiting Committees</a>
+			<li class=""><a href="<?cs var:base ?>search.php">Directory Search</a></li>
+			<li class=""><a href="<?cs var:base ?>visiting/index.php">Visiting Committees</a>
 				<ul class="menu clearfix">
 					<?cs each:c=Committee ?>
-					<li class="leaf"><a href="/visiting/committee.php?c=<?cs var:c.COMMITTEE_CODE ?>"><?cs var:c.FULL_DESC ?></a></li>
+					<li class="leaf"><a href="<?cs var:base ?>visiting/committee.php?c=<?cs var:c.COMMITTEE_CODE ?>"><?cs var:c.FULL_DESC ?></a></li>
 					<?cs /each ?>					
 				</ul>	
 			</li>

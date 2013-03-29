@@ -10,6 +10,7 @@ $app = Application::app();
  * The Clear Silver template.
  */
 $template = $app->template('../_templates/visiting.html.cs');
+$template->add_data( "base" , $app->base() );
 $curl = new cURL(null);
 $collection = Collection::instance($app , $curl );
 $curl->authenticate( $collection->getLoginUrl() );

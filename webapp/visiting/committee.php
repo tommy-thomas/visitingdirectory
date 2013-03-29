@@ -5,11 +5,13 @@ require('../_classes/autoload.php');
  * The Application object.
  */
 $app = Application::app();
+$template = $app->template('committee.html.cs');
+$template->add_data( "base" , $app->base() );
 /**
  * Start populating the CS template.
  * The Clear Silver template.
  */
-$template = $app->template('committee.html.cs');
+
 $curl = new cURL(null);
 $collection = Collection::instance( $app , $curl ,  $_SESSION['authtoken']);
 $collection->loadCommitteeTemplateData($template);

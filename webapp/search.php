@@ -6,6 +6,7 @@ require('_classes/autoload.php');
  */
 $app = Application::app();
 $template = $app->template('search.html.cs');
+$template->add_data( "base" , $app->base() );
 if( !$app->isAuthorized() )
 {
 	$app->redirect('./index.php?error=auth');
