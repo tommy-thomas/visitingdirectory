@@ -4,9 +4,19 @@ require('_classes/autoload.php');
  * The Application object.
  */
 $app = Application::app();
+$template = $app->template('index.html.cs');
 
 $auth_err = false;
 $soc_auth_err = false;
+/**
+ * Set committee objects for side nav.
+ */
+$curl = new cURL(null);
+$collection = Collection::instance($app , $curl );
+$curl->authenticate( $collection->getLoginUrl() );
+$_SESSION['authtoken'] = array( 'authtoken' => $curl->__toString());
+$collection->checkCache($_SESSION['authtoken']);
+$collection->loadCommitteeTemplateData($template);
 if( $app->isShibbAuth() )
 {
 	if( $app->isAuthorized() )
@@ -14,12 +24,7 @@ if( $app->isShibbAuth() )
 		$app->redirect('./search.php');
 	}
 	elseif( $app->isValidService()  )
-	{		
-		$curl = new cURL(null);
-		$collection = Collection::instance($app , $curl );
-		$curl->authenticate( $collection->getLoginUrl() );
-		$_SESSION['authtoken'] = array( 'authtoken' => $curl->__toString());
-		$collection->checkCache($_SESSION['authtoken']);
+	{
 		if( $app->userIsFromSocialAuth() && isset($_SERVER['mail']) )
 		{
 			$curl->setPost($_SESSION['authtoken']);
@@ -57,7 +62,6 @@ if( $app->isShibbAuth() )
  * Start populating the CS template.
  * The Clear Silver template.
  */
-$template = $app->template('index.html.cs');
 $template->add_data( "domain" , $app->domain() );
 $template->add_data( "base" , $app->base() );
 /*

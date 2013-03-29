@@ -2,10 +2,6 @@
 // http://us.php.net/manual/en/function.curl-multi-exec.php#109377
 class cURL extends WS_cURL{
 	/*
-	 * Username for Service Now web service authentication
-	 */
-	const CREDS_FILE_PATH = "restricted/authorization.php";
-	/*
 	 * Client code may have need to dump this for debugging.
 	 */
 	protected $_requestinfo;
@@ -30,8 +26,9 @@ class cURL extends WS_cURL{
 	 */
 	public function __construct($url=null)
 	{
+		define('CREDS_FILE_PATH', dirname(__FILE__)."/../restricted/authorization.php");
 		parent::__construct($url);
-		require_once (self::CREDS_FILE_PATH);
+		require_once (CREDS_FILE_PATH);
 		$this->auth_name = $USERNAME;
 		$this->auth_pass = $PASSWORD;		
 	}

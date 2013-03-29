@@ -60,7 +60,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			$this->address_info = isset($members['address_info']) ? $members['address_info'] : array();
 			$this->degree_info = isset($members['degree_info']) ? $members['degree_info'] : array() ;
 			$this->employment_info = isset($members['employment_info']) ? $members['employment_info'] : array() ;
-			$return = ($sort) ? $this->xsort($this->entity_info, 'LAST_NAME' , 'FIRST_NAME') : '';			
+			$return = ($sort) ? $this->xsort($this->entity_info, 'LAST_NAME' , 'FIRST_NAME') : '';		
 		}
 		foreach( $this->entity_info as $key => $obj )
 		{

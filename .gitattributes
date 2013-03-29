@@ -33,7 +33,6 @@ webapp/c/screen.css -text
 webapp/c/small.css -text
 webapp/c/style.css -text
 webapp/cache.php -text
-webapp/committee.php -text
 webapp/img/add.png -text svneol=unset#image/png
 webapp/img/favicon.ico -text
 webapp/img/feed.png -text svneol=unset#image/png
@@ -88,4 +87,5 @@ webapp/member.php -text
 webapp/restricted/authorization.php -text
 webapp/results.php -text
 webapp/search.php -text
-webapp/visiting.php -text
+webapp/visiting/committee.php -text
+webapp/visiting/index.php -text
