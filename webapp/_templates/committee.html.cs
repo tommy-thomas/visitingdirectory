@@ -2,7 +2,7 @@
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
-		<title>Visiting Committees Directory | Board of Trustees | The University of Chicago</title>
+		<title>Visiting Committees Directory | Visiting Committees &amp; Councils | The University of Chicago</title>
 		<?cs include:"inc/head.html.cs" ?>	
 	</head>
 	<body class="two-col-temp">
@@ -17,16 +17,19 @@
 						<?cs if:authentication_error ?>
 							<div class="error"><?cs var:authentication_error ?></div>
 						<?cs /if ?>	
-							<h1 id="page-title">Visiting Committees Directory - beta</h1>
+							<h1 id="page-title"><?cs var:Committee ?></h1>
 							<div id="bottomrow" class="">
 								<div class="grid_9 alpha">
 									<div class="content region-content">
-									<h2 id="cmtname"><?cs var:Committee ?></h2>
+									<!--<h2 id="cmtname"><?cs var:Committee ?></h2>-->
+									<p><em>*Denotes a Life Member</em></p>
 									<p><strong><?cs var:Chairman ?></strong></p>
+									<ul>
 									  <?cs each:m=CommitteeMember ?>
-									  <p><?cs var:m.FirstName ?> <?cs var:m.MiddleName ?> <?cs var:m.LastName ?></p>
-									  </tr>
+									  <li><?cs var:m.FirstName ?> <?cs var:m.MiddleName ?> <?cs var:m.LastName ?></li>
+									 
 								  	 <?cs /each ?>
+								  	</ul>
 										<div class="clear" id=""></div>
 									</div>
 								</div>
@@ -37,7 +40,7 @@
 						
 						<div id="sidebar-first" class="column sidebar grid_3 pull_9">
 							<?cs include:"inc/login.html.cs" ?>
-							<?cs include:"inc/navigation.html.cs" ?>
+							<?cs include:"inc/navigation-public.html.cs" ?>
 							<!--<?cs include:"inc/search.html.cs" ?>-->
 							<?cs include:"inc/related-links.html.cs" ?>
 							

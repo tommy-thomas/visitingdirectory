@@ -2,7 +2,7 @@
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
-		<title>Visiting Committees Directory | Board of Trustees | The University of Chicago</title>
+		<title>Secure Visiting Committees Directory | The University of Chicago</title>
 		<?cs include:"inc/head.html.cs" ?>	
 	</head>
 	<body class="two-col-temp">
@@ -17,7 +17,7 @@
 						<?cs if:authentication_error ?>
 							<div class="error"><?cs var:authentication_error ?></div>
 						<?cs /if ?>						
-							<h1 id="page-title">Visiting Committees Directory - beta</h1>
+							<h1 id="page-title">Secure Visiting Committees Directory - beta</h1>
 							<div id="bottomrow" class="">
 								<div class="grid_9 alpha">
 									<div class="content region-content">
