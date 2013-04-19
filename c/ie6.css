@@ -1,0 +1,44 @@
+#wordmark {
+	margin-right:0;
+}
+
+/* These two together fix the extra gap between li elements in IE6 */
+#block-system-main-menu .content ul li a {
+	display:inline-block;
+}
+#block-system-main-menu .content ul li a {
+	display:block;
+}
+
+/* Upgrade popup*/
+#ie_upgrade a {
+display:block;
+height:20px;
+width:96%;
+padding:8px 2% 8px 3%;
+font:10px 'Bitstream Vera Sans',verdana,sans-serif;
+background: #ffffe1 url(../images/ie6icon.png) 1% 8px no-repeat;
+border-bottom:1px solid rgb(102, 102, 102);
+color:#000;
+}
+#ie_upgrade a:hover {text-decoration:none; color:#000; background: #3399ff url(../images/ie6icon-over.png) 1% 8px no-repeat; color:#fff;}
+
+
+/* Original Bartik IE6 styles */
+#content {
+  overflow: hidden;
+}
+.form-item-search-block-form {
+  width: 50%;
+}
+.tabs ul.primary,
+.region-header .block-menu li a,
+.comment-form .form-item {
+  zoom: 1;
+}
+#block-search-form .form-item-search-block-form input {
+  width: 67%;
+}
+.node-teaser {
+  border-bottom: 1px solid #d3d7d9;
+}
