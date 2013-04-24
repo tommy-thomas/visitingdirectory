@@ -72,7 +72,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			$last_name = (  isset($obj->COMMITTEE_ROLE_CODE ) && ((string)$obj->COMMITTEE_ROLE_CODE ) ==  'LM' )
 				? $this->setValue($obj->LAST_NAME)."*"
 				: $this->setValue($obj->LAST_NAME);
-			$member->setLastName( $last_name );				
+			$member->setLastName( $last_name );
 			$this->setMemberAddressData( $member,$this->setValue($obj->ID_NUMBER) );
 			$this->setMemberDegreeData( $member, $this->setValue($obj->ID_NUMBER) );
 			$this->setMemberEmploymentData( $member, $this->setValue($obj->ID_NUMBER) );
@@ -90,8 +90,8 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		{
 			$a_xml = $this->address_info[$id];
 			$address = $a_xml->xpath("//ADDRESS/ADDR_PREF_IND[. = 'Y']/parent::*");
-			$phone = $a_xml->xpath("//PHONE_NUMBER/parent::*[@Address_Type='H']");
-			$email = $a_xml->xpath("//EMAIL_ADDRESSES/EMAIL_ADDRESS[@Address_Type='E']");
+			$phone = $a_xml->xpath("//PHONES/PHONE[@Telephone_Type='H']");			
+			$email = $a_xml->xpath("//EMAIL_ADDRESSES/EMAIL_ADDRESS[@Address_Type='H' and @Preferred_Ind='Y']");
 			if( isset($address[0]) )
 			{
 				$member->setStreetOne( $this->setValue((string)$address[0]->STREET1));
@@ -105,8 +105,8 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			}
 			if( isset($phone[0]) )
 			{
-				$member->setPhoneAreaCode( $this->setValue($phone[0]->PHONE_AREA_CODE) );
-				$member->setPhoneNumber( $this->setValue($phone[0]->PHONE_NUMBER) );
+				$member->setPhoneAreaCode( $this->setValue($phone[0]->AREA_CODE) );
+				$member->setPhoneNumber( $this->setValue($phone[0]->TELEPHONE_NUMBER) );
 			}			
 			if( isset($email[0]) )
 			{
@@ -121,14 +121,18 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	{
 		if( isset($this->degree_info[$id]) )
 		{
-			$d_xml = $this->degree_info[$id];
+			$d_xml = $this->degree_info[$id];			
 			$degrees = $d_xml->xpath("//ENTITY/DEGREES/DEGREE/LOCAL_IND[. = 'Y']/parent::*");
 			$degree_info = array();
 			foreach ( $degrees as $d )
 			{	
 				if( !empty($d->DEGREE_CODE) && strlen($d->DEGREE_YEAR) > 1 )
 				{
-					$degree_info[] =$this->setValue($d->DEGREE_CODE)." '".date("y", mktime(0, 0, 0, 1, 1, intval($d->DEGREE_YEAR)));
+					$key = (string)$d->DEGREE_CODE."_".(string)$d->DEGREE_YEAR;
+					if( !array_key_exists($key, $degree_info));
+					{
+						$degree_info[$key] =$this->setValue($d->DEGREE_CODE)." '".date("y", mktime(0, 0, 0, 1, 1, intval($d->DEGREE_YEAR)));	
+					}
 				}
 			}
 			$member->setDegreeInfo( $degree_info );
@@ -170,8 +174,8 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			}		
 			$member->setLastName( (string)$lname[0] );
 			$address = $xml['address_info']->xpath("//ADDRESS/ADDR_PREF_IND[. = 'Y']/parent::*");
-			$phone = $xml['address_info']->xpath("//PHONE_NUMBER/parent::*[@Address_Type='H']") ;
-			$email = $xml['address_info']->xpath("//EMAIL_ADDRESSES/EMAIL_ADDRESS[@Address_Type='E']");				
+			$phone = $xml['address_info']->xpath("//PHONES/PHONE[@Telephone_Type='H']") ;
+			$email = $xml['address_info']->xpath("//EMAIL_ADDRESSES/EMAIL_ADDRESS[@Address_Type='H' and @Preferred_Ind='Y']");
 			if( isset( $address[0] ) )
 			{
 				$member->setStreetOne( $this->setValue((string)$address[0]->STREET1));
@@ -184,9 +188,9 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 				$member->setCountryCode( $this->setValue((string)$address[0]->COUNTRY_CODE) );
 			}
 			if( isset($phone[0]) )
-			{
-				$member->setPhoneAreaCode( $this->setValue((string)$phone[0]->PHONE_AREA_CODE) );
-				$member->setPhoneNumber( $this->setValue((string)$phone[0]->PHONE_NUMBER) );
+			{				
+				$member->setPhoneAreaCode( $this->setValue((string)$phone[0]->AREA_CODE) );
+				$member->setPhoneNumber( $this->setValue((string)$phone[0]->TELEPHONE_NUMBER) );
 			}
 			if( isset($email[0]) )
 			{
@@ -197,12 +201,15 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			foreach ( $degree_info as $d )
 			{				
 				if( !empty($d->DEGREE_CODE) && strlen($d->DEGREE_YEAR) > 1 )
-				{
-					$degrees[] = $this->setValue((string)$d->DEGREE_CODE)." '".date("y", mktime(0, 0, 0, 1, 1, intval($d->DEGREE_YEAR)));
-				}
+				{					
+					$key = (string)$d->DEGREE_CODE."_".(string)$d->DEGREE_YEAR;
+					if( !array_key_exists($key, $degree_info));
+					{
+						$degrees[$key] =$this->setValue($d->DEGREE_CODE)." '".date("y", mktime(0, 0, 0, 1, 1, intval($d->DEGREE_YEAR)));	
+					}
+				}					
 			}
 			$member->setDegreeInfo( $degrees );
-			
 			$member->setCommitteesFromXML( $xml['committee_info'] ,   apc_fetch('vc_active_committees'));
 			$employment = $xml['employment_info'];
 			if( isset($employment[0]) )

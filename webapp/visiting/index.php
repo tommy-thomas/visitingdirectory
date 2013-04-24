@@ -12,10 +12,10 @@ $app = Application::app();
 $template = $app->template('../_templates/visiting.html.cs');
 $template->add_data( "base" , $app->base() );
 $curl = new cURL(null);
-$collection = Collection::instance($app , $curl );
+$collection = GriffinCollection::instance($app , $curl );
 $curl->authenticate( $collection->getLoginUrl() );
 $_SESSION['authtoken'] = array( 'authtoken' => $curl->__toString());
-$collection = Collection::instance( $app , $curl ,  $_SESSION['authtoken']);
+$collection = GriffinCollection::instance( $app , $curl ,  $_SESSION['authtoken']);
 $collection->loadCommitteeTemplateData($template);
 $template->show();
 ?>

@@ -32,7 +32,7 @@
 		protected $CommitteesDisplay;
 		
 		public function getPhoneNumber()
-		{
+		{			
 			if( isset($this->PhoneNumber) && strlen($this->PhoneNumber) == 7)
 			{
 				$tx = preg_replace('~(\d{3})[^\d]*(\d{4})$~', '$1-$2', $this->PhoneNumber);

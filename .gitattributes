@@ -4,6 +4,7 @@ webapp/_classes/Collection.class.php -text
 webapp/_classes/Committee.class.php -text
 webapp/_classes/CommitteeMember.class.php -text
 webapp/_classes/CommitteeMemberManager.class.php -text
+webapp/_classes/GriffinCollection.class.php -text
 webapp/_classes/autoload.php -text
 webapp/_classes/cURL.class.php -text
 webapp/_templates/committee.html.cs -text

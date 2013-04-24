@@ -12,7 +12,7 @@ if( isset($_SESSION['authtoken']) && !isset($_GET['err']))
 	 * Double check big pay load is cached.
 	 */
 	$manager = new CommitteeMemberManager();
-	$collection = Collection::instance( $app , $curl ,  $_SESSION['authtoken']);
+	$collection = GriffinCollection::instance( $app , $curl ,  $_SESSION['authtoken']);
 	$collection->checkCache();
 }
 ?>

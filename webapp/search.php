@@ -5,20 +5,21 @@ require('_classes/autoload.php');
  * The Application object.
  */
 $app = Application::app();
-$template = $app->template('search.html.cs');
-$template->add_data( "base" , $app->base() );
 if( !$app->isAuthorized() )
 {
 	$app->redirect('./index.php?error=auth');
 }
 else
 {
+	$template = $app->template('search.html.cs');
 	$template->add_data('LoggedIn' , true);
+	$template->add_data( "base" , $app->base() );
 }
 
 $curl = new cURL(null);
-$collection = Collection::instance($app , $curl , $_SESSION['authtoken'] );
+$collection = GriffinCollection::instance($app , $curl , $_SESSION['authtoken'] );
 $collection->loadCommitteeTemplateData($template);
+$collection->clearGriffinCollection();
 /*
  * Error messages
  */

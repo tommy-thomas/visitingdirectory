@@ -12,7 +12,7 @@ $soc_auth_err = false;
  * Set committee objects for side nav.
  */
 $curl = new cURL(null);
-$collection = Collection::instance($app , $curl );
+$collection = GriffinCollection::instance($app , $curl );
 $curl->authenticate( $collection->getLoginUrl() );
 $_SESSION['authtoken'] = array( 'authtoken' => $curl->__toString());
 $collection->checkCache($_SESSION['authtoken']);
