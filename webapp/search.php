@@ -19,7 +19,7 @@ else
 $curl = new cURL(null);
 $collection = GriffinCollection::instance( $app , $curl , $_SESSION['authtoken'] );
 $collection->loadCommitteeTemplateData($template);
-$collection->clearGriffinCollection();
+//$collection->clearGriffinCollection();
 
 if( !isset($_SESSION['async_request_flag']) )
 {
