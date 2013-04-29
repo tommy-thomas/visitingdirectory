@@ -20,10 +20,7 @@
 							<h1 id="page-title">Secure Visiting Committees Directory - beta</h1>
 							<div id="bottomrow" class="">
 								<div class="grid_9 alpha">
-									<div class="content region-content">
-									
-									<div class="error">Please Note: The Visiting Committees Directory will be temporarily unavailable during a system upgrade  between Thursday, April 25 and Sunday, April 28th. We apologize for the inconvenience.</div>
-									
+									<div class="content region-content">									
 										<p>Please log in below to use the directory. If you do not have a CNetID, you may log in with an account you already have with Google, Yahoo, or Facebook. <em>Please note that the social media account you choose should use an email address we have on file.</em> If you have any trouble logging in, please contact us at <a href="mailto:weberror@uchicago.edu?subject=Visiting Committees Directory login problem">weberror@uchicago.edu</a>.</p>
 										<p><a href="<?cs var:domain ?>/Shibboleth.sso/Login?entityID=urn:mace:incommon:uchicago.edu&target=<?cs var:base ?>index.php"><strong>Login with CNetID / UCHADID</strong></a></p>
 										<p>Or log in using an existing account below*:</p>
