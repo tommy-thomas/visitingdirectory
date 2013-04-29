@@ -19,14 +19,14 @@ else
 $curl = new cURL(null);
 $collection = GriffinCollection::instance( $app , $curl , $_SESSION['authtoken'] );
 $collection->loadCommitteeTemplateData($template);
-//$collection->clearGriffinCollection();
+$collection->clearGriffinCollection();
 
-if( !isset($_SESSION['async_request_flag']) )
+/*if( !isset($_SESSION['async_request_flag']) )
 {
 	$arr = parse_url ($app->base() );
 	$req = new AsyncRequest($arr['host'], $arr['path'].'cache/?authtoken='.$_SESSION['authtoken']['authtoken']);
 	$_SESSION['async_request_flag'] = true;
-}
+}*/
 
 /*
  * Error messages
