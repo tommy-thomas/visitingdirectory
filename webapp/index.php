@@ -27,17 +27,21 @@ if( $app->isShibbAuth() )
 	{
 		if( $app->userIsFromSocialAuth() && isset($_SERVER['mail']) )
 		{
-			$curl->setPost($_SESSION['authtoken']);
-			$curl->createCurl( $collection->getServiceUrl('email_validation', $_SERVER['mail'] ) );
-			if( !$collection->xmlChildExists($curl->asSimpleXML(), '//ID_NUMBER'))
-			{
-				$soc_auth_err = true;
-			}
+			try {
+				$curl->setPost($_SESSION['authtoken']);
+				$curl->createCurl( $collection->getServiceUrl('email_validation', $_SERVER['mail'] ) );
+				if( !$collection->xmlChildExists($curl->asSimpleXML(), '//ID_NUMBER'))
+				{
+					$soc_auth_err = true;
+				}
 			else
 			{
 				$_SESSION['email'] =  $_SERVER['mail'];
 				$app->redirect('./search.php');
-			}	
+			}		
+			} catch (Exception $e) {
+				Application::handleExceptions($e);
+			}
 		}
 		elseif( $app->userIsFromShibb() )
 		{	

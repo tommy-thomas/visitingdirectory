@@ -45,18 +45,18 @@ if( isset($_SESSION['authtoken']) )
 			$code = $_GET['c'];
 		}
 		$template->add_data('Committee' , GriffinCollection::getCommitteeName($code) );
-		$member_list = array();
+		$members_list = array();
 		if( !is_null($collection->getCachedMemberList($code)) )
 		{
-			$member_list = $collection->getCachedMemberList($code);
+			$members_list = $collection->getCachedMemberList($code);
 		}
 		else
 		{
 			$members_xml = $collection->getMemberData( $code , $_SESSION['authtoken'] );
-			$member_list = $manager->load( $code , $members_xml)->getCommiteeMemberList();
-			$collection->setCachedMemberList($code , $member_list );
+			$members_list = $manager->load( $code , $members_xml)->getCommiteeMemberList();
+			$collection->setCachedMemberList($code , $members_list );
 		}
-		foreach( $member_list as $m )
+		foreach( $members_list as $m )
 		{
 			$id_number = $m->getIdNumber();
 			if( $m->getCommitteeRoleCode() == 'CH' )

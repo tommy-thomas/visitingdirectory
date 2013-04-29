@@ -25,7 +25,7 @@ class GriffinCollection
 	 */
 	private $token;
 	/*
-	 * Holder for raw xml or simple exml.
+	 * Container for raw xml or simple exml.
 	 */
 	private $xml;
 	/*
@@ -51,7 +51,7 @@ class GriffinCollection
 			'address_info' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s/addresses',
 			'all_affiliations' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s/membershipaffiliation',
 			'all_members' => 'https://grif-uat-soa.uchicago.edu/api/griffin/membershipaffiliation/%s',					
-			'degree_info' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s/degrees',		
+			'degree_info' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s/degrees',
 			'entity_info' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s',	
 			'email_validation' => 'https://grif-uat-soa.uchicago.edu/api/griffin/membershipaffiliation/%s?emailaddress=%s'
 			);
@@ -121,56 +121,56 @@ class GriffinCollection
 	 */
 	public function setCommittees()
 	{
-		$committees = array(
-			array('COMMITTEE_CODE' => 'VVRT',
-				'SHORT_DESC' => 'Art History',
-				'FULL_DESC' => 'Visiting Committee to the Department of Art History'),
-			array('COMMITTEE_CODE' => 'VCLZ',
-				'SHORT_DESC' => 'Biological Sciences and Pritzker',
-				'FULL_DESC' => 'Visiting Committee to the Division of the Biological Sciences and the Pritzker School of Medicine '),
-			array('COMMITTEE_CODE' => 'VCLY',
-				'SHORT_DESC' => 'Chicago Booth',
-				'FULL_DESC' => 'Council on the University of Chicago Booth School of Business'),
-			array('COMMITTEE_CODE' => 'VCSA',
-				'SHORT_DESC' => 'College and Student Activities',
-				'FULL_DESC' => 'Visiting Committee on the College and Student Activities'),
-			array('COMMITTEE_CODE' => 'VVTH',
-				'SHORT_DESC' => 'Divinity',
-				'FULL_DESC' => 'Visiting Committee to the Divinity School '),
-			array('COMMITTEE_CODE' => 'VCGS',
-				'SHORT_DESC' => 'Graham School',
-				'FULL_DESC' => 'Council on the Graham School'),
-			array('COMMITTEE_CODE' => 'VVHM',
-				'SHORT_DESC' => 'Humanities',
-				'FULL_DESC' => 'Visiting Committee to the Division of the Humanities'),
-			array('COMMITTEE_CODE' => 'VVLW',
-				'SHORT_DESC' => 'Law School',
-				'FULL_DESC' => 'Visiting Committee to the Law School'),
-			array('COMMITTEE_CODE' => 'VVLB',
-				'SHORT_DESC' => 'Library',
-				'FULL_DESC' => 'Visiting Committee to the Library'),
-			array('COMMITTEE_CODE' => 'VVMS',
-				'SHORT_DESC' => 'Music',
-				'FULL_DESC' => 'Visiting Committee to the Department of Music'),
-			array('COMMITTEE_CODE' => 'VVOI',
-				'SHORT_DESC' => 'Oriental Institute',
-				'FULL_DESC' => 'Visiting Committee to the Oriental Institute'),
-			array('COMMITTEE_CODE' => 'VVPS',
-				'SHORT_DESC' => 'Physical Sciences',
-				'FULL_DESC' => 'Visiting Committee to the Division of the Physical Sciences'),
-			array('COMMITTEE_CODE' => 'VCLD',
-				'SHORT_DESC' => 'Public Policy',
-				'FULL_DESC' => 'Visiting Committee to the Irving B. Harris Graduate School of Public Policy Studies'),
-			array('COMMITTEE_CODE' => 'VVSS',
-				'SHORT_DESC' => 'Social Sciences',
-				'FULL_DESC' => 'Visiting Committee to the Division of the Social Sciences'),
-			array('COMMITTEE_CODE' => 'VSVC',
-				'SHORT_DESC' => 'Social Service Administration',
-				'FULL_DESC' => 'Visiting Committee to the School of Social Service Administration')
-		);
-		$arr = array();	
 		if( !apc_exists('vc_active_committees') )
 		{
+			$committees = array(
+				array('COMMITTEE_CODE' => 'VVRT',
+					'SHORT_DESC' => 'Art History',
+					'FULL_DESC' => 'Visiting Committee to the Department of Art History'),
+				array('COMMITTEE_CODE' => 'VCLZ',
+					'SHORT_DESC' => 'Biological Sciences and Pritzker',
+					'FULL_DESC' => 'Visiting Committee to the Division of the Biological Sciences and the Pritzker School of Medicine '),
+				array('COMMITTEE_CODE' => 'VCLY',
+					'SHORT_DESC' => 'Chicago Booth',
+					'FULL_DESC' => 'Council on the University of Chicago Booth School of Business'),
+				array('COMMITTEE_CODE' => 'VCSA',
+					'SHORT_DESC' => 'College and Student Activities',
+					'FULL_DESC' => 'Visiting Committee on the College and Student Activities'),
+				array('COMMITTEE_CODE' => 'VVTH',
+					'SHORT_DESC' => 'Divinity',
+					'FULL_DESC' => 'Visiting Committee to the Divinity School '),
+				array('COMMITTEE_CODE' => 'VCGS',
+					'SHORT_DESC' => 'Graham School',
+					'FULL_DESC' => 'Council on the Graham School'),
+				array('COMMITTEE_CODE' => 'VVHM',
+					'SHORT_DESC' => 'Humanities',
+					'FULL_DESC' => 'Visiting Committee to the Division of the Humanities'),
+				array('COMMITTEE_CODE' => 'VVLW',
+					'SHORT_DESC' => 'Law School',
+					'FULL_DESC' => 'Visiting Committee to the Law School'),
+				array('COMMITTEE_CODE' => 'VVLB',
+					'SHORT_DESC' => 'Library',
+					'FULL_DESC' => 'Visiting Committee to the Library'),
+				array('COMMITTEE_CODE' => 'VVMS',
+					'SHORT_DESC' => 'Music',
+					'FULL_DESC' => 'Visiting Committee to the Department of Music'),
+				array('COMMITTEE_CODE' => 'VVOI',
+					'SHORT_DESC' => 'Oriental Institute',
+					'FULL_DESC' => 'Visiting Committee to the Oriental Institute'),
+				array('COMMITTEE_CODE' => 'VVPS',
+					'SHORT_DESC' => 'Physical Sciences',
+					'FULL_DESC' => 'Visiting Committee to the Division of the Physical Sciences'),
+				array('COMMITTEE_CODE' => 'VCLD',
+					'SHORT_DESC' => 'Public Policy',
+					'FULL_DESC' => 'Visiting Committee to the Irving B. Harris Graduate School of Public Policy Studies'),
+				array('COMMITTEE_CODE' => 'VVSS',
+					'SHORT_DESC' => 'Social Sciences',
+					'FULL_DESC' => 'Visiting Committee to the Division of the Social Sciences'),
+				array('COMMITTEE_CODE' => 'VSVC',
+					'SHORT_DESC' => 'Social Service Administration',
+					'FULL_DESC' => 'Visiting Committee to the School of Social Service Administration')
+			);
+			$arr = array();	
 			foreach ( $committees as $c )
 			{
 				$tmp = new Committee($c);				
@@ -335,7 +335,7 @@ class GriffinCollection
 	 * @param $code
 	 * @param $token
 	 */
-	public function getMemberData( $code=null , $token=null )
+	public function getMemberData( $code=null , $token=null , $async = false )
 	{
 		$info = array('address_info' , 'degree_info' , 'entity_info');
 		$list = $this->all_member_data->xpath('//COMMITTEES/COMMITTEE/ID_NUMBER[../COMMITTEE_CODE/text()="'.$code.'" and ../RECORD_STATUS_CODE="A" and ../COMMITTEE_ROLE_CODE != "EO"]');
@@ -343,6 +343,7 @@ class GriffinCollection
 		$data = array();
 		if( !is_null($list) && !is_null($token) )
 		{
+			$token = $async ? array( 'authtoken'=>$token ) : $token;	
 			foreach ( $info as $key )
 			{
 				/*
