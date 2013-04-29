@@ -29,5 +29,4 @@ foreach ( $committees as $c )
 		}
 	}
 }
-
 ?>

@@ -53,7 +53,8 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	 * Fluent load method based on four character committee code and assoc array of simple xml.
 	 */
 	public function load( $code="" , $members , $sort=false)
-	{				
+	{	
+		$this->committee_members_list = array();		
 		if( !empty($code) )
 		{	
 			$this->entity_info = $this->all_member_data->xpath('//COMMITTEE/COMMITTEE_CODE[. ="'.$code.'" and ../RECORD_STATUS_CODE="A" and ../COMMITTEE_ROLE_CODE != "EO"]/parent::*');				

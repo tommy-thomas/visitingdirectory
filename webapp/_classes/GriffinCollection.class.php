@@ -251,10 +251,11 @@ class GriffinCollection
 	 */
 	public function setCachedMemberList($code=null , $member_list=null )
 	{
-		if( !is_null($code) && !is_null($member_list) )
+		$key = "vc_".$code."_list";
+		if( !is_null($code) && !is_null($member_list) 
+		&&  !apc_exists($key) )
 		{
-			$key = "vc_".$code."_list";
-			apc_add($key , $member_list , 43200); 
+			apc_add($key , $member_list , 43200);
 		}
 	}	
 	/**
