@@ -17,6 +17,7 @@ $collection = GriffinCollection::instance($app , $curl );
 $curl->authenticate( $collection->getLoginUrl() );
 $_SESSION['authtoken'] = array( 'authtoken' => $curl->__toString());
 $collection->checkCache($_SESSION['authtoken']);
+$collection->setAllMemberData($_SESSION['authtoken']);
 $collection->loadCommitteeTemplateData($template);
 $manager = new CommitteeMemberManager();
 
