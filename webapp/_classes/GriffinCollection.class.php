@@ -81,6 +81,7 @@ class GriffinCollection
 			if( !is_null($token))
 			{
 				$this->setCommittees($token);
+				$this->setAllMemberData($token);
 				$this->all_member_data = simplexml_load_string( apc_fetch('vc_all_member_data') );
 			}
 			
