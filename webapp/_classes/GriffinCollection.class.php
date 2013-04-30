@@ -120,55 +120,54 @@ class GriffinCollection
 	 */
 	public function setCommittees()
 	{
-		if( !apc_exists('vc_active_committees') )
-		{
-			$committees = array(
-				array('COMMITTEE_CODE' => 'VVRT',
-					'SHORT_DESC' => 'Art History',
-					'FULL_DESC' => 'Visiting Committee to the Department of Art History'),
-				array('COMMITTEE_CODE' => 'VCLZ',
-					'SHORT_DESC' => 'Biological Sciences and Pritzker',
-					'FULL_DESC' => 'Visiting Committee to the Division of the Biological Sciences and the Pritzker School of Medicine '),
-				array('COMMITTEE_CODE' => 'VCLY',
-					'SHORT_DESC' => 'Chicago Booth',
-					'FULL_DESC' => 'Council on the University of Chicago Booth School of Business'),
-				array('COMMITTEE_CODE' => 'VCSA',
-					'SHORT_DESC' => 'College and Student Activities',
-					'FULL_DESC' => 'Visiting Committee on the College and Student Activities'),
-				array('COMMITTEE_CODE' => 'VVTH',
-					'SHORT_DESC' => 'Divinity',
-					'FULL_DESC' => 'Visiting Committee to the Divinity School '),
-				array('COMMITTEE_CODE' => 'VCGS',
-					'SHORT_DESC' => 'Graham School',
-					'FULL_DESC' => 'Council on the Graham School'),
-				array('COMMITTEE_CODE' => 'VVHM',
-					'SHORT_DESC' => 'Humanities',
-					'FULL_DESC' => 'Visiting Committee to the Division of the Humanities'),
-				array('COMMITTEE_CODE' => 'VVLW',
-					'SHORT_DESC' => 'Law School',
-					'FULL_DESC' => 'Visiting Committee to the Law School'),
-				array('COMMITTEE_CODE' => 'VVLB',
-					'SHORT_DESC' => 'Library',
-					'FULL_DESC' => 'Visiting Committee to the Library'),
-				array('COMMITTEE_CODE' => 'VVMS',
-					'SHORT_DESC' => 'Music',
-					'FULL_DESC' => 'Visiting Committee to the Department of Music'),
-				array('COMMITTEE_CODE' => 'VVOI',
-					'SHORT_DESC' => 'Oriental Institute',
-					'FULL_DESC' => 'Visiting Committee to the Oriental Institute'),
-				array('COMMITTEE_CODE' => 'VVPS',
-					'SHORT_DESC' => 'Physical Sciences',
-					'FULL_DESC' => 'Visiting Committee to the Division of the Physical Sciences'),
-				array('COMMITTEE_CODE' => 'VCLD',
-					'SHORT_DESC' => 'Public Policy',
-					'FULL_DESC' => 'Visiting Committee to the Irving B. Harris Graduate School of Public Policy Studies'),
-				array('COMMITTEE_CODE' => 'VVSS',
-					'SHORT_DESC' => 'Social Sciences',
-					'FULL_DESC' => 'Visiting Committee to the Division of the Social Sciences'),
-				array('COMMITTEE_CODE' => 'VSVC',
-					'SHORT_DESC' => 'Social Service Administration',
-					'FULL_DESC' => 'Visiting Committee to the School of Social Service Administration')
-			);
+		
+		$committees = array(
+			array('COMMITTEE_CODE' => 'VVRT',
+				'SHORT_DESC' => 'Art History',
+				'FULL_DESC' => 'Visiting Committee to the Department of Art History'),
+			array('COMMITTEE_CODE' => 'VCLZ',
+				'SHORT_DESC' => 'Biological Sciences and Pritzker',
+				'FULL_DESC' => 'Visiting Committee to the Division of the Biological Sciences and the Pritzker School of Medicine '),
+			array('COMMITTEE_CODE' => 'VCLY',
+				'SHORT_DESC' => 'Chicago Booth',
+				'FULL_DESC' => 'Council on the University of Chicago Booth School of Business'),
+			array('COMMITTEE_CODE' => 'VCSA',
+				'SHORT_DESC' => 'College and Student Activities',
+				'FULL_DESC' => 'Visiting Committee on the College and Student Activities'),
+			array('COMMITTEE_CODE' => 'VVTH',
+				'SHORT_DESC' => 'Divinity',
+				'FULL_DESC' => 'Visiting Committee to the Divinity School '),
+			array('COMMITTEE_CODE' => 'VCGS',
+				'SHORT_DESC' => 'Graham School',
+				'FULL_DESC' => 'Council on the Graham School'),
+			array('COMMITTEE_CODE' => 'VVHM',
+				'SHORT_DESC' => 'Humanities',
+				'FULL_DESC' => 'Visiting Committee to the Division of the Humanities'),
+			array('COMMITTEE_CODE' => 'VVLW',
+				'SHORT_DESC' => 'Law School',
+				'FULL_DESC' => 'Visiting Committee to the Law School'),
+			array('COMMITTEE_CODE' => 'VVLB',
+				'SHORT_DESC' => 'Library',
+				'FULL_DESC' => 'Visiting Committee to the Library'),
+			array('COMMITTEE_CODE' => 'VVMS',
+				'SHORT_DESC' => 'Music',
+				'FULL_DESC' => 'Visiting Committee to the Department of Music'),
+			array('COMMITTEE_CODE' => 'VVOI',
+				'SHORT_DESC' => 'Oriental Institute',
+				'FULL_DESC' => 'Visiting Committee to the Oriental Institute'),
+			array('COMMITTEE_CODE' => 'VVPS',
+				'SHORT_DESC' => 'Physical Sciences',
+				'FULL_DESC' => 'Visiting Committee to the Division of the Physical Sciences'),
+			array('COMMITTEE_CODE' => 'VCLD',
+				'SHORT_DESC' => 'Public Policy',
+				'FULL_DESC' => 'Visiting Committee to the Irving B. Harris Graduate School of Public Policy Studies'),
+			array('COMMITTEE_CODE' => 'VVSS',
+				'SHORT_DESC' => 'Social Sciences',
+				'FULL_DESC' => 'Visiting Committee to the Division of the Social Sciences'),
+			array('COMMITTEE_CODE' => 'VSVC',
+				'SHORT_DESC' => 'Social Service Administration',
+				'FULL_DESC' => 'Visiting Committee to the School of Social Service Administration')
+		);
 			$arr = array();	
 			foreach ( $committees as $c )
 			{
@@ -176,7 +175,7 @@ class GriffinCollection
 				$arr[$c['COMMITTEE_CODE']] = $tmp;
 			}
 			apc_add('vc_active_committees', $arr , 43200);
-		}
+		
 		$this->setActiveCommitteeUrlList();
 	}
 	/**
