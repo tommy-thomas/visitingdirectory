@@ -2,7 +2,7 @@
 			<div class="container_12">
 				<div id="footer" class="">
 					<div class="grid_3">
-						<p>&copy; 2012 <a href="//www.uchicago.edu/">The University of Chicago</a></p>
+						<p>&copy; 2013 <a href="//www.uchicago.edu/">The University of Chicago</a></p>
 						 <div class="social ">
 
 						</div>
