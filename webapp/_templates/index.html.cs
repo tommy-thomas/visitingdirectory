@@ -43,11 +43,11 @@
 									<ul>
 										<li><em>I have an account above, but it's not linked to an email address on file.</em></li>
 										<ul>
-											<li><a href="mailto:">Contact us</a> and give us the email address we're missing and we will add it to your record.</li>
+											<li><a href="mailto:spaepen@uchicago.edu?subject=VC Directory - add email address to Griffin">Contact us</a> and give us the email address we're missing and we will add it to your record.</li>
 										</ul>
 										<li><em>I'd like to create an account above, but I don't know what email address you have on file for me.</em></li>
 										
-											<ul><li><a href="mailto:">Contact us</a> and we'll let you know what email address we have on file for you.</li>
+											<ul><li><a href="mailto:mailto:spaepen@uchicago.edu?subject=VC Directory - request for email addresses in Griffin">Contact us</a> and we'll let you know what email address we have on file for you.</li>
 										</ul>
 									</ul>
 									
