@@ -2,7 +2,7 @@
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
-		<title>Visiting Committees Directory | The University of Chicago</title>
+		<title>Secure Directory | Visiting Committees &amp; Councils | The University of Chicago</title>
 		<?cs include:"inc/head.html.cs" ?>	
 	</head>
 	<body class="two-col-temp">
@@ -15,7 +15,7 @@
 					<div id="main" class=" container_12">
 						<div id="content" class="column grid_9 push_3 ">
 						
-							<h1 id="page-title">Secuer Visiting Committees Directory - beta</h1>
+							<h1 id="page-title">Secure Directory - beta</h1>
 							<div id="bottomrow" class="">
 								<div class="grid_9 alpha">
 									<div class="content region-content">
