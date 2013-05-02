@@ -24,7 +24,7 @@ $manager = new CommitteeMemberManager();
 if( isset($_SESSION['authtoken']) && isset($_GET['c']) )
 {
 	$code = $_GET['c'];
-	$template->add_data('Committee' , GriffinCollection::getCommitteeName($code) );
+	$template->add_data('Committee' , $collection->getCommitteeName($code) );
 	$member_list = array();
 	if( !is_null($collection->getCachedMemberList($code)) )
 	{			
@@ -50,7 +50,7 @@ if( isset($_SESSION['authtoken']) && isset($_GET['c']) )
 		}elseif( $id_number != $chair_id )
 		{
 			$m->addClassDataTemplate( $template , "CommitteeMember.$id_number.");	
-		}						
+		}
 	}
 }
 $template->show();
