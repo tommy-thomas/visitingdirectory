@@ -40,7 +40,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	 */
 	private $memcache;
 	/*
-	 * all_member_data loaded from apc_cache
+	 * all_member_data loaded from memcache
 	 */
 	public function __construct()
 	{

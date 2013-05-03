@@ -35,7 +35,6 @@ webapp/c/screen.css -text
 webapp/c/small.css -text
 webapp/c/style.css -text
 webapp/cache.php -text
-webapp/cache/index.php -text
 webapp/img/add.png -text svneol=unset#image/png
 webapp/img/favicon.ico -text
 webapp/img/feed.png -text svneol=unset#image/png
