@@ -28,7 +28,7 @@ class AsyncRequest
 	private function isValid( $domain=null, $path=null )
 	{
 		$whitelist = array('visitingdirectorydev.uchicago.edu','visitingdirectorystage.uchicago.edu','visitingdirectory.uchicago.edu');
-		$pos = strripos($path, 'cache/?authtoken=');
+		$pos = strripos($path, 'cache/index.php?authtoken=');
 		return ( in_array($domain , $whitelist) && $pos !== false ) ? true : false;
 	}
 }

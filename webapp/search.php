@@ -23,7 +23,7 @@ $collection->loadCommitteeTemplateData($template);
 if( !isset($_SESSION['async_request_flag']) )
 {
 	$arr = parse_url ($app->base() );
-	$req = new AsyncRequest($arr['host'], $arr['path'].'cache/?authtoken='.$_SESSION['authtoken']['authtoken']);
+	$req = new AsyncRequest($arr['host'], $arr['path'].'cache/index.php?authtoken='.$_SESSION['authtoken']['authtoken']);
 	$_SESSION['async_request_flag'] = true;
 }
 
