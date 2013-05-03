@@ -44,7 +44,7 @@ if( isset($_SESSION['authtoken']) )
 		{
 			$code = $_GET['c'];
 		}
-		$template->add_data('Committee' , GriffinCollection::getCommitteeName($code) );
+		$template->add_data('Committee' , $collection->getCommitteeName($code));
 		$members_list = array();
 		if( !is_null($collection->getCachedMemberList($code)) )
 		{

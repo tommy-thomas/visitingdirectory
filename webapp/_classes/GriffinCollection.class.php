@@ -1,8 +1,7 @@
 <?php
 /**
  * 
- * A class used as a catch all for several cURL queries, urls to Griffin api, and getters/setters for
- * PHP's  Alternative PHP Cache.
+ * A class used as a catch all for several cURL queries, urls to Griffin api, and getters/setters for Memcached payloads.
  * @author tommyt
  *
  */
@@ -36,6 +35,10 @@ class GriffinCollection
 	 * All member data as array of simple xml.
 	 */
 	private $all_member_data;
+	/*
+	 * Memcache object
+	 */
+	private $memcache;
 	/**
      * Public constructor.
 	 */
@@ -44,13 +47,15 @@ class GriffinCollection
 		$this->app = $app;
 		$this->curl = $curl;
 		$this->token = $token;
+		$cache = new WS_Memcache();
+		$this->memcache = $cache->getMemcache();
 		if( $this->app->isDev() || $this->app->isStage() )
 		{
 			$this->urls = array(
 			'active_committees' => 'https://grif-uat-soa.uchicago.edu/api/griffin/metadata/committee_code',
 			'address_info' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s/addresses',
 			'all_affiliations' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s/membershipaffiliation',
-			'all_members' => 'https://grif-uat-soa.uchicago.edu/api/griffin/membershipaffiliation/%s',					
+			'all_members' => 'https://grif-uat-soa.uchicago.edu/api/griffin/membershipaffiliation/%s',
 			'degree_info' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s/degrees',
 			'entity_info' => 'https://grif-uat-soa.uchicago.edu/api/griffin/entities/%s',	
 			'email_validation' => 'https://grif-uat-soa.uchicago.edu/api/griffin/membershipaffiliation/%s?emailaddress=%s'
@@ -63,29 +68,28 @@ class GriffinCollection
 			'address_info' => 'https://soa.griffin.uchicago.edu/api/griffin/entities/%s/addresses',
 			'all_affiliations' => 'https://soa.griffin.uchicago.edu/api/griffin/entities/%s/membershipaffiliation',
 			'all_members' => 'https://soa.griffin.uchicago.edu/api/griffin/membershipaffiliation/%s',							
-			'degree_info' => 'https://soa.griffin.uchicago.edu/api/griffin/entities/%s/degrees',		
+			'degree_info' => 'https://soa.griffin.uchicago.edu/api/griffin/entities/%s/degrees',
 			'entity_info' => 'https://soa.griffin.uchicago.edu/api/griffin/entities/%s',	
 			'email_validation' => 'https://soa.griffin.uchicago.edu/api/griffin/membershipaffiliation/%s?emailaddress=%s'	
-			);	
+			);
 		}
-		if( !is_null($token) )
-		{
+		if( !is_null($token) )	
+		{	
 			$this->checkCache($token);
-		}
-		if( apc_exists('vc_all_member_data') )
-		{
-			$this->all_member_data = simplexml_load_string( apc_fetch('vc_all_member_data') ) ;
-		}
-		else
-		{
-			if( !is_null($token))
-			{
+			if( !$this->memcache->get('VisDirectoryActiveCommittees'))
+			{				
 				$this->setCommittees($token);
-				$this->all_member_data = simplexml_load_string( apc_fetch('vc_all_member_data') );
 			}
-			
-		}		
-		self::$collection = $this;
+			if( !$this->memcache->get('VisCommitteeAllMemberData'))
+			{
+				$this->setAllMemberData($token);
+				$this->all_member_data = simplexml_load_string( $this->memcache->get('VisCommitteeAllMemberData') );
+			}
+		}
+		if( $this->memcache->get('VisCommitteeAllMemberData') )
+		{			
+			$this->all_member_data = simplexml_load_string( $this->memcache->get('VisCommitteeAllMemberData') );
+		}
 	}
 	/**
 	 * GriffinCollection instance.
@@ -109,11 +113,11 @@ class GriffinCollection
 	public function setAllMemberData($token)
 	{	
 		libxml_use_internal_errors(true);
-		if( !apc_exists('vc_all_member_data') )
+		if( !$this->memcache->get('VisCommitteeAllMemberData') )
 		{
 			$this->curl->setPost($token);
-			$this->curl->createCurl( sprintf($this->urls['all_members'], apc_fetch('vc_active_committee_code_list') ));			
-			apc_add('vc_all_member_data', $this->curl->__toString() , 43200);
+			$this->curl->createCurl( sprintf($this->urls['all_members'], $this->memcache->get('VisDirectoryActiveCommitteeCodes') ));			
+			$this->memcache->set('VisCommitteeAllMemberData' , $this->curl->__toString() , 0, 86400 );
 		}
 	}
 	/**
@@ -174,7 +178,7 @@ class GriffinCollection
 				$tmp = new Committee($c);				
 				$arr[$c['COMMITTEE_CODE']] = $tmp;
 			}
-			apc_add('vc_active_committees', $arr , 43200);
+			$this->memcache->set('VisDirectoryActiveCommittees' , $arr, 0 , 86400 );
 		
 		$this->setActiveCommitteeUrlList();
 	}
@@ -183,10 +187,11 @@ class GriffinCollection
 	 */
 	public function setActiveCommitteeUrlList()
 	{
-		$list = array();		
-		if( apc_exists('vc_active_committees') && !apc_exists('vc_active_committee_code_list'))
+		$list = array();
+		if( $this->memcache->get('VisDirectoryActiveCommittees') 
+		&& !$this->memcache->get('VisDirectoryActiveCommitteeCodes'))
 		{
-			$active_committees = apc_fetch('vc_active_committees');
+			$active_committees = $this->memcache->get('VisDirectoryActiveCommittees');
 			foreach ( $active_committees as $c )
 			{
 				if( is_a($c, 'Committee'))
@@ -194,17 +199,18 @@ class GriffinCollection
 					$list[] = $c->getCOMMITTEE_CODE();
 				}								
 			}
-			apc_add('vc_active_committee_code_list' , implode(",", $list) , 43200);
+			$this->memcache->set('VisDirectoryActiveCommitteeCodes', implode(",", $list) , 0 , 86400);
 		}
+		
 	}
 	/**
 	 * Return comma seperated active code list.
 	 */
 	public function getActiveCommitteeUrlList()
 	{
-		if( apc_exists('vc_active_committee_code_list') )
+		if( $this->memcache->get('VisDirectoryActiveCommitteeCodes') )
 		{
-			return apc_fetch('vc_active_committee_code_list');
+			return $this->memcache->get('VisDirectoryActiveCommitteeCodes');
 		}
 	}
 	/**
@@ -214,7 +220,7 @@ class GriffinCollection
 	public function loadCommitteeTemplateData( $template )
 	{	
 		$this->checkCache();
-		foreach( apc_fetch('vc_active_committees') as $c )
+		foreach( $this->memcache->get('VisDirectoryActiveCommittees') as $c )
 		{	
 			if( is_a($c,'Committee') )
 			{			
@@ -229,7 +235,7 @@ class GriffinCollection
 	public function getCommittees()
 	{		
 		$this->checkCache();
-		return apc_fetch('vc_active_committees');		
+		return $this->memcache->get('VisDirectoryActiveCommittees');		
 	}
 	/**
 	 * Get cached array of CommitteeMembers if set
@@ -239,8 +245,8 @@ class GriffinCollection
 	{
 		if( !is_null($code) )
 		{
-			$key = "vc_".$code."_list";
-			return (apc_exists($key)) ? apc_fetch($key) : null; 
+			$key = "VisDirectory_".$code."_List";
+			return ($this->memcache->get($key)) ?  $this->memcache->get($key) : null; 
 		}
 	}
 	/**
@@ -249,22 +255,22 @@ class GriffinCollection
 	 */
 	public function setCachedMemberList($code=null , $member_list=null )
 	{
-		$key = "vc_".$code."_list";
+		$key = "VisDirectory_".$code."_List";
 		if( !is_null($code) && !is_null($member_list) 
-		&&  !apc_exists($key) )
+		&&  !$this->memcache->get($key) )
 		{
-			apc_add($key , $member_list , 43200);
+			$this->memcache->set($key , $member_list , 0, 86400);
 		}
 	}	
 	/**
 	 * Return committee code key from vc_active_committees cache.
 	 */
-	public static function getCommitteeName($code)
+	public function getCommitteeName($code)
 	{
 		$desc = "";
-		if( apc_exists('vc_active_committees') )
+		if( $this->memcache->get('VisDirectoryActiveCommittees') )
 		{
-			$committees = apc_fetch('vc_active_committees');
+			$committees = $this->memcache->get('VisDirectoryActiveCommittees');
 			if( is_a($committees[$code], 'Committee'))
 			{
 				$desc = $committees[$code]->getFULL_DESC();
@@ -295,9 +301,9 @@ class GriffinCollection
 	{
 		if( !is_null($key) && !is_null($this->urls[$key]) )
 		{
-			if( $key == 'email_validation' && apc_exists('vc_active_committee_code_list') )
+			if( $key == 'email_validation' && $this->memcache->get('VisDirectoryActiveCommitteeCodes') )
 			{
-				return sprintf($this->urls[$key], apc_fetch('vc_active_committee_code_list') , $value);
+				return sprintf($this->urls[$key], $this->memcache->get('VisDirectoryActiveCommitteeCodes') , $value);
 			}
 			else
 			{
@@ -430,7 +436,7 @@ class GriffinCollection
 				$cm->setIdNumber( (string)$m->ID_NUMBER );
 				$cm->setFirstName( (string)$m->FIRST_NAME );
 				$cm->setLastName( (string)$m->LAST_NAME  );	
-				$cm->setCommittees( $arr , apc_fetch('vc_active_committees'));
+				$cm->setCommittees( $arr , $this->memcache->get('VisDirectoryActiveCommittees'));
 				$members[(string)$m->ID_NUMBER] = $cm;
 			}
 			
@@ -544,34 +550,33 @@ class GriffinCollection
 	 */
 	public function checkCache()
 	{
-		if( !apc_exists('vc_active_committees') )
+		if( !$this->memcache->get('VisDirectoryActiveCommittees') )
 		{
 			$this->setCommittees();			
 		}
 		if( isset($this->token) )
 		{
 			$this->setAllMemberData($this->token);
-		}
-		
+		}		
 	}
 	/**
 	 * Delete the cached items.
 	 */
 	public function clearGriffinCollection()
-	{
-		apc_delete('vc_active_committees');
-		apc_delete('vc_all_member_data');
+	{	
+		$this->memcache->delete('VisDirectoryActiveCommittees');
+		$this->memcache->delete('VisCommitteeAllMemberData');
 		$codes = array();
 		$codes = explode("," , $this->getActiveCommitteeUrlList());
 		if( !empty($codes) )
 		{
 			foreach( $codes as $c )
 			{
-				$key = "vc_".$c."_list";
-				apc_delete($key);
+				$key = "VisDirectory_".$c."_List";
+				$this->memcache->delete($key);
 			}
 		}
-		apc_delete('vc_active_committee_code_list');
+		$this->memcache->delete('VisDirectoryActiveCommitteeCodes');
 	}
 }
 ?>

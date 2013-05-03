@@ -1,7 +1,7 @@
 <?php
 /**
  * 
- * Manager class for raw simple xml objects , apc cache , and search.
+ * Manager class for raw simple xml objects ,Memcache , and search.
  * @author tommyt
  *
  */
@@ -36,14 +36,20 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	 */
 	private $committee_members_list = array();
 	/*
-	 * all_member_data loaded from apc_cache
+	 * Memcache object
+	 */
+	private $memcache;
+	/*
+	 * all_member_data loaded from memcache
 	 */
 	public function __construct()
 	{
 		{
 			try
 			{
-				$this->all_member_data = simplexml_load_string( apc_fetch('vc_all_member_data') );
+				$cache= new WS_Memcache();
+				$this->memcache = $cache->getMemcache();
+				$this->all_member_data = simplexml_load_string( $this->memcache->get('VisCommitteeAllMemberData') );
 			} catch (Exception $e) {
 				Application::handleExceptions($e);
 			}
@@ -211,7 +217,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 				}					
 			}
 			$member->setDegreeInfo( $degrees );
-			$member->setCommitteesFromXML( $xml['committee_info'] ,   apc_fetch('vc_active_committees'));
+			$member->setCommitteesFromXML( $xml['committee_info'] ,   $this->memcache->get('VisDirectoryActiveCommittees'));
 			$employment = $xml['employment_info'];
 			if( isset($employment[0]) )
 			{

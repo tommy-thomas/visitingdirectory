@@ -30,7 +30,7 @@ if( $app->isShibbAuth() )
 			try {
 				$curl->setPost($_SESSION['authtoken']);
 				$curl->createCurl( $collection->getServiceUrl('email_validation', $_SERVER['mail'] ) );
-				if( !$collection->xmlChildExists($curl->asSimpleXML(), '//ID_NUMBER'))
+				if( !is_a($curl->asSimpleXML() , 'SimpleXMLElement' ) || !$collection->xmlChildExists($curl->asSimpleXML(), '//ID_NUMBER'))
 				{
 					$soc_auth_err = true;
 				}
