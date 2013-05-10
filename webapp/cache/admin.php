@@ -1,7 +1,6 @@
 <?php
 /*
  * key = md5(ws592013)
- * dc9c6663511c522e5369538a44159693
  */
 if( $_GET['key'] == md5('ws592013') )
 {
@@ -38,63 +37,27 @@ if( $_GET['key'] == md5('ws592013') )
 	/*
 	 * Path with authtoken and payload variable that lets cache script know which payload to set.
 	 */
-	$all_data_payload_path = "/cache/set_cache.php?payload=alldata&authtoken=".$authtoken;
-	$first_payload_path = "/cache/set_cache.php?payload=one&authtoken=".$authtoken;
-	$second_payload_path = "/cache/set_cache.php?payload=two&authtoken=".$authtoken;
-	$third_payload_path = "/cache/set_cache.php?payload=three&authtoken=".$authtoken;
+	$paths = array("/cache/set_cache.php?payload=alldata&authtoken=".$authtoken,
+			"/cache/set_cache.php?payload=one&authtoken=".$authtoken,
+			"/cache/set_cache.php?payload=two&authtoken=".$authtoken,
+			"/cache/set_cache.php?payload=three&authtoken=".$authtoken);
 	/*
 	 * Set main payload with all of the member data.
 	 */
-	$errno = "";
-	$errmsg = "";
-	$fp = fsockopen('ssl://'.$domain, 443, $errno, $errmsg);
-	$out = "GET ".$all_data_payload_path." HTTP/1.1\r\n";
-	$out .= "Host:".$domain."\r\n";
-	$out .= "Connection: Close\r\n\r\n";
-	stream_set_blocking($fp, false);
-	stream_set_timeout($fp, 86400);
-	print fread($fp, 86400);
-	fclose($fp);
-	
-	sleep(5);
-	/*
-	 * Set committees one medium sized script execution at a time.
-	 */
-	$errno = "";
-	$errmsg = "";
-	$fp = fsockopen('ssl://'.$domain, 443, $errno, $errmsg);
-	$out = "GET ".$first_payload_path." HTTP/1.1\r\n";
-	$out .= "Host:".$domain."\r\n";
-	$out .= "Connection: Close\r\n\r\n";
-	stream_set_blocking($fp, false);
-	stream_set_timeout($fp, 86400);
-	print fread($fp, 86400);
-	fclose($fp);
-	
-	sleep(1);
-	
-	$errno = "";
-	$errmsg = "";
-	$fp = fsockopen('ssl://'.$domain, 443, $errno, $errmsg);
-	$out = "GET ".$second_payload_path." HTTP/1.1\r\n";
-	$out .= "Host:".$domain."\r\n";
-	$out .= "Connection: Close\r\n\r\n";
-	stream_set_blocking($fp, false);
-	stream_set_timeout($fp, 86400);
-	print fread($fp, 8192);
-	fclose($fp);
-	
-	sleep(1);
-	
-	$errno = "";
-	$errmsg = "";
-	$fp = fsockopen('ssl://'.$domain, 443, $errno, $errmsg);
-	$out = "GET ".$third_payload_path." HTTP/1.1\r\n";
-	$out .= "Host:".$domain."\r\n";
-	$out .= "Connection: Close\r\n\r\n";
-	stream_set_blocking($fp, false);
-	stream_set_timeout($fp, 86400);
-	print fread($fp, 86400);
-	fclose($fp);	
+	foreach ( $paths as $key => $path )
+	{		
+		$sleep = ($key == 0) ? 5 : 1;
+		$errno = "";
+		$errmsg = "";
+		$fp = fsockopen('ssl://'.$domain, 443, $errno, $errmsg);
+		$out = "GET ".$path." HTTP/1.1\r\n";
+		$out .= "Host:".$domain."\r\n";
+		$out .= "Connection: Close\r\n\r\n";
+		stream_set_blocking($fp, false);
+		stream_set_timeout($fp, 86400);
+		print fread($fp, 86400);
+		fclose($fp);
+		sleep($sleep);
+	}
 }
 ?>

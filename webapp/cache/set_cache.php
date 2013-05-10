@@ -13,21 +13,34 @@ $app = Application::app();
  */
 if( isset($_GET['authtoken']) && isset($_GET['payload']) )
 {
+	/*
+	 * Create the objects used in all of the caching chunks.
+	 */
 	$_SESSION['authtoken'] = array( 'authtoken' => $_GET['authtoken'] );
 	$curl = new cURL(null);
 	$collection = GriffinCollection::instance($app , $curl );
-	$manager = new CommitteeMemberManager();	
+	$manager = new CommitteeMemberManager();
+	/*
+	 * Set big payload with all of the memebers from every committee and cache as xml blob.
+	 */
 	if( $_GET['payload'] == 'alldata' )
 	{		
 		$collection->clearGriffinCollection();
 		$collection->setCommittees();
-		$collection->setAllMemberData($_SESSION['authtoken']);		
-		
+		$collection->setAllMemberData($_SESSION['authtoken']);
 	}
-	elseif( $_GET['payload'] == 'one' )
+	/*
+	 * Load chunks of committees by groups of five and cache as arrays of CommitteeMember objects.
+	 */
+	$codes_array = array(
+		'one' => array('VCLY','VVRT','VCLZ','VCSA','VVTH')
+		'two' =>  array('VCGS','VVHM','VVLW','VVLB','VVMS')
+		'three' => array('VVOI','VVPS','VCLD','VVSS','VSVC')
+		);
+	if( isset( $codes_array($_GET['payload']) ) )
 	{
-		$first = array('VCLY','VVRT','VCLZ','VCSA','VVTH');		
-		foreach ( $first as $key => $code)
+		$codes = $codes_array($_GET['payload']);
+		foreach ( $codes as $code)
 		{
 			try {					
 					$members_xml = $collection->getMemberData( $code , $_SESSION['authtoken'] );
@@ -42,39 +55,5 @@ if( isset($_GET['authtoken']) && isset($_GET['payload']) )
 		}
 		
 	}
-	elseif( $_GET['payload'] == 'two' )
-	{
-		$second = array('VCGS','VVHM','VVLW','VVLB','VVMS');	
-		foreach ( $second as $key => $code)
-		{
-			try {
-					$members_xml = $collection->getMemberData( $code , $_SESSION['authtoken'] );
-					$member_list = $manager->load( $code , $members_xml)->getCommiteeMemberList();
-					$collection->setCachedMemberList($code , $member_list );
-					ob_flush();
-		    		flush();
-				} catch (Exception $e) {
-					Application::handleExceptions($e);
-				}
-		
-		}
-	}
-	elseif( $_GET['payload'] == 'three' )
-	{
-		$third = array('VVOI','VVPS','VCLD','VVSS','VSVC');	
-		foreach ( $third as $key => $code)
-		{
-			try {
-					$members_xml = $collection->getMemberData( $code , $_SESSION['authtoken'] );
-					$member_list = $manager->load( $code , $members_xml)->getCommiteeMemberList();
-					$collection->setCachedMemberList($code , $member_list );
-					ob_flush();
-		    		flush();
-				} catch (Exception $e) {
-					Application::handleExceptions($e);
-				}
-		
-		}
-	}		
 }
 ?>
