@@ -45,7 +45,7 @@ class cURL extends WS_cURL{
 			if( !empty($list) )
 			{
 				foreach ( $list as $i )
-				{						
+				{					
 					$tmp_handle = $this->createHandle( sprintf( $url , $i ) );
 					$this->nodes[] = $tmp_handle;
 					curl_multi_add_handle($this->master_handle, $tmp_handle );
@@ -91,7 +91,7 @@ class cURL extends WS_cURL{
 			 * initialize curl session
 			 */
 			$s = curl_init();
-
+			
 			curl_setopt($s,CURLOPT_URL,$this->_url);
 			curl_setopt($s,CURLOPT_HTTPHEADER,array('Expect:'));
 			curl_setopt($s,CURLOPT_TIMEOUT,$this->_timeout);
@@ -99,8 +99,7 @@ class cURL extends WS_cURL{
 			curl_setopt($s,CURLOPT_MAXREDIRS,$this->_maxRedirects);
 			curl_setopt($s,CURLOPT_RETURNTRANSFER,true);
 			curl_setopt($s, CURLOPT_VERBOSE, 1);
-			curl_setopt($s, CURLOPT_SSL_VERIFYPEER, FALSE);
-
+			curl_setopt($s, CURLOPT_SSL_VERIFYPEER, FALSE);			
 			if($this->authentication == 1)
 			{
 				curl_setopt($s, CURLOPT_USERPWD, $this->auth_name.':'.$this->auth_pass);

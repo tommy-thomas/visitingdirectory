@@ -69,7 +69,7 @@ class GriffinCollection
 			'all_affiliations' => 'https://soa.griffin.uchicago.edu/api/griffin/entities/%s/membershipaffiliation',
 			'all_members' => 'https://soa.griffin.uchicago.edu/api/griffin/membershipaffiliation/%s',							
 			'degree_info' => 'https://soa.griffin.uchicago.edu/api/griffin/entities/%s/degrees',
-			'entity_info' => 'https://soa.griffin.uchicago.edu/api/griffin/entities/%s',	
+			'entity_info' => 'https://soa.griffin.uchicago.edu/api/griffin/entities/%s',
 			'email_validation' => 'https://soa.griffin.uchicago.edu/api/griffin/membershipaffiliation/%s?emailaddress=%s'	
 			);
 		}
@@ -569,7 +569,7 @@ class GriffinCollection
 		$codes = array();
 		$codes = explode("," , $this->getActiveCommitteeUrlList());
 		if( !empty($codes) )
-		{
+		{			
 			foreach( $codes as $c )
 			{
 				$key = "VisDirectory_".$c."_List";
@@ -577,6 +577,13 @@ class GriffinCollection
 			}
 		}
 		$this->memcache->delete('VisDirectoryActiveCommitteeCodes');
+	}
+	/**
+	 * Return curl HTTP status code.
+	 */
+	public function getHTTPStatus()
+	{
+		return $this->curl->getStatus();
 	}
 }
 ?>

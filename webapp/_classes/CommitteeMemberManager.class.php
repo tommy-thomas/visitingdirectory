@@ -108,7 +108,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 				$member->setState( $this->setValue((string)$address[0]->STATE_CODE) );
 				$member->setZip( $this->setValue((string)$address[0]->ZIPCODE) );
 				$member->setForeignCityZip( $this->setValue((string)$address[0]->FOREIGN_CITYZIP) );
-				$member->setCountryCode( $this->setValue((string)$address[0]->COUNTRY_CODE) );					
+				$member->setCountryCode( $this->setValue((string)$address[0]->COUNTRY_CODE) );				
 			}
 			if( isset($phone[0]) )
 			{

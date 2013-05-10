@@ -1,6 +1,5 @@
 * text=auto !eol
 webapp/_classes/Application.class.php -text
-webapp/_classes/AsyncRequest.class.php -text
 webapp/_classes/Committee.class.php -text
 webapp/_classes/CommitteeMember.class.php -text
 webapp/_classes/CommitteeMemberManager.class.php -text
