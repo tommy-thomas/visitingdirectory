@@ -1,6 +1,8 @@
 <?php
-ini_set('max_execution_time', 60000);
-set_time_limit(0);
+// do everything possible to keep
+// script from timing out
+ini_set('max_execution_time',1200);
+set_time_limit(1200);
 ignore_user_abort(1);
 require('../_classes/autoload.php');
 /**
@@ -10,50 +12,83 @@ $app = Application::app();
 /**
  * Start populating the CS template.
  * The Clear Silver template.
+ * ws592013 = dc9c6663511c522e5369538a44159693
+ * 592013ws  = 036d7426484a9670dcd11e33be785eff
  */
-if( isset($_GET['authtoken']) && isset($_GET['payload']) )
+$message = "";
+// ok flag
+$ok = false;
+// codes array
+$codes = array();
+if( isset( $_GET['key'] ) )
 {
-	/*
-	 * Create the objects used in all of the caching chunks.
-	 */
-	$_SESSION['authtoken'] = array( 'authtoken' => $_GET['authtoken'] );
-	$curl = new cURL(null);
-	$collection = GriffinCollection::instance($app , $curl );
-	$manager = new CommitteeMemberManager();
-	/*
-	 * Set big payload with all of the memebers from every committee and cache as xml blob.
-	 */
-	if( $_GET['payload'] == 'alldata' )
-	{		
-		$collection->clearGriffinCollection();
-		$collection->setCommittees();
-		$collection->setAllMemberData($_SESSION['authtoken']);
+	$key = md5($_GET['key']);
+	if( $key == 'dc9c6663511c522e5369538a44159693' )
+	{	
+		try {
+			// 1. Create curl instance.
+			$curl = new cURL(null);
+			// 2. Griffin Collection.
+			$collection = GriffinCollection::instance($app , $curl );
+			// 3. Clear out memcached data.
+			$collection->clearGriffinCollection();
+			// 4. Get authtoken from Griffin to be used in subsequent api calls.
+			$curl->authenticate( $collection->getLoginUrl() );
+			$authtoken = array( 'authtoken' => $curl->__toString() );
+			// 5. Set and cache array of Committees.
+			$collection->setCommittees();
+			$collection->setAllMemberData($authtoken);
+			// 6. CommitteeMemberManager object that handles xml parsing.
+			$manager = new CommitteeMemberManager();
+			// 7. Explode a comma seperated list of codes into an array.
+			$all_codes = explode(",",$collection->getActiveCommitteeUrlList());
+			// 8. Slice for first round of caching.
+			$codes = array_slice( $all_codes , 0, 7);			
+		} catch (Exception $e) {
+			// 9. Uh oh, add something to the message.
+			$message .= "JOB FAILED: ".$e->getMessage()."\r\n";
+		}
 	}
-	/*
-	 * Load chunks of committees by groups of five and cache as arrays of CommitteeMember objects.
-	 */
-	$codes_array = array(
-		'one' => array('VCLY','VVRT','VCLZ','VCSA','VVTH')
-		'two' =>  array('VCGS','VVHM','VVLW','VVLB','VVMS')
-		'three' => array('VVOI','VVPS','VCLD','VVSS','VSVC')
-		);
-	if( isset( $codes_array($_GET['payload']) ) )
+	elseif( $key == '036d7426484a9670dcd11e33be785eff' )
 	{
-		$codes = $codes_array($_GET['payload']);
+		try {
+			// Same deal as above minus clearing the old cache, and caching committess and big xml payload.
+			$curl = new cURL(null);
+			$collection = GriffinCollection::instance($app , $curl );
+			$curl->authenticate( $collection->getLoginUrl() );
+			$authtoken = array( 'authtoken' => $curl->__toString() );
+			$manager = new CommitteeMemberManager();
+			$all_codes = explode(",",$collection->getActiveCommitteeUrlList());
+			$codes = array_slice( $all_codes , 7, count($all_codes)-1);
+		} catch (Exception $e) {
+			$message .= "JOB FAILED: ".$e->getMessage()."\r\n";
+		}
+	}
+	if( !empty($codes) )
+	{
 		foreach ( $codes as $code)
 		{
-			try {					
-					$members_xml = $collection->getMemberData( $code , $_SESSION['authtoken'] );
-					$member_list = $manager->load( $code , $members_xml)->getCommiteeMemberList();
-					$collection->setCachedMemberList($code , $member_list );
-					ob_flush();
-		    		flush();
-				} catch (Exception $e) {
-					Application::handleExceptions($e);
-				}
-		
-		}
-		
+			try {
+				// 10. Get xml from big payload based on committee code.
+				$member_xml = $collection->getMemberData( $code , $authtoken );
+				// 11. Get array of CommiteeMember objects.
+				$member_list = $manager->load( $code , $member_xml)->getCommiteeMemberList();
+				// 12. Cache the array.
+				$collection->setCachedMemberList($code , $member_list );
+				// 13. Flush headers.
+				ob_flush();
+	    		flush();
+			} catch (Exception $e) {
+				// 14. Uh oh, add something to the message.
+				$message .= $code." - JOB FAILED: ".$e->getMessage()."\r\n";
+			}
+		}	
 	}
+	else
+	{
+		$message .= "FAILED";
+	}
+	// 15. Return success or fail message based on length of $message.
+	print strlen( $message ) == 0 ? 'OK' : 'FAILED: '.$message;
 }
 ?>

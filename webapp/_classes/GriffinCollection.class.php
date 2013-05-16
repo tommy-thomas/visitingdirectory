@@ -342,6 +342,11 @@ class GriffinCollection
 	 */
 	public function getMemberData( $code=null , $token=null , $async = false )
 	{
+		if( !isset($this->all_member_data) )
+		{	
+			sleep(5);		
+			$this->all_member_data = simplexml_load_string( $this->memcache->get('VisCommitteeAllMemberData') );
+		}
 		$info = array('address_info' , 'degree_info' , 'entity_info');
 		$list = $this->all_member_data->xpath('//COMMITTEES/COMMITTEE/ID_NUMBER[../COMMITTEE_CODE/text()="'.$code.'" and ../RECORD_STATUS_CODE="A" and ../COMMITTEE_ROLE_CODE != "EO"]');
 		$members = array();
