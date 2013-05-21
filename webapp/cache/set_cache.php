@@ -15,9 +15,8 @@ $app = Application::app();
  * ws592013 = dc9c6663511c522e5369538a44159693
  * 592013ws  = 036d7426484a9670dcd11e33be785eff
  */
+// success or fail message
 $message = "";
-// ok flag
-$ok = false;
 // codes array
 $codes = array();
 if( isset( $_GET['key'] ) )
@@ -89,6 +88,6 @@ if( isset( $_GET['key'] ) )
 		$message .= "FAILED";
 	}
 	// 15. Return success or fail message based on length of $message.
-	print strlen( $message ) == 0 ? 'OK' : 'FAILED: '.$message;
+	print strlen( $message ) == 0 ? 'OK' : $message;
 }
 ?>
