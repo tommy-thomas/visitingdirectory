@@ -29,11 +29,17 @@ if( isset( $_GET['key'] ) )
 			$curl = new cURL(null);
 			// 2. Griffin Collection.
 			$collection = GriffinCollection::instance($app , $curl );
-			// 3. Clear out memcached data.
-			$collection->clearGriffinCollection();
-			// 4. Get authtoken from Griffin to be used in subsequent api calls.
+			// 3. Get authtoken from Griffin to be used in subsequent api calls.
 			$curl->authenticate( $collection->getLoginUrl() );
 			$authtoken = array( 'authtoken' => $curl->__toString() );
+			// 3a. Exit if service not available...
+			if (preg_match("/Authentication failed/i", $authtoken))
+			{
+			    $message .= "GRIFFIN SERVICE NOT AVAILABLE.";
+    			exit();
+			}
+			// 4. Clear out memcached data.
+			$collection->clearGriffinCollection();
 			// 5. Set and cache array of Committees.
 			$collection->setCommittees();
 			$collection->setAllMemberData($authtoken);
@@ -56,6 +62,12 @@ if( isset( $_GET['key'] ) )
 			$collection = GriffinCollection::instance($app , $curl );
 			$curl->authenticate( $collection->getLoginUrl() );
 			$authtoken = array( 'authtoken' => $curl->__toString() );
+			// Exit if service not available...
+			if (preg_match("/Authentication failed/i", $authtoken))
+			{
+				$message .= "GRIFFIN SERVICE NOT AVAILABLE.";
+    			exit();
+			}
 			$manager = new CommitteeMemberManager();
 			$all_codes = explode(",",$collection->getActiveCommitteeUrlList());
 			$codes = array_slice( $all_codes , 7, count($all_codes)-1);

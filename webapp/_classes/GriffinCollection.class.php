@@ -119,6 +119,10 @@ class GriffinCollection
 			$this->curl->createCurl( sprintf($this->urls['all_members'], $this->memcache->get('VisDirectoryActiveCommitteeCodes') ));			
 			$this->memcache->set('VisCommitteeAllMemberData' , $this->curl->__toString() , 0, 86400 );
 		}
+		if(!$this->memcache->get('VisCommitteeAllMemberData'))
+		{
+			$this->app->redirect('./data_error.php');
+		}
 	}
 	/**
 	 * Cache list of active committees as array of Committee objects.
@@ -344,7 +348,11 @@ class GriffinCollection
 	{
 		if( !isset($this->all_member_data) )
 		{	
-			sleep(5);		
+			sleep(5);
+			if(!isset($this->all_member_data))
+			{	
+				$this->app->redirect('./data_error.php');
+			}
 			$this->all_member_data = simplexml_load_string( $this->memcache->get('VisCommitteeAllMemberData') );
 		}
 		$info = array('address_info' , 'degree_info' , 'entity_info');
