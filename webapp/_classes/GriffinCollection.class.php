@@ -351,10 +351,10 @@ class GriffinCollection
 			sleep(5);
 			$this->all_member_data = simplexml_load_string( $this->memcache->get('VisCommitteeAllMemberData') );
 			// If still no data, there's a problem with the service, go to data error page.
-			if( !is_a($this->all_member_data,'SimpleXMLElement') )
-			{	
-				$this->app->redirect('./data_error.php');
-			}
+		}
+		if( !is_a($this->all_member_data,'SimpleXMLElement') )
+		{	
+			$this->app->redirect('./data_error.php');
 		}
 		$info = array('address_info' , 'degree_info' , 'entity_info');
 		$list = $this->all_member_data->xpath('//COMMITTEES/COMMITTEE/ID_NUMBER[../COMMITTEE_CODE/text()="'.$code.'" and ../RECORD_STATUS_CODE="A" and ../COMMITTEE_ROLE_CODE != "EO"]');
