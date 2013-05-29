@@ -119,8 +119,8 @@ class GriffinCollection
 			$this->curl->createCurl( sprintf($this->urls['all_members'], $this->memcache->get('VisDirectoryActiveCommitteeCodes') ));			
 			$this->memcache->set('VisCommitteeAllMemberData' , $this->curl->__toString() , 0, 86400 );
 		}
-		if(!$this->memcache->get('VisCommitteeAllMemberData'))
-		{
+		if( !is_a(simplexml_load_string( $this->memcache->get('VisCommitteeAllMemberData') ),'SimpleXMLElement') )
+		{	
 			$this->app->redirect('./data_error.php');
 		}
 	}
@@ -349,7 +349,7 @@ class GriffinCollection
 		if( !isset($this->all_member_data) )
 		{	
 			sleep(5);
-			if(!isset($this->all_member_data))
+			if( !is_a($this->all_member_data,'SimpleXMLElement') )
 			{	
 				$this->app->redirect('./data_error.php');
 			}
