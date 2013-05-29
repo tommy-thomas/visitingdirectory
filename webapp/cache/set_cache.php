@@ -33,7 +33,7 @@ if( isset( $_GET['key'] ) )
 			$curl->authenticate( $collection->getLoginUrl() );
 			$authtoken = array( 'authtoken' => $curl->__toString() );
 			// 3a. Exit if service not available...
-			if (preg_match("/Authentication failed/i", $authtoken))
+			if (preg_match("/Authentication failed/i", $curl->__toString()))
 			{
 			    $message .= "GRIFFIN SERVICE NOT AVAILABLE.";
     			exit();
@@ -63,7 +63,7 @@ if( isset( $_GET['key'] ) )
 			$curl->authenticate( $collection->getLoginUrl() );
 			$authtoken = array( 'authtoken' => $curl->__toString() );
 			// Exit if service not available...
-			if (preg_match("/Authentication failed/i", $authtoken))
+			if (preg_match("/Authentication failed/i", $curl->__toString()))
 			{
 				$message .= "GRIFFIN SERVICE NOT AVAILABLE.";
     			exit();
