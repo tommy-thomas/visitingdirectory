@@ -130,9 +130,6 @@ class GriffinCollection
 	public function setCommittees()
 	{
 		$committees = array(
-			array('COMMITTEE_CODE' => 'VVRT',
-				'SHORT_DESC' => 'Art History',
-				'FULL_DESC' => 'Visiting Committee to the Department of Art History'),
 			array('COMMITTEE_CODE' => 'VCLZ',
 				'SHORT_DESC' => 'Biological Sciences and Pritzker',
 				'FULL_DESC' => 'Visiting Committee to the Division of the Biological Sciences and the Pritzker School of Medicine '),
@@ -157,9 +154,6 @@ class GriffinCollection
 			array('COMMITTEE_CODE' => 'VVLB',
 				'SHORT_DESC' => 'Library',
 				'FULL_DESC' => 'Visiting Committee to the Library'),
-			array('COMMITTEE_CODE' => 'VVMS',
-				'SHORT_DESC' => 'Music',
-				'FULL_DESC' => 'Visiting Committee to the Department of Music'),
 			array('COMMITTEE_CODE' => 'VVOI',
 				'SHORT_DESC' => 'Oriental Institute',
 				'FULL_DESC' => 'Visiting Committee to the Oriental Institute'),
@@ -477,7 +471,7 @@ class GriffinCollection
 	if( !is_null($token) && !is_null($id_number) )
 		{
 			/*
-			 * Suppress xml warnings. 
+			 * Suppress xml warnings.
 			 */			
 			libxml_use_internal_errors(true);
 			$member = array();
