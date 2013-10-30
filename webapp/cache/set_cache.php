@@ -82,7 +82,7 @@ if( isset($_GET['key'])
     	flush();
 	} catch (Exception $e) {
 		// 12. Uh oh, add something to the message.
-		$message .= "JOB FAILED: ".$e->getMessage()."\r\n";
+		$message .= "JOB FAILED FOR: ".$code." :".$e->getMessage()."\r\n";
 	}
 	// 13. Return success or fail message based on length of $message.
 	print strlen( $message ) == 0 ? 'OK' : $message;
