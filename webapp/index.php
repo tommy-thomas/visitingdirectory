@@ -27,13 +27,20 @@ if( $app->isShibbAuth() )
 	{
 		if( $app->userIsFromSocialAuth() && isset($_SERVER['mail']) )
 		{
-			try {
-				$curl->setPost($_SESSION['authtoken']);
-				$curl->createCurl( $collection->getServiceUrl('email_validation', $_SERVER['mail'] ) );
-				if( !is_a($curl->asSimpleXML() , 'SimpleXMLElement' ) || !$collection->xmlChildExists($curl->asSimpleXML(), '//ID_NUMBER'))
-				{
-					$soc_auth_err = true;
-				}
+	    // For D. Langenberg demo TT start
+	    if( in_array($_SERVER['mail'] , array('langedb@gmail.com','tommyt67@gmail.com') ) )
+	    {
+	    	$_SESSION['email'] =  $_SERVER['mail'];
+			$app->redirect('./search.php');
+	    }
+	    // end dmeo code
+		try {
+			$curl->setPost($_SESSION['authtoken']);
+			$curl->createCurl( $collection->getServiceUrl('email_validation', $_SERVER['mail'] ) );
+			if( !is_a($curl->asSimpleXML() , 'SimpleXMLElement' ) || !$collection->xmlChildExists($curl->asSimpleXML(), '//ID_NUMBER'))
+			{
+				$soc_auth_err = true;
+			}
 			else
 			{
 				$_SESSION['email'] =  $_SERVER['mail'];
