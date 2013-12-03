@@ -57,7 +57,7 @@
 							</p>
 						<?cs /each ?>
 					</div><!-- end member data div -->
-				</div>
+				</div>ddddddddddddddddddddddddddddddddddddd
 			</div>
 			<div class="span3">				
 				<?cs include:"inc/navigation.html.cs" ?> <!-- this now includes the related links as well -->

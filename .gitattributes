@@ -157,6 +157,7 @@ webapp/img/uc_wordmark.png -text svneol=unset#image/png
 webapp/img/uc_wordmark_phoenix.png -text svneol=unset#image/png
 webapp/index.php -text
 webapp/j/cache.js -text
+webapp/j/core.min.js -text
 webapp/j/datatable.js -text
 webapp/j/jquery.dataTables.min.js -text
 webapp/j/jquery.timer.js -text

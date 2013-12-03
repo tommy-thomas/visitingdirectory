@@ -1,12 +1,11 @@
-<div class="navbar">
+<div class="column-width-3 navbar" role="navigation">
 	<div class="navbar-inner">
-		<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="nav-collapse" title="Toggle Main Navigation">
+		<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse" title="Toggle Main Navigation">
         	<span class="icon-bar"></span>
         	<span class="icon-bar"></span>
         	<span class="icon-bar"></span>
       	</button>
-
-		<div id="nav-collapse" class="column-width-3 nav-collapse" role="navigation">
+		<div id="nav-collapse" class=" collapse nav-collapse" role="navigation">
 			<div id="leftnav" role="navigation">
 				<div class="content">
 					<ul class="menu ">
