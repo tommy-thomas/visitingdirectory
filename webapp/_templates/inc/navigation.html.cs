@@ -16,7 +16,7 @@
 							<a href="https://vc.uchicago.edu/page/committee-membership">Committee Membership</a>
 							<ul class="menu">
 								<li>
-									<a href="./search.php">Directory Search</a>
+									<a href="/search.php">Directory Search</a>
 								</li>
 							</ul>				
 						</li>

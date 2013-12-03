@@ -18,9 +18,10 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="j/libs/jquery-1.7.2.min.js"><\/script>')</script>
-<script src="j/core.min.js"></script>
-<script>$('.data-table').dataTable();</script>
+<script src="/j/core.min.js"></script>
 <!--[if lte IE 8]><script src="j/libs/respond.min.js"></script><![endif]-->
-
-<script src="j/cache.js"></script>
-<script src="j/jquery.timer.js"></script>
+<script src="/j/cache.js"></script>
+<script src="///webresources.uchicago.edu/js/jquery-ui-1.8.11.custom.js"></script>	
+<script src="/j/jquery.timer.js"></script>
+<script src="/j/jquery.dataTables.min.js"></script>
+<script src="/j/datatable.js"></script>cd 
