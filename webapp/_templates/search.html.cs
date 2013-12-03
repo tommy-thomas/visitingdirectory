@@ -1,77 +1,72 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
- "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-	<head>
-		<title>Secure Directory | Visiting Committees &amp; Councils | The University of Chicago</title>
-		<?cs include:"inc/head.html.cs" ?>	
-	</head>
-	<body class="two-col-temp">
-		<div id="page-wrapper">
-			<div id="page">
-				
-				<?cs include:"inc/header.html.cs" ?>
-				
-				<div id="main-wrapper" class="">
-					<div id="main" class=" container_12">
-						<div id="content" class="column grid_9 push_3 ">
-						<?cs if:authentication_error ?>
-							<div class="error"><?cs var:authentication_error ?></div>
-						<?cs /if ?>	
-							<h1 id="page-title">Secure Directory - beta</h1>
-							<div id="bottomrow" class="">
-								<div class="grid_9 alpha">
-									<div class="content region-content">
-										<p>You may browse the directory by committee or search for a committee member by name.</p>
-										<h2>Browse by Committee</h2>
-										<form action="results.php" method="post" name="by_committee">
-											<div>
-												<select name="committee" size="1">
-													<option value="" selected>-- Select -- </option>
-													<?cs each:c=Committee  ?>		     
-													<option value="<?cs var:c.COMMITTEE_CODE ?>"><?cs var:c.SHORT_DESC ?></option>     	      			
-													<?cs /each ?>
-												</select>
-												<div><input class="btn" type="submit" name="search_by_committee" value="Go" /></div>
-											</div>
-										</form>
-
-										<h2>Search by Name</h2>
-										<form action="results.php" method="post" name="by_name">
-											<div class="w50 first" id="">
-												<label for="f_name">First Name</label>
-												<input name="f_name" type="text" />
-											</div>
-											<div class="w50 first" id="">
-												<label for="l_name">Last Name</label>
-												<input name="l_name" type="text" />
-											</div>
-										
-											<div><input class="btn" type="submit" name="search_by_name" value="Search" /></div>
-										</form>
-										<div class="clear" id=""></div>
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js ie lt-ie10 lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js ie ie7 lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js ie ie8 lt-ie9 lt-ie10" lang="en"><![endif]-->
+<!--[if IE 9]><html class="no-js ie ie9  lt-ie10" lang="en"><![endif]-->
+<!--[if IE 10]><html class="no-js ie ie10 lt-ie11" lang="en"><![endif]-->
+<!--[if gt IE 10]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<title>Secure Directory | Visiting Committees &amp; Councils | The University of Chicago</title>
+	
+	<?cs include:"inc/head.html.cs" ?>
+</head>  
+<body>
+	<?cs include:"inc/header.html.cs" ?>
+	<div class="container">
+		<h1 class="page-title">Secure Directory - beta</h1>
+			<div class="row">
+				<div class="span9 pull-right">
+					<div class="content region-content">
+						<p>You may browse the directory by committee or search for a committee member by name.</p>
+						<div class="row-fluid">
+							<div class="span5">
+								<h2>Browse by Committee</h2>
+								<form action="results.php" method="post" name="by_committee">
+									<div>
+										<select name="committee" size="1">
+											<option value="" selected>-- Select -- </option>
+											<?cs each:c=Committee  ?>		     
+											<option value="<?cs var:c.COMMITTEE_CODE ?>"><?cs var:c.SHORT_DESC ?></option>     	      			
+											<?cs /each ?>
+										</select>
+										<div>
+											<input class="btn" type="submit" name="search_by_committee" value="Go" />
+										</div>
 									</div>
-								</div>
+								</form>
 							</div>
-							<!-- bottomrow -->
+							<div class="span5">
+								<h2>Search by Name</h2>
+								<form action="results.php" method="post" name="by_name">
+									<div class="w50 first" id="">
+										<label for="f_name">First Name</label>
+										<input name="f_name" type="text" />
+									</div>
+									<div class="w50 first" id="">
+										<label for="l_name">Last Name</label>
+										<input name="l_name" type="text" />
+									</div>
+									<div>
+										<input class="btn" type="submit" name="search_by_name" value="Search" />
+									</div>
+								</form>
+							</div>
 						</div>
-						<!-- /#content -->
-						
-						<div id="sidebar-first" class="column sidebar grid_3 pull_9">
-							<?cs include:"inc/login.html.cs" ?>
-							<?cs include:"inc/navigation.html.cs" ?>
-							<!--<?cs include:"inc/search.html.cs" ?>-->
-							<?cs include:"inc/related-links.html.cs" ?>
-							
-						</div><!-- /#sidebar-first -->
-					</div><!-- /#main -->
-				</div><!-- /#main-wrapper -->
-				<div id="clearfoot"><!-- This is for the sticky footer --></div>
-			</div><!-- /#page -->
-		</div><!-- /#page-wrapper -->
+					</div>
+				</div>
+				<div class="span3">				
+					<?cs include:"inc/navigation.html.cs" ?> <!-- this now includes the related links as well -->
+				</div>
+			</div>	
+		</div>
+	</div><!-- /#page-wrapper -->
+	<div class="push"><!--//--></div>
 
 	<?cs include:"inc/footer.html.cs" ?>
-	<!-- Insert all js calls here  (jquery is included in the footer inc) -->
-	
-	</body>
+
+<!-- Insert all js calls here  (jquery is included in the footer inc) -->
+
+</body>
 </html>
 	

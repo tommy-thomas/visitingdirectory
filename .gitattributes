@@ -21,10 +21,70 @@ webapp/_templates/member.html.cs -text
 webapp/_templates/results.html.cs -text
 webapp/_templates/search.html.cs -text
 webapp/_templates/visiting.html.cs -text
+webapp/c/_archive/background.css -text
+webapp/c/_archive/base.css -text
+webapp/c/_archive/ckeditor.css -text
+webapp/c/_archive/demo_table_jui.css -text
+webapp/c/_archive/ie.css -text
+webapp/c/_archive/ie6.css -text
+webapp/c/_archive/ie7.css -text
+webapp/c/_archive/layout.css -text
+webapp/c/_archive/phoenix_ie.css -text
+webapp/c/_archive/print.css -text
+webapp/c/_archive/screen.css -text
+webapp/c/_archive/small.css -text
+webapp/c/_archive/style.css -text
 webapp/c/background.css -text
 webapp/c/base.css -text
 webapp/c/ckeditor.css -text
 webapp/c/demo_table_jui.css -text
+webapp/c/fonts.css -text
+webapp/c/fonts/1415F2_0.eot -text
+webapp/c/fonts/1415F2_0.svg -text svneol=unset#image/svg%2Bxml
+webapp/c/fonts/1415F2_0.ttf -text
+webapp/c/fonts/1415F2_0.woff -text
+webapp/c/fonts/1415F2_0_unhinted.ttf -text
+webapp/c/fonts/1415F2_0_unhinted.woff -text
+webapp/c/fonts/1415F2_1.eot -text
+webapp/c/fonts/1415F2_1.svg -text svneol=unset#image/svg%2Bxml
+webapp/c/fonts/1415F2_1.ttf -text
+webapp/c/fonts/1415F2_1.woff -text
+webapp/c/fonts/1415F2_1_unhinted.ttf -text
+webapp/c/fonts/1415F2_1_unhinted.woff -text
+webapp/c/fonts/1415F2_2.eot -text
+webapp/c/fonts/1415F2_2.svg -text svneol=unset#image/svg%2Bxml
+webapp/c/fonts/1415F2_2.ttf -text
+webapp/c/fonts/1415F2_2.woff -text
+webapp/c/fonts/1415F2_2_unhinted.ttf -text
+webapp/c/fonts/1415F2_2_unhinted.woff -text
+webapp/c/fonts/1415F2_3.eot -text
+webapp/c/fonts/1415F2_3.svg -text svneol=unset#image/svg%2Bxml
+webapp/c/fonts/1415F2_3.ttf -text
+webapp/c/fonts/1415F2_3.woff -text
+webapp/c/fonts/1415F2_3_unhinted.ttf -text
+webapp/c/fonts/1415F2_3_unhinted.woff -text
+webapp/c/fonts/1415F2_4.eot -text
+webapp/c/fonts/1415F2_4.svg -text svneol=unset#image/svg%2Bxml
+webapp/c/fonts/1415F2_4.ttf -text
+webapp/c/fonts/1415F2_4.woff -text
+webapp/c/fonts/1415F2_4_unhinted.ttf -text
+webapp/c/fonts/1415F2_4_unhinted.woff -text
+webapp/c/fonts/symbolset/ss-social-circle.eot -text
+webapp/c/fonts/symbolset/ss-social-circle.svg -text svneol=unset#image/svg%2Bxml
+webapp/c/fonts/symbolset/ss-social-circle.ttf -text
+webapp/c/fonts/symbolset/ss-social-circle.woff -text
+webapp/c/fonts/symbolset/ss-social-regular.eot -text
+webapp/c/fonts/symbolset/ss-social-regular.svg -text svneol=unset#image/svg%2Bxml
+webapp/c/fonts/symbolset/ss-social-regular.ttf -text
+webapp/c/fonts/symbolset/ss-social-regular.woff -text
+webapp/c/fonts/symbolset/ss-social.css -text
+webapp/c/fonts/symbolset/ss-social.js -text
+webapp/c/fonts/symbolset/ss-standard.css -text
+webapp/c/fonts/symbolset/ss-standard.eot -text
+webapp/c/fonts/symbolset/ss-standard.js -text
+webapp/c/fonts/symbolset/ss-standard.svg -text svneol=unset#image/svg%2Bxml
+webapp/c/fonts/symbolset/ss-standard.ttf -text
+webapp/c/fonts/symbolset/ss-standard.woff -text
 webapp/c/ie.css -text
 webapp/c/ie6.css -text
 webapp/c/ie7.css -text
@@ -34,6 +94,7 @@ webapp/c/print.css -text
 webapp/c/screen.css -text
 webapp/c/small.css -text
 webapp/c/style.css -text
+webapp/c/styles.css -text
 webapp/cache.php -text
 webapp/cache/set_cache.php -text
 webapp/data_error.php -text
@@ -78,6 +139,19 @@ webapp/img/socialsprite.gif -text svneol=unset#image/gif
 webapp/img/socialsprite.png -text svneol=unset#image/png
 webapp/img/space.jpg -text svneol=unset#image/jpeg
 webapp/img/tabs-border.png -text svneol=unset#image/png
+webapp/img/template/greybullet.png -text svneol=unset#image/png
+webapp/img/template/greybullet.svg -text
+webapp/img/template/mobile_header_crest.png -text svneol=unset#image/png
+webapp/img/template/search_dark.png -text svneol=unset#image/png
+webapp/img/template/search_dark.svg -text
+webapp/img/template/shield.png -text svneol=unset#image/png
+webapp/img/template/shield.svg -text
+webapp/img/template/sprite.png -text svneol=unset#image/png
+webapp/img/template/sprite.svg -text
+webapp/img/template/sprite_v2.png -text svneol=unset#image/png
+webapp/img/template/sprite_v2.svg -text
+webapp/img/template/uc_wordmark_hires.gif -text svneol=unset#image/gif
+webapp/img/template/uchicago.png -text svneol=unset#image/png
 webapp/img/uc_wordmark.gif -text svneol=unset#image/gif
 webapp/img/uc_wordmark.png -text svneol=unset#image/png
 webapp/img/uc_wordmark_phoenix.png -text svneol=unset#image/png

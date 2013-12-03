@@ -1,12 +1,24 @@
-<div id="header">
-	<div class=" container_12 clearfix">
-		<div id="name-and-slogan">
-			<div id="site-name">
-                <a href="/" title="Home" rel="home" class="grid_8 unitPng" id="dept-title">Board of Trustees</a>
-                <a href="http://www.uchicago.edu/" title="University of Chicago Home" id="wordmark" class="grid_4">The University of Chicago</a>
+<div class="navbar navbar-plaisance navbar-static-top">
+	<div class="navbar-inner">
+		<div class="container">
+			<div class="mobile_branding">
+				<h1>The University of Chicago</h1>
 			</div>
 		</div>
-		<!-- /#name -->
+	</div>
+	<div class="wordmark phone" role="navigation"><a href="/"><h1>Visiting Committees and Councils</h1></a></div>
+</div>
+<div class="wordmark">
+	<div class="wordmark-inner">
+		<div class="container">
+			<div class="span8 site-name">
+				<a href="#"><h1>Visiting Committees and Councils</h1></a>
+			</div>
+			<div class="span4">
+				<a id="wordmark" href="//www.uchicago.edu">
+					<h1>The University of Chicago</h1>
+				</a>
+			</div>
+		</div>
 	</div>
 </div>
-<!-- /#header -->
