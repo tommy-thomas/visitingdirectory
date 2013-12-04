@@ -214,9 +214,9 @@ table.table-striped tbody tr, table.table-striped tbody tr td {border:none;}
 table.table-striped tbody tr td.info_row {border-top:1px solid #aaa;}
 
 table.table-striped tbody tr.row-view.odd td,
-table.table-striped tbody tr.row-view.odd + tr td.info_row {background-color:#ccc;}
+table.table-striped tbody tr.row-view.odd + tr td.info_row {background-color:#f9f9f9;}
 table.table-striped tbody tr.row-view.even td,
-table.table-striped tbody tr.row-view.even + tr td.info_row {background-color:#eaeae1;}
+table.table-striped tbody tr.row-view.even + tr td.info_row {background-color:#ffffff;}
 
 table.table-striped tbody tr td.info_row table tr td {background-color:inherit;}
 

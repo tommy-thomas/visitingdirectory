@@ -8,8 +8,11 @@
 <head>
 	<meta charset="utf-8">
 	<title>Secure Directory | Visiting Committees &amp; Councils | The University of Chicago</title>
-	
 	<?cs include:"inc/head.html.cs" ?>
+	<style type="text/css" title="currentStyle">
+		@import "c/demo_table_jui.css";
+	</style>
+	
 </head>  
 <body>
 	<?cs include:"inc/header.html.cs" ?>
