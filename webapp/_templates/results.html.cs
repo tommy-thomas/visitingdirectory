@@ -8,11 +8,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>Secure Directory | Visiting Committees &amp; Councils | The University of Chicago</title>
-	<?cs include:"inc/head.html.cs" ?>
-	<style type="text/css" title="currentStyle">
-		@import "c/demo_table_jui.css";
-	</style>
 	
+	<?cs include:"inc/head.html.cs" ?>
 </head>  
 <body>
 	<?cs include:"inc/header.html.cs" ?>
@@ -20,10 +17,10 @@
 		<h1 class="page-title">Secure Directory - beta</h1>
 			<div class="row">
 				<div class="span9 pull-right">
-					<div class="content region-content">
+					<div class="maincontent">
 						<?cs if:ShowCommiteeResults ?>
 						
-						<p>Didn't find what you were looking for? <a href="search.php">Browse again or start a new search.</a></p>
+						<p>Didn't find what you were looking for?  <a href="search.php">Browse again or start a new search.</a></p>
 						
 						<h2 id="cmtname"><?cs var:Committee ?></h2>
 						
@@ -33,13 +30,13 @@
 								<li>You may sort by clicking the table's headings headings.</li>
 								<li>Data incorrect or incomplete? <a href="mailto:spaepen@uchicago.edu?subject=Update for Visiting Committee Member">Contact us with an update.</a></li>
 							</ul>
-							<em>*Denotes a Life Member.</em>
 						</p>
-						<p class="hiddenscreen">Please Note: Member data is not available for printing at this time. Please contact Alumni Relations &amp; Development if you need a copy of this information.</p>
-						<div class="hideprint" style="float:left; margin-left:5px;">
+						<p><strong>Please Note:</strong> Member data is not available for printing at this time. Please contact Alumni Relations &amp; Development if you need a copy of this information.</p>
+						<div>
 							<h2><?cs var:Chairman ?></h2>
+							<p class="small"><em>*Denotes a Life Member.</em></p>
 						</div>
-                        <div class="hideprint" style="float:right; margin-right:5px;">
+                        <div class="table-toggle">
                         	<a href="#" id="oButton">+ expand all</a> / <a href="#" id="cButton">- collapse all</a>
                         </div>  
                         <div class="memberdata">
@@ -71,9 +68,8 @@
 
 						<?cs if:ShowSearchResults ?>
 					  	<h2>Name Search Results</h2>
-						<p><strong><?cs var:count ?> results found.</strong> Click on a member's name to see additional information.</p>
-						<p>Didn't find what you were looking for? <a href="search.php">Start a new search.</a></p>
-						<p class="hiddenscreen">Please Note: Member data is not available for printing at this time. Please contact Alumni Relations &amp; Development if you need a copy of this information.</p>
+						<p><strong><?cs var:count ?> results found.</strong> Click on a member's name to see additional information.</br>Didn't find what you were looking for? <a href="search.php">Start a new search.</a></p>
+						<p><strong>Please Note:</strong> Member data is not available for printing at this time. Please contact Alumni Relations &amp; Development if you need a copy of this information.</p>
 						<div class="memberdata">
 							<table border="0" cellspacing="3" cellpadding="3" class="display table table-striped" id="search_resuls">
 								<thead>
@@ -97,6 +93,7 @@
 				</div>
 				<div class="span3">				
 					<?cs include:"inc/navigation.html.cs" ?> <!-- this now includes the related links as well -->
+					<?cs include:"inc/related-links.html.cs" ?>
 				</div>					
 			</div>
 		</div><!-- /#page-wrapper -->

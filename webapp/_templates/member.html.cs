@@ -14,15 +14,15 @@
 <body>
 	<?cs include:"inc/header.html.cs" ?>
 	<div class="container">
-		<h1 id="page-title">Secure Directory - beta</h1>
+		<h1 class="page-title">Secure Directory - beta</h1>
 		<div class="row">
 			<div class="span9 pull-right">
-				<div class="content region-content">
-					<p>Didn't find what you were looking for? <a href="search.php">Start a new search.</a></p>
-					<p>Is your info incorrect or incomplete? <a href="mailto:spaepen@uchicago.edu?subject=Update for Visiting Committee Member">Contact us with an update.</a></p>
+				<div class="maincontent">
+					<p>Didn't find what you were looking for? <a href="search.php">Start a new search.</a><br/>
+					Is your info incorrect or incomplete? <a href="mailto:spaepen@uchicago.edu?subject=Update for Visiting Committee Member">Contact us with an update.</a></p>
 
-					<h2 id="title">Member Information</h2>
-					<p class="hiddenscreen">Please Note: Member data is not available for printing at this time. Please contact Alumni Relations &amp; Development if you need a copy of this information.</p>
+					<h2>Member Information</h2>
+					<p>Please Note: Member data is not available for printing at this time. Please contact Alumni Relations &amp; Development if you need a copy of this information.</p>
 					
 					<div id="memberdata">
 
@@ -57,10 +57,11 @@
 							</p>
 						<?cs /each ?>
 					</div><!-- end member data div -->
-				</div>ddddddddddddddddddddddddddddddddddddd
+				</div>
 			</div>
 			<div class="span3">				
 				<?cs include:"inc/navigation.html.cs" ?> <!-- this now includes the related links as well -->
+				<?cs include:"inc/related-links.html.cs" ?>
 			</div>					
 		</div>
 	</div><!-- /#page-wrapper -->

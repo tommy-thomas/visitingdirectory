@@ -17,7 +17,7 @@
 		<h1 class="page-title">Secure Directory - beta</h1>
 		<div class="row">
 			<div class="span9 pull-right">
-				<div class="content region-content">									
+				<div class="maincontent">									
 					<p>Please log in below to use the directory. If you do not have a CNetID, you may log in with an account you already have with Google, Yahoo, or Facebook. <em>Please note that the social media account you choose should use an email address we have on file.</em> If you have any trouble logging in, please contact us at <a href="mailto:weberror@uchicago.edu?subject=Visiting Committees Directory login problem">weberror@uchicago.edu</a>.</p>
 					
 					<?cs if:authentication_error ?>
@@ -58,6 +58,7 @@
 			</div>	
 			<div class="span3">				
 				<?cs include:"inc/navigation.html.cs" ?> <!-- this now includes the related links as well -->
+				<?cs include:"inc/related-links.html.cs" ?>
 			</div>					
 		</div>
 	</div><!-- /#page-wrapper -->

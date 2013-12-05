@@ -1,4 +1,4 @@
-<div class="column-width-3 navbar" role="navigation">
+<div class="navbar navigation" role="navigation">
 	<div class="navbar-inner">
 		<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse" title="Toggle Main Navigation">
         	<span class="icon-bar"></span>
@@ -16,7 +16,7 @@
 							<a href="https://vc.uchicago.edu/page/committee-membership">Committee Membership</a>
 							<ul class="menu">
 								<li>
-									<a href="/search.php">Directory Search</a>
+									<a href="./search.php">Directory Search</a>
 								</li>
 							</ul>				
 						</li>
@@ -28,7 +28,6 @@
 					</ul>
 				</div>
 			</div>
-			<?cs include:"inc/related-links.html.cs" ?>
 		</div>
 	</div>
-</div>
+</div>	

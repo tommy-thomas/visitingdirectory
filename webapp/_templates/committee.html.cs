@@ -17,14 +17,15 @@
 		<?cs if:authentication_error ?>
 			<div class="error"><?cs var:authentication_error ?></div>
 		<?cs /if ?>	
-		<h1 id="page-title"><?cs var:Committee ?></h1>
+		<h1 class="page-title"><?cs var:Committee ?></h1>
 		<div class="row">
 			<div class="span9 pull-right">
-				<div class="content region-content">
+				<div class="maincontent">
 					<!--<h2 id="cmtname"><?cs var:Committee ?></h2>-->
-					<p><em>*Denotes a Life Member</em></p>
-					<p><strong><?cs var:Chairman ?></strong></p>
-					<ul>
+					
+					<h2><?cs var:Chairman ?></h2>
+					<p class="small"><em>*Denotes a Life Member</em></p>
+					<ul class="list-3col">
 						<?cs each:m=CommitteeMember ?>
 							<li>
 								<?cs var:m.FirstName ?> <?cs var:m.MiddleName ?> <?cs var:m.LastName ?>
@@ -36,7 +37,9 @@
 			
 			<div class="span3">				
 				<?cs include:"inc/navigation.html.cs" ?> <!-- this now includes the related links as well -->
+				<?cs include:"inc/related-links.html.cs" ?>
 			</div>					
+					
 		</div>
 	</div><!-- /#page-wrapper -->
 	<div class="push"><!--//--></div>

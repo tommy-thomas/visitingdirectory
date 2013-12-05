@@ -17,14 +17,15 @@
 		<h1 id="page-title">Data Error</h1>
 		<div class="row">
 			<div class="span9 pull-right">
-				<div class="content region-content">
+				<div class="maincontent">
 							<p>The data service for this site is currently unavailable, please check back later.<br />We apologize for the inconvenience.</p>
 						<!-- /#content -->
 				</div>
 			</div>			
-			<div class="span3">			
+			<div class="span3">				
 				<?cs include:"inc/navigation.html.cs" ?> <!-- this now includes the related links as well -->
-			</div>					
+				<?cs include:"inc/related-links.html.cs" ?>
+			</div>						
 		</div>
 	</div><!-- /#page-wrapper -->
 	<div class="push"><!--//--></div>

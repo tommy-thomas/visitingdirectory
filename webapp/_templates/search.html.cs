@@ -17,7 +17,7 @@
 		<h1 class="page-title">Secure Directory - beta</h1>
 			<div class="row">
 				<div class="span9 pull-right">
-					<div class="content region-content">
+					<div class="maincontent">
 						<p>You may browse the directory by committee or search for a committee member by name.</p>
 						<div class="row-fluid">
 							<div class="span5">
@@ -57,7 +57,9 @@
 				</div>
 				<div class="span3">				
 					<?cs include:"inc/navigation.html.cs" ?> <!-- this now includes the related links as well -->
-				</div>
+					<?cs include:"inc/related-links.html.cs" ?>
+				</div>					
+
 			</div>	
 		</div>
 	</div><!-- /#page-wrapper -->
