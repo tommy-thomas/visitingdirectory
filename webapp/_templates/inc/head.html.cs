@@ -33,6 +33,7 @@
 -->
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 <link href="https://visitingdirectorydev.uchicago.edu/workingcopy/rwake/c/styles.css" rel="stylesheet" media="screen" />
+<link href="https://visitingdirectorydev.uchicago.edu/workingcopy/rwake/c/demo_table_jui.css" rel="stylesheet" media="screen" />
 <link href="c/fonts.css" rel="stylesheet" media="screen" />
 <link href="c/print.css" rel="stylesheet" media="print" />
 
