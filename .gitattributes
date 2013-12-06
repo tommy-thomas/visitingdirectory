@@ -34,9 +34,6 @@ webapp/c/_archive/print.css -text
 webapp/c/_archive/screen.css -text
 webapp/c/_archive/small.css -text
 webapp/c/_archive/style.css -text
-webapp/c/background.css -text
-webapp/c/base.css -text
-webapp/c/ckeditor.css -text
 webapp/c/demo_table_jui.css -text
 webapp/c/fonts.css -text
 webapp/c/fonts/1415F2_0.eot -text
@@ -85,20 +82,14 @@ webapp/c/fonts/symbolset/ss-standard.js -text
 webapp/c/fonts/symbolset/ss-standard.svg -text svneol=unset#image/svg%2Bxml
 webapp/c/fonts/symbolset/ss-standard.ttf -text
 webapp/c/fonts/symbolset/ss-standard.woff -text
-webapp/c/ie.css -text
-webapp/c/ie6.css -text
-webapp/c/ie7.css -text
-webapp/c/layout.css -text
-webapp/c/phoenix_ie.css -text
 webapp/c/print.css -text
-webapp/c/screen.css -text
-webapp/c/small.css -text
-webapp/c/style.css -text
 webapp/c/styles.css -text
 webapp/cache.php -text
 webapp/cache/set_cache.php -text
 webapp/data_error.php -text
 webapp/img/add.png -text svneol=unset#image/png
+webapp/img/arrow-e.png -text svneol=unset#image/png
+webapp/img/arrow-w.png -text svneol=unset#image/png
 webapp/img/favicon.ico -text
 webapp/img/feed.png -text svneol=unset#image/png
 webapp/img/gallery/R19V30_lg.png -text svneol=unset#image/png
@@ -135,6 +126,7 @@ webapp/img/plus.gif -text svneol=unset#image/gif
 webapp/img/search-button.png -text svneol=unset#image/png
 webapp/img/slidecontrol.gif -text svneol=unset#image/gif
 webapp/img/slidecontrol_gallery.gif -text svneol=unset#image/gif
+webapp/img/social.png -text svneol=unset#image/png
 webapp/img/socialsprite.gif -text svneol=unset#image/gif
 webapp/img/socialsprite.png -text svneol=unset#image/png
 webapp/img/space.jpg -text svneol=unset#image/jpeg
@@ -161,6 +153,10 @@ webapp/j/core.min.js -text
 webapp/j/datatable.js -text
 webapp/j/jquery.dataTables.min.js -text
 webapp/j/jquery.timer.js -text
+webapp/j/libs/bootstrap.min.js -text
+webapp/j/libs/jquery-1.7.2.min.js -text
+webapp/j/libs/modernizr.js -text
+webapp/j/libs/respond.min.js -text
 webapp/logout.php -text
 webapp/member.php -text
 webapp/restricted/authorization.php -text

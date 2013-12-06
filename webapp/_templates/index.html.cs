@@ -27,7 +27,7 @@
 					<p><a href="<?cs var:domain ?>/Shibboleth.sso/Login?entityID=urn:mace:incommon:uchicago.edu&target=<?cs var:base ?>index.php"><strong>Login with CNetID / UCHADID</strong></a></p>
 					
 					<p>Or log in using an existing account below*:</p>
-					<ul id="login-list">
+					<ul class="no-bullet" id="login-list">
 						<li class="facebook">
 							<a href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=<?cs var:domain ?>/shibboleth&source=facebook&RelayState=<?cs var:base ?>index.php">Facebook</a>
 						</li>
@@ -44,15 +44,16 @@
 					
 					<h2>Need Help?</h2>
 					<ul>
-						<li>I have an account above, but it's not linked to an email address on file.</li>
-						<ul>
-							<li><a href="mailto:spaepen@uchicago.edu?subject=VC Directory - add email address to Griffin">Contact us</a> and give us the email address we're missing and we will add it to your record.</li>
-						</ul>
-						<li>I'd like to create an account above, but I don't know what email address you have on file for me.</li>
-						
-						<ul>
-							<li><a href="mailto:mailto:spaepen@uchicago.edu?subject=VC Directory - request for email addresses in Griffin">Contact us</a> and we'll let you know what email address we have on file for you.</li>
-						</ul>	
+						<li>I have an account above, but it's not linked to an email address on file.
+							<ul>
+								<li><a href="mailto:spaepen@uchicago.edu?subject=VC Directory - add email address to Griffin">Contact us</a> and give us the email address we're missing and we will add it to your record.</li>
+							</ul>
+						</li>
+						<li>I'd like to create an account above, but I don't know what email address you have on file for me.
+							<ul>
+								<li><a href="mailto:mailto:spaepen@uchicago.edu?subject=VC Directory - request for email addresses in Griffin">Contact us</a> and we'll let you know what email address we have on file for you.</li>
+							</ul>
+						</li>
 					</ul>								
 				</div>
 			</div>	

@@ -5873,6 +5873,7 @@ h1.page-title {
 .maincontent ol ol li:last-child {
   margin-bottom: 0;
 }
+
 .maincontent ul {
   line-height: 1.5em;
   margin: 0 0 1.875em 1.4em;
@@ -5886,7 +5887,28 @@ h1.page-title {
 .maincontent li ul,
 .maincontent li ol {
   margin: .5em 0 0 1.4em;
+  list-style: circle;
 }
+
+.maincontent ul.no-bullet {list-style: none;}
+
+#login-list {list-style: none;}
+
+#login-list li  {
+  background-image: url("../img/login.png");
+    background-repeat: no-repeat;
+    font: 1em/24px sans-serif;
+    height: 24px;
+    list-style-image: none;
+    padding: 0 0 0 32px;
+    margin: 10px 0;
+}
+
+#login-list li.facebook {background-position: 0 0;}
+#login-list li.google {background-position: 0 -24px;}
+#login-list li.yahoo {background-position: 0 -48px;}
+
+
 .maincontent .table caption {
   font: normal 1.5em / 1.25em "ProximaNova-Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #484747;
