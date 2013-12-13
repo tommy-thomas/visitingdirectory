@@ -36,7 +36,7 @@
 			</div>
 			
 			<div class="span3">				
-				<?cs include:"inc/navigation.html.cs" ?> <!-- this now includes the related links as well -->
+				<?cs include:"inc/navigation-public.html.cs" ?> <!-- this now includes the related links as well -->
 				<?cs include:"inc/related-links.html.cs" ?>
 			</div>					
 					
