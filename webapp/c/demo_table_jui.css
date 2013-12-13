@@ -33,8 +33,6 @@
 
 .paging_two_button .ui-button {
 	float: left;
-	cursor: pointer;
-	* cursor: hand;
 }
 
 .paging_full_numbers .ui-button {
@@ -260,7 +258,10 @@ table.table-striped tbody tr td.info_row table tr td {background-color:inherit;}
 
 
 /*Pagination*/
-
+.ui-button .ui-icon span {
+		cursor: pointer;
+	* cursor: hand;
+}
 .ui-state-disabled span {opacity: .25;}
 .ui-state-disabled .ui-icon-circle-arrow-w,
 .ui-state-disabled .ui-icon-circle-arrow-e,
