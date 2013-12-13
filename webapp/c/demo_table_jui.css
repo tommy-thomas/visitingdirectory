@@ -258,8 +258,8 @@ table.table-striped tbody tr td.info_row table tr td {background-color:inherit;}
 
 
 /*Pagination*/
-.ui-button .ui-icon span {
-		cursor: pointer;
+.ui-button .ui-icon {
+	cursor: pointer;
 	* cursor: hand;
 }
 .ui-state-disabled span {opacity: .25;}
