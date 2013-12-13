@@ -261,14 +261,23 @@ table.table-striped tbody tr td.info_row table tr td {background-color:inherit;}
 
 /*Pagination*/
 
+.ui-state-disabled span {opacity: .25;}
+.ui-state-disabled .ui-icon-circle-arrow-w,
+.ui-state-disabled .ui-icon-circle-arrow-e,
+.ui-state-disabled .ui-icon-circle-arrow-w:hover,
+.ui-state-disabled span.ui-icon-circle-arrow-e:hover {
+	cursor: default;
+	background-position: 0 0;
+}
+
+.ui-icon {display: block; margin: 0 5px;}
 
 .ui-icon-circle-arrow-w,
 .ui-icon-circle-arrow-e {
-	display: block;
 	height: 20px;
-	margin: 0 5px;
 	width: 20px;
 }
+
 .ui-icon-circle-arrow-w {background: url(../img/arrow-w.png) no-repeat;}
 .ui-icon-circle-arrow-e {background: url(../img/arrow-e.png) no-repeat;}
 

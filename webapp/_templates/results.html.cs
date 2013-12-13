@@ -33,7 +33,7 @@
 						</p>
 						<p><strong>Please Note:</strong> Member data is not available for printing at this time. Please contact Alumni Relations &amp; Development if you need a copy of this information.</p>
 						<div>
-							<h2><?cs var:Chairman ?></h2>
+							<h3><?cs var:Chairman ?></h3>
 							<p class="small"><em>*Denotes a Life Member.</em></p>
 						</div>
                         <div class="table-toggle">

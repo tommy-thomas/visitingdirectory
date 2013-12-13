@@ -3749,7 +3749,7 @@ input[type="submit"].btn.btn-mini {
   *z-index: 2;
 }
 .navbar-inner {
-  min-height: 30px;
+  min-height: 5px;
  /* padding-left: 20px;
   padding-right: 20px;*/
   /*background-color: #fafafa;
@@ -5346,7 +5346,7 @@ hr {
   margin: 0 0 30px 0;
 }
 p {
-  line-height: 1.875em;
+  line-height: 1.5em;
   margin-bottom: 1.5em;
 }
 strong,
@@ -5823,7 +5823,7 @@ h1.page-title {
   font-weight: normal;
   line-height: 1.25em;
   font-family: 'ProximaNova-Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  margin-bottom: 1em;
+  
   clear: both;
 }
 .maincontent h2 {

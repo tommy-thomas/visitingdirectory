@@ -6,13 +6,13 @@
 			</div>
 		</div>
 	</div>
-	<div class="wordmark phone" role="navigation"><h1>Visiting Committees and Councils</h1></div>
+	<div class="wordmark phone" role="navigation"><a href="http://vc.uchicago.edu"><h1>Visiting Committees and Councils</h1></a></div>
 </div>
 <div class="wordmark">
 	<div class="wordmark-inner">
 		<div class="container">
 			<div class="span8 site-name">
-				<h1>Visiting Committees and Councils</h1>
+				<a href="http://vc.uchicago.edu"><h1>Visiting Committees and Councils</h1></a>
 			</div>
 			<div class="span4">
 				<a id="wordmark" href="//www.uchicago.edu">
