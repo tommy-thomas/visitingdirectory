@@ -27,13 +27,6 @@ if( $app->isShibbAuth() )
 	{
 		if( $app->userIsFromSocialAuth() && isset($_SERVER['mail']) )
 		{
-	    // For D. Langenberg demo TT start
-	    if( in_array($_SERVER['mail'] , array('langedb@gmail.com','tommyt67@gmail.com') ) )
-	    {
-	    	$_SESSION['email'] =  $_SERVER['mail'];
-			$app->redirect('./search.php');
-	    }
-	    // end dmeo code
 		try {
 			$curl->setPost($_SESSION['authtoken']);
 			$curl->createCurl( $collection->getServiceUrl('email_validation', $_SERVER['mail'] ) );
