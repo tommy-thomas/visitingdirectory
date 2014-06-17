@@ -163,6 +163,7 @@ class cURL extends WS_cURL{
 	 */
 	public function asSimpleXML()
 	{
+		
 		return simplexml_load_string( $this->_webpage );
 	}
 	/**
