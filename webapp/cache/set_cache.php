@@ -92,7 +92,7 @@ if (isset($_GET['key'])
         // 14. Let's log, print, and throw error.
         if ($code == 'VCLZ')
         {
-            // 14a. If first trip to service log the error rather than log for all of the trip.
+            // 14a. If first trip to service, log the error rather than log for all of the trip.
             error_log($e->getMessage());
         }
         print $e->getMessage();
