@@ -21,19 +21,27 @@ else
 $curl = new cURL(null);
 $collection = GriffinCollection::instance( $app , $curl , $_SESSION['authtoken']);
 $collection->loadCommitteeTemplateData($template);
+$manager = new CommitteeMemberManager();
 if( isset($_SESSION['authtoken']) && isset($_GET['id_number']) )
 {
-	$member_xml = $collection->getOneMemberData($_GET['id_number'] , $_SESSION['authtoken'] );
-}
-$manager = new CommitteeMemberManager();
-$member  = $manager->getOneMember($member_xml);
+    $result = $manager->searchCachedMembersByID( array($_GET['id_number']) );
+    if( !empty($result) )
+    {
+        $member = $result[0];
+    }
+    else
+    {
+        $member_xml = $collection->getOneMemberData($_GET['id_number'] , $_SESSION['authtoken'] );
+        $member  = $manager->getOneMember($member_xml);
+    }
 
+}
 if( !is_null($member) )
 {
 	$id_number = $member->getIdNumber();
 	$member->addClassDataTemplate( $template , "CommitteeMember.$id_number.");
 	
-	$committees = $member->getCommittees();
+	$committees = $member->getCommitteesLong();
 	$committee_list = array();
 	foreach( $committees as $key=>$value)
 	{

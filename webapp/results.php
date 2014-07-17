@@ -73,7 +73,11 @@ if( isset($_SESSION['authtoken']) )
 	if(  isset($_POST['search_by_name']) )
 	{
 		$xml  = $manager->searchMembersByName( htmlClean($_POST['f_name']) , htmlClean($_POST['l_name']) );
-		$members = $collection->getMembersAndCommittees($xml, $_SESSION['authtoken']);
+        $members = $manager->searchCachedMembersByID( $xml );
+        if( empty($members) )
+        {
+            $members = $collection->getMembersAndCommittees($xml, $_SESSION['authtoken']);
+        }
 		$count = count( $members );
 		$total = 0;
 		if( $count > 0 )

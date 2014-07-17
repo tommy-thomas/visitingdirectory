@@ -8,25 +8,29 @@
 class CommitteeMemberManager extends WS_DynamicGetterSetter
 {
 	/*
-	 * All member data only including first name, last name, and id number
+	 * All member data only including first name, last name, and id number.
 	 */
 	private $all_member_data;		
 	/*
-	 * Payload holds first name , last name , employement info
+	 * Payload holds first name , last name , employment info.
 	 */
 	private $entity_info;
 	/*
-	 * Payload holds address by committee member id_number
+	 * Payload holds address by committee member id_number.
 	 */
 	private $address_info;
 	/*
-	 * Payload holds degree info by committee member id_number
+	 * Payload holds degree info by committee member id_number.
 	 */
 	private $degree_info;
 	/*
-	 * Payload holds employer info by committee member employee number
+	 * Payload holds employer info by committee member employee number.
 	 */
 	private $employment_info;
+    /*
+	 * Payload holds committee membership for a committee member.
+	 */
+    private $committee_info;
 	/*
 	 * Xpath search results.
 	 */
@@ -62,12 +66,13 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	{	
 		$this->committee_members_list = array();		
 		if( !empty($code) )
-		{	
+		{
 			$this->entity_info = $this->all_member_data->xpath('//COMMITTEE/COMMITTEE_CODE[. ="'.$code.'" and ../RECORD_STATUS_CODE="A" and ../COMMITTEE_ROLE_CODE != "EO"]/parent::*');				
 			$this->address_info = isset($members['address_info']) ? $members['address_info'] : array();
 			$this->degree_info = isset($members['degree_info']) ? $members['degree_info'] : array() ;
-			$this->employment_info = isset($members['employment_info']) ? $members['employment_info'] : array() ;			
-			$return = ($sort) ? $this->xsort($this->entity_info, 'LAST_NAME' , 'FIRST_NAME') : '';		
+			$this->employment_info = isset($members['employment_info']) ? $members['employment_info'] : array() ;
+            $this->committee_info = isset($members['committee_info']) ? $members['committee_info'] : array() ;
+            $return = ($sort) ? $this->xsort($this->entity_info, 'LAST_NAME' , 'FIRST_NAME') : '';
 		}
 		foreach( $this->entity_info as $key => $obj )
 		{
@@ -83,11 +88,14 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 			$this->setMemberAddressData( $member,$this->setValue($obj->ID_NUMBER) );
 			$this->setMemberDegreeData( $member, $this->setValue($obj->ID_NUMBER) );
 			$this->setMemberEmploymentData( $member, $this->setValue($obj->ID_NUMBER) );
+            if( isset($obj->ID_NUMBER) )
+            {
+                $member->setMemberCommittees( $this->committee_info[$this->setValue($obj->ID_NUMBER)] , $this->memcache->get('VisDirectoryActiveCommittees'));
+            }
 			$this->committee_members_list[] = $member;
 		}
 		return $this;
 	}
-
 	/**
 	 * Set CommitteeMember object address info.
 	 */
@@ -217,7 +225,7 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 				}					
 			}
 			$member->setDegreeInfo( $degrees );
-			$member->setCommitteesFromXML( $xml['committee_info'] ,   $this->memcache->get('VisDirectoryActiveCommittees'));
+			$member->setMemberCommittees( $xml['committee_info'] ,   $this->memcache->get('VisDirectoryActiveCommittees'));
 			$employment = $xml['employment_info'];
 			if( isset($employment[0]) )
 			{
@@ -259,6 +267,47 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 		$this->xsort($this->search_results, 'LAST_NAME' , 'FIRST_NAME');
 		return $this->search_results;
 	}
+
+    /**
+     * Try to assemble search results from cache committee lists.
+     * @param $xml
+     */
+    public function searchCachedMembersByID($array=array())
+    {
+        $results = array();
+        if( !empty($array) )
+        {
+            $committees = $this->memcache->get('VisDirectoryActiveCommittees');
+            foreach ( $array as $m)
+            {
+                if( is_a($m, 'SimpleXMLElement'))
+                {
+                    $id = $m->ID_NUMBER;
+                }
+                else
+                {
+                    $id = $array[0];
+                }
+                foreach( $committees as $c )
+                {
+                    $key = "VisDirectory_".$c->getCOMMITTEE_CODE()."_List";
+                    if( $this->memcache->get($key) )
+                    {
+                        $tmp_list = $this->memcache->get($key);
+                        foreach( $tmp_list as $tmp )
+                        {
+                            if( $id == $tmp->getIdNumber() )
+                            {
+                                $results[] = $tmp;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        return $results;
+    }
 	/**
 	 * Sort simple xml search results by first name and/or last name.
 	 * @param $nodes

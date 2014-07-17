@@ -39,6 +39,14 @@ class GriffinCollection
 	 * Memcache object
 	 */
 	private $memcache;
+    /**
+     * Message constant for empty data sets returned from Griffin.
+     */
+    const EMPTY_DATA = "EMPTY PAYLOAD RETURNED FROM GRIFFIN WEB SERVICE.";
+    /**
+     * Message constant for unavailable Griffin service.
+     */
+    const SERVICE_UNAVAILABLE = "GRIFFIN SERVICE NOT AVAILABLE.";
 	/**
      * Public constructor.
 	 */
@@ -117,7 +125,7 @@ class GriffinCollection
 		{
 			$this->curl->setPost($token);
 			$this->curl->createCurl( sprintf($this->urls['all_members'], $this->memcache->get('VisDirectoryActiveCommitteeCodes') ));			
-			$this->memcache->set('VisCommitteeAllMemberData' , $this->curl->__toString() , 0, 86400 );
+			$this->memcache->set('VisCommitteeAllMemberData' , $this->curl->__toString() , 0, 0 );
 			if( !is_a(simplexml_load_string( $this->memcache->get('VisCommitteeAllMemberData') ),'SimpleXMLElement') )
 			{	
 				$this->app->redirect('./data_error.php');
@@ -176,7 +184,7 @@ class GriffinCollection
 				$tmp = new Committee($c);				
 				$arr[$c['COMMITTEE_CODE']] = $tmp;
 			}
-			$this->memcache->set('VisDirectoryActiveCommittees' , $arr, 0 , 86400 );
+			$this->memcache->set('VisDirectoryActiveCommittees' , $arr, 0 , 0 );
 		
 		$this->setActiveCommitteeUrlList();
 	}
@@ -197,7 +205,7 @@ class GriffinCollection
 					$list[] = $c->getCOMMITTEE_CODE();
 				}								
 			}
-			$this->memcache->set('VisDirectoryActiveCommitteeCodes', implode(",", $list) , 0 , 86400);
+			$this->memcache->set('VisDirectoryActiveCommitteeCodes', implode(",", $list) , 0 , 0);
 		}
 		
 	}
@@ -257,7 +265,7 @@ class GriffinCollection
 		if( !is_null($code) && !is_null($member_list) 
 		&&  !$this->memcache->get($key) )
 		{
-			$this->memcache->set($key , $member_list , 0, 86400);
+			$this->memcache->set($key , $member_list , 0, 0);
 		}
 	}	
 	/**
@@ -370,10 +378,12 @@ class GriffinCollection
 			foreach ( $info as $key )
 			{
 				foreach ( $data[$key] as $obj )
-				{			
+				{
 					$obj = simplexml_load_string( curl_multi_getcontent($obj) );
-					if( $key == 'entity_info' && is_a($obj, 'SimpleXMLElement') )
-					{	
+					if( $key == 'entity_info' && is_a($obj, 'SimpleXMLElement') && isset($obj->ENTITY->ID_NUMBER) )
+					{
+                        // Set committees while setting employment info.
+                        $members['committee_info'][(string)$obj->ENTITY->ID_NUMBER] = $this->getCommitteesAsXML( (string)$obj->ENTITY->ID_NUMBER , $token );
 						$employment = $obj->xpath('//EMPLOYMENT/JOB[@PRIMARY_EMP_IND="Y"]');
 						if( isset($employment[0]))
 						{						
@@ -392,16 +402,31 @@ class GriffinCollection
 						}																							
 						$members['employment_info'][(string)$obj->ENTITY->ID_NUMBER] = $employment;				
 					}
-					elseif( is_a($obj, 'SimpleXMLElement') )
+					elseif( is_a($obj, 'SimpleXMLElement') && isset( $obj->ENTITY->ID_NUMBER ) )
 					{
-						$members[$key][(string)$obj->ENTITY->ID_NUMBER] = $obj;
+                        $members[$key][(string)$obj->ENTITY->ID_NUMBER] = $obj;
 					}																		
 				}
 			}			
 			$this->curl->clear();
-		}		
+		}
 		return $members;
 	}
+
+    /**
+     * @param $token
+     */
+    public function getCommitteesAsXML($id_number , $token)
+    {
+        $array = array();
+        libxml_use_internal_errors(true);
+        $this->curl->setPost($token);
+        $url = sprintf(  $this->urls['all_affiliations'] , $id_number );
+        $this->curl->createCurl( $url );
+        $xml = $this->curl->asSimpleXML();
+        $array = $xml->xpath('//COMMITTEE[COMMITTEE_STATUS_CODE = "A" and RECORD_STATUS_CODE = "A" and COMMITTEE_ROLE_CODE != "EO"]');
+        return $array;
+    }
 	/**
 	 * Get list of members and committee affiliations.
 	 * @param $xml
@@ -444,7 +469,7 @@ class GriffinCollection
 				$cm->setIdNumber( (string)$m->ID_NUMBER );
 				$cm->setFirstName( (string)$m->FIRST_NAME );
 				$cm->setLastName( (string)$m->LAST_NAME  );	
-				$cm->setCommittees( $arr , $this->memcache->get('VisDirectoryActiveCommittees'));
+				$cm->setMemberCommittees( $arr , $this->memcache->get('VisDirectoryActiveCommittees'));
 				$members[(string)$m->ID_NUMBER] = $cm;
 			}
 			
