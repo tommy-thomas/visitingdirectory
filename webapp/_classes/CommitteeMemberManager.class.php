@@ -306,7 +306,6 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
             }
 
         }
-        var_dump( $results );
         return $results;
     }
 	/**
