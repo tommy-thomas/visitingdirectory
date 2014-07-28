@@ -4,7 +4,7 @@
 ini_set('max_execution_time', 1200);
 set_time_limit(1200);
 ignore_user_abort(1);
-require('../_classes/autoload.php');
+include __DIR__ . "/vendor/autoload.php";
 /**
  * The Application object.
  */
@@ -75,7 +75,6 @@ if (isset($_GET['key'])
             // 10. Get array of CommitteeMember objects.
             $member_list = $manager->load($code, $member_xml)->getCommiteeMemberList();
             // 11. Cache the array.
-            var_dump( $member_list );
             $collection->setCachedMemberList($code, $member_list);
             // 12. Flush headers.
         }

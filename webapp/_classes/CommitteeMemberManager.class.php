@@ -280,11 +280,13 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
             $committees = $this->memcache->get('VisDirectoryActiveCommittees');
             foreach ( $array as $m)
             {
+                // Is this a batched search?
                 if( is_a($m, 'SimpleXMLElement'))
                 {
                     $id = $m->ID_NUMBER;
                 }
-                else
+                // Is it a single search?
+                elseif( count($array) == 1 )
                 {
                     $id = $array[0];
                 }

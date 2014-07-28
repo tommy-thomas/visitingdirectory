@@ -1,5 +1,5 @@
 <?php
-require('_classes/autoload.php');
+include __DIR__ . "/vendor/autoload.php";
 /**
  * The Application object.
  */

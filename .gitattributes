@@ -86,6 +86,7 @@ webapp/c/print.css -text
 webapp/c/styles.css -text
 webapp/cache.php -text
 webapp/cache/set_cache.php -text
+webapp/composer.json -text
 webapp/data_error.php -text
 webapp/img/add.png -text svneol=unset#image/png
 webapp/img/arrow-e.png -text svneol=unset#image/png
