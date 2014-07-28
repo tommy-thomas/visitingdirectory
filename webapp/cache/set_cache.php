@@ -75,6 +75,7 @@ if (isset($_GET['key'])
             // 10. Get array of CommitteeMember objects.
             $member_list = $manager->load($code, $member_xml)->getCommiteeMemberList();
             // 11. Cache the array.
+            var_dump( $member_list );
             $collection->setCachedMemberList($code, $member_list);
             // 12. Flush headers.
         }
@@ -96,7 +97,6 @@ if (isset($_GET['key'])
             error_log($e->getMessage());
         }
         print $e->getMessage();
-        throw new Exception($e->getMessage());
     }
 }
 ?>
