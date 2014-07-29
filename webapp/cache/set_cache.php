@@ -4,7 +4,7 @@
 ini_set('max_execution_time', 1200);
 set_time_limit(1200);
 ignore_user_abort(1);
-include __DIR__ . "/vendor/autoload.php";
+include __DIR__ . "../vendor/autoload.php";
 /**
  * The Application object.
  */
