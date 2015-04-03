@@ -8,6 +8,7 @@ $template = $app->template('index.html.cs');
 $template->add_data( "base" , $app->base() );
 $auth_err = false;
 $soc_auth_err = false;
+var_dump($_SERVER);
 /**
  * Set committee objects for side nav.
  */

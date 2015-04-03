@@ -79,14 +79,7 @@ class Application extends WS_Application
 	 */
 	public function isShibbAuth()
 	{
-		if( isset($_SERVER['Shib-Session-ID']) )
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return isset($_SERVER['Shib-Session-ID']);
 	}
 	/**
 	 * 
