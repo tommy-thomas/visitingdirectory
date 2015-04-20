@@ -29,14 +29,13 @@
 					<p>Or log in using an existing account below*:</p>
 					<ul class="no-bullet" id="login-list">
 						<li class="facebook">
-							<a href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=<?cs var:domain ?>/shibboleth&source=facebook&RelayState=<?cs var:base ?>index.php">Facebook</a>
+							<a href="<?cs var:domain ?>/Shibboleth.sso/Login?entityID=https://facebook.cirrusidentity.com/gateway&target=<?cs var:domain ?>">Facebook</a>
 						</li>
 						<li class="google">
-							<a href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=<?cs var:domain ?>/shibboleth&source=google&RelayState=<?cs var:base ?>index.php">Google</a></li>
-			
-						
+							<a href="<?cs var:domain ?>/Shibboleth.sso/Login?entityID=https://google.cirrusidentity.com/gateway&target=<?cs var:domain ?>">Google</a>
+				        </li>
 						<li class="yahoo">
-							<a href="https://social-auth-gateway.uchicago.edu/simplesaml/saml2/idp/SSOService.php?spentityid=<?cs var:domain ?>/shibboleth&source=yahoo&RelayState=<?cs var:base ?>index.php">Login with Yahoo</a>
+							<a href="<?cs var:domain ?>/Shibboleth.sso/Login?entityID=https://yahoo.cirrusidentity.com/gateway&target=<?cs var:domain ?>">Yahoo</a>
 						</li>	
 					</ul>
 
