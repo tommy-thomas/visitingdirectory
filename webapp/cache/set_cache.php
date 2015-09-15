@@ -23,6 +23,7 @@ $app = Application::app();
 //ws900000
 //ws110000
 //ws120000
+//ws140000
 $committees = array(
     'dc9c6663511c522e5369538a44159693' => 'VCLZ',
     '036d7426484a9670dcd11e33be785eff' => 'VCLY',
@@ -36,7 +37,8 @@ $committees = array(
     'b81e18ce04724c5bf24d57b5aede8545' => 'VVPS',
     'c1d8003dee0a03b79e3e081881c23196' => 'VCLD',
     'c358905d59da55952d7b9141e3c4926d' => 'VVSS',
-    'da38dbd539a4f0d2c4fd80ac9d2d4b50' => 'VSVC'
+    'da38dbd539a4f0d2c4fd80ac9d2d4b50' => 'VSVC',
+    '6530b4c19ec6810783eeb724f6a4a3ff' => 'VVIM',
 );
 // success or fail message
 $message = "";
@@ -63,6 +65,7 @@ if (isset($_GET['key'])
         if ($key == 'dc9c6663511c522e5369538a44159693')
         {
             // 7. Set and cache array of Committees.
+            $collection->clearGriffinCollection();
             $collection->setCommittees();
             $collection->setAllMemberData($authtoken);
         }
