@@ -173,7 +173,7 @@ class GriffinCollection
                 'FULL_DESC' => 'Visiting Committee to the Division of the Physical Sciences'),
             array('COMMITTEE_CODE' => 'VCLD',
                 'SHORT_DESC' => 'Public Policy',
-                'FULL_DESC' => 'Visiting Committee to the Irving B. Harris Graduate School of Public Policy Studies'),
+                'FULL_DESC' => 'Council on the University of Chicago Harris School of Public Policy Studies'),
             array('COMMITTEE_CODE' => 'VVSS',
                 'SHORT_DESC' => 'Social Sciences',
                 'FULL_DESC' => 'Visiting Committee to the Division of the Social Sciences'),
