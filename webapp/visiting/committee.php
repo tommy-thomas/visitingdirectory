@@ -53,7 +53,7 @@ if( isset($_SESSION['authtoken']) && isset($_GET['c']) )
 		}
 	}
 	$names = implode(" and " , $chairmen);
-	$names .= count($chairmen) > 1 ? 'Co-Chairs' : 'Chair';
+	$names .= count($chairmen) > 1 ? ', Co-Chairs' : ', Chair';
 	$template->add_data('Chairman', $names );
 }
 $template->show();
