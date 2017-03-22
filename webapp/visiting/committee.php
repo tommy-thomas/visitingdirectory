@@ -52,11 +52,7 @@ if( isset($_SESSION['authtoken']) && isset($_GET['c']) )
 			$m->addClassDataTemplate( $template , "CommitteeMember.$id_number.");	
 		}
 	}
-	$names = "";
-	foreach($chairmen as $key=>$name)
-	{
-		$names .= $name.", ";
-	}
+	$names = implode(" and " , $chairmen);
 	$names .= count($chairmen) > 1 ? 'Co-Chairs' : 'Chair';
 	$template->add_data('Chairman', $names );
 }
