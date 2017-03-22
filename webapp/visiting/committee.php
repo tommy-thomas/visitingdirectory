@@ -57,7 +57,7 @@ if( isset($_SESSION['authtoken']) && isset($_GET['c']) )
 	{
 		$names .= $name.", ";
 	}
-	$names .= count($names) > 1 ? 'Chair' : 'Co-Chairs';
+	$names .= count($names) > 1 ? 'Co-Chairs' : 'Chair';
 	$template->add_data('Chairman', $names );
 }
 $template->show();
