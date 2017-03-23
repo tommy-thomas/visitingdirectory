@@ -37,6 +37,7 @@ if( isset($_SESSION['authtoken']) && isset($_GET['c']) )
 		$collection->setCachedMemberList($code , $member_list );
 	}	
 	$chair_id = -1;
+	$chairmen = [];
 	foreach( $member_list as $m )
 	{
 		$id_number = $m->getIdNumber();
@@ -44,14 +45,16 @@ if( isset($_SESSION['authtoken']) && isset($_GET['c']) )
 		{
 			$name = $m->getFirstName().' ';
 			$name .= strlen( $m->getMiddleName() ) > 0 ? $m->getMiddleName().' '.$m->getLastName() : $m->getLastName();
-			$name .= ', Chair';				
-			$template->add_data('Chairman', $name );
+			array_push($chairmen , $name);
 			$chair_id = $id_number;
 		}elseif( $id_number != $chair_id )
 		{
 			$m->addClassDataTemplate( $template , "CommitteeMember.$id_number.");	
 		}
 	}
+	$names = implode(" and " , $chairmen);
+	$names .= count($chairmen) > 1 ? ', Co-Chairs' : ', Chair';
+	$template->add_data('Chairman', $names );
 }
 $template->show();
 ?>

@@ -21,7 +21,6 @@
 		<div class="row">
 			<div class="span9 pull-right">
 				<div class="maincontent">
-					<!--<h2 id="cmtname"><?cs var:Committee ?></h2>-->
 					
 					<h2><?cs var:Chairman ?></h2>
 					<p class="small"><em>*Denotes a Life Member</em></p>
