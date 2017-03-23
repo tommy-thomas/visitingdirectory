@@ -38,7 +38,6 @@ if( isset($_SESSION['authtoken']) && isset($_GET['c']) )
 	}	
 	$chair_id = -1;
 	$chairmen = [];
-	$committee_ids = [];
 	foreach( $member_list as $m )
 	{
 		$id_number = $m->getIdNumber();
@@ -47,9 +46,8 @@ if( isset($_SESSION['authtoken']) && isset($_GET['c']) )
 			$name = $m->getFirstName().' ';
 			$name .= strlen( $m->getMiddleName() ) > 0 ? $m->getMiddleName().' '.$m->getLastName() : $m->getLastName();
 			array_push($chairmen , $name);
-			array_push( $committee_ids , $id_number);
 			$chair_id = $id_number;
-		}elseif( $id_number != $chair_id && !in_array($id_number , $committee_ids))
+		}elseif( $id_number != $chair_id )
 		{
 			$m->addClassDataTemplate( $template , "CommitteeMember.$id_number.");	
 		}
