@@ -40,6 +40,7 @@ if( isset($_SESSION['authtoken']) && isset($_GET['c']) )
 	$chairmen = [];
 	foreach( $member_list as $m )
 	{
+		var_dump($m);
 		$id_number = $m->getIdNumber();
 		if( $m->getCommitteeRoleCode() == 'CH' )
 		{
