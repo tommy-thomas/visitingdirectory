@@ -10,10 +10,10 @@
 				<div class="content">
 					<ul class="menu ">
 						<li class="menu__item is-leaf first leaf">
-							<a href="http://vc.uchicago.edu/" class="active">Visiting Committees and Councils</a>
+							<a href="http://vc.uchicago.edu/" class="active">Advisory Councils</a>
 						</li>
 						<li class="">
-							<a href="https://vc.uchicago.edu/page/committee-membership">Committee Membership</a>
+							<a href="https://vc.uchicago.edu/page/committee-membership">Council Membership</a>
 							<ul class="menu">
 								<li>
 									<a href="./search.php">Directory Search</a>
