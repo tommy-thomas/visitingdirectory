@@ -12,7 +12,7 @@
 	<div class="wordmark-inner">
 		<div class="container">
 			<div class="span8 site-name">
-				<a href="http://vc.uchicago.edu"><h1>Visiting Committees and Councils</h1></a>
+				<a href="http://vc.uchicago.edu"><h1>Advisory Councils</h1></a>
 			</div>
 			<div class="span4">
 				<a id="wordmark" href="//www.uchicago.edu">
