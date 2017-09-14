@@ -31,7 +31,7 @@ class GriffinCollection
      * Array of sevice urls.
      */
     private $urls = array();
-    /*
+    /*`
      * All member data as array of simple xml.
      */
     private $all_member_data;

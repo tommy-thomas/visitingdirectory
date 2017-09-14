@@ -65,6 +65,7 @@ if (isset($_GET['key'])
         if ($key == 'dc9c6663511c522e5369538a44159693')
         {
             // 7. Set and cache array of Committees.
+            $collection->clearGriffinCollection();
             $collection->setCommittees();
             $collection->setAllMemberData($authtoken);
         }

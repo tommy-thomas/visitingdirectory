@@ -99,7 +99,7 @@ class Application extends WS_Application
 				}
 				elseif( $this->userIsFromSocialAuth() )
 				{
-					list($name,$domain) = explode("@", $_SERVER['PHP_AUTH_USER']);
+					list($name,$domain) = explode("@", $_SERVER['PHP_AUT`H_USER']);
 					if( in_array($domain, $this->social_auth_whitelist))
 					{
 						$is_valid_service = true;
