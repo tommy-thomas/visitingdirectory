@@ -60,25 +60,15 @@ class GriffinCollection
         if( $this->app->isDev() || $this->app->isStage() )
         {
             $this->urls = array(
-                'active_committees' => 'https://grif-uat-web.uchicago.edu/services/api/griffin/metadata/committee_code',
-                'address_info' => 'https://grif-uat-web.uchicago.edu/services/api/griffin/entities/%s/addresses',
-                'all_affiliations' => 'https://grif-uat-web.uchicago.edu/services/api/griffin/entities/%s/membershipaffiliation',
-                'all_members' => 'https://grif-uat-web.uchicago.edu/services/api/griffin/membershipaffiliation/%s',
-                'degree_info' => 'https://grif-uat-web.uchicago.edu/services/api/griffin/entities/%s/degrees',
-                'entity_info' => 'https://grif-uat-web.uchicago.edu/services/api/griffin/entities/%s',
-                'email_validation' => 'https://grif-uat-web.uchicago.edu/services/api/griffin/membershipaffiliation/%s?emailaddress=%s'
+                'committee_by_key' => 'https://ardapi.uchicago.edu/api/committee/show/%s',
+                'entity_by_key' => 'https://ardapi.uchicago.edu/api/entity/show/%'
             );
         }
         elseif( $this->app->isProd() )
         {
             $this->urls = array(
-                'active_committees' => 'https://griffin.uchicago.edu/services/api/griffin/metadata/committee_code',
-                'address_info' => 'https://griffin.uchicago.edu/services/api/griffin/entities/%s/addresses',
-                'all_affiliations' => 'https://griffin.uchicago.edu/services/api/griffin/entities/%s/membershipaffiliation',
-                'all_members' => 'https://griffin.uchicago.edu/services/api/griffin/membershipaffiliation/%s',
-                'degree_info' => 'https://griffin.uchicago.edu/services/api/griffin/entities/%s/degrees',
-                'entity_info' => 'https://griffin.uchicago.edu/services/api/griffin/entities/%s',
-                'email_validation' => 'https://griffin.uchicago.edu/services/api/griffin/membershipaffiliation/%s?emailaddress=%s'
+                'committee_by_key' => 'https://ardapi.uchicago.edu/api/committee/show/%s',
+                'entity_by_key' => 'https://ardapi.uchicago.edu/api/entity/show/%'
             );
         }
         if( !is_null($token) )
@@ -99,11 +89,12 @@ class GriffinCollection
             $this->all_member_data = simplexml_load_string( $this->memcache->get('VisCommitteeAllMemberData') );
         }
     }
+
     /**
-     * GriffinCollection instance.
      * @param $app
-     * @param $curl
-     * @param $token
+     * @param null $curl
+     * @param null $token
+     * @return GriffinCollection
      */
     public static function instance($app,$curl=null,$token=null)
     {
@@ -246,9 +237,10 @@ class GriffinCollection
         $this->checkCache();
         return $this->memcache->get('VisDirectoryActiveCommittees');
     }
+
     /**
-     * Get cached array of CommitteeMembers if set
-     * @param Committee $code
+     * @param null $code
+     * @return null
      */
     public function getCachedMemberList( $code=null )
     {
@@ -293,17 +285,18 @@ class GriffinCollection
     {
         if( $this->app->isDev() || $this->app->isStage() )
         {
-            return 'https://grif-uat-web.uchicago.edu/services/api/auth/login';
+            return 'https://ardapi.uchicago.edu/api/account/token';
         }
         elseif( $this->app->isProd() )
         {
-            return 'https://griffin.uchicago.edu/services/api/auth/login';
+            return 'https://ardapi.uchicago.edu/api/account/token';
         }
     }
+
     /**
-     * Return a member api url.
-     * @param $key
-     * @param $value
+     * @param null $key
+     * @param null $value
+     * @return null|string
      */
     public function getServiceUrl( $key=null , $value = null)
     {
@@ -323,10 +316,12 @@ class GriffinCollection
             return null;
         }
     }
+
     /**
-     * Return simple xml obj of committee members info.
-     * @param $id_number
-     * @param $token
+     * @param null $id_number
+     * @param null $token
+     * @param null $key
+     * @return SimpleXMLElement
      */
     public function getInfo( $id_number = null , $token = null , $key=null )
     {
@@ -343,10 +338,12 @@ class GriffinCollection
             return $this->curl->asSimpleXML();
         }
     }
+
     /**
-     * Get all members as simple xml obj array based on commitee code loaded with address, degree, and employment info.
-     * @param $code
-     * @param $token
+     * @param null $code
+     * @param null $token
+     * @param bool $async
+     * @return array
      */
     public function getMemberData( $code=null , $token=null , $async = false )
     {
@@ -416,7 +413,9 @@ class GriffinCollection
     }
 
     /**
+     * @param $id_number
      * @param $token
+     * @return array|SimpleXMLElement[]
      */
     public function getCommitteesAsXML($id_number , $token)
     {
@@ -429,10 +428,11 @@ class GriffinCollection
         $array = $xml->xpath('//COMMITTEE[COMMITTEE_STATUS_CODE = "A" and RECORD_STATUS_CODE = "A" and COMMITTEE_ROLE_CODE != "EO"]');
         return $array;
     }
+
     /**
-     * Get list of members and committee affiliations.
      * @param $xml
      * @param $token
+     * @return array
      */
     public function getMembersAndCommittees( $xml , $token )
     {
@@ -488,10 +488,11 @@ class GriffinCollection
             return ( $member->COMMITTEE_STATUS_CODE == "A" && $member->RECORD_STATUS_CODE == "A" && $member->COMMITTEE_ROLE_CODE != "EO");
         }
     }
+
     /**
-     * Return single member info as simple xml object.
      * @param $id_number
      * @param $token
+     * @return array
      */
     public function getOneMemberData( $id_number , $token )
     {
@@ -534,11 +535,12 @@ class GriffinCollection
             return $member;
         }
     }
+
     /**
-     * Get employer information based on employee id.
      * @param $member
      * @param $employer_id
      * @param $token
+     * @return mixed
      */
     public function getEmployerDataByID( $member , $employer_id , $token )
     {
@@ -570,10 +572,11 @@ class GriffinCollection
     {
         return str_replace(array('&', '<', '>', '\'', '"'), array('&amp;', '&lt;', '&gt;', '&apos;', '&quot;'), (string)$string);
     }
+
     /**
-     * Check existence of simple xml child node.
-     * @param $xml
+     * @param SimpleXMLElement $xml
      * @param $childpath
+     * @return bool
      */
     public function xmlChildExists( SimpleXMLElement $xml , $childpath )
     {
