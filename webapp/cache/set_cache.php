@@ -57,9 +57,10 @@ if (isset($_GET['key'])
         {
             // 7. Set and cache array of Committees.
             $collection->clearGriffinCollection();
+            sleep(10);
+
             $collection->setCommittees();
             $collection->setAllMemberData($authtoken);
-            sleep(10);
         }
         // 8. CommitteeMemberManager object that handles xml parsing.
         $manager = new CommitteeMemberManager();
@@ -109,11 +110,7 @@ if (isset($_GET['key'])
     catch (Exception $e)
     {
         // 15. Let's log, print, and throw error.
-        if ($code == 'VCLZ')
-        {
-            // 15a. If first trip to service, log the error rather than log for all of the trip.
-            error_log($e->getMessage());
-        }
+        error_log($e->getMessage());
         print $e->getMessage();
     }
 }
