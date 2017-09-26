@@ -18,16 +18,16 @@ class Application extends WS_Application
 	/*
 	 * Whitelist for autorized social auth services.
 	 */
-	private $social_auth_whitelist = array('facebook.com' , 'google.com' , 'yahoo.com' );
+	private $social_auth_whitelist = ['facebook.com' , 'google.com' , 'yahoo.com'];
     /**
      * White list for edge case life time member + committee chairs.
      */
     // White list for edge case of committee chairs who are also life time members.
-    private $lifetime_chairs_committee_codes = ['VCLZ','VCLD','VVOI'];
+    private $lifetime_chairs_committee_codes = ['VCLZ','VCLD','VVOI','VVHM'];
     /*
      * Whitelist for u of c user groups.
      */
-	private $group_white_list = array('uc:org:nsit:webservices:members','uc:org:ard:griffinusers');
+	private $group_white_list = ['uc:org:nsit:webservices:members','uc:org:ard:griffinusers'];
 	/*
 	 * Valid Shibb provider
 	 */
@@ -58,10 +58,11 @@ class Application extends WS_Application
 		}
 		return self::$app;
 	}
-	/**
-	 * Return error message.
-	 * @param $i
-	 */
+
+    /**
+     * @param $i
+     * @return array|mixed
+     */
 	public function get_error_message($i)
 	{
 		$error_message = array(
