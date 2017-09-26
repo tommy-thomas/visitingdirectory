@@ -23,10 +23,6 @@ $curl = new cURL(null);
 $collection = GriffinCollection::instance( $app , $curl ,  $_SESSION['authtoken']);
 $collection->loadCommitteeTemplateData($template);
 $manager = new CommitteeMemberManager();
-
-// White list for edge case of committee chairs who are also life time members.
-$lifetime_chairs_committee_codes = ['VCLZ','VCLD','VVOI'];
-
 if( (isset($_POST['search_by_committee']) && empty($_POST['committee'])) )
 {
 	$app->redirect('./search.php?error=no_select');
@@ -67,7 +63,7 @@ if( isset($_SESSION['authtoken']) )
 			{
 				$name = $m->getFirstName().' ';
 				$name .= strlen( $m->getMiddleName() ) > 0 ? $m->getMiddleName().' '.$m->getLastName() : $m->getLastName();
-                $name .= in_array($code, $lifetime_chairs_committee_codes) ? "*" : "";
+                $name .= $app->hasLifeTimeChair($code) ? "*" : "";
 				$name .= ', Chair';
 				$template->add_data('Chairman', $name );
 			}	

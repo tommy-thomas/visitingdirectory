@@ -45,6 +45,7 @@ if( isset($_SESSION['authtoken']) && isset($_GET['c']) )
 		{
 			$name = $m->getFirstName().' ';
 			$name .= strlen( $m->getMiddleName() ) > 0 ? $m->getMiddleName().' '.$m->getLastName() : $m->getLastName();
+            $name .= $app->hasLifeTimeChair($code) ? "*" : "";
 			array_push($chairmen , $name);
 			$chair_id = $id_number;
 		}elseif( $id_number != $chair_id )

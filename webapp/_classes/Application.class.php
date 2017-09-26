@@ -19,9 +19,14 @@ class Application extends WS_Application
 	 * Whitelist for autorized social auth services.
 	 */
 	private $social_auth_whitelist = array('facebook.com' , 'google.com' , 'yahoo.com' );
-	/*
-	 * Whitelist for u of c user groups.
-	 */
+    /**
+     * White list for edge case life time member + committee chairs.
+     */
+    // White list for edge case of committee chairs who are also life time members.
+    private $lifetime_chairs_committee_codes = ['VCLZ','VCLD','VVOI'];
+    /*
+     * Whitelist for u of c user groups.
+     */
 	private $group_white_list = array('uc:org:nsit:webservices:members','uc:org:ard:griffinusers');
 	/*
 	 * Valid Shibb provider
@@ -143,10 +148,20 @@ class Application extends WS_Application
 	{
 		return ( isset($_SESSION['email']) && isset($_SESSION['authtoken']) );
 	}
-		/**
-	 * Handle any exception in the application.
-	 * @param object The thrown Exception object
-	 */
+
+    /**
+     * @param $code
+     * @return bool
+     */
+	public function hasLifeTimeChair($code)
+    {
+        return in_array($code , $this->lifetime_chairs_committee_codes);
+    }
+
+    /**
+     * @param $e
+     * @throws Exception
+     */
 	public static function handleExceptions($e)
 	{
 		$exceptionMessage = 'Caught EXCEPTION ' . __FILE__ . ' @ '. __LINE__ . ':' . $e->getMessage();
