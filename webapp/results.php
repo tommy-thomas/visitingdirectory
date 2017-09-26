@@ -56,6 +56,14 @@ if( isset($_SESSION['authtoken']) )
 			$members_list = $manager->load( $code , $members_xml)->getCommiteeMemberList();
 			$collection->setCachedMemberList($code , $members_list );
 		}
+
+        if( $code == 'VVHM')
+            // Hard coding Gay Stanek as Humanites chair per Geertrui M. Spaepen 09/26/17
+        {
+            $name = "Gay Stanek*, Chair";
+            $template->add_data('Chairman', $name );
+        }
+
 		foreach( $members_list as $m )
 		{
 			$id_number = $m->getIdNumber();
@@ -66,12 +74,7 @@ if( isset($_SESSION['authtoken']) )
                 $name .= $app->hasLifeTimeChair($code) ? "*" : "";
 				$name .= ', Chair';
 				$template->add_data('Chairman', $name );
-			}  elseif( $code == 'VVHM')
-			// Hard coding Gay Stanek as Humanites chair per Geertrui M. Spaepen 09/26/17
-			{
-			    $name = "Gay Stanek*, Chair";
-                $template->add_data('Chairman', $name );
-            }
+			}
 			$m->addClassDataTemplate( $template , "CommitteeMember.$id_number.");
 		}
 		$template->add_data('ShowCommiteeResults', true );
