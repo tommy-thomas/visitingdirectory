@@ -72,7 +72,7 @@ if (isset($_GET['key'])
             // 11. Cache the array.
             $collection->setCachedMemberList($code, $member_list);
             // 12. Flush headers.
-            $message .= $total++ . $collection->getCommitteeName($code). " cached.\n";
+            $message .= ++$total . ". ".$collection->getCommitteeName($code). " has been cached.\n";
             ob_flush();
             flush();
         }
@@ -96,7 +96,7 @@ if (isset($_GET['key'])
                 // 14d. Cache the array.
                 $collection->setCachedMemberList($code, $member_list);
                 // 14e. Flush headers.
-                $message .= $total++ . $collection->getCommitteeName($code). " cached.\n";
+                $message .= ++$total . ". ".$collection->getCommitteeName($code). " has been cached.\n";
                 ob_flush();
                 flush();
             }
