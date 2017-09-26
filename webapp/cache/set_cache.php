@@ -9,21 +9,7 @@ require('../_classes/autoload.php');
  * The Application object.
  */
 $app = Application::app();
-//Below committees array keys maps each listed item to md5 hash
-//ws592013
-//592013ws
-//ws100000
-//ws200000
-//ws300000
-//ws400000
-//ws500000
-//ws600000
-//ws700000
-//ws800000
-//ws900000
-//ws110000
-//ws120000
-//ws140000
+
 $committees = array(
     'dc9c6663511c522e5369538a44159693' => 'VCLZ',
     '036d7426484a9670dcd11e33be785eff' => 'VCLY',
