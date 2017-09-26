@@ -82,20 +82,21 @@ if (isset($_GET['key'])
             throw new Exception("JOB FAILED: ".GriffinCollection::EMPTY_DATA);
         }
 
+
         // 14. Load all the committees
+        $manager = new CommitteeMemberManager();
+
         foreach ( $committees as $key => $code )
         {
-            // 14a. CommitteeMemberManager object that handles xml parsing.
-            $manager = new CommitteeMemberManager();
-            // 14b. Get array of simple xml objects from big payload based on committee code.
+            // 14a. Get array of simple xml objects from big payload based on committee code.
             $member_xml = $collection->getMemberData($code, $authtoken);
             if (!empty($member_xml))
             {
-                // 14c. Get array of CommitteeMember objects.
+                // 14b. Get array of CommitteeMember objects.
                 $member_list = $manager->load($code, $member_xml)->getCommiteeMemberList();
-                // 14d. Cache the array.
+                // 14c. Cache the array.
                 $collection->setCachedMemberList($code, $member_list);
-                // 14e. Flush headers.
+                // 14d. Flush headers.
                 $message .= ++$total . ". ".$collection->getCommitteeName($code). " has been cached.\n";
                 ob_flush();
                 flush();
