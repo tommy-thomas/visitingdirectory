@@ -67,8 +67,8 @@ if( isset($_SESSION['authtoken']) )
 			{
 				$name = $m->getFirstName().' ';
 				$name .= strlen( $m->getMiddleName() ) > 0 ? $m->getMiddleName().' '.$m->getLastName() : $m->getLastName();
+                $name .= in_array($code, $lifetime_chairs_committee_codes) ? "*" : "";
 				$name .= ', Chair';
-				$name .= in_array($code, $lifetime_chairs_committee_codes) ? "*" : "";
 				$template->add_data('Chairman', $name );
 			}	
 			$m->addClassDataTemplate( $template , "CommitteeMember.$id_number.");
