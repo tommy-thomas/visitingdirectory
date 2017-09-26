@@ -54,9 +54,9 @@ if (isset($_SESSION['authtoken']) && isset($_GET['c'])) {
         $names .= count($chairmen) > 1 ? ', Co-Chairs' : ', Chair';
         $template->add_data('Chairman', $names);
 
-    } else {
-        $names = ["Gay Stanek*, Chair"];
-        $template->add_data('Chairman', $names);
+    } elseif( $code == 'VVHM') {
+        $name = "Gay Stanek*, Chair";
+        $template->add_data('Chairman', $name);
     }
 }
 $template->show();
