@@ -47,6 +47,8 @@ if (isset($_GET['key'])
         {
             throw new Exception("JOB FAILED: ".GriffinCollection::SERVICE_UNAVAILABLE);
         }
+
+        // START NEW STUFF
         // 6. Clear out memcached data once for first round to make sure we're getting a new cache.
         if ($key == 'dc9c6663511c522e5369538a44159693')
         {
@@ -67,22 +69,46 @@ if (isset($_GET['key'])
             // 11. Cache the array.
             $collection->setCachedMemberList($code, $member_list);
             // 12. Flush headers.
+            $message .= getCommitteeName($code). " cached.\n";
+            ob_flush();
+            flush();
         }
         else
         {
             // 13. Throw exception to be caught and added to the output message during prod shop job.
             throw new Exception("JOB FAILED: ".GriffinCollection::EMPTY_DATA);
         }
-        ob_flush();
-        flush();
-        print 'OK';
+
+        // 14. Load all the committees
+        foreach ( $committees as $key => $code )
+        {
+            // 14a. CommitteeMemberManager object that handles xml parsing.
+            $manager = new CommitteeMemberManager();
+            // 14b. Get array of simple xml objects from big payload based on committee code.
+            $member_xml = $collection->getMemberData($code, $authtoken);
+            if (!empty($member_xml))
+            {
+                // 14c. Get array of CommitteeMember objects.
+                $member_list = $manager->load($code, $member_xml)->getCommiteeMemberList();
+                // 14d. Cache the array.
+                $collection->setCachedMemberList($code, $member_list);
+                // 14e. Flush headers.
+                $message .= getCommitteeName($code). " cached.\n";
+                ob_flush();
+                flush();
+            }
+        }
+
+        print $message;
+
+        //END NEW STUFF
     }
     catch (Exception $e)
     {
-        // 14. Let's log, print, and throw error.
+        // 15. Let's log, print, and throw error.
         if ($code == 'VCLZ')
         {
-            // 14a. If first trip to service, log the error rather than log for all of the trip.
+            // 15a. If first trip to service, log the error rather than log for all of the trip.
             error_log($e->getMessage());
         }
         print $e->getMessage();
