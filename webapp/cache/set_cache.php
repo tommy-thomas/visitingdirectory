@@ -26,6 +26,9 @@ $committees = array(
     'da38dbd539a4f0d2c4fd80ac9d2d4b50' => 'VSVC',
     '6530b4c19ec6810783eeb724f6a4a3ff' => 'VVIM',
 );
+
+$total = 0;
+
 // success or fail message
 $message = "";
 if (isset($_GET['key'])
@@ -69,7 +72,7 @@ if (isset($_GET['key'])
             // 11. Cache the array.
             $collection->setCachedMemberList($code, $member_list);
             // 12. Flush headers.
-            $message .= $collection->getCommitteeName($code). " cached.\n";
+            $message .= $total++ . $collection->getCommitteeName($code). " cached.\n";
             ob_flush();
             flush();
         }
@@ -93,7 +96,7 @@ if (isset($_GET['key'])
                 // 14d. Cache the array.
                 $collection->setCachedMemberList($code, $member_list);
                 // 14e. Flush headers.
-                $message .= $collection->getCommitteeName($code). " cached.\n";
+                $message .= $total++ . $collection->getCommitteeName($code). " cached.\n";
                 ob_flush();
                 flush();
             }
