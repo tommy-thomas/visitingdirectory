@@ -41,7 +41,7 @@ if( isset($_SESSION['authtoken']) && isset($_GET['c']) )
 	foreach( $member_list as $m )
 	{
 		$id_number = $m->getIdNumber();
-		if( $m->getCommitteeRoleCode() == 'CH' )
+		if( $m->getCommitteeRoleCode() == 'CH' && $code != 'VVHM' )
 		{
 			$name = $m->getFirstName().' ';
 			$name .= strlen( $m->getMiddleName() ) > 0 ? $m->getMiddleName().' '.$m->getLastName() : $m->getLastName();
@@ -52,10 +52,21 @@ if( isset($_SESSION['authtoken']) && isset($_GET['c']) )
 		{
 			$m->addClassDataTemplate( $template , "CommitteeMember.$id_number.");	
 		}
+
+        if( $code == 'VVHM')
+        // Hard coding Gay Stanek as Humanites chair per Geertrui M. Spaepen 09/26/17
+        {
+            $name = "Gay Stanek*, Chair";
+            $template->add_data('Chairman', $name );
+        }
 	}
 	$names = implode(" and " , $chairmen);
 	$names .= count($chairmen) > 1 ? ', Co-Chairs' : ', Chair';
 	$template->add_data('Chairman', $names );
+
+
 }
 $template->show();
 ?>
+
+
