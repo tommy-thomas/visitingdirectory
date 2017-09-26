@@ -39,12 +39,6 @@ if( isset($_SESSION['authtoken']) && isset($_GET['c']) )
 	$chair_id = -1;
 	$chairmen = [];
 
-    if( $code == 'VVHM')
-        // Hard coding Gay Stanek as Humanites chair per Geertrui M. Spaepen 09/26/17
-    {
-        $names = ["Gay Stanek*, Chair"];
-        $template->add_data('Chairman', $names );
-    }
 
 	foreach( $member_list as $m )
 	{
@@ -64,6 +58,13 @@ if( isset($_SESSION['authtoken']) && isset($_GET['c']) )
 	$names = implode(" and " , $chairmen);
 	$names .= count($chairmen) > 1 ? ', Co-Chairs' : ', Chair';
 	$template->add_data('Chairman', $names );
+
+    if( $code == 'VVHM')
+        // Hard coding Gay Stanek as Humanites chair per Geertrui M. Spaepen 09/26/17
+    {
+        $names = ["Gay Stanek*, Chair"];
+        $template->add_data('Chairman', $names );
+    }
 
 
 }
