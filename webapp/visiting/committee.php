@@ -42,8 +42,8 @@ if( isset($_SESSION['authtoken']) && isset($_GET['c']) )
     if( $code == 'VVHM')
         // Hard coding Gay Stanek as Humanites chair per Geertrui M. Spaepen 09/26/17
     {
-        $name = "Gay Stanek*, Chair";
-        $template->add_data('Chairman', $name );
+        $names = ["Gay Stanek*, Chair"];
+        $template->add_data('Chairman', $names );
     }
 
 	foreach( $member_list as $m )
