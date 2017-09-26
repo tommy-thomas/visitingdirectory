@@ -9,21 +9,7 @@ require('../_classes/autoload.php');
  * The Application object.
  */
 $app = Application::app();
-//Below committees array keys maps each listed item to md5 hash
-//ws592013
-//592013ws
-//ws100000
-//ws200000
-//ws300000
-//ws400000
-//ws500000
-//ws600000
-//ws700000
-//ws800000
-//ws900000
-//ws110000
-//ws120000
-//ws140000
+
 $committees = array(
     'dc9c6663511c522e5369538a44159693' => 'VCLZ',
     '036d7426484a9670dcd11e33be785eff' => 'VCLY',
@@ -40,6 +26,9 @@ $committees = array(
     'da38dbd539a4f0d2c4fd80ac9d2d4b50' => 'VSVC',
     '6530b4c19ec6810783eeb724f6a4a3ff' => 'VVIM',
 );
+
+$total = 0;
+
 // success or fail message
 $message = "";
 if (isset($_GET['key'])
@@ -61,10 +50,14 @@ if (isset($_GET['key'])
         {
             throw new Exception("JOB FAILED: ".GriffinCollection::SERVICE_UNAVAILABLE);
         }
+
         // 6. Clear out memcached data once for first round to make sure we're getting a new cache.
         if ($key == 'dc9c6663511c522e5369538a44159693')
         {
             // 7. Set and cache array of Committees.
+            $collection->clearGriffinCollection();
+            sleep(10);
+
             $collection->setCommittees();
             $collection->setAllMemberData($authtoken);
         }
@@ -79,24 +72,43 @@ if (isset($_GET['key'])
             // 11. Cache the array.
             $collection->setCachedMemberList($code, $member_list);
             // 12. Flush headers.
+            $message .= ++$total . ". ".$collection->getCommitteeName($code). " has been cached.\n";
+            ob_flush();
+            flush();
         }
         else
         {
             // 13. Throw exception to be caught and added to the output message during prod shop job.
             throw new Exception("JOB FAILED: ".GriffinCollection::EMPTY_DATA);
         }
-        ob_flush();
-        flush();
-        print 'OK';
+
+
+        // 14. Load all the committees
+        $manager = new CommitteeMemberManager();
+
+        foreach ( $committees as $key => $code )
+        {
+            // 14a. Get array of simple xml objects from big payload based on committee code.
+            $member_xml = $collection->getMemberData($code, $authtoken);
+            if (!empty($member_xml))
+            {
+                // 14b. Get array of CommitteeMember objects.
+                $member_list = $manager->load($code, $member_xml)->getCommiteeMemberList();
+                // 14c. Cache the array.
+                $collection->setCachedMemberList($code, $member_list);
+                // 14d. Flush headers.
+                $message .= ++$total . ". ".$collection->getCommitteeName($code). " has been cached.\n";
+                ob_flush();
+                flush();
+            }
+        }
+
+        print $message;
     }
     catch (Exception $e)
     {
-        // 14. Let's log, print, and throw error.
-        if ($code == 'VCLZ')
-        {
-            // 14a. If first trip to service, log the error rather than log for all of the trip.
-            error_log($e->getMessage());
-        }
+        // 15. Log and throw error.
+        error_log($e->getMessage());
         print $e->getMessage();
     }
 }
