@@ -54,7 +54,6 @@ if (isset($_GET['key'])
         // 6. Clear out memcached data once for first round to make sure we're getting a new cache.
         if ($key == 'dc9c6663511c522e5369538a44159693')
         {
-            print "Starting to cache data.\n";
             // 7. Set and cache array of Committees.
             $collection->clearGriffinCollection();
             sleep(10);
@@ -73,7 +72,7 @@ if (isset($_GET['key'])
             // 11. Cache the array.
             $collection->setCachedMemberList($code, $member_list);
             // 12. Flush headers.
-            print ++$total . ". ".$collection->getCommitteeName($code). " has been cached.\n";
+            $message .= ++$total . ". ".$collection->getCommitteeName($code). " has been cached.\n";
             ob_flush();
             flush();
         }
@@ -98,17 +97,17 @@ if (isset($_GET['key'])
                 // 14c. Cache the array.
                 $collection->setCachedMemberList($code, $member_list);
                 // 14d. Flush headers.
-                print ++$total . ". ".$collection->getCommitteeName($code). " has been cached.\n";
+                $message .= ++$total . ". ".$collection->getCommitteeName($code). " has been cached.\n";
                 ob_flush();
                 flush();
             }
         }
 
-        print "Data cacging complete.";
+        print $message;
     }
     catch (Exception $e)
     {
-        // 15. Let's log, print, and throw error.
+        // 15. Log and throw error.
         error_log($e->getMessage());
         print $e->getMessage();
     }
