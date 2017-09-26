@@ -51,7 +51,6 @@ if (isset($_GET['key'])
             throw new Exception("JOB FAILED: ".GriffinCollection::SERVICE_UNAVAILABLE);
         }
 
-        // START NEW STUFF
         // 6. Clear out memcached data once for first round to make sure we're getting a new cache.
         if ($key == 'dc9c6663511c522e5369538a44159693')
         {
@@ -104,8 +103,6 @@ if (isset($_GET['key'])
         }
 
         print $message;
-
-        //END NEW STUFF
     }
     catch (Exception $e)
     {
