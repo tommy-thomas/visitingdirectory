@@ -601,7 +601,6 @@ class GriffinCollection
     {
         $this->memcache->delete('VisDirectoryActiveCommittees');
         $this->memcache->delete('VisCommitteeAllMemberData');
-        $codes = array();
         $codes = explode("," , $this->getActiveCommitteeUrlList());
         if( !empty($codes) )
         {
@@ -612,6 +611,8 @@ class GriffinCollection
             }
         }
         $this->memcache->delete('VisDirectoryActiveCommitteeCodes');
+
+        return true;
     }
     /**
      * Return curl HTTP status code.

@@ -55,50 +55,28 @@ if (isset($_GET['key'])
         if ($key == 'dc9c6663511c522e5369538a44159693')
         {
             // 7. Set and cache array of Committees.
-            $collection->clearGriffinCollection();
+            $clear = $collection->clearGriffinCollection();
             $collection->setCommittees();
             $collection->setAllMemberData($authtoken);
-            sleep(10);
         }
         // 8. CommitteeMemberManager object that handles xml parsing.
         $manager = new CommitteeMemberManager();
         // 9. Get array of simple xml objects from big payload based on committee code.
         $member_xml = $collection->getMemberData($code, $authtoken);
-        if (!empty($member_xml))
-        {
-            // 10. Get array of CommitteeMember objects.
-            $member_list = $manager->load($code, $member_xml)->getCommiteeMemberList();
-            // 11. Cache the array.
-            $collection->setCachedMemberList($code, $member_list);
-            // 12. Flush headers.
-            $message .= ++$total . ". ".$collection->getCommitteeName($code). " has been cached.\n";
-            ob_flush();
-            flush();
-        }
-        else
-        {
-            // 13. Throw exception to be caught and added to the output message during prod shop job.
-            throw new Exception("JOB FAILED: ".GriffinCollection::EMPTY_DATA);
-        }
-
-
-        // 14. Load all the committees
-        $manager = new CommitteeMemberManager();
-
         foreach ( $committees as $key => $code )
         {
-            // 14a. Get array of simple xml objects from big payload based on committee code.
-            $member_xml = $collection->getMemberData($code, $authtoken);
-            if (!empty($member_xml))
-            {
-                // 14b. Get array of CommitteeMember objects.
+            if (!empty($member_xml)) {
+                // 10. Get array of CommitteeMember objects.
                 $member_list = $manager->load($code, $member_xml)->getCommiteeMemberList();
-                // 14c. Cache the array.
+                // 11. Cache the array.
                 $collection->setCachedMemberList($code, $member_list);
-                // 14d. Flush headers.
-                $message .= ++$total . ". ".$collection->getCommitteeName($code). " has been cached.\n";
+                // 12. Flush headers.
+                $message .= ++$total . ". " . $collection->getCommitteeName($code) . " has been cached.\n";
                 ob_flush();
                 flush();
+            } else {
+                // 13. Throw exception to be caught and added to the output message during prod shop job.
+                throw new Exception("JOB FAILED: " . GriffinCollection::EMPTY_DATA);
             }
         }
 
