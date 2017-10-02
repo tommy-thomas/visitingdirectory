@@ -58,6 +58,7 @@ if (isset($_GET['key'])
             $clear = $collection->clearGriffinCollection();
             $collection->setCommittees();
             $collection->setAllMemberData($authtoken);
+            sleep(10);
         }
         // 8. CommitteeMemberManager object that handles xml parsing.
         $manager = new CommitteeMemberManager();
