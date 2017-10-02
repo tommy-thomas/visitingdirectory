@@ -58,14 +58,13 @@ if (isset($_GET['key'])
             $clear = $collection->clearGriffinCollection();
             $collection->setCommittees();
             $collection->setAllMemberData($authtoken);
-            sleep(10);
         }
         // 8. CommitteeMemberManager object that handles xml parsing.
         $manager = new CommitteeMemberManager();
         // 9. Get array of simple xml objects from big payload based on committee code.
-        $member_xml = $collection->getMemberData($code, $authtoken);
         foreach ( $committees as $key => $code )
         {
+            $member_xml = $collection->getMemberData($code, $authtoken);
             if (!empty($member_xml)) {
                 // 10. Get array of CommitteeMember objects.
                 $member_list = $manager->load($code, $member_xml)->getCommiteeMemberList();
