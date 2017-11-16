@@ -6,9 +6,11 @@
  * Time: 3:05 PM
  */
 
-class CommitteesCollection
+namespace UChicago\AdvisoryCommittee;
+
+class Committees
 {
-    private $committees = array(
+    public static $committees = array(
         array('COMMITTEE_CODE' => 'VCLZ',
             'SHORT_DESC' => 'Biological Sciences and Pritzker',
             'FULL_DESC' => 'The Division of the Biological Sciences and the Pritzker School of Medicine Council'),
@@ -52,4 +54,5 @@ class CommitteesCollection
             'SHORT_DESC' => 'Social Service Administration',
             'FULL_DESC' => 'The School of Social Service Administration Council')
     );
+
 }
