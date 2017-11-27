@@ -242,12 +242,12 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	{
 		return $this->committee_members_list;
 	}
-	/**
-	 * Search simple xml object of all member data by first name and/or last name and return search results
-	 * as simple xml.
-	 * @param $firstname
-	 * @param $lastname
-	 */
+
+    /**
+     * @param string $firstname
+     * @param string $lastname
+     * @return array|SimpleXMLElement[]
+     */
 	public function searchMembersByName( $firstname = "" , $lastname = "" )
 	{
 		$this->search_results = array();
@@ -269,8 +269,8 @@ class CommitteeMemberManager extends WS_DynamicGetterSetter
 	}
 
     /**
-     * Try to assemble search results from cache committee lists.
-     * @param $xml
+     * @param array $array
+     * @return array
      */
     public function searchCachedMembersByID($array=array())
     {
