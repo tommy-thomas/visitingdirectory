@@ -26,7 +26,7 @@ class BearerToken
                     'form_params' => [
                         'grant_type' => 'password',
                         'username' => 'tommyt',
-                        'password' => 'thom$$$$1967'
+                        'password' => ''
                     ]
 
                 ]

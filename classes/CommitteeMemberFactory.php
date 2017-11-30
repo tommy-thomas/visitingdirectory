@@ -15,7 +15,6 @@ class CommitteeMemberFactory
     private $json_payload;
     private $member;
 
-
     public function __construct($json_payload = null)
     {
         if (is_null($json_payload)) {
@@ -28,14 +27,39 @@ class CommitteeMemberFactory
             ->employment()
             ->email()
             ->phone();
-        var_dump($this->member->phone());
+        return $this->member;
+    }
+
+    public static function isActive(\stdClass $member = null)
+    {
+        $active = false;
+        if (!is_null($member) && !is_null($member->ID_NUMBER)) {
+            return $member->TMS_COMMITTEE_STATUS_CODE == "Active" ? true : false;
+        }
+        return $active;
+    }
+
+    public static function idNumbers($members=[]){
+        $id_numbers = array_map( function($ar){
+            if(\UChicago\AdvisoryCommittee\CommitteeMemberFactory::isActive($ar)){
+                return $ar->ID_NUMBER;
+            } else {
+                return null;
+            }
+        }, $members);
+        $id_numbers = array_filter($id_numbers, function ($value){
+            if(!is_null($value) && !empty($value)){
+                return $value;
+            }
+        });
+        return $id_numbers;
     }
 
 
     private function addresses()
     {
         if (!isset($this->json_payload->addresses)) {
-            return false;
+            return $this;
         }
         $this->member->setAddresses($this->addressesFilter($this->json_payload->addresses));
         return $this;
@@ -54,7 +78,7 @@ class CommitteeMemberFactory
     private function degrees()
     {
         if (!isset($this->json_payload->degree)) {
-            return false;
+            return $this;
         }
         $this->member->setDegrees($this->degreesFilter($this->json_payload->degree));
         return $this;
@@ -73,7 +97,7 @@ class CommitteeMemberFactory
     private function employment()
     {
         if (!isset($this->json_payload->employment)) {
-            return false;
+            return $this;
         }
         $this->member->setEmployment($this->employmentFilter($this->json_payload->employment));
         return $this;
@@ -92,7 +116,7 @@ class CommitteeMemberFactory
     private function email()
     {
         if (!isset($this->json_payload->email)) {
-            return false;
+            return $this;
         }
         $this->member->setEmail($this->emailFilter($this->json_payload->email));
         return $this;
