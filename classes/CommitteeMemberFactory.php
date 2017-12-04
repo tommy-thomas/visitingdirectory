@@ -9,20 +9,23 @@
 namespace UChicago\AdvisoryCommittee;
 
 
+use GuzzleHttp\Promise\Promise;
+
 class CommitteeMemberFactory
 {
 
     private $json_payload;
     private $member;
 
-    public function __construct($json_payload = null)
-    {
+    public function member($json_payload){
         if (is_null($json_payload)) {
             return false;
         }
         $this->json_payload = $json_payload;
         $this->member = new CommitteeMember();
-        $this->addresses()
+        $this
+            ->info()
+            ->addresses()
             ->degrees()
             ->employment()
             ->email()
@@ -39,7 +42,7 @@ class CommitteeMemberFactory
         return $active;
     }
 
-    public static function idNumbers($members=[]){
+    public function idNumbers($members=[]){
         $id_numbers = array_map( function($ar){
             if(\UChicago\AdvisoryCommittee\CommitteeMemberFactory::isActive($ar)){
                 return $ar->ID_NUMBER;
@@ -52,9 +55,26 @@ class CommitteeMemberFactory
                 return $value;
             }
         });
-        return $id_numbers;
+        return $this->idsAsQueryString($id_numbers);
+}
+
+
+    private function idsAsQueryString($id_numbers=[]){
+        $ids_as_array_string = "";
+        foreach ($id_numbers as $id){
+            $ids_as_array_string .= "keys[]=".$id."&";
+        }
+        return substr($ids_as_array_string , 0 , (strlen($ids_as_array_string) - 1));
     }
 
+    private function info(){
+        if (!isset($this->json_payload->info)) {
+            return $this;
+        }
+        $this->member->setInfo($this->json_payload->info);
+        $this->member->setName();
+        return $this;
+    }
 
     private function addresses()
     {

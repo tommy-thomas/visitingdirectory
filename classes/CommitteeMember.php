@@ -11,11 +11,27 @@ namespace UChicago\AdvisoryCommittee;
 
 class CommitteeMember //extends WS_DynamicGetterSetter
 {
+    private $info;
+    private $name;
     private $addresses;
     private $degrees;
     private $employment;
     private $email;
     private $phone;
+
+    public function setInfo($info=""){
+        $this->info = $info;
+    }
+
+    public function setName(){
+        $this->name = isset($this->info->FIRST_NAME ) && !empty($this->info->FIRST_NAME) ? $this->info->FIRST_NAME : "";
+        $this->name .= isset( $this->info->MIDDLE_NAME ) && !empty( $this->info->MIDDLE_NAME) ? " ".$this->info->MIDDLE_NAME : "";
+        $this->name .= isset($this->info->LAST_NAME ) && !empty($this->info->LAST_NAME) ? " ".$this->info->LAST_NAME : "";
+    }
+
+    public function name(){
+        return $this->name;
+    }
 
     public function setAddresses($addresses=[]){
         $this->addresses = $addresses;
@@ -41,7 +57,7 @@ class CommitteeMember //extends WS_DynamicGetterSetter
         return $this->employment;
     }
 
-    public function setEmail($email){
+    public function setEmail($email=""){
         $this->email = $email;
     }
 
@@ -49,7 +65,7 @@ class CommitteeMember //extends WS_DynamicGetterSetter
         return $this->email;
     }
 
-    public function setPhone($phone){
+    public function setPhone($phone=""){
         $this->phone = $phone;
     }
 

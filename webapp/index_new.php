@@ -4,75 +4,59 @@ require __DIR__ . "/../vendor/autoload.php";
 
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\RequestException;
 
-//
+//date_default_timezone_set('America/Chicago');
+//$date = new DateTime();
+//print $date->format('H:i:s') . "\n";
+
 //// Get base uri from App instance.
 $client = new Client(['base_uri' => 'https://ardapi.uchicago.edu/api/']);
-
 
 $token = new \UChicago\AdvisoryCommittee\BearerToken($client);
 
 $bearer_token = $token->bearer_token();
 
-//$committees[] = UChicago\AdvisoryCommittee\Committees::$committees[3];
+$committees = new \UChicago\AdvisoryCommittee\Committees();
 
-foreach (\UChicago\AdvisoryCommittee\Committees::$committees as $committee) {
+$factory = new \UChicago\AdvisoryCommittee\CommitteeMemberFactory();
 
-    $committee_code = $committee['COMMITTEE_CODE'];
-    $commitee_path = "committee/show/" . $committee_code;
+foreach ($committees->committes() as $committee) {
 
-    try {
-        $promise = $client->requestAsync(
-            'GET',
-            $commitee_path,
-            [
-                'headers' => ['Authorization' => $bearer_token]
-            ]
-        );
+    $response = $client->request('GET',
+        "committee/show/" . $committee['COMMITTEE_CODE'],
+        [
+            'headers' => ['Authorization' => $bearer_token]
+        ]
+    );
 
-        $promise->then(
-        // 2. An array of active members + get payload for each member
+    $ids_as_query_string = $factory->idNumbers(json_decode($response->getBody())->committees);
 
-            function (Response $response) use ($bearer_token, $client) {
+    $promise = $client->getAsync(
+        "entity/collection?" . $ids_as_query_string,
+        [
+            'headers' => ['Authorization' => $bearer_token]
+        ]
+    );
 
-                // Get all active id numbers for a committee
-                $id_numbers = \UChicago\AdvisoryCommittee\CommitteeMemberFactory::idNumbers(json_decode($response->getBody())->committees);
+    $promise->then(
+        function (\GuzzleHttp\Psr7\Response $resp) use ($factory, $committee) {
+            // print_r(json_decode($resp->getBody()));
+            foreach (json_decode($resp->getBody()) as $object) {
+                $key = $object->info->ID_NUMBER;
+                $_SESSION['committees'][$committee['COMMITTEE_CODE']][$key] = $factory->member($object);
 
-                foreach ($id_numbers as $id){
-                try {
-                    $member_path = "entity/show/" . $id;
-                    $member_reponse = $client->get(
-                        $member_path,
-                        [
-                            'headers' => ['Authorization' => $bearer_token],
-                        ]
-                    );
-                    $test = new \UChicago\AdvisoryCommittee\CommitteeMemberFactory(json_decode($member_reponse->getBody()));
-                    var_dump($test);
-                } catch (\GuzzleHttp\Exception\ClientException $e) {
-                    print $e->getMessage();
-                }
             }
-            }
-            ,
-
-            function (RequestException $e) {
-                echo $e->getMessage();
-            }
-
-
-        );
-
-        if (!empty($promise)) {
-            $promise->wait();
+        },
+        function (RequestException $e) {
+            print $e->getMessage();
         }
+    );
 
-
-    } catch (\GuzzleHttp\Exception\ClientException $e) {
-        print $e->getMessage();
-    }
-
-
+    $promise->wait();
 }
+
+
+//$end_date = new DateTime();
+//print $end_date->format('H:i:s');
