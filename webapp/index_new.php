@@ -12,9 +12,9 @@ use GuzzleHttp\Exception\RequestException;
 //print $date->format('H:i:s') . "\n";
 
 //// Get base uri from App instance.
-$token = new \UChicago\AdvisoryCommittee\BearerToken(
-    new Client(['base_uri' => 'https://ardapi.uchicago.edu/api/'])
-);
+
+$client = new Client(['base_uri' => 'https://ardapi.uchicago.edu/api/']);
+$token = new \UChicago\AdvisoryCommittee\BearerToken( $client );
 
 $bearer_token = $token->bearer_token();
 
@@ -43,9 +43,8 @@ foreach ($committees->committes() as $committee) {
     $promise->then(
         function (\GuzzleHttp\Psr7\Response $resp) use ($factory, $committee) {
             foreach (json_decode($resp->getBody()) as $object) {
-                $ID_NUMBER = $object->info->ID_NUMBER;
-                $_SESSION['committees'][$committee['COMMITTEE_CODE']][$ID_NUMBER] = $factory->member($object);
-
+                $_SESSION['committees'][$committee['COMMITTEE_CODE']][$object->info->ID_NUMBER] = $factory->member($object);
+                // TODO Maybe figure out a way to sort here...
             }
         },
         function (RequestException $e) {
@@ -56,8 +55,9 @@ foreach ($committees->committes() as $committee) {
     $promise->wait();
 }
 
-var_dump( $_SESSION['committees']);
-
-
+var_dump($_SESSION['committees']);
 //$end_date = new DateTime();
 //print $end_date->format('H:i:s');
+
+// TODO: Add sorting.
+// TODO: Add search.
