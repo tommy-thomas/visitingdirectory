@@ -35,11 +35,10 @@ class CommitteeMemberFactory
 
     public static function isActive(\stdClass $member = null)
     {
-        $active = false;
         if (!is_null($member) && !is_null($member->ID_NUMBER)) {
             return $member->TMS_COMMITTEE_STATUS_CODE == "Active" ? true : false;
         }
-        return $active;
+        return false;
     }
 
     public function idNumbers($members=[]){
@@ -172,5 +171,4 @@ class CommitteeMemberFactory
         return $telephone;
     }
 
-    
 }

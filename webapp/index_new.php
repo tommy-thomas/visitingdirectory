@@ -12,9 +12,9 @@ use GuzzleHttp\Exception\RequestException;
 //print $date->format('H:i:s') . "\n";
 
 //// Get base uri from App instance.
-$client = new Client(['base_uri' => 'https://ardapi.uchicago.edu/api/']);
-
-$token = new \UChicago\AdvisoryCommittee\BearerToken($client);
+$token = new \UChicago\AdvisoryCommittee\BearerToken(
+    new Client(['base_uri' => 'https://ardapi.uchicago.edu/api/'])
+);
 
 $bearer_token = $token->bearer_token();
 
@@ -42,10 +42,9 @@ foreach ($committees->committes() as $committee) {
 
     $promise->then(
         function (\GuzzleHttp\Psr7\Response $resp) use ($factory, $committee) {
-            // print_r(json_decode($resp->getBody()));
             foreach (json_decode($resp->getBody()) as $object) {
-                $key = $object->info->ID_NUMBER;
-                $_SESSION['committees'][$committee['COMMITTEE_CODE']][$key] = $factory->member($object);
+                $ID_NUMBER = $object->info->ID_NUMBER;
+                $_SESSION['committees'][$committee['COMMITTEE_CODE']][$ID_NUMBER] = $factory->member($object);
 
             }
         },
@@ -56,6 +55,8 @@ foreach ($committees->committes() as $committee) {
 
     $promise->wait();
 }
+
+var_dump( $_SESSION['committees']);
 
 
 //$end_date = new DateTime();

@@ -9,14 +9,13 @@
 namespace UChicago\AdvisoryCommittee;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\ClientException;
 
 class BearerToken
 {
     private $bearer_token;
 
-    public function __construct(\GuzzleHttp\Client $client)
+    public function __construct(Client $client)
     {
         try {
             $reponse = $client->post(
@@ -26,12 +25,12 @@ class BearerToken
                     'form_params' => [
                         'grant_type' => 'password',
                         'username' => 'tommyt',
-                        'password' => ''
+                        'password' => 'thom$$$$1967'
                     ]
 
                 ]
             );
-        } catch (\GuzzleHttp\Exception\ClientException $e) {
+        } catch (ClientException $e) {
             print $e->getMessage();
         }
 
