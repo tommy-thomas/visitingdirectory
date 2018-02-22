@@ -24,8 +24,9 @@ class BearerToken
                     'headers' => ['Content-Type' => 'application/x-www-form-urlencoded'],
                     'form_params' => [
                         'grant_type' => 'password',
-                        'username' => 'tommyt',
-                        'password' => 'thom$$$$1967'
+                        'username' => '',
+                        'password' => ''
+                        //
                     ]
 
                 ]
