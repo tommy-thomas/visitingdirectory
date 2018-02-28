@@ -21,8 +21,8 @@ class CommitteeMemberFactory
         if (is_null($json_payload)) {
             return false;
         }
-        $this->json_payload = $json_payload;
         $this->member = new CommitteeMember();
+        $this->json_payload = $json_payload;
         $this
             ->info()
             ->addresses()
@@ -70,8 +70,9 @@ class CommitteeMemberFactory
         if (!isset($this->json_payload->info)) {
             return $this;
         }
-        $this->member->setInfo($this->json_payload->info);
-        $this->member->setName();
+        $info = $this->json_payload->info;
+        $this->member->setName($info->FIRST_NAME , $info->MIDDLE_NAME,$info->LAST_NAME);
+        $this->member->setIDNumber($info->ID_NUMBER);
         return $this;
     }
 
@@ -80,18 +81,21 @@ class CommitteeMemberFactory
         if (!isset($this->json_payload->addresses)) {
             return $this;
         }
-        $this->member->setAddresses($this->addressesFilter($this->json_payload->addresses));
+       // public function setAddress( $street="", $city="", $zip="", $foreignZip="", $countryCode="")
+        $addresses_data = $this->addressesFilter($this->json_payload->addresses);
+        $this->member->setAddress( $addresses_data[0]->STREET , $addresses_data[0]->CITY ,  $addresses_data[0]->STATE_CODE, $addresses_data[0]->ZIPCODE , $addresses_data[0]->FOREIGN_CITYZIP, $addresses_data->COUNTRY_CODE);
         return $this;
     }
 
-    private function addressesFilter($addresses)
+
+private function addressesFilter($addresses)
     {
         foreach ($addresses as $key => $address) {
             if (isset($address->ADDR_PREF_IND) && $address->ADDR_PREF_IND != "Y") {
                 unset($addresses[$key]);
             }
         }
-        return $addresses;
+        return array_values($addresses);
     }
 
     private function degrees()
@@ -118,7 +122,8 @@ class CommitteeMemberFactory
         if (!isset($this->json_payload->employment)) {
             return $this;
         }
-        $this->member->setEmployment($this->employmentFilter($this->json_payload->employment));
+        $employment_data = array_values($this->employmentFilter($this->json_payload->employment));
+        $this->member->setEmploymentData( $employment_data[0]->JOB_TITLE, $employment_data[0]->EMPLOYER_NAME, $employment_data[0]->ORG_NAME);
         return $this;
     }
 
@@ -137,7 +142,8 @@ class CommitteeMemberFactory
         if (!isset($this->json_payload->email)) {
             return $this;
         }
-        $this->member->setEmail($this->emailFilter($this->json_payload->email));
+        $email = $this->emailFilter($this->json_payload->email)[0]->EMAIL_ADDRESS;
+        $this->member->setEmail($email);
         return $this;
     }
 
@@ -157,7 +163,12 @@ class CommitteeMemberFactory
         if (!isset($this->json_payload->telephone)) {
             return false;
         }
-        $this->member->setPhone($this->phoneFilter($this->json_payload->telephone));
+        $telephone_data = array_values($this->phoneFilter($this->json_payload->telephone));
+        if(isset($telephone_data[0]->TELEPHONE_NUMBER) && strlen($telephone_data[0]->TELEPHONE_NUMBER) == 7){
+            $this->member->setPhone( $telephone_data[0]->AREA_CODE
+                ."-".substr($telephone_data[0]->TELEPHONE_NUMBER , 0 , 3)
+                ."-".substr($telephone_data[0]->TELEPHONE_NUMBER , 3 , 4));
+        }
         return $this;
     }
 
