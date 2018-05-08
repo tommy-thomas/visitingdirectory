@@ -35,12 +35,12 @@ class CommitteeMember //extends WS_DynamicGetterSetter
     }
 
     public function setName($first, $middle,$last){
-        $this->first_name = $first;
-        $this->middle = $middle;
-        $this->last_name = $last;
-        $this->full_name = isset($this->first_name ) && !empty($this->first_name) ? trim($this->first_name) : "";
-        $this->full_name .= isset( $this->middle ) && !empty( $this->middle ) ? " ".trim($this->middle ) : "";
-        $this->full_name.= isset($this->last_name ) && !empty($this->last_name) ? " ".trim($this->last_name) : "";
+        $this->first_name = trim($first);
+        $this->middle = trim($middle);
+        $this->last_name = trim($last);
+        $this->full_name = isset($this->first_name ) && !empty($this->first_name) ? $this->first_name : "";
+        $this->full_name .= isset( $this->middle ) && !empty( $this->middle ) ? " ".$this->middle : "";
+        $this->full_name.= isset($this->last_name ) && !empty($this->last_name) ? " ".$this->last_name : "";
     }
 
     public function setIDNumber( $id_number = ""){
@@ -53,6 +53,10 @@ class CommitteeMember //extends WS_DynamicGetterSetter
 
     public function full_name(){
         return $this->full_name;
+    }
+
+    public function sort_name(){
+        return $this->last_name.$this->middle.$this->first_name;
     }
 
     public function setAddress( $street="", $city="", $state="", $zip="", $foreignZip="", $countryCode=""){

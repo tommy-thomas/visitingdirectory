@@ -71,6 +71,12 @@ class CommitteeMemberFactory
             return $this;
         }
         $info = $this->json_payload->info;
+        if( $info->TMS_RECORD_TYPE_CODE == "CH" ||
+            $info->RECORD_TYPE_CODE == "CH" ||
+            $info->PERSON_OR_ORG == "CH"){
+            print "Committee Chair\n";
+        }
+
         $this->member->setName($info->FIRST_NAME , $info->MIDDLE_NAME,$info->LAST_NAME);
         $this->member->setIDNumber($info->ID_NUMBER);
         return $this;
@@ -81,7 +87,6 @@ class CommitteeMemberFactory
         if (!isset($this->json_payload->addresses)) {
             return $this;
         }
-       // public function setAddress( $street="", $city="", $zip="", $foreignZip="", $countryCode="")
         $addresses_data = $this->addressesFilter($this->json_payload->addresses);
         $this->member->setAddress( $addresses_data[0]->STREET , $addresses_data[0]->CITY ,  $addresses_data[0]->STATE_CODE, $addresses_data[0]->ZIPCODE , $addresses_data[0]->FOREIGN_CITYZIP, $addresses_data->COUNTRY_CODE);
         return $this;
@@ -180,6 +185,15 @@ private function addressesFilter($addresses)
             }
         }
         return $telephone;
+    }
+
+    private function compare( CommitteeMember $a , CommitteeMember $b ){
+        return strcmp( $a->sort_name() , $b->sort_name());
+    }
+
+    public function sortCommittee($committee=array()){
+        usort( $committee , array($this , "compare"));
+        return $committee;
     }
 
 }
