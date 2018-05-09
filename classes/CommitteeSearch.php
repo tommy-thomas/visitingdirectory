@@ -34,7 +34,7 @@ class CommitteeSearch
         foreach ( $this->committees as $key => $committee){
             array_walk( $committee , array($this , "search"));
         }
-        return $this->factory->sortData($this->results);
+        return !is_null($this->factory) ? $this->factory->sortData($this->results) : $this->results;
     }
 
     private function search( CommitteeMember $member ){
@@ -48,5 +48,4 @@ class CommitteeSearch
             array_push($this->results , $member);
         }
     }
-
 }
