@@ -41,7 +41,7 @@ class CommitteeMemberFactory
         return false;
     }
 
-    public function idNumbers($members=[]){
+    public function idNumbersAsQueryString($members=[]){
         $id_numbers = array_map( function($ar){
             if(\UChicago\AdvisoryCommittee\CommitteeMemberFactory::isActive($ar)){
                 return $ar->ID_NUMBER;
@@ -71,6 +71,7 @@ class CommitteeMemberFactory
             return $this;
         }
         $info = $this->json_payload->info;
+      //  print $info->RECORD_TYPE_CODE . "\n";
         if( $info->TMS_RECORD_TYPE_CODE == "CH" ||
             $info->RECORD_TYPE_CODE == "CH" ||
             $info->PERSON_OR_ORG == "CH"){
@@ -188,12 +189,12 @@ private function addressesFilter($addresses)
     }
 
     private function compare( CommitteeMember $a , CommitteeMember $b ){
-        return strcmp( $a->sort_name() , $b->sort_name());
+        return strcmp( $a->sort_token() , $b->sort_token());
     }
 
-    public function sortCommittee($committee=array()){
-        usort( $committee , array($this , "compare"));
-        return $committee;
+    public function sortData($data=array()){
+        usort( $data , array($this , "compare"));
+        return $data;
     }
 
 }

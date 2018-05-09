@@ -55,8 +55,16 @@ class CommitteeMember //extends WS_DynamicGetterSetter
         return $this->full_name;
     }
 
-    public function sort_name(){
-        return $this->last_name.$this->middle.$this->first_name;
+    public function first_name(){
+        return $this->first_name;
+    }
+
+    public function last_name(){
+        return $this->last_name;
+    }
+
+    public function sort_token(){
+        return $this->last_name.$this->first_name.$this->middle;
     }
 
     public function setAddress( $street="", $city="", $state="", $zip="", $foreignZip="", $countryCode=""){
