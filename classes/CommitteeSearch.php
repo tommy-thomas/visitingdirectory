@@ -42,9 +42,9 @@ class CommitteeSearch
             array_push($this->results , $member);
         } elseif(!empty($this->last_name) && empty($this->first_name) && (strpos($member->last_name() , $this->last_name) !== false)){
             array_push($this->results , $member);
-        } elseif( !empty($this->last_name) && !empty($this->first_name)
-        && (strpos($member->first_name() , $this->first_name) !== false)
-            || (strpos($member->last_name() , $this->last_name) !== false) ){
+        } elseif( (!empty($this->last_name) && strpos($member->last_name() , $this->last_name) !== false)
+            || (!empty($this->first_name) && strpos($member->first_name() , $this->first_name) !== false)
+        ){
             array_push($this->results , $member);
         }
     }
