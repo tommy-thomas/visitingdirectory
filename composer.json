@@ -5,7 +5,12 @@
   "autoload": {
     "psr-4": {
       "UChicago\\AdvisoryCommittee\\": "classes"
-    }
+    },
+    "classmap": [
+      "/data/php/classes/WS_Application.class.php",
+      "/data/php/classes/WS_Email.class.php"
+    ]
+
   },
   "require": {
     "guzzlehttp/guzzle": "~6.3",
