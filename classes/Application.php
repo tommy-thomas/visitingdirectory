@@ -7,7 +7,7 @@ namespace UChicago\AdvisoryCommittee;
  * @author tommyt
  *
  */
-class Application extends WS_Application
+class Application extends \WS_Application
 {
 	/*
 	 * App
