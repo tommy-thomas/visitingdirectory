@@ -1,18 +1,17 @@
 {
+  "name": "Advisory Directory",
+  "description": "A directory for searching Advisory Committee members.",
+  "license": "proprietary",
   "autoload": {
     "psr-4": {
       "UChicago\\AdvisoryCommittee\\": "classes"
     },
-    "classmap": [
-      "/data/php/classes/WS_Application.class.php",
-      "/data/php/classes/WS_Template.class.php",
-      "/data/php/classes/WS_LDAP.class.php",
-      "/data/php/classes/WS_DynamicGetterSetter.class.php",
-      "/data/php/classes/WS_cURL.class.php",
-      "/data/php/classes/WS_Memcache.class.php",
-      "/data/php/classes/Exception"
-    ]
-  },
+    "repositories": {
+      "ws": {
+        "type": "composer",
+        "url": "https://wsnet.uchicago.edu/packages/"
+      }
+    },
   "require": {
     "guzzlehttp/guzzle": "~6.3",
      "twig/twig": "~1.16"
