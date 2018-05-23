@@ -1,5 +1,5 @@
 <?php
-require('_classes/autoload.php');
+require('classes/autoload.php');
 /**
  * The Application object.
  */
