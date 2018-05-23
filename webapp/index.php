@@ -3,7 +3,10 @@ require __DIR__ . "/../vendor/autoload.php";
 /**
  * The Application object.
  */
-$app = Application::app();
+use \UChicago\AdvisoryCommittee\Application as App;
+
+$app = App::app();
+
 $template = $app->template('index.html.cs');
 $template->add_data( "base" , $app->base() );
 $auth_err = false;
