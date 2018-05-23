@@ -8,7 +8,7 @@ namespace UChicago\AdvisoryCommittee;
  *
  */
 
-class Application extends WS_Application
+class Application extends \WS_Application
 {
 	/*
 	 * App
