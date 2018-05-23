@@ -43,11 +43,12 @@ class CommitteeMemberFactory
         return false;
     }
 
-    public function chairsArray($members = [] ){
+    public function chairsArray($members = [])
+    {
         $chairs = array();
-        foreach ( $members as $key => $member ){
-            if( self::isActive( $member ) && isset( $member->COMMITTEE_ROLE_CODE ) && $member->COMMITTEE_ROLE_CODE == "CH"){
-                $chairs[ $member->COMMITTEE_CODE ] = $member->ID_NUMBER;
+        foreach ($members as $key => $member) {
+            if (self::isActive($member) && isset($member->COMMITTEE_ROLE_CODE) && $member->COMMITTEE_ROLE_CODE == "CH") {
+                $chairs[$member->COMMITTEE_CODE] = $member->ID_NUMBER;
             }
         }
         return $chairs;
@@ -76,9 +77,9 @@ class CommitteeMemberFactory
         return substr($ids_as_array_string, 0, (strlen($ids_as_array_string) - 1));
     }
 
-    private function chair( $chair = false )
+    private function chair($chair = false)
     {
-        $this->member->setChair( $chair );
+        $this->member->setChair($chair);
         return $this;
     }
 
@@ -215,5 +216,4 @@ class CommitteeMemberFactory
         usort($data, array($this, "compare"));
         return $data;
     }
-
 }

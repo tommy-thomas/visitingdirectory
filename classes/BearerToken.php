@@ -18,15 +18,14 @@ class BearerToken
     public function __construct(Client $client)
     {
         try {
-            $reponse = $client->post(
+            $response = $client->post(
                 'account/token',
                 [
                     'headers' => ['Content-Type' => 'application/x-www-form-urlencoded'],
                     'form_params' => [
                         'grant_type' => 'password',
-                        'username' => '',
-                        'password' => ''
-                        //
+                        'username' => 'tommyt',
+                        'password' => 'thom$$$$1967'
                     ]
 
                 ]
@@ -35,7 +34,7 @@ class BearerToken
             print $e->getMessage();
         }
 
-        $this->bearer_token = "Bearer " . json_decode($reponse->getBody())->access_token;
+        $this->bearer_token = "Bearer " . json_decode($response->getBody())->access_token;
     }
 
     public function bearer_token(){

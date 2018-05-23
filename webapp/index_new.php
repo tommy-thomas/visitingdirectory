@@ -14,11 +14,14 @@ print $date->format('H:i:s') . "\n";
 //// Get base uri from App instance.
 
 $client = new Client(['base_uri' => 'https://ardapi.uchicago.edu/api/']);
+//$client = new Client(['base_uri' => 'https://ardapi-uat2015.uchicago.edu/api/']); // UAT
 $token = new \UChicago\AdvisoryCommittee\BearerToken($client);
 
 $bearer_token = $token->bearer_token();
 
 $committees = new \UChicago\AdvisoryCommittee\Committees();
+
+$committee_membership = new \UChicago\AdvisoryCommittee\CommitteeMemberMembership();
 
 $factory = new \UChicago\AdvisoryCommittee\CommitteeMemberFactory();
 
@@ -31,7 +34,9 @@ foreach ($committees->committes() as $committee) {
         ]
     );
 
-    $ids_as_query_string = $factory->idNumbers(json_decode($response->getBody())->committees);
+    $ids_as_query_string = $factory->idNumbersAsQueryString(json_decode($response->getBody())->committees);
+
+    $chairs = $factory->chairsArray( json_decode($response->getBody())->committees );
 
     $promise = $client->getAsync(
         "entity/collection?" . $ids_as_query_string,
@@ -41,12 +46,16 @@ foreach ($committees->committes() as $committee) {
     );
 
     $promise->then(
-        function (\GuzzleHttp\Psr7\Response $resp) use ($factory, $committee) {
+        function (\GuzzleHttp\Psr7\Response $resp) use ($factory, $committee, $committee_membership , $chairs) {
             $test = 0;
             foreach (json_decode($resp->getBody()) as $object) {
 
-                $_SESSION['committees'][$committee['COMMITTEE_CODE']][$object->info->ID_NUMBER] = $factory->member($object);
-                // TODO Maybe figure out a way to sort here...
+                $chair = $chairs[$committee['COMMITTEE_CODE']]== $object->info->ID_NUMBER ? true : false;
+
+                $_SESSION['committees'][$committee['COMMITTEE_CODE']][$object->info->ID_NUMBER] = $factory->member($object , $chair);
+
+                $committee_membership->addCommittee( $object->info->ID_NUMBER , $committee['COMMITTEE_CODE']);
+
 //                if ($test < 30) {
 //                    $test_member = $factory->member($object);
 //                    print $test_member->id_number() . "\n";
@@ -73,18 +82,24 @@ foreach ($committees->committes() as $committee) {
 
     $promise->wait();
 }
+
+
+//foreach ($_SESSION['committees'] as $key => $committee){
+//    $_SESSION['committees'][$key] = $factory->sortData($committee);
+//}
+//
+//$search = new \UChicago\AdvisoryCommittee\CommitteeSearch( $_SESSION['committees'] , $factory);
+//
+//$results = $search->searchResults(array("first_name" => "John" , "last_name" => ""));
+//
+//foreach ( $results as $result){
+//    print $result->full_name()."\n";
+//}
+
+
+$_SESSION['committee_membership'] = $committee_membership;
+
 $end_date = new DateTime();
-print $end_date->format('H:i:s') . "\n";
+print "\n\n=====================================\n\n".$end_date->format('H:i:s') . "\n";
 
-foreach ($_SESSION['committees'] as $key => $committee){
-    $_SESSION['committees'][$key] = $factory->sortCommittee($committee);
-}
-
-//print( $_SESSION['committees']['VCLZ'][0]->full_name() . "\n");
-//print( $_SESSION['committees']['VCLZ'][1]->full_name() . "\n");
-//print( $_SESSION['committees']['VCLZ'][2]->full_name() . "\n");
-//print( $_SESSION['committees']['VCLZ'][3]->full_name() . "\n");
-//print( $_SESSION['committees']['VCLZ'][4]->full_name() . "\n");
-
-// TODO: Add sorting.
-// TODO: Add search.
+// TODO: Verify email report end point, what else is in the payload?

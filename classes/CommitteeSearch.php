@@ -13,7 +13,7 @@ class CommitteeSearch
 {
     private $first_name = "";
     private $last_name = "";
-    private $committees;
+    private $committees = array();
     private $results = array();
     private $factory;
 
