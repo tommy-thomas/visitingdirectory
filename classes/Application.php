@@ -1,4 +1,6 @@
 <?php
+
+namespace UChicago\AdvisoryCommittee;
 /**
  * 
  * Application class
