@@ -5,15 +5,16 @@
   "autoload": {
     "psr-4": {
       "UChicago\\AdvisoryCommittee\\": "classes"
-    },
-    "repositories": {
-      "ws": {
-        "type": "composer",
-        "url": "https://wsnet.uchicago.edu/packages/"
-      }
-    },
+    }
+  },
   "require": {
     "guzzlehttp/guzzle": "~6.3",
-     "twig/twig": "~1.16"
+    "twig/twig": "~1.16"
+  },
+  "repositories": {
+    "ws": {
+      "type": "composer",
+      "url": "https://wsnet.uchicago.edu/packages/"
+    }
   }
 }
