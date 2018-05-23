@@ -7,7 +7,9 @@ namespace UChicago\AdvisoryCommittee;
  * @author tommyt
  *
  */
-class Application extends \WS_Application
+use WS\SharedPHP\WS_Application as WS_Application;
+
+class Application extends WS_Application
 {
 	/*
 	 * App
