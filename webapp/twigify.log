@@ -87,3 +87,119 @@
 05-24-2018 12:56:21 pm|Changed <?cs if:authentication_error ?>  to:  {% if $authenticationError %} in './_templates/index.html.twig'.
 05-24-2018 12:56:22 pm|Script runner converted closing 'if' statements to twig in './_templates/index.html.twig'
 05-24-2018 12:56:23 pm|Changed file './_templates/index.html.twig': YTo5OntzOjMyOiI8P2NzIHZhcjphdXRoZW50aWNhdGlvbl9lcnJvciA/PiI7czoyNjoie3sgYXV0aGVudGljYXRpb25fZXJyb3IgfX0iO3M6MTg6Ijw/Y3MgdmFyOmRvbWFpbiA/PiI7czoxMjoie3sgZG9tYWluIH19IjtzOjE2OiI8P2NzIHZhcjpiYXNlID8+IjtzOjEwOiJ7eyBiYXNlIH19IjtzOjM0OiI8P2NzIGluY2x1ZGU6ImluYy9oZWFkLmh0bWwuY3MiID8+IjtzOjM1OiJ7eyBpbmNsdWRlKCdpbmMvaGVhZC5odG1sLnR3aWcnKSB9fSI7czozNjoiPD9jcyBpbmNsdWRlOiJpbmMvaGVhZGVyLmh0bWwuY3MiID8+IjtzOjM3OiJ7eyBpbmNsdWRlKCdpbmMvaGVhZGVyLmh0bWwudHdpZycpIH19IjtzOjQzOiI8P2NzIGluY2x1ZGU6ImluYy9yZWxhdGVkLWxpbmtzLmh0bWwuY3MiID8+IjtzOjQ0OiJ7eyBpbmNsdWRlKCdpbmMvcmVsYXRlZC1saW5rcy5odG1sLnR3aWcnKSB9fSI7czozNjoiPD9jcyBpbmNsdWRlOiJpbmMvZm9vdGVyLmh0bWwuY3MiID8+IjtzOjM3OiJ7eyBpbmNsdWRlKCdpbmMvZm9vdGVyLmh0bWwudHdpZycpIH19IjtzOjMxOiI8P2NzIGlmOmF1dGhlbnRpY2F0aW9uX2Vycm9yID8+IjtzOjI5OiJ7JSBpZiAkYXV0aGVudGljYXRpb25FcnJvciAlfSI7czoxMToiPD9jcyAvaWYgPz4iO3M6MTE6InslIGVuZGlmICV9Ijt9
+05-24-2018 1:05:48 pm|Template file './_templates/placeholder.html.cs' moved to new file './_templates/placeholder.html.twig.'
+05-24-2018 1:05:50 pm|Changed <?cs var:authentication_error ?>  to:  {{ authentication_error }} in './_templates/placeholder.html.twig'.
+05-24-2018 1:05:51 pm|Changed <?cs var:Committee ?>  to:  {{ Committee }} in './_templates/placeholder.html.twig'.
+05-24-2018 1:05:52 pm|Changed <?cs include:"inc/head.html.cs" ?>  to:  {{ include('inc/head.html.twig') }} in './_templates/placeholder.html.twig'.
+05-24-2018 1:05:56 pm|Changed <?cs include:"inc/header.html.cs" ?>  to:  {{ include('inc/header.html.twig') }} in './_templates/placeholder.html.twig'.
+05-24-2018 1:05:58 pm|Changed <?cs include:"inc/related-links.html.cs" ?>  to:  {{ include('inc/related-links.html.twig') }} in './_templates/placeholder.html.twig'.
+05-24-2018 1:05:59 pm|Changed <?cs include:"inc/footer.html.cs" ?>  to:  {{ include('inc/footer.html.twig') }} in './_templates/placeholder.html.twig'.
+05-24-2018 1:06:01 pm|Changed <?cs if:authentication_error ?>  to:  {% if y %} in './_templates/placeholder.html.twig'.
+05-24-2018 1:06:01 pm|Script runner converted closing 'if' statements to twig in './_templates/placeholder.html.twig'
+05-24-2018 1:06:02 pm|Changed file './_templates/placeholder.html.twig': YTo4OntzOjMyOiI8P2NzIHZhcjphdXRoZW50aWNhdGlvbl9lcnJvciA/PiI7czoyNjoie3sgYXV0aGVudGljYXRpb25fZXJyb3IgfX0iO3M6MjE6Ijw/Y3MgdmFyOkNvbW1pdHRlZSA/PiI7czoxNToie3sgQ29tbWl0dGVlIH19IjtzOjM0OiI8P2NzIGluY2x1ZGU6ImluYy9oZWFkLmh0bWwuY3MiID8+IjtzOjM1OiJ7eyBpbmNsdWRlKCdpbmMvaGVhZC5odG1sLnR3aWcnKSB9fSI7czozNjoiPD9jcyBpbmNsdWRlOiJpbmMvaGVhZGVyLmh0bWwuY3MiID8+IjtzOjM3OiJ7eyBpbmNsdWRlKCdpbmMvaGVhZGVyLmh0bWwudHdpZycpIH19IjtzOjQzOiI8P2NzIGluY2x1ZGU6ImluYy9yZWxhdGVkLWxpbmtzLmh0bWwuY3MiID8+IjtzOjQ0OiJ7eyBpbmNsdWRlKCdpbmMvcmVsYXRlZC1saW5rcy5odG1sLnR3aWcnKSB9fSI7czozNjoiPD9jcyBpbmNsdWRlOiJpbmMvZm9vdGVyLmh0bWwuY3MiID8+IjtzOjM3OiJ7eyBpbmNsdWRlKCdpbmMvZm9vdGVyLmh0bWwudHdpZycpIH19IjtzOjMxOiI8P2NzIGlmOmF1dGhlbnRpY2F0aW9uX2Vycm9yID8+IjtzOjEwOiJ7JSBpZiB5ICV9IjtzOjExOiI8P2NzIC9pZiA/PiI7czoxMToieyUgZW5kaWYgJX0iO30=
+05-24-2018 1:06:04 pm|Changed file 'visiting/index.php': YTozOntzOjUwOiIkdGVtcGxhdGUgPSAkYXBwLT50ZW1wbGF0ZSgncGxhY2Vob2xkZXIuaHRtbC5jcycpOyI7czo4OToiJHRlbXBsYXRlID0gJGFwcC0+dGVtcGxhdGUoJy4vcGxhY2Vob2xkZXIuaHRtbC50d2lnJyk7CiRUd2lnVGVtcGxhdGVWYXJpYWJsZXMgPSBhcnJheSgpOwoiO3M6MTg6IiR0ZW1wbGF0ZS0+c2hvdygpOyI7czo0NzoiZWNobyAkdGVtcGxhdGUtPnJlbmRlcigkVHdpZ1RlbXBsYXRlVmFyaWFibGVzKTsiO3M6NDU6IiR0ZW1wbGF0ZS0+YWRkX2RhdGEoICJiYXNlIiAsICRhcHAtPmJhc2UoKSApOyI7czo0OToiJFR3aWdUZW1wbGF0ZVZhcmlhYmxlc1sgImJhc2UiIF0gPSAkYXBwLT5iYXNlKCkgOyI7fQ==
+05-24-2018 1:06:54 pm|Template file './_templates/results.html.cs' moved to new file './_templates/results.html.twig.'
+05-24-2018 1:06:56 pm|Changed <?cs var:Committee ?>  to:  {{ Committee }} in './_templates/results.html.twig'.
+05-24-2018 1:06:56 pm|Changed <?cs var:Chairman ?>  to:  {{ Chairman }} in './_templates/results.html.twig'.
+05-24-2018 1:06:57 pm|Changed <?cs var:m.LastName ?>  to:  {{ m.LastName }} in './_templates/results.html.twig'.
+05-24-2018 1:06:58 pm|Changed <?cs var:m.DegreeInfo ?>  to:  {{ m.DegreeInfo }} in './_templates/results.html.twig'.
+05-24-2018 1:06:59 pm|Changed <?cs var:m.StreetOne ?>  to:  {{ m.StreetOne }} in './_templates/results.html.twig'.
+05-24-2018 1:06:59 pm|Changed <?cs var:m.StreetTwo ?>  to:  {{ m.StreetTwo }} in './_templates/results.html.twig'.
+05-24-2018 1:07:00 pm|Changed <?cs var:m.StreetThree ?>  to:  {{ m.StreetThree }} in './_templates/results.html.twig'.
+05-24-2018 1:07:01 pm|Changed <?cs var:m.City ?>  to:  {{ m.City }} in './_templates/results.html.twig'.
+05-24-2018 1:07:02 pm|Changed <?cs var:m.State ?>  to:  {{ m.State }} in './_templates/results.html.twig'.
+05-24-2018 1:07:02 pm|Changed <?cs var:m.Zip ?>  to:  {{ m.Zip }} in './_templates/results.html.twig'.
+05-24-2018 1:07:03 pm|Changed <?cs var:m.JobTitle ?>  to:  {{ m.JobTitle }} in './_templates/results.html.twig'.
+05-24-2018 1:07:04 pm|Changed <?cs var:m.EmployerName ?>  to:  {{ m.EmployerName }} in './_templates/results.html.twig'.
+05-24-2018 1:07:05 pm|Changed <?cs var:m.ForeignCityZip ?>  to:  {{ m.ForeignCityZip }} in './_templates/results.html.twig'.
+05-24-2018 1:07:05 pm|Changed <?cs var:m.CountryCode ?>  to:  {{ m.CountryCode }} in './_templates/results.html.twig'.
+05-24-2018 1:07:06 pm|Changed <?cs var:m.FirstName ?>  to:  {{ m.FirstName }} in './_templates/results.html.twig'.
+05-24-2018 1:07:06 pm|Changed <?cs var:m.MiddleName ?>  to:  {{ m.MiddleName }} in './_templates/results.html.twig'.
+05-24-2018 1:07:06 pm|Changed <?cs var:m.Email ?>  to:  {{ m.Email }} in './_templates/results.html.twig'.
+05-24-2018 1:07:07 pm|Changed <?cs var:m.Email ?>  to:  {{ m.Email }} in './_templates/results.html.twig'.
+05-24-2018 1:07:07 pm|Changed <?cs var:m.PhoneNumber ?>  to:  {{ m.PhoneNumber }} in './_templates/results.html.twig'.
+05-24-2018 1:07:08 pm|Changed <?cs var:m.PhoneNumber ?>  to:  {{ m.PhoneNumber }} in './_templates/results.html.twig'.
+05-24-2018 1:07:08 pm|Changed <?cs var:count ?>  to:  {{ count }} in './_templates/results.html.twig'.
+05-24-2018 1:07:09 pm|Changed <?cs var:m.IdNumber ?>  to:  {{ m.IdNumber }} in './_templates/results.html.twig'.
+05-24-2018 1:07:09 pm|Changed <?cs var:m.LastName ?>  to:  {{ m.LastName }} in './_templates/results.html.twig'.
+05-24-2018 1:07:09 pm|Changed <?cs var:m.FirstName ?>  to:  {{ m.FirstName }} in './_templates/results.html.twig'.
+05-24-2018 1:07:09 pm|Changed <?cs var:m.MiddleName ?>  to:  {{ m.MiddleName }} in './_templates/results.html.twig'.
+05-24-2018 1:07:10 pm|Changed <?cs var:m.CommitteesDisplay ?>  to:  {{ m.CommitteesDisplay }} in './_templates/results.html.twig'.
+05-24-2018 1:07:10 pm|Changed <?cs include:"inc/head.html.cs" ?>  to:  {{ include('inc/head.html.cs') }} in './_templates/results.html.twig'.
+05-24-2018 1:07:12 pm|Changed <?cs include:"inc/header.html.cs" ?>  to:  {{ include('inc/header.html.twig') }} in './_templates/results.html.twig'.
+05-24-2018 1:07:14 pm|Changed <?cs include:"inc/related-links.html.cs" ?>  to:  {{ include('inc/related-links.html.twig') }} in './_templates/results.html.twig'.
+05-24-2018 1:07:15 pm|Changed <?cs include:"inc/footer.html.cs" ?>  to:  {{ include('inc/footer.html.twig') }} in './_templates/results.html.twig'.
+05-24-2018 1:07:16 pm|Changed <?cs if:ShowCommiteeResults ?>  to:  {% if y %} in './_templates/results.html.twig'.
+05-24-2018 1:07:17 pm|Changed <?cs if:ShowSearchResults ?>  to:  {% if y %} in './_templates/results.html.twig'.
+05-24-2018 1:07:18 pm|Script runner converted closing 'if' statements to twig in './_templates/results.html.twig'
+05-24-2018 1:07:19 pm|Changed <?cs each:m=CommitteeMember ?>  to:  {% for y %} in './_templates/results.html.twig'.
+05-24-2018 1:07:20 pm|Changed <?cs each:m=CommitteeMember ?>  to:  {% for y %} in './_templates/results.html.twig'.
+05-24-2018 1:07:21 pm|Script runner converted closing '/each' statements to twig in './_templates/results.html.twig'
+05-24-2018 1:07:22 pm|Changed file './_templates/results.html.twig': YTozMDp7czoyMToiPD9jcyB2YXI6Q29tbWl0dGVlID8+IjtzOjE1OiJ7eyBDb21taXR0ZWUgfX0iO3M6MjA6Ijw/Y3MgdmFyOkNoYWlybWFuID8+IjtzOjE0OiJ7eyBDaGFpcm1hbiB9fSI7czoyMjoiPD9jcyB2YXI6bS5MYXN0TmFtZSA/PiI7czoxNjoie3sgbS5MYXN0TmFtZSB9fSI7czoyNDoiPD9jcyB2YXI6bS5EZWdyZWVJbmZvID8+IjtzOjE4OiJ7eyBtLkRlZ3JlZUluZm8gfX0iO3M6MjM6Ijw/Y3MgdmFyOm0uU3RyZWV0T25lID8+IjtzOjE3OiJ7eyBtLlN0cmVldE9uZSB9fSI7czoyMzoiPD9jcyB2YXI6bS5TdHJlZXRUd28gPz4iO3M6MTc6Int7IG0uU3RyZWV0VHdvIH19IjtzOjI1OiI8P2NzIHZhcjptLlN0cmVldFRocmVlID8+IjtzOjE5OiJ7eyBtLlN0cmVldFRocmVlIH19IjtzOjE4OiI8P2NzIHZhcjptLkNpdHkgPz4iO3M6MTI6Int7IG0uQ2l0eSB9fSI7czoxOToiPD9jcyB2YXI6bS5TdGF0ZSA/PiI7czoxMzoie3sgbS5TdGF0ZSB9fSI7czoxNzoiPD9jcyB2YXI6bS5aaXAgPz4iO3M6MTE6Int7IG0uWmlwIH19IjtzOjIyOiI8P2NzIHZhcjptLkpvYlRpdGxlID8+IjtzOjE2OiJ7eyBtLkpvYlRpdGxlIH19IjtzOjI2OiI8P2NzIHZhcjptLkVtcGxveWVyTmFtZSA/PiI7czoyMDoie3sgbS5FbXBsb3llck5hbWUgfX0iO3M6Mjg6Ijw/Y3MgdmFyOm0uRm9yZWlnbkNpdHlaaXAgPz4iO3M6MjI6Int7IG0uRm9yZWlnbkNpdHlaaXAgfX0iO3M6MjU6Ijw/Y3MgdmFyOm0uQ291bnRyeUNvZGUgPz4iO3M6MTk6Int7IG0uQ291bnRyeUNvZGUgfX0iO3M6MjM6Ijw/Y3MgdmFyOm0uRmlyc3ROYW1lID8+IjtzOjE3OiJ7eyBtLkZpcnN0TmFtZSB9fSI7czoyNDoiPD9jcyB2YXI6bS5NaWRkbGVOYW1lID8+IjtzOjE4OiJ7eyBtLk1pZGRsZU5hbWUgfX0iO3M6MTk6Ijw/Y3MgdmFyOm0uRW1haWwgPz4iO3M6MTM6Int7IG0uRW1haWwgfX0iO3M6MjU6Ijw/Y3MgdmFyOm0uUGhvbmVOdW1iZXIgPz4iO3M6MTk6Int7IG0uUGhvbmVOdW1iZXIgfX0iO3M6MTc6Ijw/Y3MgdmFyOmNvdW50ID8+IjtzOjExOiJ7eyBjb3VudCB9fSI7czoyMjoiPD9jcyB2YXI6bS5JZE51bWJlciA/PiI7czoxNjoie3sgbS5JZE51bWJlciB9fSI7czozMToiPD9jcyB2YXI6bS5Db21taXR0ZWVzRGlzcGxheSA/PiI7czoyNToie3sgbS5Db21taXR0ZWVzRGlzcGxheSB9fSI7czozNDoiPD9jcyBpbmNsdWRlOiJpbmMvaGVhZC5odG1sLmNzIiA/PiI7czozMzoie3sgaW5jbHVkZSgnaW5jL2hlYWQuaHRtbC5jcycpIH19IjtzOjM2OiI8P2NzIGluY2x1ZGU6ImluYy9oZWFkZXIuaHRtbC5jcyIgPz4iO3M6Mzc6Int7IGluY2x1ZGUoJ2luYy9oZWFkZXIuaHRtbC50d2lnJykgfX0iO3M6NDM6Ijw/Y3MgaW5jbHVkZToiaW5jL3JlbGF0ZWQtbGlua3MuaHRtbC5jcyIgPz4iO3M6NDQ6Int7IGluY2x1ZGUoJ2luYy9yZWxhdGVkLWxpbmtzLmh0bWwudHdpZycpIH19IjtzOjM2OiI8P2NzIGluY2x1ZGU6ImluYy9mb290ZXIuaHRtbC5jcyIgPz4iO3M6Mzc6Int7IGluY2x1ZGUoJ2luYy9mb290ZXIuaHRtbC50d2lnJykgfX0iO3M6MzA6Ijw/Y3MgaWY6U2hvd0NvbW1pdGVlUmVzdWx0cyA/PiI7czoxMDoieyUgaWYgeSAlfSI7czoyODoiPD9jcyBpZjpTaG93U2VhcmNoUmVzdWx0cyA/PiI7czoxMDoieyUgaWYgeSAlfSI7czoxMToiPD9jcyAvaWYgPz4iO3M6MTE6InslIGVuZGlmICV9IjtzOjMwOiI8P2NzIGVhY2g6bT1Db21taXR0ZWVNZW1iZXIgPz4iO3M6MTE6InslIGZvciB5ICV9IjtzOjEzOiI8P2NzIC9lYWNoID8+IjtzOjEyOiJ7JSBlbmRmb3IgJX0iO30=
+05-24-2018 1:07:29 pm|Changed file 'results.php': YTo5OntzOjQ4OiIJJHRlbXBsYXRlID0gJGFwcC0+dGVtcGxhdGUoJ3Jlc3VsdHMuaHRtbC5jcycpOw0iO3M6ODg6IgkkdGVtcGxhdGUgPSAkYXBwLT50ZW1wbGF0ZSgnLi9yZXN1bHRzLmh0bWwudHdpZycpOw0KCSRUd2lnVGVtcGxhdGVWYXJpYWJsZXMgPSBhcnJheSgpOwoiO3M6MTk6IiR0ZW1wbGF0ZS0+c2hvdygpOw0iO3M6NDc6ImVjaG8gJHRlbXBsYXRlLT5yZW5kZXIoJFR3aWdUZW1wbGF0ZVZhcmlhYmxlcyk7IjtzOjQ1OiIkdGVtcGxhdGUtPmFkZF9kYXRhKCAiYmFzZSIgLCAkYXBwLT5iYXNlKCkgKTsiO3M6NDk6IiRUd2lnVGVtcGxhdGVWYXJpYWJsZXNbICJiYXNlIiBdID0gJGFwcC0+YmFzZSgpIDsiO3M6Mzk6IiR0ZW1wbGF0ZS0+YWRkX2RhdGEoJ0xvZ2dlZEluJyAsIHRydWUpOyI7czo0MzoiJFR3aWdUZW1wbGF0ZVZhcmlhYmxlc1snTG9nZ2VkSW4nIF0gPSB0cnVlOyI7czo3MjoiJHRlbXBsYXRlLT5hZGRfZGF0YSgnQ29tbWl0dGVlJyAsICRjb2xsZWN0aW9uLT5nZXRDb21taXR0ZWVOYW1lKCRjb2RlKSk7IjtzOjc2OiIkVHdpZ1RlbXBsYXRlVmFyaWFibGVzWydDb21taXR0ZWUnIF0gPSAkY29sbGVjdGlvbi0+Z2V0Q29tbWl0dGVlTmFtZSgkY29kZSk7IjtzOjQwOiIkdGVtcGxhdGUtPmFkZF9kYXRhKCdDaGFpcm1hbicsICRuYW1lICk7IjtzOjQ0OiIkVHdpZ1RlbXBsYXRlVmFyaWFibGVzWydDaGFpcm1hbiddID0gJG5hbWUgOyI7czo1MDoiJHRlbXBsYXRlLT5hZGRfZGF0YSgnU2hvd0NvbW1pdGVlUmVzdWx0cycsIHRydWUgKTsiO3M6NTQ6IiRUd2lnVGVtcGxhdGVWYXJpYWJsZXNbJ1Nob3dDb21taXRlZVJlc3VsdHMnXSA9IHRydWUgOyI7czozODoiJHRlbXBsYXRlLT5hZGRfZGF0YSgnY291bnQnLCAkdG90YWwgKTsiO3M6NDI6IiRUd2lnVGVtcGxhdGVWYXJpYWJsZXNbJ2NvdW50J10gPSAkdG90YWwgOyI7czo0ODoiJHRlbXBsYXRlLT5hZGRfZGF0YSgnU2hvd1NlYXJjaFJlc3VsdHMnLCB0cnVlICk7IjtzOjUyOiIkVHdpZ1RlbXBsYXRlVmFyaWFibGVzWydTaG93U2VhcmNoUmVzdWx0cyddID0gdHJ1ZSA7Ijt9
+05-24-2018 1:07:53 pm|Template file './_templates/search.html.cs' moved to new file './_templates/search.html.twig.'
+05-24-2018 1:07:55 pm|Changed <?cs var:c.COMMITTEE_CODE ?>  to:  {{ c.COMMITTEE_CODE }} in './_templates/search.html.twig'.
+05-24-2018 1:07:55 pm|Changed <?cs var:c.SHORT_DESC ?>  to:  {{ c.SHORT_DESC }} in './_templates/search.html.twig'.
+05-24-2018 1:07:57 pm|Changed <?cs include:"inc/head.html.cs" ?>  to:  {{ include('inc/head.html.twig') }} in './_templates/search.html.twig'.
+05-24-2018 1:07:57 pm|Changed <?cs include:"inc/header.html.cs" ?>  to:  {{ include('inc/header.html.twig') }} in './_templates/search.html.twig'.
+05-24-2018 1:07:58 pm|Changed <?cs include:"inc/related-links.html.cs" ?>  to:  {{ include('inc/related-links.html.twig') }} in './_templates/search.html.twig'.
+05-24-2018 1:07:59 pm|Changed <?cs include:"inc/footer.html.cs" ?>  to:  {{ include('inc/footer.html.twig') }} in './_templates/search.html.twig'.
+05-24-2018 1:08:00 pm|Changed <?cs each:c=Committee  ?>  to:  {% for y %} in './_templates/search.html.twig'.
+05-24-2018 1:08:00 pm|Script runner converted closing '/each' statements to twig in './_templates/search.html.twig'
+05-24-2018 1:08:01 pm|Changed file './_templates/search.html.twig': YTo4OntzOjI4OiI8P2NzIHZhcjpjLkNPTU1JVFRFRV9DT0RFID8+IjtzOjIyOiJ7eyBjLkNPTU1JVFRFRV9DT0RFIH19IjtzOjI0OiI8P2NzIHZhcjpjLlNIT1JUX0RFU0MgPz4iO3M6MTg6Int7IGMuU0hPUlRfREVTQyB9fSI7czozNDoiPD9jcyBpbmNsdWRlOiJpbmMvaGVhZC5odG1sLmNzIiA/PiI7czozNToie3sgaW5jbHVkZSgnaW5jL2hlYWQuaHRtbC50d2lnJykgfX0iO3M6MzY6Ijw/Y3MgaW5jbHVkZToiaW5jL2hlYWRlci5odG1sLmNzIiA/PiI7czozNzoie3sgaW5jbHVkZSgnaW5jL2hlYWRlci5odG1sLnR3aWcnKSB9fSI7czo0MzoiPD9jcyBpbmNsdWRlOiJpbmMvcmVsYXRlZC1saW5rcy5odG1sLmNzIiA/PiI7czo0NDoie3sgaW5jbHVkZSgnaW5jL3JlbGF0ZWQtbGlua3MuaHRtbC50d2lnJykgfX0iO3M6MzY6Ijw/Y3MgaW5jbHVkZToiaW5jL2Zvb3Rlci5odG1sLmNzIiA/PiI7czozNzoie3sgaW5jbHVkZSgnaW5jL2Zvb3Rlci5odG1sLnR3aWcnKSB9fSI7czoyNToiPD9jcyBlYWNoOmM9Q29tbWl0dGVlICA/PiI7czoxMToieyUgZm9yIHkgJX0iO3M6MTM6Ijw/Y3MgL2VhY2ggPz4iO3M6MTI6InslIGVuZGZvciAlfSI7fQ==
+05-24-2018 1:08:03 pm|Changed file 'search.php': YTo1OntzOjQ3OiIJJHRlbXBsYXRlID0gJGFwcC0+dGVtcGxhdGUoJ3NlYXJjaC5odG1sLmNzJyk7DSI7czo4NzoiCSR0ZW1wbGF0ZSA9ICRhcHAtPnRlbXBsYXRlKCcuL3NlYXJjaC5odG1sLnR3aWcnKTsNCgkkVHdpZ1RlbXBsYXRlVmFyaWFibGVzID0gYXJyYXkoKTsKIjtzOjE5OiIkdGVtcGxhdGUtPnNob3coKTsNIjtzOjQ3OiJlY2hvICR0ZW1wbGF0ZS0+cmVuZGVyKCRUd2lnVGVtcGxhdGVWYXJpYWJsZXMpOyI7czozOToiJHRlbXBsYXRlLT5hZGRfZGF0YSgnTG9nZ2VkSW4nICwgdHJ1ZSk7IjtzOjQzOiIkVHdpZ1RlbXBsYXRlVmFyaWFibGVzWydMb2dnZWRJbicgXSA9IHRydWU7IjtzOjQ1OiIkdGVtcGxhdGUtPmFkZF9kYXRhKCAiYmFzZSIgLCAkYXBwLT5iYXNlKCkgKTsiO3M6NDk6IiRUd2lnVGVtcGxhdGVWYXJpYWJsZXNbICJiYXNlIiBdID0gJGFwcC0+YmFzZSgpIDsiO3M6ODA6IiR0ZW1wbGF0ZS0+YWRkX2RhdGEoICJhdXRoZW50aWNhdGlvbl9lcnJvciIgLCAkZXJyb3JfbWVzc2FnZXNbJF9HRVRbJ2Vycm9yJ11dICk7IjtzOjg0OiIkVHdpZ1RlbXBsYXRlVmFyaWFibGVzWyAiYXV0aGVudGljYXRpb25fZXJyb3IiIF0gPSAkZXJyb3JfbWVzc2FnZXNbJF9HRVRbJ2Vycm9yJ11dIDsiO30=
+05-24-2018 1:08:18 pm|Template file './_templates/visiting.html.cs' moved to new file './_templates/visiting.html.twig.'
+05-24-2018 1:08:19 pm|Changed <?cs var:authentication_error ?>  to:  {{ authentication_error }} in './_templates/visiting.html.twig'.
+05-24-2018 1:08:20 pm|Changed <?cs include:"inc/head.html.cs" ?>  to:  {{ include('inc/head.html.twig') }} in './_templates/visiting.html.twig'.
+05-24-2018 1:08:21 pm|Changed <?cs include:"inc/header.html.cs" ?>  to:  {{ include('inc/header.html.twig') }} in './_templates/visiting.html.twig'.
+05-24-2018 1:08:22 pm|Changed <?cs include:"inc/footer.html.cs" ?>  to:  {{ include('inc/footer.html.twig') }} in './_templates/visiting.html.twig'.
+05-24-2018 1:08:22 pm|Changed <?cs if:authentication_error ?>  to:  {% if y %} in './_templates/visiting.html.twig'.
+05-24-2018 1:08:23 pm|Script runner converted closing 'if' statements to twig in './_templates/visiting.html.twig'
+05-24-2018 1:08:24 pm|Changed file './_templates/visiting.html.twig': YTo2OntzOjMyOiI8P2NzIHZhcjphdXRoZW50aWNhdGlvbl9lcnJvciA/PiI7czoyNjoie3sgYXV0aGVudGljYXRpb25fZXJyb3IgfX0iO3M6MzQ6Ijw/Y3MgaW5jbHVkZToiaW5jL2hlYWQuaHRtbC5jcyIgPz4iO3M6MzU6Int7IGluY2x1ZGUoJ2luYy9oZWFkLmh0bWwudHdpZycpIH19IjtzOjM2OiI8P2NzIGluY2x1ZGU6ImluYy9oZWFkZXIuaHRtbC5jcyIgPz4iO3M6Mzc6Int7IGluY2x1ZGUoJ2luYy9oZWFkZXIuaHRtbC50d2lnJykgfX0iO3M6MzY6Ijw/Y3MgaW5jbHVkZToiaW5jL2Zvb3Rlci5odG1sLmNzIiA/PiI7czozNzoie3sgaW5jbHVkZSgnaW5jL2Zvb3Rlci5odG1sLnR3aWcnKSB9fSI7czozMToiPD9jcyBpZjphdXRoZW50aWNhdGlvbl9lcnJvciA/PiI7czoxMDoieyUgaWYgeSAlfSI7czoxMToiPD9jcyAvaWYgPz4iO3M6MTE6InslIGVuZGlmICV9Ijt9
+05-24-2018 1:08:49 pm|Template file './_templates/inc/footer.html.cs' moved to new file './_templates/inc/footer.html.twig.'
+05-24-2018 1:08:50 pm|Changed file './_templates/inc/footer.html.twig': YTowOnt9
+05-24-2018 1:08:52 pm|Changed file '_templates/committee.html.cs': YTowOnt9
+05-24-2018 1:08:53 pm|Changed file '_templates/data_error.html.cs': YTowOnt9
+05-24-2018 1:08:54 pm|Changed file '_templates/index.html.cs': YTowOnt9
+05-24-2018 1:08:55 pm|Changed <?cs include:"inc/footer.html.cs" ?>  to:  {{ include('inc/footer.html.twig') }} in './_templates/inc/footer.html.twig'.
+05-24-2018 1:08:55 pm|Changed file '_templates/member.html.cs': YToxOntzOjM2OiI8P2NzIGluY2x1ZGU6ImluYy9mb290ZXIuaHRtbC5jcyIgPz4iO3M6Mzc6Int7IGluY2x1ZGUoJ2luYy9mb290ZXIuaHRtbC50d2lnJykgfX0iO30=
+05-24-2018 1:08:56 pm|Changed file '_templates/placeholder.html.cs': YToxOntzOjM2OiI8P2NzIGluY2x1ZGU6ImluYy9mb290ZXIuaHRtbC5jcyIgPz4iO3M6Mzc6Int7IGluY2x1ZGUoJ2luYy9mb290ZXIuaHRtbC50d2lnJykgfX0iO30=
+05-24-2018 1:08:56 pm|Changed file '_templates/results.html.cs': YToxOntzOjM2OiI8P2NzIGluY2x1ZGU6ImluYy9mb290ZXIuaHRtbC5jcyIgPz4iO3M6Mzc6Int7IGluY2x1ZGUoJ2luYy9mb290ZXIuaHRtbC50d2lnJykgfX0iO30=
+05-24-2018 1:08:57 pm|Changed file '_templates/search.html.cs': YToxOntzOjM2OiI8P2NzIGluY2x1ZGU6ImluYy9mb290ZXIuaHRtbC5jcyIgPz4iO3M6Mzc6Int7IGluY2x1ZGUoJ2luYy9mb290ZXIuaHRtbC50d2lnJykgfX0iO30=
+05-24-2018 1:08:57 pm|Changed file '_templates/visiting.html.cs': YToxOntzOjM2OiI8P2NzIGluY2x1ZGU6ImluYy9mb290ZXIuaHRtbC5jcyIgPz4iO3M6Mzc6Int7IGluY2x1ZGUoJ2luYy9mb290ZXIuaHRtbC50d2lnJykgfX0iO30=
+05-24-2018 1:09:17 pm|Template file './_templates/inc/head.html.cs' moved to new file './_templates/inc/head.html.twig.'
+05-24-2018 1:09:18 pm|Changed file './_templates/inc/head.html.twig': YTowOnt9
+05-24-2018 1:09:19 pm|Changed file '_templates/committee.html.cs': YTowOnt9
+05-24-2018 1:09:20 pm|Changed file '_templates/data_error.html.cs': YTowOnt9
+05-24-2018 1:09:20 pm|Changed file '_templates/index.html.cs': YTowOnt9
+05-24-2018 1:09:21 pm|Changed <?cs include:"inc/head.html.cs" ?>  to:  {{ include('inc/head.html.twig') }} in './_templates/inc/head.html.twig'.
+05-24-2018 1:09:21 pm|Changed file '_templates/member.html.cs': YToxOntzOjM0OiI8P2NzIGluY2x1ZGU6ImluYy9oZWFkLmh0bWwuY3MiID8+IjtzOjM1OiJ7eyBpbmNsdWRlKCdpbmMvaGVhZC5odG1sLnR3aWcnKSB9fSI7fQ==
+05-24-2018 1:09:22 pm|Changed file '_templates/placeholder.html.cs': YToxOntzOjM0OiI8P2NzIGluY2x1ZGU6ImluYy9oZWFkLmh0bWwuY3MiID8+IjtzOjM1OiJ7eyBpbmNsdWRlKCdpbmMvaGVhZC5odG1sLnR3aWcnKSB9fSI7fQ==
+05-24-2018 1:09:22 pm|Changed file '_templates/results.html.cs': YToxOntzOjM0OiI8P2NzIGluY2x1ZGU6ImluYy9oZWFkLmh0bWwuY3MiID8+IjtzOjM1OiJ7eyBpbmNsdWRlKCdpbmMvaGVhZC5odG1sLnR3aWcnKSB9fSI7fQ==
+05-24-2018 1:09:23 pm|Changed file '_templates/search.html.cs': YToxOntzOjM0OiI8P2NzIGluY2x1ZGU6ImluYy9oZWFkLmh0bWwuY3MiID8+IjtzOjM1OiJ7eyBpbmNsdWRlKCdpbmMvaGVhZC5odG1sLnR3aWcnKSB9fSI7fQ==
+05-24-2018 1:09:23 pm|Changed file '_templates/visiting.html.cs': YToxOntzOjM0OiI8P2NzIGluY2x1ZGU6ImluYy9oZWFkLmh0bWwuY3MiID8+IjtzOjM1OiJ7eyBpbmNsdWRlKCdpbmMvaGVhZC5odG1sLnR3aWcnKSB9fSI7fQ==
+05-24-2018 1:09:53 pm|Template file './_templates/inc/news.html.cs' moved to new file './_templates/inc/news.html.twig.'
+05-24-2018 1:09:55 pm|Changed file './_templates/inc/news.html.twig': YTowOnt9
+05-24-2018 1:10:12 pm|Template file './_templates/inc/search.html.cs' moved to new file './_templates/inc/search.html.twig.'
+05-24-2018 1:10:14 pm|Changed file './_templates/inc/search.html.twig': YTowOnt9
+05-24-2018 1:10:36 pm|Template file './_templates/inc/header.html.cs' moved to new file 'y.'
+05-24-2018 1:10:37 pm|Changed file 'y': YTowOnt9
+05-24-2018 1:10:37 pm|Changed file '_templates/committee.html.cs': YTowOnt9
+05-24-2018 1:10:39 pm|Changed file '_templates/data_error.html.cs': YTowOnt9
+05-24-2018 1:10:39 pm|Changed file '_templates/index.html.cs': YTowOnt9
+05-24-2018 1:10:39 pm|Changed <?cs include:"inc/header.html.cs" ?>  to:  {{ include('inc/header.html.twig') }} in 'y'.
+05-24-2018 1:10:40 pm|Changed file '_templates/member.html.cs': YToxOntzOjM2OiI8P2NzIGluY2x1ZGU6ImluYy9oZWFkZXIuaHRtbC5jcyIgPz4iO3M6Mzc6Int7IGluY2x1ZGUoJ2luYy9oZWFkZXIuaHRtbC50d2lnJykgfX0iO30=
+05-24-2018 1:10:41 pm|Changed file '_templates/placeholder.html.cs': YToxOntzOjM2OiI8P2NzIGluY2x1ZGU6ImluYy9oZWFkZXIuaHRtbC5jcyIgPz4iO3M6Mzc6Int7IGluY2x1ZGUoJ2luYy9oZWFkZXIuaHRtbC50d2lnJykgfX0iO30=
+05-24-2018 1:10:43 pm|Changed file '_templates/results.html.cs': YToxOntzOjM2OiI8P2NzIGluY2x1ZGU6ImluYy9oZWFkZXIuaHRtbC5jcyIgPz4iO3M6Mzc6Int7IGluY2x1ZGUoJ2luYy9oZWFkZXIuaHRtbC50d2lnJykgfX0iO30=
+05-24-2018 1:10:46 pm|Changed file '_templates/search.html.cs': YToxOntzOjM2OiI8P2NzIGluY2x1ZGU6ImluYy9oZWFkZXIuaHRtbC5jcyIgPz4iO3M6Mzc6Int7IGluY2x1ZGUoJ2luYy9oZWFkZXIuaHRtbC50d2lnJykgfX0iO30=
+05-24-2018 1:10:47 pm|Changed file '_templates/visiting.html.cs': YToxOntzOjM2OiI8P2NzIGluY2x1ZGU6ImluYy9oZWFkZXIuaHRtbC5jcyIgPz4iO3M6Mzc6Int7IGluY2x1ZGUoJ2luYy9oZWFkZXIuaHRtbC50d2lnJykgfX0iO30=
+05-24-2018 1:11:13 pm|Template file './_templates/inc/related-links.html.cs' moved to new file './_templates/inc/related-links.html.twig.'
+05-24-2018 1:11:15 pm|Changed file './_templates/inc/related-links.html.twig': YTowOnt9
+05-24-2018 1:11:15 pm|Changed file '_templates/committee.html.cs': YTowOnt9
+05-24-2018 1:11:16 pm|Changed file '_templates/data_error.html.cs': YTowOnt9
+05-24-2018 1:11:17 pm|Changed file '_templates/index.html.cs': YTowOnt9
+05-24-2018 1:11:19 pm|Changed <?cs include:"inc/related-links.html.cs" ?>  to:  {{ include('inc/related-links.html.twig') }} in './_templates/inc/related-links.html.twig'.
+05-24-2018 1:11:20 pm|Changed file '_templates/member.html.cs': YToxOntzOjQzOiI8P2NzIGluY2x1ZGU6ImluYy9yZWxhdGVkLWxpbmtzLmh0bWwuY3MiID8+IjtzOjQ0OiJ7eyBpbmNsdWRlKCdpbmMvcmVsYXRlZC1saW5rcy5odG1sLnR3aWcnKSB9fSI7fQ==
+05-24-2018 1:11:20 pm|Changed file '_templates/placeholder.html.cs': YToxOntzOjQzOiI8P2NzIGluY2x1ZGU6ImluYy9yZWxhdGVkLWxpbmtzLmh0bWwuY3MiID8+IjtzOjQ0OiJ7eyBpbmNsdWRlKCdpbmMvcmVsYXRlZC1saW5rcy5odG1sLnR3aWcnKSB9fSI7fQ==
+05-24-2018 1:11:21 pm|Changed file '_templates/results.html.cs': YToxOntzOjQzOiI8P2NzIGluY2x1ZGU6ImluYy9yZWxhdGVkLWxpbmtzLmh0bWwuY3MiID8+IjtzOjQ0OiJ7eyBpbmNsdWRlKCdpbmMvcmVsYXRlZC1saW5rcy5odG1sLnR3aWcnKSB9fSI7fQ==
+05-24-2018 1:11:21 pm|Changed file '_templates/search.html.cs': YToxOntzOjQzOiI8P2NzIGluY2x1ZGU6ImluYy9yZWxhdGVkLWxpbmtzLmh0bWwuY3MiID8+IjtzOjQ0OiJ7eyBpbmNsdWRlKCdpbmMvcmVsYXRlZC1saW5rcy5odG1sLnR3aWcnKSB9fSI7fQ==

@@ -5,8 +5,10 @@ require('../_classes/autoload.php');
  * The Application object.
  */
 $app = Application::app();
-$template = $app->template('placeholder.html.cs');
-$template->add_data( "base" , $app->base() );
+$template = $app->template('./placeholder.html.twig');
+$TwigTemplateVariables = array();
+
+$TwigTemplateVariables[ "base" ] = $app->base() ;
 /**
  * Start populating the CS template.
  * The Clear Silver template.
@@ -18,5 +20,5 @@ $curl->authenticate( $collection->getLoginUrl() );
 $_SESSION['authtoken'] = array( 'authtoken' => $curl->__toString());
 
 
-$template->show();
+echo $template->render($TwigTemplateVariables);
 ?>

@@ -9,10 +9,10 @@
 	<meta charset="utf-8">
 	<title>Secure Directory | Visiting Committees &amp; Councils | The University of Chicago</title>
 	
-	<?cs include:"inc/head.html.cs" ?>
+	{{ include('inc/head.html.twig') }}
 </head>  
 <body>
-	<?cs include:"inc/header.html.cs" ?>
+	{{ include('inc/header.html.twig') }}
 	<div class="container">
 		<h1 class="page-title">Secure Directory - beta</h1>
 		<div class="row">
@@ -61,13 +61,13 @@
 			</div>
 			<div class="span3">				
 				{{ include('inc/navigation.html.twig') }} <!-- this now includes the related links as well -->
-				<?cs include:"inc/related-links.html.cs" ?>
+				{{ include('inc/related-links.html.twig') }}
 			</div>					
 		</div>
 	</div><!-- /#page-wrapper -->
 	<div class="push"><!--//--></div>
 
-	<?cs include:"inc/footer.html.cs" ?>
+	{{ include('inc/footer.html.twig') }}
 
 <!-- Insert all js calls here  (jquery is included in the footer inc) -->
 

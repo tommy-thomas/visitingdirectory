@@ -11,9 +11,11 @@ if( !$app->isAuthorized() )
 }
 else
 {
-	$template = $app->template('search.html.cs');
-	$template->add_data('LoggedIn' , true);
-	$template->add_data( "base" , $app->base() );
+	$template = $app->template('./search.html.twig');
+	$TwigTemplateVariables = array();
+
+	$TwigTemplateVariables['LoggedIn' ] = true;
+	$TwigTemplateVariables[ "base" ] = $app->base() ;
 }
 
 $curl = new cURL(null);
@@ -29,7 +31,7 @@ $error_messages = array(
 );
 if( isset($_GET['error']) &&  isset($error_messages[$_GET['error']]) )
 {
-		$template->add_data( "authentication_error" , $error_messages[$_GET['error']] );
+		$TwigTemplateVariables[ "authentication_error" ] = $error_messages[$_GET['error']] ;
 }
-$template->show();
+echo $template->render($TwigTemplateVariables);
 ?>
