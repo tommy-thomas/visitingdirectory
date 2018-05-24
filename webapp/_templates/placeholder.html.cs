@@ -29,7 +29,7 @@
 			</div>
 			
 			<div class="span3">				
-				<?cs include:"inc/navigation-public.html.cs" ?> <!-- this now includes the related links as well -->
+				{{ include('inc/navigation-public.html.twig') }} <!-- this now includes the related links as well -->
 				<?cs include:"inc/related-links.html.cs" ?>
 			</div>					
 					

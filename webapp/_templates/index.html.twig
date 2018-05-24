@@ -9,10 +9,10 @@
 	<meta charset="utf-8">
 	<title>Secure Directory | Visiting Committees &amp; Councils | The University of Chicago</title>
 	
-	<?cs include:"inc/head.html.cs" ?>
+	{{ include('inc/head.html.twig') }}
 </head>  
 <body>
-	<?cs include:"inc/header.html.cs" ?>
+	{{ include('inc/header.html.twig') }}
 	<div class="container">
 		<h1 class="page-title">Secure Directory - beta</h1>
 		<div class="row">
@@ -20,22 +20,22 @@
 				<div class="maincontent">									
 					<p>Please log in below to use the directory. If you do not have a CNetID, you may log in with an account you already have with Google, Yahoo, or Facebook. <em>Please note that the social media account you choose should use an email address we have on file.</em> If you have any trouble logging in, please contact us at <a href="mailto:weberror@uchicago.edu?subject=Visiting Committees Directory login problem">weberror@uchicago.edu</a>.</p>
 					
-					<?cs if:authentication_error ?>
-						<div class="alert alert-block"><?cs var:authentication_error ?></div>
-					<?cs /if ?>	
+					{% if $authenticationError %}
+						<div class="alert alert-block">{{ authentication_error }}</div>
+					{% endif %}	
 					
-					<p><a href="<?cs var:domain ?>/Shibboleth.sso/Login?entityID=urn:mace:incommon:uchicago.edu&target=<?cs var:base ?>index.php"><strong>Login with CNetID / UCHADID</strong></a></p>
+					<p><a href="{{ domain }}/Shibboleth.sso/Login?entityID=urn:mace:incommon:uchicago.edu&target={{ base }}index.php"><strong>Login with CNetID / UCHADID</strong></a></p>
 					
 					<p>Or log in using an existing account below*:</p>
 					<ul class="no-bullet" id="login-list">
 						<li class="facebook">
-							<a href="<?cs var:domain ?>/Shibboleth.sso/Login?entityID=https://facebook.cirrusidentity.com/gateway&target=<?cs var:domain ?>">Facebook</a>
+							<a href="{{ domain }}/Shibboleth.sso/Login?entityID=https://facebook.cirrusidentity.com/gateway&target={{ domain }}">Facebook</a>
 						</li>
 						<li class="google">
-							<a href="<?cs var:domain ?>/Shibboleth.sso/Login?entityID=https://google.cirrusidentity.com/gateway&target=<?cs var:domain ?>">Google</a>
+							<a href="{{ domain }}/Shibboleth.sso/Login?entityID=https://google.cirrusidentity.com/gateway&target={{ domain }}">Google</a>
 				        </li>
 						<li class="yahoo">
-							<a href="<?cs var:domain ?>/Shibboleth.sso/Login?entityID=https://yahoo.cirrusidentity.com/gateway&target=<?cs var:domain ?>">Yahoo</a>
+							<a href="{{ domain }}/Shibboleth.sso/Login?entityID=https://yahoo.cirrusidentity.com/gateway&target={{ domain }}">Yahoo</a>
 						</li>	
 					</ul>
 
@@ -57,14 +57,14 @@
 				</div>
 			</div>	
 			<div class="span3">				
-				<?cs include:"inc/navigation.html.cs" ?> <!-- this now includes the related links as well -->
-				<?cs include:"inc/related-links.html.cs" ?>
+				{{ include('inc/navigation.html.twig') }} <!-- this now includes the related links as well -->
+				{{ include('inc/related-links.html.twig') }}
 			</div>					
 		</div>
 	</div><!-- /#page-wrapper -->
 	<div class="push"><!--//--></div>
 
-	<?cs include:"inc/footer.html.cs" ?>
+	{{ include('inc/footer.html.twig') }}
 
 <!-- Insert all js calls here  (jquery is included in the footer inc) -->
 

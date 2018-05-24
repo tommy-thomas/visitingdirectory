@@ -1,0 +1,89 @@
+05-24-2018 12:30:53 pm|List of old template files and calling controllers searched and written to './twigifyFileSearch.json'.
+05-24-2018 12:31:46 pm|Template file '_templates/inc/navigation-public.html.cs' moved to new file '_templates/inc/navigation-public.html.twig.'
+05-24-2018 12:31:53 pm|Changed <?cs var:base ?>  to:  {{ base }} in '_templates/inc/navigation-public.html.twig'.
+05-24-2018 12:32:00 pm|Changed <?cs var:c.COMMITTEE_CODE ?>  to:  {{ c.COMMITTEE_CODE }} in '_templates/inc/navigation-public.html.twig'.
+05-24-2018 12:32:04 pm|Changed <?cs var:c.FULL_DESC ?>  to:  {{ c.FULL_DESC }} in '_templates/inc/navigation-public.html.twig'.
+05-24-2018 12:32:48 pm|Changed <?cs if:LoggedIn ?>  to:  {% if $loggedIn %} in '_templates/inc/navigation-public.html.twig'.
+05-24-2018 12:32:54 pm|Script runner converted closing 'if' statements to twig in '_templates/inc/navigation-public.html.twig'
+05-24-2018 12:33:18 pm|Changed <?cs each:c=Committee ?>  to:  {% for $committees %} in '_templates/inc/navigation-public.html.twig'.
+05-24-2018 12:33:22 pm|Script runner converted closing '/each' statements to twig in '_templates/inc/navigation-public.html.twig'
+05-24-2018 12:33:26 pm|Changed file '_templates/inc/navigation-public.html.twig': YTo3OntzOjE2OiI8P2NzIHZhcjpiYXNlID8+IjtzOjEwOiJ7eyBiYXNlIH19IjtzOjI4OiI8P2NzIHZhcjpjLkNPTU1JVFRFRV9DT0RFID8+IjtzOjIyOiJ7eyBjLkNPTU1JVFRFRV9DT0RFIH19IjtzOjIzOiI8P2NzIHZhcjpjLkZVTExfREVTQyA/PiI7czoxNzoie3sgYy5GVUxMX0RFU0MgfX0iO3M6MTk6Ijw/Y3MgaWY6TG9nZ2VkSW4gPz4iO3M6MTg6InslIGlmICRsb2dnZWRJbiAlfSI7czoxMToiPD9jcyAvaWYgPz4iO3M6MTE6InslIGVuZGlmICV9IjtzOjI0OiI8P2NzIGVhY2g6Yz1Db21taXR0ZWUgPz4iO3M6MjE6InslIGZvciAkY29tbWl0dGVlcyAlfSI7czoxMzoiPD9jcyAvZWFjaCA/PiI7czoxMjoieyUgZW5kZm9yICV9Ijt9
+05-24-2018 12:33:29 pm|Changed <?cs include:"inc/navigation-public.html.cs" ?>  to:  {{ include('inc/navigation-public.html.twig') }} in '_templates/inc/navigation-public.html.twig'.
+05-24-2018 12:33:35 pm|Changed file '_templates/committee.html.cs': YToxOntzOjQ3OiI8P2NzIGluY2x1ZGU6ImluYy9uYXZpZ2F0aW9uLXB1YmxpYy5odG1sLmNzIiA/PiI7czo0ODoie3sgaW5jbHVkZSgnaW5jL25hdmlnYXRpb24tcHVibGljLmh0bWwudHdpZycpIH19Ijt9
+05-24-2018 12:33:39 pm|Changed <?cs include:"inc/navigation-public.html.cs" ?>  to:  {{ include('inc/navigation-public.html.twig') }} in '_templates/inc/navigation-public.html.twig'.
+05-24-2018 12:33:44 pm|Changed file '_templates/placeholder.html.cs': YToxOntzOjQ3OiI8P2NzIGluY2x1ZGU6ImluYy9uYXZpZ2F0aW9uLXB1YmxpYy5odG1sLmNzIiA/PiI7czo0ODoie3sgaW5jbHVkZSgnaW5jL25hdmlnYXRpb24tcHVibGljLmh0bWwudHdpZycpIH19Ijt9
+05-24-2018 12:34:18 pm|Template file '_templates/inc/navigation-public.html.cs' moved to new file '_templates/inc/navigation-public.html.twig.'
+05-24-2018 12:34:21 pm|Changed file '_templates/inc/navigation-public.html.twig': YTowOnt9
+05-24-2018 12:34:21 pm|Changed file '_templates/committee.html.cs': YTowOnt9
+05-24-2018 12:34:23 pm|Changed file '_templates/placeholder.html.cs': YTowOnt9
+05-24-2018 12:38:58 pm|Template file '_templates/inc/navigation-public.html.cs' moved to new file '_templates/inc/navigation-public.html.twig.'
+05-24-2018 12:39:16 pm|Changed file '_templates/inc/navigation-public.html.twig': YTowOnt9
+05-24-2018 12:39:21 pm|Changed file '_templates/committee.html.cs': YTowOnt9
+05-24-2018 12:39:26 pm|Changed file '_templates/placeholder.html.cs': YTowOnt9
+05-24-2018 12:39:34 pm|Template file '_templates/inc/navigation-public.html.cs' moved to new file '_templates/inc/navigation-public.html.twig.'
+05-24-2018 12:39:40 pm|Changed file '_templates/inc/navigation-public.html.twig': YTowOnt9
+05-24-2018 12:39:43 pm|Changed file '_templates/committee.html.cs': YTowOnt9
+05-24-2018 12:39:44 pm|Changed file '_templates/placeholder.html.cs': YTowOnt9
+05-24-2018 12:39:59 pm|Template file '_templates/inc/navigation-public.html.cs' moved to new file '_templates/inc/navigation-public.html.twig.'
+05-24-2018 12:40:02 pm|Changed file '_templates/inc/navigation-public.html.twig': YTowOnt9
+05-24-2018 12:40:04 pm|Changed file '_templates/committee.html.cs': YTowOnt9
+05-24-2018 12:40:05 pm|Changed file '_templates/placeholder.html.cs': YTowOnt9
+05-24-2018 12:41:03 pm|Invalid file 'inc/navigation.html.cs' providided for template remediation from script runner.
+05-24-2018 12:41:33 pm|Template file './_templates/inc/navigation.html.cs' moved to new file './_templates/inc/navigation.html.twig.'
+05-24-2018 12:41:46 pm|Changed <?cs if:LoggedIn ?>  to:  {% if $loogedIn %} in './_templates/inc/navigation.html.twig'.
+05-24-2018 12:41:48 pm|Script runner converted closing 'if' statements to twig in './_templates/inc/navigation.html.twig'
+05-24-2018 12:41:50 pm|Changed file './_templates/inc/navigation.html.twig': YToyOntzOjE5OiI8P2NzIGlmOkxvZ2dlZEluID8+IjtzOjE4OiJ7JSBpZiAkbG9vZ2VkSW4gJX0iO3M6MTE6Ijw/Y3MgL2lmID8+IjtzOjExOiJ7JSBlbmRpZiAlfSI7fQ==
+05-24-2018 12:41:56 pm|Changed <?cs include:"inc/navigation.html.cs" ?>  to:  {{ include('inc/navigation.html.twig') }} in './_templates/inc/navigation.html.twig'.
+05-24-2018 12:41:58 pm|Changed file '_templates/data_error.html.cs': YToxOntzOjQwOiI8P2NzIGluY2x1ZGU6ImluYy9uYXZpZ2F0aW9uLmh0bWwuY3MiID8+IjtzOjQxOiJ7eyBpbmNsdWRlKCdpbmMvbmF2aWdhdGlvbi5odG1sLnR3aWcnKSB9fSI7fQ==
+05-24-2018 12:42:00 pm|Changed <?cs include:"inc/navigation.html.cs" ?>  to:  {{ include('inc/navigation.html.twig') }} in './_templates/inc/navigation.html.twig'.
+05-24-2018 12:42:02 pm|Changed file '_templates/index.html.cs': YToxOntzOjQwOiI8P2NzIGluY2x1ZGU6ImluYy9uYXZpZ2F0aW9uLmh0bWwuY3MiID8+IjtzOjQxOiJ7eyBpbmNsdWRlKCdpbmMvbmF2aWdhdGlvbi5odG1sLnR3aWcnKSB9fSI7fQ==
+05-24-2018 12:42:04 pm|Changed <?cs include:"inc/navigation.html.cs" ?>  to:  {{ include('inc/navigation.html.twig') }} in './_templates/inc/navigation.html.twig'.
+05-24-2018 12:42:05 pm|Changed file '_templates/member.html.cs': YToxOntzOjQwOiI8P2NzIGluY2x1ZGU6ImluYy9uYXZpZ2F0aW9uLmh0bWwuY3MiID8+IjtzOjQxOiJ7eyBpbmNsdWRlKCdpbmMvbmF2aWdhdGlvbi5odG1sLnR3aWcnKSB9fSI7fQ==
+05-24-2018 12:42:07 pm|Changed <?cs include:"inc/navigation.html.cs" ?>  to:  {{ include('inc/navigation.html.twig') }} in './_templates/inc/navigation.html.twig'.
+05-24-2018 12:42:08 pm|Changed file '_templates/results.html.cs': YToxOntzOjQwOiI8P2NzIGluY2x1ZGU6ImluYy9uYXZpZ2F0aW9uLmh0bWwuY3MiID8+IjtzOjQxOiJ7eyBpbmNsdWRlKCdpbmMvbmF2aWdhdGlvbi5odG1sLnR3aWcnKSB9fSI7fQ==
+05-24-2018 12:42:11 pm|Changed <?cs include:"inc/navigation.html.cs" ?>  to:  {{ include('inc/navigation.html.twig') }} in './_templates/inc/navigation.html.twig'.
+05-24-2018 12:42:12 pm|Changed file '_templates/search.html.cs': YToxOntzOjQwOiI8P2NzIGluY2x1ZGU6ImluYy9uYXZpZ2F0aW9uLmh0bWwuY3MiID8+IjtzOjQxOiJ7eyBpbmNsdWRlKCdpbmMvbmF2aWdhdGlvbi5odG1sLnR3aWcnKSB9fSI7fQ==
+05-24-2018 12:42:13 pm|Changed <?cs include:"inc/navigation.html.cs" ?>  to:  {{ include('inc/navigation.html.twig') }} in './_templates/inc/navigation.html.twig'.
+05-24-2018 12:42:14 pm|Changed file '_templates/visiting.html.cs': YToxOntzOjQwOiI8P2NzIGluY2x1ZGU6ImluYy9uYXZpZ2F0aW9uLmh0bWwuY3MiID8+IjtzOjQxOiJ7eyBpbmNsdWRlKCdpbmMvbmF2aWdhdGlvbi5odG1sLnR3aWcnKSB9fSI7fQ==
+05-24-2018 12:50:52 pm|Template file './_templates/committee.html.cs' moved to new file './_templates/committee.html.twig.'
+05-24-2018 12:50:54 pm|Changed <?cs var:authentication_error ?>  to:  {{ authentication_error }} in './_templates/committee.html.twig'.
+05-24-2018 12:50:57 pm|Changed <?cs var:Committee ?>  to:  {{ Committee }} in './_templates/committee.html.twig'.
+05-24-2018 12:51:04 pm|Script runner skipped converting <?cs var:Chairman ?> to: {{ Chairman }} in './_templates/committee.html.twig'
+05-24-2018 12:51:12 pm|Changed <?cs var:m.FirstName ?>  to:  {{ m.FirstName }} in './_templates/committee.html.twig'.
+05-24-2018 12:51:13 pm|Changed <?cs var:m.MiddleName ?>  to:  {{ m.MiddleName }} in './_templates/committee.html.twig'.
+05-24-2018 12:51:16 pm|Changed <?cs var:m.LastName ?>  to:  {{ m.LastName }} in './_templates/committee.html.twig'.
+05-24-2018 12:51:19 pm|Changed <?cs include:"inc/head.html.cs" ?>  to:  {{ include('inc/head.html.twig') }} in './_templates/committee.html.twig'.
+05-24-2018 12:51:21 pm|Changed <?cs include:"inc/header.html.cs" ?>  to:  {{ include('inc/header.html.twig') }} in './_templates/committee.html.twig'.
+05-24-2018 12:51:23 pm|Changed <?cs include:"inc/related-links.html.cs" ?>  to:  {{ include('inc/related-links.html.twig') }} in './_templates/committee.html.twig'.
+05-24-2018 12:51:27 pm|Changed <?cs include:"inc/footer.html.cs" ?>  to:  {{ include('inc/footer.html.twig') }} in './_templates/committee.html.twig'.
+05-24-2018 12:51:54 pm|Changed <?cs if:authentication_error ?>  to:  {% if $authenticationError %} in './_templates/committee.html.twig'.
+05-24-2018 12:51:59 pm|Script runner converted closing 'if' statements to twig in './_templates/committee.html.twig'
+05-24-2018 12:52:35 pm|Script runner skipped converting <?cs each:m=CommitteeMember ?> to: {% for $CommitteeMember as $m %} in './_templates/committee.html.twig'
+05-24-2018 12:52:37 pm|Script runner converted closing '/each' statements to twig in './_templates/committee.html.twig'
+05-24-2018 12:52:52 pm|Changed <?cs each:m=CommitteeMember ?>  to:   in './_templates/committee.html.twig'.
+05-24-2018 12:52:55 pm|Changed file './_templates/committee.html.twig': YToxMzp7czozMjoiPD9jcyB2YXI6YXV0aGVudGljYXRpb25fZXJyb3IgPz4iO3M6MjY6Int7IGF1dGhlbnRpY2F0aW9uX2Vycm9yIH19IjtzOjIxOiI8P2NzIHZhcjpDb21taXR0ZWUgPz4iO3M6MTU6Int7IENvbW1pdHRlZSB9fSI7czoyMzoiPD9jcyB2YXI6bS5GaXJzdE5hbWUgPz4iO3M6MTc6Int7IG0uRmlyc3ROYW1lIH19IjtzOjI0OiI8P2NzIHZhcjptLk1pZGRsZU5hbWUgPz4iO3M6MTg6Int7IG0uTWlkZGxlTmFtZSB9fSI7czoyMjoiPD9jcyB2YXI6bS5MYXN0TmFtZSA/PiI7czoxNjoie3sgbS5MYXN0TmFtZSB9fSI7czozNDoiPD9jcyBpbmNsdWRlOiJpbmMvaGVhZC5odG1sLmNzIiA/PiI7czozNToie3sgaW5jbHVkZSgnaW5jL2hlYWQuaHRtbC50d2lnJykgfX0iO3M6MzY6Ijw/Y3MgaW5jbHVkZToiaW5jL2hlYWRlci5odG1sLmNzIiA/PiI7czozNzoie3sgaW5jbHVkZSgnaW5jL2hlYWRlci5odG1sLnR3aWcnKSB9fSI7czo0MzoiPD9jcyBpbmNsdWRlOiJpbmMvcmVsYXRlZC1saW5rcy5odG1sLmNzIiA/PiI7czo0NDoie3sgaW5jbHVkZSgnaW5jL3JlbGF0ZWQtbGlua3MuaHRtbC50d2lnJykgfX0iO3M6MzY6Ijw/Y3MgaW5jbHVkZToiaW5jL2Zvb3Rlci5odG1sLmNzIiA/PiI7czozNzoie3sgaW5jbHVkZSgnaW5jL2Zvb3Rlci5odG1sLnR3aWcnKSB9fSI7czozMToiPD9jcyBpZjphdXRoZW50aWNhdGlvbl9lcnJvciA/PiI7czoyOToieyUgaWYgJGF1dGhlbnRpY2F0aW9uRXJyb3IgJX0iO3M6MTE6Ijw/Y3MgL2lmID8+IjtzOjExOiJ7JSBlbmRpZiAlfSI7czoxMzoiPD9jcyAvZWFjaCA/PiI7czoxMjoieyUgZW5kZm9yICV9IjtzOjMwOiI8P2NzIGVhY2g6bT1Db21taXR0ZWVNZW1iZXIgPz4iO3M6MDoiIjt9
+05-24-2018 12:53:41 pm|Script runner abandoned the following changes to file 'visiting/committee.php': YTo1OntzOjQ5OiIkdGVtcGxhdGUgPSAkYXBwLT50ZW1wbGF0ZSgnY29tbWl0dGVlLmh0bWwuY3MnKTsNIjtzOjg4OiIkdGVtcGxhdGUgPSAkYXBwLT50ZW1wbGF0ZSgnLi9jb21taXR0ZWUuaHRtbC50d2lnJyk7DQokVHdpZ1RlbXBsYXRlVmFyaWFibGVzID0gYXJyYXkoKTsKIjtzOjE5OiIkdGVtcGxhdGUtPnNob3coKTsNIjtzOjQ3OiJlY2hvICR0ZW1wbGF0ZS0+cmVuZGVyKCRUd2lnVGVtcGxhdGVWYXJpYWJsZXMpOyI7czo0NToiJHRlbXBsYXRlLT5hZGRfZGF0YSggImJhc2UiICwgJGFwcC0+YmFzZSgpICk7IjtzOjQ5OiIkVHdpZ1RlbXBsYXRlVmFyaWFibGVzWyAiYmFzZSIgXSA9ICRhcHAtPmJhc2UoKSA7IjtzOjczOiIkdGVtcGxhdGUtPmFkZF9kYXRhKCdDb21taXR0ZWUnICwgJGNvbGxlY3Rpb24tPmdldENvbW1pdHRlZU5hbWUoJGNvZGUpICk7IjtzOjc3OiIkVHdpZ1RlbXBsYXRlVmFyaWFibGVzWydDb21taXR0ZWUnIF0gPSAkY29sbGVjdGlvbi0+Z2V0Q29tbWl0dGVlTmFtZSgkY29kZSkgOyI7czo0MToiJHRlbXBsYXRlLT5hZGRfZGF0YSgnQ2hhaXJtYW4nLCAkbmFtZXMgKTsiO3M6NDU6IiRUd2lnVGVtcGxhdGVWYXJpYWJsZXNbJ0NoYWlybWFuJ10gPSAkbmFtZXMgOyI7fQ==
+05-24-2018 12:54:49 pm|Template file './_templates/data_error.html.cs' moved to new file './_templates/data_error.html.twig.'
+05-24-2018 12:54:53 pm|Changed <?cs include:"inc/head.html.cs" ?>  to:  {{ include('inc/head.html.twig') }} in './_templates/data_error.html.twig'.
+05-24-2018 12:54:54 pm|Script runner skipped converting <?cs include:"inc/header.html.cs" ?> to: {{ include('inc/header.html.twig') }} in './_templates/data_error.html.twig'
+05-24-2018 12:54:55 pm|Changed <?cs include:"inc/related-links.html.cs" ?>  to:  {{ include('inc/related-links.html.twig') }} in './_templates/data_error.html.twig'.
+05-24-2018 12:54:57 pm|Changed <?cs include:"inc/footer.html.cs" ?>  to:  {{ include('inc/footer.html.twig') }} in './_templates/data_error.html.twig'.
+05-24-2018 12:54:57 pm|Changed file './_templates/data_error.html.twig': YTozOntzOjM0OiI8P2NzIGluY2x1ZGU6ImluYy9oZWFkLmh0bWwuY3MiID8+IjtzOjM1OiJ7eyBpbmNsdWRlKCdpbmMvaGVhZC5odG1sLnR3aWcnKSB9fSI7czo0MzoiPD9jcyBpbmNsdWRlOiJpbmMvcmVsYXRlZC1saW5rcy5odG1sLmNzIiA/PiI7czo0NDoie3sgaW5jbHVkZSgnaW5jL3JlbGF0ZWQtbGlua3MuaHRtbC50d2lnJykgfX0iO3M6MzY6Ijw/Y3MgaW5jbHVkZToiaW5jL2Zvb3Rlci5odG1sLmNzIiA/PiI7czozNzoie3sgaW5jbHVkZSgnaW5jL2Zvb3Rlci5odG1sLnR3aWcnKSB9fSI7fQ==
+05-24-2018 12:55:00 pm|Changed file 'data_error.php': YToyOntzOjUwOiIkdGVtcGxhdGUgPSAkYXBwLT50ZW1wbGF0ZSgnZGF0YV9lcnJvci5odG1sLmNzJyk7DSI7czo4OToiJHRlbXBsYXRlID0gJGFwcC0+dGVtcGxhdGUoJy4vZGF0YV9lcnJvci5odG1sLnR3aWcnKTsNCiRUd2lnVGVtcGxhdGVWYXJpYWJsZXMgPSBhcnJheSgpOwoiO3M6MTk6IiR0ZW1wbGF0ZS0+c2hvdygpOw0iO3M6NDc6ImVjaG8gJHRlbXBsYXRlLT5yZW5kZXIoJFR3aWdUZW1wbGF0ZVZhcmlhYmxlcyk7Ijt9
+05-24-2018 12:55:29 pm|Template file './_templates/index.html.cs' moved to new file './_templates/index.html.twig.'
+05-24-2018 12:55:35 pm|Changed <?cs var:authentication_error ?>  to:  {{ authentication_error }} in './_templates/index.html.twig'.
+05-24-2018 12:55:38 pm|Changed <?cs var:domain ?>  to:  {{ domain }} in './_templates/index.html.twig'.
+05-24-2018 12:55:39 pm|Changed <?cs var:base ?>  to:  {{ base }} in './_templates/index.html.twig'.
+05-24-2018 12:55:40 pm|Changed <?cs var:domain ?>  to:  {{ domain }} in './_templates/index.html.twig'.
+05-24-2018 12:55:41 pm|Changed <?cs var:domain ?>  to:  {{ domain }} in './_templates/index.html.twig'.
+05-24-2018 12:55:42 pm|Changed <?cs var:domain ?>  to:  {{ domain }} in './_templates/index.html.twig'.
+05-24-2018 12:55:46 pm|Changed <?cs var:domain ?>  to:  {{ domain }} in './_templates/index.html.twig'.
+05-24-2018 12:55:47 pm|Changed <?cs var:domain ?>  to:  {{ domain }} in './_templates/index.html.twig'.
+05-24-2018 12:55:48 pm|Changed <?cs var:domain ?>  to:  {{ domain }} in './_templates/index.html.twig'.
+05-24-2018 12:55:51 pm|Changed <?cs include:"inc/head.html.cs" ?>  to:  {{ include('inc/head.html.twig') }} in './_templates/index.html.twig'.
+05-24-2018 12:55:56 pm|Changed <?cs include:"inc/header.html.cs" ?>  to:  {{ include('inc/header.html.twig') }} in './_templates/index.html.twig'.
+05-24-2018 12:55:59 pm|Changed <?cs include:"inc/related-links.html.cs" ?>  to:  {{ include('inc/related-links.html.twig') }} in './_templates/index.html.twig'.
+05-24-2018 12:56:01 pm|Changed <?cs include:"inc/footer.html.cs" ?>  to:  {{ include('inc/footer.html.twig') }} in './_templates/index.html.twig'.
+05-24-2018 12:56:21 pm|Changed <?cs if:authentication_error ?>  to:  {% if $authenticationError %} in './_templates/index.html.twig'.
+05-24-2018 12:56:22 pm|Script runner converted closing 'if' statements to twig in './_templates/index.html.twig'
+05-24-2018 12:56:23 pm|Changed file './_templates/index.html.twig': YTo5OntzOjMyOiI8P2NzIHZhcjphdXRoZW50aWNhdGlvbl9lcnJvciA/PiI7czoyNjoie3sgYXV0aGVudGljYXRpb25fZXJyb3IgfX0iO3M6MTg6Ijw/Y3MgdmFyOmRvbWFpbiA/PiI7czoxMjoie3sgZG9tYWluIH19IjtzOjE2OiI8P2NzIHZhcjpiYXNlID8+IjtzOjEwOiJ7eyBiYXNlIH19IjtzOjM0OiI8P2NzIGluY2x1ZGU6ImluYy9oZWFkLmh0bWwuY3MiID8+IjtzOjM1OiJ7eyBpbmNsdWRlKCdpbmMvaGVhZC5odG1sLnR3aWcnKSB9fSI7czozNjoiPD9jcyBpbmNsdWRlOiJpbmMvaGVhZGVyLmh0bWwuY3MiID8+IjtzOjM3OiJ7eyBpbmNsdWRlKCdpbmMvaGVhZGVyLmh0bWwudHdpZycpIH19IjtzOjQzOiI8P2NzIGluY2x1ZGU6ImluYy9yZWxhdGVkLWxpbmtzLmh0bWwuY3MiID8+IjtzOjQ0OiJ7eyBpbmNsdWRlKCdpbmMvcmVsYXRlZC1saW5rcy5odG1sLnR3aWcnKSB9fSI7czozNjoiPD9jcyBpbmNsdWRlOiJpbmMvZm9vdGVyLmh0bWwuY3MiID8+IjtzOjM3OiJ7eyBpbmNsdWRlKCdpbmMvZm9vdGVyLmh0bWwudHdpZycpIH19IjtzOjMxOiI8P2NzIGlmOmF1dGhlbnRpY2F0aW9uX2Vycm9yID8+IjtzOjI5OiJ7JSBpZiAkYXV0aGVudGljYXRpb25FcnJvciAlfSI7czoxMToiPD9jcyAvaWYgPz4iO3M6MTE6InslIGVuZGlmICV9Ijt9

@@ -42,7 +42,7 @@
 				</div>
 			</div>
 			<div class="span3">				
-				<?cs include:"inc/navigation.html.cs" ?> <!-- this now includes the related links as well -->
+				{{ include('inc/navigation.html.twig') }} <!-- this now includes the related links as well -->
 			</div>					
 		</div>
 	</div><!-- /#page-wrapper -->

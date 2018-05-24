@@ -16,14 +16,14 @@
 						<li class=""><a href="/index.php">Secure VC Directory</a></li>
 						<li class=""><a href="https://vc.uchicago.edu/page/committee-membership" class="active">Council Membership</a>
 							<ul class="menu clearfix">
-								<?cs each:c=Committee ?>
-								<li class="leaf"><a href="<?cs var:base ?>visiting/committee.php?c=<?cs var:c.COMMITTEE_CODE ?>"><?cs var:c.FULL_DESC ?></a></li>
-								<?cs /each ?>					
+								{% for $committees %}
+								<li class="leaf"><a href="{{ base }}visiting/committee.php?c={{ c.COMMITTEE_CODE }}">{{ c.FULL_DESC }}</a></li>
+								{% endfor %}					
 							</ul>	
 						</li>
 						<li class=""><a href="https://vc.uchicago.edu/page/visit-campus">Visit Campus</a></li>
 						<li class=""><a href="https://vc.uchicago.edu/contact-us">Contact Us</a></li>
-						<?cs if:LoggedIn ?><li><a href="https://shibboleth2.uchicago.edu/idp/logout.html">Log Out</a></li><?cs /if ?>
+						{% if $loggedIn %}<li><a href="https://shibboleth2.uchicago.edu/idp/logout.html">Log Out</a></li>{% endif %}
 
 					</ul>
 				</div>
