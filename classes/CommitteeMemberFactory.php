@@ -6,7 +6,7 @@
  * Time: 3:35 PM
  */
 
-namespace UChicago\AdvisoryCommittee;
+namespace UChicago\AdvisoryCouncil;
 
 
 use GuzzleHttp\Promise\Promise;

@@ -6,7 +6,7 @@
  * Time: 2:33 PM
  */
 
-namespace UChicago\AdvisoryCommittee;
+namespace UChicago\AdvisoryCouncil;
 
 
 class CommitteeMember //extends WS_DynamicGetterSetter

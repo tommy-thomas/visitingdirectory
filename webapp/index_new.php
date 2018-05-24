@@ -15,15 +15,15 @@ print $date->format('H:i:s') . "\n";
 
 $client = new Client(['base_uri' => 'https://ardapi.uchicago.edu/api/']);
 //$client = new Client(['base_uri' => 'https://ardapi-uat2015.uchicago.edu/api/']); // UAT
-$token = new \UChicago\AdvisoryCommittee\BearerToken($client);
+$token = new \UChicago\AdvisoryCouncil\BearerToken($client);
 
 $bearer_token = $token->bearer_token();
 
-$committees = new \UChicago\AdvisoryCommittee\Committees();
+$committees = new \UChicago\AdvisoryCouncil\Committees();
 
-$committee_membership = new \UChicago\AdvisoryCommittee\CommitteeMemberMembership();
+$committee_membership = new \UChicago\AdvisoryCouncil\CommitteeMemberMembership();
 
-$factory = new \UChicago\AdvisoryCommittee\CommitteeMemberFactory();
+$factory = new \UChicago\AdvisoryCouncil\CommitteeMemberFactory();
 
 foreach ($committees->committes() as $committee) {
 
@@ -88,7 +88,7 @@ foreach ($committees->committes() as $committee) {
 //    $_SESSION['committees'][$key] = $factory->sortData($committee);
 //}
 //
-//$search = new \UChicago\AdvisoryCommittee\CommitteeSearch( $_SESSION['committees'] , $factory);
+//$search = new \UChicago\AdvisoryCouncile\CommitteeSearch( $_SESSION['committees'] , $factory);
 //
 //$results = $search->searchResults(array("first_name" => "John" , "last_name" => ""));
 //

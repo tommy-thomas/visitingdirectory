@@ -6,7 +6,7 @@
  * Time: 10:13 AM
  */
 
-namespace UChicago\AdvisoryCommittee;
+namespace UChicago\AdvisoryCouncil;
 
 
 class CommitteeSearch

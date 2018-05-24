@@ -6,7 +6,7 @@
  * Time: 3:05 PM
  */
 
-namespace UChicago\AdvisoryCommittee;
+namespace UChicago\AdvisoryCouncil;
 
 class Committees
 {
