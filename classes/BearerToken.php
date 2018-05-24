@@ -6,7 +6,7 @@
  * Time: 2:19 PM
  */
 
-namespace UChicago\AdvisoryCommittee;
+namespace UChicago\AdvisoryCouncil;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
@@ -25,7 +25,7 @@ class BearerToken
                     'form_params' => [
                         'grant_type' => 'password',
                         'username' => 'tommyt',
-                        'password' => 'thom$$$$1967'
+                        'password' => ''
                     ]
 
                 ]
