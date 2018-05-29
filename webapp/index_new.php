@@ -15,7 +15,7 @@ print $date->format('H:i:s') . "\n";
 
 $client = new Client(['base_uri' => 'https://ardapi.uchicago.edu/api/']);
 //$client = new Client(['base_uri' => 'https://ardapi-uat2015.uchicago.edu/api/']); // UAT
-$token = new \UChicago\AdvisoryCouncil\BearerToken($client);
+$token = new \UChicago\AdvisoryCouncil\BearerToken($client, "tommyt" , "");
 
 $bearer_token = $token->bearer_token();
 

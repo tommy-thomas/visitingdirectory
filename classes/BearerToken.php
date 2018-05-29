@@ -15,7 +15,7 @@ class BearerToken
 {
     private $bearer_token;
 
-    public function __construct(Client $client)
+    public function __construct(Client $client, $username="", $password="")
     {
         try {
             $response = $client->post(
@@ -24,8 +24,8 @@ class BearerToken
                     'headers' => ['Content-Type' => 'application/x-www-form-urlencoded'],
                     'form_params' => [
                         'grant_type' => 'password',
-                        'username' => 'tommyt',
-                        'password' => ''
+                        'username' => $username,
+                        'password' => $password
                     ]
 
                 ]
