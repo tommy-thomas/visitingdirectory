@@ -149,7 +149,7 @@ class CommitteeMemberFactory
             return $this;
         }
         $employment_data = array_values($this->employmentFilter($this->json_payload->employment));
-        if( isset($employment_data[0]) && is_object($employment_data[0])){
+        if (isset($employment_data[0]) && is_object($employment_data[0])) {
             $this->member->setEmploymentData($employment_data[0]->JOB_TITLE, $employment_data[0]->EMPLOYER_NAME, $employment_data[0]->ORG_NAME);
         }
         return $this;
@@ -170,8 +170,10 @@ class CommitteeMemberFactory
         if (!isset($this->json_payload->email)) {
             return $this;
         }
-        $email = $this->emailFilter($this->json_payload->email)[0]->EMAIL_ADDRESS;
-        $this->member->setEmail($email);
+        if ( is_array( $this->json_payload->email )) {
+            $email = $this->emailFilter($this->json_payload->email)[0]->EMAIL_ADDRESS;
+            $this->member->setEmail($email);
+        }
         return $this;
     }
 
