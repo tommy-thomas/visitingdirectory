@@ -149,7 +149,7 @@ class CommitteeMemberFactory
             return $this;
         }
         $employment_data = array_values($this->employmentFilter($this->json_payload->employment));
-        if( !isset($employment_data[0]) || !is_object($employment_data[0])){
+        if( isset($employment_data[0]) && is_object($employment_data[0])){
             $this->member->setEmploymentData($employment_data[0]->JOB_TITLE, $employment_data[0]->EMPLOYER_NAME, $employment_data[0]->ORG_NAME);
         }
         return $this;
