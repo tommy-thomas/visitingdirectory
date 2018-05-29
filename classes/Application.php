@@ -1,6 +1,7 @@
 <?php
 
 namespace UChicago\AdvisoryCouncil;
+
 /**
  *
  * Application class
@@ -140,7 +141,7 @@ class Application extends \WS_Application
                 if ($this->userIsFromShibb()) {
                     $is_valid_service = true;
                 } elseif ($this->userIsFromSocialAuth()) {
-                    list($name, $domain) = explode("@", $_SERVER['PHP_AUT`H_USER']);
+                    list($name, $domain) = explode("@", $_SERVER['PHP_AUTH_USER']);
                     if (in_array($domain, $this->social_auth_whitelist)) {
                         $is_valid_service = true;
                     }
@@ -184,7 +185,7 @@ class Application extends \WS_Application
      */
     public function isAuthorized()
     {
-        return (isset($_SESSION['email']) && isset($_SESSION['authtoken']));
+        return (isset($_SESSION['email']) && isset($_SESSION['bearer_token']));
     }
 
     /**

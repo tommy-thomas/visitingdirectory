@@ -16,7 +16,7 @@ else
 	$TwigTemplateVariables = array();
 
 	$TwigTemplateVariables['LoggedIn' ] = true;
-	$TwigTemplateVariables[ "base" ] = $app->base() ;
+	$TwigTemplateVariables[ "base" ] = $app->domain() ;
 }
 
 //$curl = new cURL(null);
