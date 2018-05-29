@@ -118,6 +118,7 @@ class Application extends \WS_Application
         return $url;
     }
 
+
     /**
      * Return if authorization being attempted from Shibb?
      */
