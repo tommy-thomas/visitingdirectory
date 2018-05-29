@@ -26,7 +26,7 @@
 									<div>
 										<select name="committee" size="1">
 											<option value="" selected>-- Select -- </option>
-											{% for y %}		     
+											{% for committee in committees %}
 											<option value="{{ c.COMMITTEE_CODE }}">{{ c.SHORT_DESC }}</option>     	      			
 											{% endfor %}
 										</select>
