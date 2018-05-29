@@ -107,7 +107,7 @@ class CommitteeMemberFactory
             return $this;
         }
         $addresses_data = $this->addressesFilter($this->json_payload->addresses);
-        if (isset($addresses_data[0])) {
+        if (isset($addresses_data[0]) && is_object($addresses_data[0])) {
             $this->member->setAddress($addresses_data[0]->STREET, $addresses_data[0]->CITY, $addresses_data[0]->STATE_CODE, $addresses_data[0]->ZIPCODE, $addresses_data[0]->FOREIGN_CITYZIP, $addresses_data->COUNTRY_CODE);
         }
         return $this;
