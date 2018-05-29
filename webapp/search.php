@@ -6,6 +6,8 @@ require __DIR__ . "/../vendor/autoload.php";
  */
 $app = new \UChicago\AdvisoryCouncil\Application();
 
+$committees = new \UChicago\AdvisoryCouncil\Committees();
+
 if( !$app->isAuthorized() )
 {
 	$app->redirect('./index.php?error=auth');
@@ -17,6 +19,7 @@ else
 
 	$TwigTemplateVariables['LoggedIn' ] = true;
 	$TwigTemplateVariables[ "base" ] = $app->domain() ;
+    $TwigTemplateVariables[ "committees" ] = $committees->committes();
 }
 
 //$curl = new cURL(null);
