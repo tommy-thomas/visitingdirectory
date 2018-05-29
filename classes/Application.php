@@ -99,7 +99,7 @@ class Application extends \WS_Application
      * @param $i
      * @return array|mixed
      */
-    public function get_error_message($i)
+    public function getErrorMessage($i)
     {
         $error_message = array(
             0 => "You are not authorized to log into this site.",

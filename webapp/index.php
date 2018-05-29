@@ -74,16 +74,17 @@ if( $app->isShibbAuth() )
  */
 $template = $app->template("index.html.twig");
 
+$err_msg = "";
 if( $auth_err || ( isset($_GET['error']) && $_GET['error'] == 'auth') )
 {
-    $err_msg = $app->get_error_message(0);
+    $err_msg = $app->getErrorMessage(0);
 }
 /*
  * Add soaicl auth error if set.
  */
 if( $soc_auth_err )
 {
-    $err_msg = $app->get_error_message(1);
+    $err_msg = $app->getErrorMessage(1);
 }
 
 echo $template->render([
