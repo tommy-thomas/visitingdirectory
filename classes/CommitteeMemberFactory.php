@@ -19,7 +19,7 @@ class CommitteeMemberFactory
 
     public function member($json_payload, $chair = false)
     {
-        if (is_null($json_payload)) {
+        if (is_null($json_payload) || !is_object($json_payload)) {
             return false;
         }
         $this->member = new CommitteeMember();
