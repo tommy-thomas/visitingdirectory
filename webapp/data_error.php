@@ -6,7 +6,9 @@ require('_classes/autoload.php');
  */
 $app = Application::app();
 
-$template = $app->template('data_error.html.cs');
+$template = $app->template('./data_error.html.twig');
+$TwigTemplateVariables = array();
 
-$template->show();
+
+echo $template->render($TwigTemplateVariables);
 ?>

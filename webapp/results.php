@@ -15,9 +15,11 @@ if( !$app->isAuthorized() )
 }
 else
 {
-	$template = $app->template('results.html.cs');
-	$template->add_data( "base" , $app->base() );
-	$template->add_data('LoggedIn' , true);
+	$template = $app->template('./results.html.twig');
+	$TwigTemplateVariables = array();
+
+	$TwigTemplateVariables[ "base" ] = $app->base() ;
+	$TwigTemplateVariables['LoggedIn' ] = true;
 }
 $curl = new cURL(null);
 $collection = GriffinCollection::instance( $app , $curl ,  $_SESSION['authtoken']);
@@ -44,7 +46,7 @@ if( isset($_SESSION['authtoken']) )
 		{
 			$code = $_GET['c'];
 		}
-		$template->add_data('Committee' , $collection->getCommitteeName($code));
+		$TwigTemplateVariables['Committee' ] = $collection->getCommitteeName($code);
 		$members_list = array();
 		if( !is_null($collection->getCachedMemberList($code)) )
 		{
@@ -64,11 +66,11 @@ if( isset($_SESSION['authtoken']) )
 				$name = $m->getFirstName().' ';
 				$name .= strlen( $m->getMiddleName() ) > 0 ? $m->getMiddleName().' '.$m->getLastName() : $m->getLastName();
 				$name .= ', Chair';
-				$template->add_data('Chairman', $name );
+				$TwigTemplateVariables['Chairman'] = $name ;
 			}	
 			$m->addClassDataTemplate( $template , "CommitteeMember.$id_number.");
 		}
-		$template->add_data('ShowCommiteeResults', true );
+		$TwigTemplateVariables['ShowCommiteeResults'] = true ;
 	}
 	if(  isset($_POST['search_by_name']) )
 	{
@@ -89,9 +91,9 @@ if( isset($_SESSION['authtoken']) )
 				$m->addClassDataTemplate( $template , "CommitteeMember.$id_number.");
 			}
 		}
-		$template->add_data('count', $total );
-		$template->add_data('ShowSearchResults', true );		
+		$TwigTemplateVariables['count'] = $total ;
+		$TwigTemplateVariables['ShowSearchResults'] = true ;		
 	}	
 }
-$template->show();
+echo $template->render($TwigTemplateVariables);
 ?>
