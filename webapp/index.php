@@ -87,8 +87,6 @@ if( $soc_auth_err )
     $err_msg = $app->get_error_message(1);
 }
 
-$template->add_data( "authentication_error" , $app->get_error_message(1) );
-
 echo $template->render([
 
         "authentication_error" => $err_msg,
