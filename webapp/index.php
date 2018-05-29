@@ -70,8 +70,7 @@ if( $app->isShibbAuth() )
 }
 
 /**
- * Start populating the CS template.
- * The Clear Silver template.
+ * Start Twig
  */
 $template = $app->template("index.html.twig");
 
