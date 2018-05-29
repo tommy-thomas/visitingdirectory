@@ -1,10 +1,11 @@
 <?php
-require('_classes/autoload.php');
+require __DIR__ . "/../vendor/autoload.php";
 
 /**
  * The Application object.
  */
-$app = Application::app();
+$app = new \UChicago\AdvisoryCouncil\Application();
+
 if( !$app->isAuthorized() )
 {
 	$app->redirect('./index.php?error=auth');
@@ -18,9 +19,9 @@ else
 	$TwigTemplateVariables[ "base" ] = $app->base() ;
 }
 
-$curl = new cURL(null);
-$collection = GriffinCollection::instance( $app , $curl , $_SESSION['authtoken'] );
-$collection->loadCommitteeTemplateData($template);
+//$curl = new cURL(null);
+//$collection = GriffinCollection::instance( $app , $curl , $_SESSION['authtoken'] );
+//$collection->loadCommitteeTemplateData($template);
 
 /*
  * Error messages
