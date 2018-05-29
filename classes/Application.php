@@ -8,6 +8,9 @@ namespace UChicago\AdvisoryCouncil;
  *
  */
 
+use Twig_Loader_Filesystem;
+use Twig_Environment;
+
 class Application extends \WS_Application
 {
     private $twig;
