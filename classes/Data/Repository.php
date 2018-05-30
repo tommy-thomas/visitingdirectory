@@ -20,7 +20,7 @@ class Repository
     private $client;
     private $memcache;
 
-    public function __construct($environment = "dev", \CLIMemcache $memcache, Client $client, $bearer_token = "")
+    public function __construct($environment = "dev", \UChicago\AdvisoryCouncil\CLIMemcache $memcache, Client $client, $bearer_token = "")
     {
         $this->bearer_token = $bearer_token;
         $this->client = $client;
