@@ -77,7 +77,7 @@ if( isset($_SESSION['authtoken']) )
 				$TwigTemplateVariables['Chairman'] = $name ;
 			}
 		}
-		$TwigTemplateVariables['ShowCommiteeResults'] = true ;
+		$TwigTemplateVariables['members'] = $members_list;
 	}
 	if(  isset($_POST['search_by_name']) )
 	{
