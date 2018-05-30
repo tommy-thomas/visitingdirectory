@@ -5,13 +5,7 @@
   "autoload": {
     "psr-4": {
       "UChicago\\AdvisoryCouncil\\": "classes"
-    },
-    "classmap": [
-      "/data/php/classes/WS_Application.class.php",
-      "/data/php/classes/WS_Memcache.class.php",
-      "/data/php/classes/WS_DynamicGetterSetter.class.php",
-      "/data/php/classes/WS_Memcache.class.php"
-    ]
+    }
 
   },
   "require": {
