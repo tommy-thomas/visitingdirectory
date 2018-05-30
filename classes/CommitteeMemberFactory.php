@@ -168,10 +168,8 @@ class CommitteeMemberFactory
         if (!isset($this->json_payload->email)) {
             return $this;
         }
-
-        $email = $this->emailFilter($this->json_payload->email);
-        $this->member->setEmail($email[0]->EMAIL_ADDRESS);
-
+        
+        $this->member->setEmail( $this->emailFilter($this->json_payload->email) );
         return $this;
     }
 
@@ -179,11 +177,11 @@ class CommitteeMemberFactory
     {
         foreach ($emails as $key => $email) {
             if (isset($email->PREFERRED_IND) && isset($email->EMAIL_TYPE_CODE)
-                && ($email->PREFERRED_IND != "Y" || $email->EMAIL_TYPE_CODE != "H")) {
-                unset($emails[$key]);
+                && ($email->PREFERRED_IND == "Y" || $email->EMAIL_TYPE_CODE == "H")) {
+                return $email->EMAIL_ADDRESS;
             }
         }
-        return array_values($emails);
+        return "";
     }
 
     private function phone()

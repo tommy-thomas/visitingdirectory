@@ -23,6 +23,7 @@ $committees = new \UChicago\AdvisoryCouncil\Committees();
 $committee_membership = new \UChicago\AdvisoryCouncil\CommitteeMemberMembership();
 
 $factory = new \UChicago\AdvisoryCouncil\CommitteeMemberFactory();
+$_SESSION['committees']=null;
 
 foreach ($committees->committes() as $key=> $committee) {
 
