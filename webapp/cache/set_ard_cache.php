@@ -14,7 +14,7 @@ $memcache = $memcache_instance->getMemcacheForCLI($argv[1]);
 
 //// Get base uri from App instance.
 
-$client = new Client(['base_uri' => \UChicago\AdvisoryCouncil\Application::ardUrl() ] );
+$client = new Client(['base_uri' => $app->ardUrl() ] );
 
 $token = new \UChicago\AdvisoryCouncil\BearerToken($client, "tommyt" , "thom$$$$1967");
 

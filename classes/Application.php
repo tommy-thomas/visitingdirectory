@@ -62,10 +62,10 @@ class Application extends \WS_Application
         return $this->twig->loadTemplate($templateFile);
     }
 
-    static function ardUrl()
+    public function ardUrl()
     {
         //uat once it's working: "https://ardapi-uat2015.uchicago.edu/api/"
-        return self::isProd() ? "https://ardapi.uchicago.edu/api/" : "https://ardapi.uchicago.edu/api/";
+        return $this->isProd() ? "https://ardapi.uchicago.edu/api/" : "https://ardapi.uchicago.edu/api/";
     }
 
     public function login(User $user)
