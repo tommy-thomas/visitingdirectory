@@ -9,8 +9,6 @@
 namespace UChicago\AdvisoryCouncil;
 
 
-use GuzzleHttp\Promise\Promise;
-
 class CommitteeMemberFactory
 {
 

@@ -6,8 +6,9 @@ require __DIR__ . "/../../vendor/autoload.php";
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
-$cache = new WS_Memcache();
-$this->memcache = $cache->getMemcache();
+$memcache_instance = new \UChicago\AdvisoryCouncil\CLIMemcache();
+
+$memcache = $memcache_instance->getMemcacheForCLI($argv[1]);
 
 //// Get base uri from App instance.
 
