@@ -1,10 +1,26 @@
 <?php
-require('_classes/autoload.php');
+require __DIR__ . "/../vendor/autoload.php";
 
 /**
  * The Application object.
  */
-$app = Application::app();
+$app = new \UChicago\AdvisoryCouncil\Application();
+
+$committees = new \UChicago\AdvisoryCouncil\Committees();
+
+//public function __construct($environment = "dev", CLIMemcache $memcache, $ard_api_url = "", Client $client, $bearer_token = "")
+$memcache_instance = new \UChicago\AdvisoryCouncil\CLIMemcache();
+
+$memcache = $memcache_instance->getMemcacheForCLI("prod");
+
+$client = new Client(['base_uri' => 'https://ardapi.uchicago.edu/api/']);
+
+$token = new \UChicago\AdvisoryCouncil\BearerToken($client, "tommyt", "thom$$$$1967");
+
+$bearer_token = $token->bearer_token();
+
+$repository = new \UChicago\AdvisoryCouncil\Data\Repository("prod" , $memcache , $client, $bearer_token);
+
 /**
  * Start populating the CS template.
  * The Clear Silver template.
@@ -21,10 +37,8 @@ else
 	$TwigTemplateVariables[ "base" ] = $app->base() ;
 	$TwigTemplateVariables['LoggedIn' ] = true;
 }
-$curl = new cURL(null);
-$collection = GriffinCollection::instance( $app , $curl ,  $_SESSION['authtoken']);
-$collection->loadCommitteeTemplateData($template);
-$manager = new CommitteeMemberManager();
+
+
 if( (isset($_POST['search_by_committee']) && empty($_POST['committee'])) )
 {
 	$app->redirect('./search.php?error=no_select');
@@ -46,29 +60,19 @@ if( isset($_SESSION['authtoken']) )
 		{
 			$code = $_GET['c'];
 		}
-		$TwigTemplateVariables['Committee' ] = $collection->getCommitteeName($code);
-		$members_list = array();
-		if( !is_null($collection->getCachedMemberList($code)) )
-		{
-			$members_list = $collection->getCachedMemberList($code);
-		}
-		else
-		{
-			$members_xml = $collection->getMemberData( $code , $_SESSION['authtoken'] );
-			$members_list = $manager->load( $code , $members_xml)->getCommiteeMemberList();
-			$collection->setCachedMemberList($code , $members_list );
-		}
+		$TwigTemplateVariables['Committee' ] = $committees->getCommitteeName($code);
+
+		$members_list = $repository->getCouncilData($code);
+
 		foreach( $members_list as $m )
 		{
-			$id_number = $m->getIdNumber();
-			if( $m->getCommitteeRoleCode() == 'CH' )
+			if( $m->chair()  )
 			{
-				$name = $m->getFirstName().' ';
-				$name .= strlen( $m->getMiddleName() ) > 0 ? $m->getMiddleName().' '.$m->getLastName() : $m->getLastName();
+				$name = $m->first_name().' ';
+				$name .= strlen( $m->middle() ) > 0 ? $m->middle().' '.$m->last_name() : $m->last_name();
 				$name .= ', Chair';
 				$TwigTemplateVariables['Chairman'] = $name ;
-			}	
-			$m->addClassDataTemplate( $template , "CommitteeMember.$id_number.");
+			}
 		}
 		$TwigTemplateVariables['ShowCommiteeResults'] = true ;
 	}

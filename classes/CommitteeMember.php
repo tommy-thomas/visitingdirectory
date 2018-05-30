@@ -59,6 +59,10 @@ class CommitteeMember //extends WS_DynamicGetterSetter
         return $this->first_name;
     }
 
+    public function middle(){
+        return $this->middle;
+    }
+
     public function last_name(){
         return $this->last_name;
     }

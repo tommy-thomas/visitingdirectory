@@ -24,7 +24,7 @@ $committee_membership = new \UChicago\AdvisoryCouncil\CommitteeMemberMembership(
 
 $factory = new \UChicago\AdvisoryCouncil\CommitteeMemberFactory();
 
-foreach ($committees->committes() as $committee) {
+foreach ($committees->committes() as $key=> $committee) {
 
     $response = $client->request('GET',
         "committee/show/" . $committee['COMMITTEE_CODE'],
@@ -69,11 +69,9 @@ if (isset($_SESSION['committees']) && is_array($_SESSION['committees']) && count
     foreach ($_SESSION['committees'] as $key => $committee) {
         $_SESSION['committees'][$key] = $factory->sortData($committee);
     }
-
     $memcache->set('AdvisoryCouncilsMemberData', $_SESSION['committees'], MEMCACHE_COMPRESSED, 0);
 }
-
-$memcache->set('AdvisoryCouncilsMemberData', array("committee_membership", $committee_membership), MEMCACHE_COMPRESSED, 0);
+$memcache->set('AdvisoryCouncilsMemberMembershipData', array("committee_membership", $committee_membership), MEMCACHE_COMPRESSED, 0);
 
 // Example usage for search, returns array of committee members.
 //$search = new \UChicago\AdvisoryCouncile\CommitteeSearch( $_SESSION['committees'] , $factory);
