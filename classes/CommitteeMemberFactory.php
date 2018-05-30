@@ -169,10 +169,8 @@ class CommitteeMemberFactory
             return $this;
         }
 
-        if( is_array( $this->json_payload->email )){
-            $email = $this->emailFilter($this->json_payload->email);
-            $this->member->setEmail($email[0]->EMAIL_ADDRESS);
-        }
+        $email = $this->emailFilter($this->json_payload->email);
+        $this->member->setEmail($email[0]->EMAIL_ADDRESS);
 
         return $this;
     }
