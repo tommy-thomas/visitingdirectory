@@ -12,9 +12,9 @@ $memcache = $memcache_instance->getMemcacheForCLI($argv[1]);
 
 //// Get base uri from App instance.
 
-$client = new Client(['base_uri' => 'https://ardapi.uchicago.edu/api/' ] );
+$client = new Client(['base_uri' => 'https://ardapi.uchicago.edu/api/']);
 
-$token = new \UChicago\AdvisoryCouncil\BearerToken($client, "tommyt" , "thom$$$$1967");
+$token = new \UChicago\AdvisoryCouncil\BearerToken($client, "tommyt", "thom$$$$1967");
 
 $bearer_token = $token->bearer_token();
 
@@ -35,7 +35,7 @@ foreach ($committees->committes() as $committee) {
 
     $ids_as_query_string = $factory->idNumbersAsQueryString(json_decode($response->getBody())->committees);
 
-    $chairs = $factory->chairsArray( json_decode($response->getBody())->committees );
+    $chairs = $factory->chairsArray(json_decode($response->getBody())->committees);
 
     $promise = $client->getAsync(
         "entity/collection?" . $ids_as_query_string,
@@ -45,15 +45,15 @@ foreach ($committees->committes() as $committee) {
     );
 
     $promise->then(
-        function (\GuzzleHttp\Psr7\Response $resp) use ($factory, $committee, $committee_membership , $chairs) {
+        function (\GuzzleHttp\Psr7\Response $resp) use ($factory, $committee, $committee_membership, $chairs) {
 
             foreach (json_decode($resp->getBody()) as $object) {
 
-                $chair = $chairs[$committee['COMMITTEE_CODE']]== $object->info->ID_NUMBER ? true : false;
+                $chair = $chairs[$committee['COMMITTEE_CODE']] == $object->info->ID_NUMBER ? true : false;
 
-                $_SESSION['committees'][$committee['COMMITTEE_CODE']][$object->info->ID_NUMBER] = $factory->member($object , $chair);
+                $_SESSION['committees'][$committee['COMMITTEE_CODE']][$object->info->ID_NUMBER] = $factory->member($object, $chair);
 
-                $committee_membership->addCommittee( $object->info->ID_NUMBER , $committee['COMMITTEE_CODE']);
+                $committee_membership->addCommittee($object->info->ID_NUMBER, $committee['COMMITTEE_CODE']);
             }
         },
         function (RequestException $e) {
@@ -65,15 +65,15 @@ foreach ($committees->committes() as $committee) {
 }
 
 
-if( isset( $_SESSION['committees'] ) && is_array($_SESSION['committees'])  && count($_SESSION['committees']) > 0 ){
-    foreach ($_SESSION['committees'] as $key => $committee){
+if (isset($_SESSION['committees']) && is_array($_SESSION['committees']) && count($_SESSION['committees']) > 0) {
+    foreach ($_SESSION['committees'] as $key => $committee) {
         $_SESSION['committees'][$key] = $factory->sortData($committee);
     }
 
-    $memcache->set('AdvisoryCouncilsMemberData',  $_SESSION['committees'] , MEMCACHE_COMPRESSED , 0);
+    $memcache->set('AdvisoryCouncilsMemberData', $_SESSION['committees'], MEMCACHE_COMPRESSED, 0);
 }
 
-$_SESSION['committee_membership'] = $committee_membership;
+$memcache->set('AdvisoryCouncilsMemberData', array("committee_membership", $committee_membership), MEMCACHE_COMPRESSED, 0);
 
 // Example usage for search, returns array of committee members.
 //$search = new \UChicago\AdvisoryCouncile\CommitteeSearch( $_SESSION['committees'] , $factory);
