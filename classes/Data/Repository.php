@@ -10,6 +10,7 @@ namespace UChicago\AdvisoryCouncil\Data;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use UChicago\AdvisoryCouncil\CLIMemcache;
 use UChicago\AdvisoryCouncil\CommitteeMemberMembership;
 
 class Repository
@@ -19,7 +20,7 @@ class Repository
     private $client;
     private $memcache;
 
-    public function __construct($environment = "dev", CLIMemcache $memcache, Client $client, $bearer_token = "")
+    public function __construct($environment = "dev", \CLIMemcache $memcache, Client $client, $bearer_token = "")
     {
         $this->bearer_token = $bearer_token;
         $this->client = $client;
