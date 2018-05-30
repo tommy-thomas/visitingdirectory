@@ -78,6 +78,7 @@ if( isset($_SESSION['authtoken']) )
 			}
 		}
 		$TwigTemplateVariables['members'] = $members_list;
+		var_dump($members_list);
 	}
 	if(  isset($_POST['search_by_name']) )
 	{
