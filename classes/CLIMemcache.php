@@ -9,7 +9,7 @@
 namespace UChicago\AdvisoryCouncil;
 
 
-class CLIMemcache
+class CLIMemcache extends \WS_Memcache
 {
     /**
      * Use memcache?
