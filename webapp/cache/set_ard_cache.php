@@ -1,15 +1,13 @@
 <?php
 
-require __DIR__ . "/../vendor/autoload.php";
+require __DIR__ . "/../../vendor/autoload.php";
 
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\RequestException;
 
-date_default_timezone_set('America/Chicago');
-$date = new DateTime();
-print $date->format('H:i:s') . "\n";
+$cache = new WS_Memcache();
+$this->memcache = $cache->getMemcache();
 
 //// Get base uri from App instance.
 
@@ -48,7 +46,7 @@ foreach ($committees->committes() as $committee) {
 
     $promise->then(
         function (\GuzzleHttp\Psr7\Response $resp) use ($factory, $committee, $committee_membership , $chairs) {
-            $test = 0;
+
             foreach (json_decode($resp->getBody()) as $object) {
 
                 $chair = $chairs[$committee['COMMITTEE_CODE']]== $object->info->ID_NUMBER ? true : false;
@@ -56,24 +54,6 @@ foreach ($committees->committes() as $committee) {
                 $_SESSION['committees'][$committee['COMMITTEE_CODE']][$object->info->ID_NUMBER] = $factory->member($object , $chair);
 
                 $committee_membership->addCommittee( $object->info->ID_NUMBER , $committee['COMMITTEE_CODE']);
-
-//                if ($test < 30) {
-//                    $test_member = $factory->member($object);
-//                    print $test_member->id_number() . "\n";
-//                    print $test_member->full_name() . "\n";
-//                    print $test_member->degrees() . "\n";
-//                    print $test_member->email() . "\n";
-//                    print $test_member->phone() . "\n";
-//                    print $test_member->employment_job_title() . "\n";
-//                    print $test_member->employment_employer_name() . "\n";
-//                    print $test_member->employment_org_name() . "\n";
-//                    print $test_member->street() . "\n";
-//                    print $test_member->city() . ", " . $test_member->state() . ", " . $test_member->zip() . "\n";
-//                    print "=========================================================\n";
-//                    $test++;
-//                } else {
-//                    exit();
-//                }
             }
         },
         function (RequestException $e) {
@@ -85,22 +65,15 @@ foreach ($committees->committes() as $committee) {
 }
 
 
-//foreach ($_SESSION['committees'] as $key => $committee){
-//    $_SESSION['committees'][$key] = $factory->sortData($committee);
-//}
-//
-//$search = new \UChicago\AdvisoryCouncile\CommitteeSearch( $_SESSION['committees'] , $factory);
-//
-//$results = $search->searchResults(array("first_name" => "John" , "last_name" => ""));
-//
-//foreach ( $results as $result){
-//    print $result->full_name()."\n";
-//}
-
+foreach ($_SESSION['committees'] as $key => $committee){
+    $_SESSION['committees'][$key] = $factory->sortData($committee);
+}
 
 $_SESSION['committee_membership'] = $committee_membership;
 
-$end_date = new DateTime();
-print "\n\n=====================================\n\n".$end_date->format('H:i:s') . "\n";
+// Example usage for search, returns array of committee members.
+//$search = new \UChicago\AdvisoryCouncile\CommitteeSearch( $_SESSION['committees'] , $factory);
+//
+//$results = $search->searchResults(array("first_name" => "John" , "last_name" => ""));
 
 // TODO: Verify email report end point, what else is in the payload?
