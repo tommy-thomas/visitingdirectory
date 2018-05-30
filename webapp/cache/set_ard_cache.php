@@ -78,4 +78,7 @@ $memcache->set('AdvisoryCouncilsMemberMembershipData', array("committee_membersh
 //
 //$results = $search->searchResults(array("first_name" => "John" , "last_name" => ""));
 
+//TODO: Fix email bug, not traversiong json obect to het tp email.
+//TODO: Figure out degrees.
+// TODO: Double check phone number, is it thr preferred number?
 // TODO: Verify email report end point, what else is in the payload?

@@ -168,8 +168,11 @@ class CommitteeMemberFactory
         if (!isset($this->json_payload->email)) {
             return $this;
         }
-            $email = $this->emailFilter($this->json_payload->email)[0]->EMAIL_ADDRESS;
-            $this->member->setEmail($email);
+
+        if( is_array( $this->json_payload->email )){
+            $email = $this->emailFilter($this->json_payload->email);
+            $this->member->setEmail($email[0]->EMAIL_ADDRESS);
+        }
 
         return $this;
     }
@@ -182,7 +185,7 @@ class CommitteeMemberFactory
                 unset($emails[$key]);
             }
         }
-        return $emails;
+        return array_values($emails);
     }
 
     private function phone()
