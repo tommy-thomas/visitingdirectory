@@ -67,8 +67,12 @@ foreach ($committees->committes() as $committee) {
 }
 
 
-foreach ($_SESSION['committees'] as $key => $committee){
-    $_SESSION['committees'][$key] = $factory->sortData($committee);
+if( isset( $_SESSION['committees'] ) && is_array($_SESSION['committees'])  && count($_SESSION['committees']) > 0 ){
+    foreach ($_SESSION['committees'] as $key => $committee){
+        $_SESSION['committees'][$key] = $factory->sortData($committee);
+    }
+
+    $memcache->set('AdvisoryCouncilsMemberData',  $_SESSION['committees'] , MEMCACHE_COMPRESSED , 0);
 }
 
 $_SESSION['committee_membership'] = $committee_membership;
