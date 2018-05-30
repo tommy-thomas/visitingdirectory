@@ -24,8 +24,6 @@ $committee_membership = new \UChicago\AdvisoryCouncil\CommitteeMemberMembership(
 
 $factory = new \UChicago\AdvisoryCouncil\CommitteeMemberFactory();
 
-print print $memcache->get('AdvisoryCouncilsMemberData'); exit();
-
 foreach ($committees->committes() as $committee) {
 
     $response = $client->request('GET',
