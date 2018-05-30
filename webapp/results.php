@@ -52,7 +52,7 @@ if ((isset($_POST['search_by_committee']) && !empty($_POST['committee'])) || iss
         $code = $_GET['c'];
     }
     $TwigTemplateVariables['Committee'] = $committees->getCommitteeName($code);
-
+    $TwigTemplateVariables['ShowCommiteeResults'] = true;
     $members_list = $repository->getCouncilData($code);
 
     foreach ($members_list as $m) {
@@ -64,7 +64,6 @@ if ((isset($_POST['search_by_committee']) && !empty($_POST['committee'])) || iss
         }
     }
     $TwigTemplateVariables['members'] = $members_list;
-    var_dump($members_list);
 }
 if (isset($_POST['search_by_name'])) {
     $xml = $manager->searchMembersByName(htmlClean($_POST['f_name']), htmlClean($_POST['l_name']));
