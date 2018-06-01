@@ -14,7 +14,7 @@ $committees = new \UChicago\AdvisoryCouncil\Committees();
 //public function __construct($environment = "dev", CLIMemcache $memcache, $ard_api_url = "", Client $client, $bearer_token = "")
 $memcache_instance = new \UChicago\AdvisoryCouncil\CLIMemcache();
 
-$memcache = $memcache_instance->getMemcacheForCLI("prod");
+$memcache = $memcache_instance->getMemcacheForCLI($app->environment());
 
 $client = new Client(['base_uri' => 'https://ardapi.uchicago.edu/api/']);
 
@@ -22,7 +22,7 @@ $token = new \UChicago\AdvisoryCouncil\BearerToken($client, "tommyt", "thom$$$$1
 
 $bearer_token = $token->bearer_token();
 
-$repository = new \UChicago\AdvisoryCouncil\Data\Repository("prod", $memcache, $client, $bearer_token);
+$repository = new \UChicago\AdvisoryCouncil\Data\Repository($app->environment(), $memcache, $client, $bearer_token);
 
 /**
  * Start populating the CS template.

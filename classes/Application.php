@@ -68,6 +68,10 @@ class Application extends \WS\SharedPHP\WS_Application
         return $this->isProd() ? "https://ardapi.uchicago.edu/api/" : "https://ardapi.uchicago.edu/api/";
     }
 
+    public function environment(){
+        return $this->isProd() ? "prod" : "dev";
+    }
+
     public function login(User $user)
     {
         $_SESSION['user'] = $user;

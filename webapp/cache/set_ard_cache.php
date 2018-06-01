@@ -22,9 +22,9 @@ $bearer_token = $token->bearer_token();
 
 $committees = new \UChicago\AdvisoryCouncil\Committees();
 
+$factory = new \UChicago\AdvisoryCouncil\CommitteeMemberFactory();
 $committee_membership = new \UChicago\AdvisoryCouncil\CommitteeMemberMembership();
 
-$factory = new \UChicago\AdvisoryCouncil\CommitteeMemberFactory();
 $_SESSION['committees']=null;
 
 foreach ($committees->committes() as $key=> $committee) {
