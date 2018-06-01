@@ -6,15 +6,17 @@ require __DIR__ . "/../../vendor/autoload.php";
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
+$app = new \UChicago\AdvisoryCouncil\Application(false);
+
 $memcache_instance = new \UChicago\AdvisoryCouncil\CLIMemcache();
 
 $memcache = $memcache_instance->getMemcacheForCLI($argv[1]);
 
 //// Get base uri from App instance.
 
-$client = new Client(['base_uri' => 'https://ardapi.uchicago.edu/api/']);
+$client = new Client(['base_uri' => $app->ardUrl() ]);
 
-$token = new \UChicago\AdvisoryCouncil\BearerToken($client, "tommyt", "thom$$$$1967");
+$token = new \UChicago\AdvisoryCouncil\BearerToken($client);
 
 $bearer_token = $token->bearer_token();
 
