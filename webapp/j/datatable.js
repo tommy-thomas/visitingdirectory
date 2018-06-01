@@ -21,10 +21,6 @@
 			sOut +='<td>'+data[5]+'</td>';
 			sOut +='<td>&nbsp;</td>';
 			sOut +='<td>'+data[1] +'</td>';
-			if( data[3] != null && data[3] != "")
-			{
-				sOut +='<br />'+data[3];
-			}
 			sOut +='</td>';
 			sOut +='<td>&nbsp;</td>';
 			sOut +='</tr>';
