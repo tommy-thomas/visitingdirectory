@@ -63,7 +63,7 @@ class Committees
     public function getCommitteeName($committee_code = "")
     {
         if (!empty($committee_code) && array_key_exists($committee_code , $this->committees)) {
-                return $this->committees[$committee_code]['SHORT_DESC'];
+                return $this->committees[$committee_code]['FULL_DESC'];
         }
         return "";
     }

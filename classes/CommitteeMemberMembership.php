@@ -39,4 +39,16 @@ class CommitteeMemberMembership
     }
 
 
+    public function getCommitteesDisplay( $id_number = "" , $committees = array()){
+        if( !isset($this->committee_members[$id_number])){
+            return;
+        }
+        $display=array();
+        foreach ( $this->committee_members[$id_number] as $committee_code ){
+            array_push( $display , $committees[$committee_code]['SHORT_DESC']);
+        }
+        return implode(", " , $display);
+    }
+
+
 }

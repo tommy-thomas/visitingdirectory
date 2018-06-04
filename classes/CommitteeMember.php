@@ -29,7 +29,7 @@ class CommitteeMember //extends WS_DynamicGetterSetter
     private $email;
     private $phone;
     private $chair = false;
-    private $committees_display;
+    private $membership_display;
 
     public function setInfo($info=""){
         $this->info = $info;
@@ -166,11 +166,11 @@ class CommitteeMember //extends WS_DynamicGetterSetter
         return $this->chair;
     }
 
-    public function setCommitteesDisplay( $committees_display = ""){
-        $this->committees_display = $committees_display;
+    public function setMembershipDisplay($membership_display = ""){
+        $this->membership_display = $membership_display;
     }
 
-    public function committees_display(){
-        return $this->committees_display;
+    public function membership_display(){
+        return $this->membership_display;
     }
 }
