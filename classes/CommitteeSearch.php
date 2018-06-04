@@ -26,8 +26,8 @@ class CommitteeSearch
     public function searchResults( $search = array("first_name" => "" , "last_name" => "") )
     {
         $this->results = array();
-        $this->first_name = trim($search['first_name']);
-        $this->last_name = trim($search['last_name']);
+        $this->first_name = trim(strtolower($search['first_name']));
+        $this->last_name = trim(strtolower($search['last_name']));
         if( empty($this->committees) || (empty($this->first_name) && empty($this->last_name)) ){
            return $this->results;
         }
@@ -38,12 +38,12 @@ class CommitteeSearch
     }
 
     private function search( CommitteeMember $member ){
-        if( !empty($this->first_name) && empty($this->last_name) && (strpos($member->first_name() , $this->first_name) !== false) ){
+        if( !empty($this->first_name) && empty($this->last_name) && (strpos(strtolower($member->first_name()) , $this->first_name) !== false) ){
             array_push($this->results , $member);
-        } elseif(!empty($this->last_name) && empty($this->first_name) && (strpos($member->last_name() , $this->last_name) !== false)){
+        } elseif(!empty($this->last_name) && empty($this->first_name) && (strpos(strtolower($member->last_name()) , $this->last_name) !== false)){
             array_push($this->results , $member);
-        } elseif( (!empty($this->last_name) && strpos($member->last_name() , $this->last_name) !== false)
-            || (!empty($this->first_name) && strpos($member->first_name() , $this->first_name) !== false)
+        } elseif( (!empty($this->last_name) && strpos(strtolower($member->last_name()) , $this->last_name) !== false)
+            || (!empty($this->first_name) && strpos(strtolower($member->first_name()) , $this->first_name) !== false)
         ){
             array_push($this->results , $member);
         }
