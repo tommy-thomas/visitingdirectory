@@ -88,7 +88,7 @@ class Repository
             }
             $this->memcache->set('AdvisoryCouncilsMemberData', $_SESSION['committees'], MEMCACHE_COMPRESSED, 0);
         }
-        $this->memcache->set('AdvisoryCouncilsMemberMembershipData', array("committee_membership", $committee_membership), MEMCACHE_COMPRESSED, 0);
+        $this->memcache->set('AdvisoryCouncilsMemberMembershipData', array('committee_membership' => $committee_membership), MEMCACHE_COMPRESSED, 0);
 
         return;
     }
@@ -115,8 +115,8 @@ class Repository
 
     public function getCouncilMembershipData()
     {
-        if (isset($this->data['AdvisoryCouncilsMemberMembershipData'])) {
-            return $this->data['AdvisoryCouncilsMemberMembershipData'];
+        if (isset($this->data['AdvisoryCouncilsMemberMembershipData']['committee_membership'])) {
+            return $this->data['AdvisoryCouncilsMemberMembershipData']['committee_membership'];
         }
         return new CommitteeMemberMembership();
     }
