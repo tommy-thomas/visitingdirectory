@@ -115,8 +115,7 @@ class Repository
 
     public function getCouncilMembershipData()
     {
-        if (isset($this->data['AdvisoryCouncilsMemberMembershipData']['committee_membership'])
-            && $this->data['AdvisoryCouncilsMemberMembershipData']['committee_membership'] instanceof CommitteeMemberMembership) {
+        if (isset($this->data['AdvisoryCouncilsMemberMembershipData'])) {
             return $this->data['AdvisoryCouncilsMemberMembershipData']['committee_membership'];
         }
         return new CommitteeMemberMembership();

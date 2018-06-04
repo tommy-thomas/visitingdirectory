@@ -72,7 +72,6 @@ if ((isset($_POST['search_by_committee']) && !empty($_POST['committee'])) || iss
  * Search by first_name or last_name
  */
 if (isset($_POST['search_by_name'])) {
-    var_dump( $repository->getCouncilMembershipData());
     $search = new \UChicago\AdvisoryCouncil\CommitteeSearch( $repository->allCouncilData() ,
         new \UChicago\AdvisoryCouncil\CommitteeMemberFactory() ,
         $repository->getCouncilMembershipData());
