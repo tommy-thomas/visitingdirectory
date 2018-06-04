@@ -27,7 +27,7 @@
 										<select name="committee" size="1">
 											<option value="" selected>-- Select -- </option>
 											{% for c in committees %}
-											<option value="{{ c.COMMITTEE_CODE }}">{{ c.FULL_DESC }}</option>
+											<option value="{{ c.COMMITTEE_CODE }}">{{ c.SHORT_DESC }}</option>
 											{% endfor %}
 										</select>
 										<div>
