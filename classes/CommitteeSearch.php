@@ -48,4 +48,8 @@ class CommitteeSearch
             array_push($this->results , $member);
         }
     }
+
+    public function total(){
+        return count( $this->results );
+    }
 }
