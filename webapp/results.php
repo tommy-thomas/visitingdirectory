@@ -66,7 +66,9 @@ if ((isset($_POST['search_by_committee']) && !empty($_POST['committee'])) || iss
     $TwigTemplateVariables['members'] = $members_list;
 }
 if (isset($_POST['search_by_name'])) {
-    $search = new \UChicago\AdvisoryCouncil\CommitteeSearch( $repository->allCouncilData() , new \UChicago\AdvisoryCouncil\CommitteeMemberFactory());
+    $search = new \UChicago\AdvisoryCouncil\CommitteeSearch( $repository->allCouncilData() ,
+        new \UChicago\AdvisoryCouncil\CommitteeMemberFactory() ,
+        new \UChicago\AdvisoryCouncil\CommitteeMemberMembership() );
 
     $results = $search->searchResults( array("first_name" => htmlClean($_POST['f_name']) , "last_name" => htmlClean($_POST['l_name'])) );
 
