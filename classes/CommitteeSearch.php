@@ -9,7 +9,7 @@
 namespace UChicago\AdvisoryCouncil;
 
 
-class dataearch
+class CommitteeSearch
 {
     private $first_name = "";
     private $last_name = "";
