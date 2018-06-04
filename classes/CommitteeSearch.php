@@ -47,7 +47,6 @@ class CommitteeSearch
 
             $memberships = $this->membership->getCommittees( $member->id_number() );
             $member->setMembershipDisplay( $this->committees->getCommitteesForDisplay($memberships));
-
             array_push($this->results , $member);
         } elseif(!empty($this->last_name) && empty($this->first_name) && (strpos(strtolower($member->last_name()) , $this->last_name) !== false)){
             $memberships = $this->membership->getCommittees( $member->id_number() );
