@@ -66,7 +66,11 @@ if ((isset($_POST['search_by_committee']) && !empty($_POST['committee'])) || iss
     $TwigTemplateVariables['members'] = $members_list;
 }
 if (isset($_POST['search_by_name'])) {
-    $xml = $manager->searchMembersByName(htmlClean($_POST['f_name']), htmlClean($_POST['l_name']));
+    $search = new \UChicago\AdvisoryCouncil\CommitteeSearch( $repository->allCouncilData() , new \UChicago\AdvisoryCouncil\CommitteeMemberFactory());
+
+    $results = $search->searchResults( array("first_nme" => htmlClean($_POST['f_name']) , "last_name" => htmlClean($_POST['l_name'])) );
+
+    var_dump($results); exit();
     $members = $manager->searchCachedMembersByID($xml);
     if (empty($members)) {
         $members = $collection->getMembersAndCommittees($xml, $_SESSION['authtoken']);

@@ -108,6 +108,10 @@ class Repository
         return array();
     }
 
+    public function allCouncilData(){
+        return $this->data['AdvisoryCouncilsMemberData'];
+    }
+
     public function getCouncilMembershipData()
     {
         if( isset($this->data['AdvisoryCouncilsMemberMembershipData'])
