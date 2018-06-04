@@ -43,6 +43,7 @@ class CommitteeSearch
     private function search( CommitteeMember $member ){
         if( !empty($this->first_name) && empty($this->last_name) && (strpos(strtolower($member->first_name()) , $this->first_name) !== false) ){
             $membership_display = $this->membership->getCommitteesDisplay( $member->id_number() , $this->committees);
+            print $membership_display."\n";
             $member->setMembershipDisplay( $membership_display );
             array_push($this->results , $member);
         } elseif(!empty($this->last_name) && empty($this->first_name) && (strpos(strtolower($member->last_name()) , $this->last_name) !== false)){
