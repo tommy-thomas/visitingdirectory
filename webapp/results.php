@@ -11,7 +11,6 @@ $app = new \UChicago\AdvisoryCouncil\Application();
 
 $committees = new \UChicago\AdvisoryCouncil\Committees();
 
-//public function __construct($environment = "dev", CLIMemcache $memcache, $ard_api_url = "", Client $client, $bearer_token = "")
 $memcache_instance = new \UChicago\AdvisoryCouncil\CLIMemcache();
 
 $memcache = $memcache_instance->getMemcacheForCLI($app->environment());
@@ -73,7 +72,7 @@ if ((isset($_POST['search_by_committee']) && !empty($_POST['committee'])) || iss
  * Search by first_name or last_name
  */
 if (isset($_POST['search_by_name'])) {
-
+    var_dump( $repository->getCouncilMembershipData());
     $search = new \UChicago\AdvisoryCouncil\CommitteeSearch( $repository->allCouncilData() ,
         new \UChicago\AdvisoryCouncil\CommitteeMemberFactory() ,
         $repository->getCouncilMembershipData());
