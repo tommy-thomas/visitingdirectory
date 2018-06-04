@@ -18,7 +18,7 @@ $memcache = $memcache_instance->getMemcacheForCLI($app->environment());
 
 $client = new Client(['base_uri' => 'https://ardapi.uchicago.edu/api/']);
 
-$token = new \UChicago\AdvisoryCouncil\BearerToken($client);
+$token = new \UChicago\AdvisoryCouncil\BearerToken($client , "tommyt" , "thom$$$$1967");
 
 $bearer_token = $token->bearer_token();
 
@@ -68,23 +68,12 @@ if ((isset($_POST['search_by_committee']) && !empty($_POST['committee'])) || iss
 if (isset($_POST['search_by_name'])) {
     $search = new \UChicago\AdvisoryCouncil\CommitteeSearch( $repository->allCouncilData() , new \UChicago\AdvisoryCouncil\CommitteeMemberFactory());
 
-    $results = $search->searchResults( array("first_nme" => htmlClean($_POST['f_name']) , "last_name" => htmlClean($_POST['l_name'])) );
+    $results = $search->searchResults( array("first_name" => htmlClean($_POST['f_name']) , "last_name" => htmlClean($_POST['l_name'])) );
 
-    var_dump($results); exit();
-    $members = $manager->searchCachedMembersByID($xml);
-    if (empty($members)) {
-        $members = $collection->getMembersAndCommittees($xml, $_SESSION['authtoken']);
+    if ( $search->total() > 0) {
+    	$TwigTemplateVariables['members'] = $results;
     }
-    $count = count($members);
-    $total = 0;
-    if ($count > 0) {
-        foreach ($members as $key => $m) {
-            $total++;
-            $id_number = $m->getIdNumber();
-            $m->addClassDataTemplate($template, "CommitteeMember.$id_number.");
-        }
-    }
-    $TwigTemplateVariables['count'] = $total;
+    $TwigTemplateVariables['total'] = $search->total();
     $TwigTemplateVariables['ShowSearchResults'] = true;
 }
 
