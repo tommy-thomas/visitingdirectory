@@ -9,52 +9,55 @@
 namespace UChicago\AdvisoryCouncil;
 
 
-class CommitteeSearch
+class dataearch
 {
     private $first_name = "";
     private $last_name = "";
-    private $committees = array();
+    private $data = array();
     private $results = array();
     private $factory;
+    private $committees;
     private $membership;
 
-    public function __construct( $committees = array() , CommitteeMemberFactory $factory = null, CommitteeMemberMembership $membership = null)
+    public function __construct( $data = array() , CommitteeMemberFactory $factory = null , $membership = null)
     {
-        $this->committees = $committees;
+        $this->data = $data;
         $this->factory = $factory;
         $this->membership = $membership;
-
     }
 
-    public function searchResults( $search = array("first_name" => "" , "last_name" => "") )
+    public function searchResults( $search = array("first_name" => "" , "last_name" => "") , Committees $committees )
     {
         $this->results = array();
         $this->first_name = trim(strtolower($search['first_name']));
         $this->last_name = trim(strtolower($search['last_name']));
-        if( empty($this->committees) || (empty($this->first_name) && empty($this->last_name)) ){
+        $this->committees = $committees;
+
+        if( empty($this->data) || (empty($this->first_name) && empty($this->last_name)) ){
            return $this->results;
         }
-        foreach ( $this->committees as $key => $committee){
-            array_walk( $committee , array($this , "search"));
+        foreach ( $this->data as $key => $data){
+            array_walk( $data , array($this , "search"));
         }
         return !is_null($this->factory) ? $this->factory->sortData($this->results) : $this->results;
     }
 
     private function search( CommitteeMember $member ){
         if( !empty($this->first_name) && empty($this->last_name) && (strpos(strtolower($member->first_name()) , $this->first_name) !== false) ){
-            $membership_display = $this->membership->getCommitteesDisplay( $member->id_number() , $this->committees);
-            print $membership_display."\n";
-            $member->setMembershipDisplay( $membership_display );
+
+            $memberships = $this->membership->getCommittees( $member->id_number() );
+            $member->setMembershipDisplay( $this->committees->getCommitteesForDisplay($memberships));
+
             array_push($this->results , $member);
         } elseif(!empty($this->last_name) && empty($this->first_name) && (strpos(strtolower($member->last_name()) , $this->last_name) !== false)){
-            $membership_display = $this->membership->getCommitteesDisplay( $member->id_number() , $this->committees);
-            $member->setMembershipDisplay( $membership_display );
+            $memberships = $this->membership->getCommittees( $member->id_number() );
+            $member->setMembershipDisplay( $this->committees->getCommitteesForDisplay($memberships));
             array_push($this->results , $member);
         } elseif( (!empty($this->last_name) && strpos(strtolower($member->last_name()) , $this->last_name) !== false)
             || (!empty($this->first_name) && strpos(strtolower($member->first_name()) , $this->first_name) !== false)
         ){
-            $membership_display = $this->membership->getCommitteesDisplay( $member->id_number() , $this->committees);
-            $member->setMembershipDisplay( $membership_display );
+            $memberships = $this->membership->getCommittees( $member->id_number() );
+            $member->setMembershipDisplay( $this->committees->getCommitteesForDisplay($memberships));
             array_push($this->results , $member);
         }
     }

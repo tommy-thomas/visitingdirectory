@@ -100,22 +100,23 @@ class Repository
         $this->data['AdvisoryCouncilsMemberMembershipData'] = $this->memcache->get('AdvisoryCouncilsMemberMembershipData');
     }
 
-    public function getCouncilData( $code )
+    public function getCouncilData($code)
     {
-        if(isset($this->data['AdvisoryCouncilsMemberData'][$code])){
+        if (isset($this->data['AdvisoryCouncilsMemberData'][$code])) {
             return $this->data['AdvisoryCouncilsMemberData'][$code];
         }
         return array();
     }
 
-    public function allCouncilData(){
+    public function allCouncilData()
+    {
         return $this->data['AdvisoryCouncilsMemberData'];
     }
 
     public function getCouncilMembershipData()
     {
-        if( isset($this->data['AdvisoryCouncilsMemberMembershipData'])
-            && $this->data['AdvisoryCouncilsMemberMembershipData'] instanceof CommitteeMemberMembership){
+        if (isset($this->data['AdvisoryCouncilsMemberMembershipData'])
+            && $this->data['AdvisoryCouncilsMemberMembershipData'] instanceof CommitteeMemberMembership) {
             return $this->data['AdvisoryCouncilsMemberMembershipData'];
         }
         return new CommitteeMemberMembership();

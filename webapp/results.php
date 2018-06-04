@@ -16,7 +16,7 @@ $memcache_instance = new \UChicago\AdvisoryCouncil\CLIMemcache();
 
 $memcache = $memcache_instance->getMemcacheForCLI($app->environment());
 
-$client = new Client(['base_uri' => 'https://ardapi.uchicago.edu/api/']);
+$client = new Client(['base_uri' => $app->ardUrl() ]);
 
 $token = new \UChicago\AdvisoryCouncil\BearerToken($client , "tommyt" , "thom$$$$1967");
 
@@ -45,6 +45,9 @@ if ((isset($_POST['search_by_committee']) && empty($_POST['committee']))) {
     $app->redirect('./search.php?error=no_name');
 }
 
+/**
+ * Search by council
+ */
 if ((isset($_POST['search_by_committee']) && !empty($_POST['committee'])) || isset($_GET['c'])) {
     if (isset($_POST['committee'])) {
         $code = $_POST['committee'];
@@ -65,12 +68,18 @@ if ((isset($_POST['search_by_committee']) && !empty($_POST['committee'])) || iss
     }
     $TwigTemplateVariables['members'] = $members_list;
 }
+
+/**
+ * Search by first_name or last_name
+ */
 if (isset($_POST['search_by_name'])) {
+
     $search = new \UChicago\AdvisoryCouncil\CommitteeSearch( $repository->allCouncilData() ,
         new \UChicago\AdvisoryCouncil\CommitteeMemberFactory() ,
-        new \UChicago\AdvisoryCouncil\CommitteeMemberMembership() );
+        $repository->getCouncilMembershipData());
 
-    $results = $search->searchResults( array("first_name" => htmlClean($_POST['f_name']) , "last_name" => htmlClean($_POST['l_name'])) );
+    $results = $search->searchResults( array("first_name" => htmlClean($_POST['f_name']) , "last_name" => htmlClean($_POST['l_name'])) ,
+        $repository->getCouncilMembershipData());
 
     if ( $search->total() > 0) {
     	$TwigTemplateVariables['members'] = $results;

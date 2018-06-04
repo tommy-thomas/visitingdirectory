@@ -68,4 +68,12 @@ class Committees
         return "";
     }
 
+    public function getCommitteesForDisplay( $memberships = array() ){
+        $display = array();
+        foreach ($memberships as $key => $committee_cocde ){
+            array_push( $display , $this->committees[$committee_cocde]['FULL_DESC']);
+        }
+        return implode( " ," , $display );
+    }
+
 }
