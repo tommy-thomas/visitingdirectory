@@ -61,7 +61,7 @@ class CommitteeSearch
     }
 
     private function addMemberToResults( CommitteeMember $member = null){
-        if( !is_null($member) && !array_key_exists( $member->id_number() )){
+        if( !is_null($member) && !array_key_exists( $member->id_number() , $this->results) ){
             $this->results[ $member->id_number() ] = $member;
         }
     }
