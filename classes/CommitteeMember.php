@@ -167,14 +167,14 @@ class CommitteeMember //extends WS_DynamicGetterSetter
         return $this->chair;
     }
 
-    public function setMembership($membership = array()){
-         array_push( $this->memberships , $membership);
+    public function setMembership($memberships = array()){
+         array_push( $this->memberships , $memberships);
+         print_r( $this->memberships ); exit();
          $display= array();
          foreach ($this->memberships as $key => $array){
-             print_r($array[1]);
-             //isset( $array[1]['SHORT_DESC'] ) ? array_push( $display , $array[1]['SHORT_DESC']) : "";
+             isset( $array[1]['SHORT_DESC'] ) ? array_push( $display , $array[1]['SHORT_DESC']) : "";
          }
-        //$this->membership_display = implode( ", "  , $display);
+        $this->membership_display = implode( ", "  , $display);
     }
 
     public function membership_display(){
