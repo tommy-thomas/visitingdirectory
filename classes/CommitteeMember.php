@@ -172,7 +172,7 @@ class CommitteeMember //extends WS_DynamicGetterSetter
          $display= array();
          foreach ($this->memberships as $key => $array){
              //array_push( $display , $array['SHORT_DESC']);
-             var_dump( $array );
+             print_r( $array );
          }
 
         $this->membership_display = implode( ", "  , $display);
