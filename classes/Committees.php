@@ -69,10 +69,11 @@ class Committees
     }
 
     public function getCommitteeMemberships( $memberships = array() ){
+        $return = array();
         foreach ($memberships as $key => $committee_code ){
-            array_push( $memberships , $this->committees[$committee_code]);
+            array_push( $return , $this->committees[$committee_code]);
         }
-        return $memberships;
+        return $return;
     }
 
 }
