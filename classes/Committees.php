@@ -70,8 +70,7 @@ class Committees
 
     public function getCommitteeMemberships( $memberships = array() ){
         foreach ($memberships as $key => $committee_code ){
-            $memberships[$committee_code] = array();
-            array_push( $memberships[$committee_code] , $this->committees[$committee_code]);
+            array_push( $memberships , $this->committees[$committee_code]);
         }
         return $memberships;
     }
