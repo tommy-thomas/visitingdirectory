@@ -46,17 +46,23 @@ class CommitteeSearch
         if( !empty($this->first_name) && empty($this->last_name) && (strpos(strtolower($member->first_name()) , $this->first_name) !== false) ){
             $memberships = $this->membership->getCommittees( $member->id_number() );
             $member->setMembership( $this->committees->getCommitteeMemberships( $memberships ) );
-            array_push($this->results , $member);
+            $this->addMemberToResults( $member );
         } elseif(!empty($this->last_name) && empty($this->first_name) && (strpos(strtolower($member->last_name()) , $this->last_name) !== false)){
             $memberships = $this->membership->getCommittees( $member->id_number() );
             $member->setMembership( $this->committees->getCommitteeMemberships( $memberships ) );
-            array_push($this->results , $member);
+            $this->addMemberToResults( $member );
         } elseif( (!empty($this->last_name) && strpos(strtolower($member->last_name()) , $this->last_name) !== false)
             || (!empty($this->first_name) && strpos(strtolower($member->first_name()) , $this->first_name) !== false)
         ){
             $memberships = $this->membership->getCommittees( $member->id_number() );
             $member->setMembership( $this->committees->getCommitteeMemberships( $memberships ) );
-            array_push($this->results , $member);
+           $this->addMemberToResults( $member );
+        }
+    }
+
+    private function addMemberToResults( CommitteeMember $member = null){
+        if( !is_null($member) && !array_key_exists( $member->id_number() )){
+            $this->results[ $member->id_number() ] = $member;
         }
     }
 
