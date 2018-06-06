@@ -71,7 +71,7 @@ class Committees
     public function getCommitteesForDisplay( $memberships = array() ){
         $display = array();
         foreach ($memberships as $key => $committee_cocde ){
-            array_push( $display , $this->committees[$committee_cocde]['SHORT_DESC']);
+            array_push( $display , $this->committees[$committee_cocde]);
         }
         return implode( " ," , $display );
     }
