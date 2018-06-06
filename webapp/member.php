@@ -3,7 +3,7 @@ require __DIR__ . "/../vendor/autoload.php";
 /**
  * The Application object.
  */
-$app = Application::app();
+$app = new \UChicago\AdvisoryCouncil\Application();
 /**
  * Start populating the CS template.
  * The Clear Silver template.
