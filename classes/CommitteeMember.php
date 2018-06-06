@@ -170,9 +170,8 @@ class CommitteeMember //extends WS_DynamicGetterSetter
     public function setMembership($memberships = array()){
          array_push( $this->memberships , $memberships);
          $display= array();
-         foreach (array_values($this->memberships) as $key => $array){
-             var_dump($array);
-             isset( $array['SHORT_DESC'] ) ? array_push( $display , $array['SHORT_DESC']) : "";
+         for ($i=0; $i<count($this->memberships); $i++){
+             isset( $this->memberships[$i]['SHORT_DESC'] ) ? array_push( $display , $this->memberships[$i]['SHORT_DESC']) : "";
          }
         $this->membership_display = implode( ", "  , $display);
     }
