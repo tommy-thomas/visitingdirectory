@@ -72,6 +72,7 @@ class Committees
         foreach ($memberships as $key => $committee_code ){
             array_push( $memberships , $this->committees[$committee_code]);
         }
+        var_dump($memberships);
         return $memberships;
     }
 
