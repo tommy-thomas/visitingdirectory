@@ -29,7 +29,8 @@ class CommitteeMember //extends WS_DynamicGetterSetter
     private $email;
     private $phone;
     private $chair = false;
-    private $membership = array();
+    private $memberships = array();
+    private $membership_display;
 
     public function setInfo($info=""){
         $this->info = $info;
@@ -167,11 +168,12 @@ class CommitteeMember //extends WS_DynamicGetterSetter
     }
 
     public function setMembership($membership = array()){
-       array_push( $this->membership , $membership);
+       array_push( $this->memberships , $membership);
     }
 
     public function membership_display(){
-        $display_array = $ids = array_column( $this->membership, 'SHORT_DESC');
-        return ( !empty($display_array)) ? implode( ", " , $display_array) : "";
+        $display_array = $ids = array_column( $this->memberships, 'SHORT_DESC');
+        $this->membership_display = ( !empty($display_array)) ? implode( ", " , $display_array) : "";
+        return $this->membership_display;
     }
 }
