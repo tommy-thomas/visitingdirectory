@@ -3,6 +3,8 @@ require __DIR__ . "/../vendor/autoload.php";
 /**
  * The Application object.
  */
+use GuzzleHttp\Client;
+
 $app = new \UChicago\AdvisoryCouncil\Application();
 
 $committees = new \UChicago\AdvisoryCouncil\Committees();
