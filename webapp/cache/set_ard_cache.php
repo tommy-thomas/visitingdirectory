@@ -14,7 +14,7 @@ $memcache = $memcache_instance->getMemcacheForCLI($argv[1]);
 
 //// Get base uri from App instance.
 
-$client = new Client(['base_uri' => "https://ardapi.uchicago.edu/api/" ]);
+$client = new Client(['base_uri' => $app->ardUrl() ]);
 
 $token = new \UChicago\AdvisoryCouncil\BearerToken($client, "" , "");
 
@@ -40,7 +40,7 @@ foreach ($committees->committes() as $key=> $committee) {
 
     $chairs = $factory->chairsArray(json_decode($response->getBody())->committees);
 
-    $lifetime_members_array = $factory->lifeTimeMembersArray( json_decode($response->getBody())->committees );
+    $lifetime_member_array = $factory->lifeTimeMembersArray( json_decode($response->getBody())->committees );
 
     $promise = $client->getAsync(
         "entity/collection?" . $ids_as_query_string,
@@ -50,7 +50,7 @@ foreach ($committees->committes() as $key=> $committee) {
     );
 
     $promise->then(
-        function (\GuzzleHttp\Psr7\Response $resp) use ($factory, $committee, $committee_membership, $chairs, $lifetime_members_array) {
+        function (\GuzzleHttp\Psr7\Response $resp) use ($factory, $committee, $committee_membership, $chairs, $lifetime_member_array) {
 
             foreach (json_decode($resp->getBody()) as $object) {
 

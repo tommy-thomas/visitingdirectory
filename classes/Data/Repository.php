@@ -54,6 +54,8 @@ class Repository
 
             $chairs = $factory->chairsArray(json_decode($response->getBody())->committees);
 
+            $lifetime_member_array = $factory->lifeTimeMembersArray( json_decode($response->getBody())->committees );
+
             $promise = $this->client->getAsync(
                 "entity/collection?" . $ids_as_query_string,
                 [
@@ -62,13 +64,15 @@ class Repository
             );
 
             $promise->then(
-                function (\GuzzleHttp\Psr7\Response $resp) use ($factory, $committee, $committee_membership, $chairs) {
+                function (\GuzzleHttp\Psr7\Response $resp) use ($factory, $committee, $committee_membership, $chairs, $lifetime_member_array) {
 
                     foreach (json_decode($resp->getBody()) as $object) {
 
                         $chair = $chairs[$committee['COMMITTEE_CODE']] == $object->info->ID_NUMBER ? true : false;
 
-                        $_SESSION['committees'][$committee['COMMITTEE_CODE']][$object->info->ID_NUMBER] = $factory->member($object, $chair);
+                        $lifetime_member = in_array( $object->info->ID_NUMBER , $lifetime_member_array);
+
+                        $_SESSION['committees'][$committee['COMMITTEE_CODE']][$object->info->ID_NUMBER] = $factory->member($object, $chair, $lifetime_member);
 
                         $committee_membership->addCommittee($object->info->ID_NUMBER, $committee['COMMITTEE_CODE']);
                     }
