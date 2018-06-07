@@ -83,7 +83,7 @@ class Committees
         foreach ($memberships as $key => $committee_code ){
             array_push( $return , $this->committees[$committee_code]);
         }
-        usort($return, array($this,' sortByDesc'));
+        usort($return, array($this,'sortByDesc'));
         return $return;
     }
 
