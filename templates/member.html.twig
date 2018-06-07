@@ -26,7 +26,7 @@
 					
 					<div id="memberdata">
 
-						{% for m in CommitteeMember %}
+						{% for m in members %}
 							<p>
 								<strong>{% m.full_name %}</strong><br />
 								{% if m.degrees %}{% m.degrees %}<br />{% endif %}
@@ -48,7 +48,7 @@
 
 							<h3>Committees:</h3>
 							<p>
-								{% each:c=committee_list %}												  
+								{% for c in committee_list %}
 								<a href="results.php?c={% c.key %}">{% c.value %}</a><br />
 								{% endfor %}
 							</p>
