@@ -49,7 +49,7 @@
 							<h3>Committees:</h3>
 							<p>
 								{% for c in committees %}
-								<a href="results.php?c={% c.COMMITTEE_CODE %}">{% c.FULL_DESC %}</a><br />
+								<a href="results.php?c={{ c.COMMITTEE_CODE }}">{{  c.FULL_DESC }}</a><br />
 								{% endfor %}
 							</p>
 						{% endfor %}
