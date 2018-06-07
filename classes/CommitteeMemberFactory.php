@@ -15,7 +15,7 @@ class CommitteeMemberFactory
     private $json_payload;
     private $member;
 
-    public function member($json_payload, $chair = false)
+    public function member($json_payload, $chair = false, $lifetime_member=false)
     {
         if (is_null($json_payload) || !is_object($json_payload)) {
             return false;
@@ -25,6 +25,7 @@ class CommitteeMemberFactory
         $this
             ->info()
             ->chair($chair)
+            ->lifetime_member($lifetime_member)
             ->addresses()
             ->degrees()
             ->employment()
@@ -50,6 +51,17 @@ class CommitteeMemberFactory
             }
         }
         return $chairs;
+    }
+
+    public function lifeTimeMembersArray($members = [])
+    {
+        $lifetime_members = array();
+        foreach ($members as $key => $member) {
+            if (self::isActive($member) && isset($member->COMMITTEE_ROLE_CODE) && $member->COMMITTEE_ROLE_CODE == "LM") {
+                array_push( $lifetime_members , $member->ID_NUMBER);
+            }
+        }
+        return $lifetime_members;
     }
 
     public function idNumbersAsQueryString($members = [])
@@ -78,6 +90,11 @@ class CommitteeMemberFactory
     private function chair($chair = false)
     {
         $this->member->setChair($chair);
+        return $this;
+    }
+
+    private function lifetime_member($lifetime_member=false){
+        $this->member->setLifeTimeMember( $lifetime_member );
         return $this;
     }
 

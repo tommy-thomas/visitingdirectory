@@ -29,6 +29,7 @@ class CommitteeMember //extends WS_DynamicGetterSetter
     private $email;
     private $phone;
     private $chair = false;
+    private $lifetime_member = false;
     private $memberships = array();
     private $membership_display;
 
@@ -165,6 +166,14 @@ class CommitteeMember //extends WS_DynamicGetterSetter
 
     public function chair(){
         return $this->chair;
+    }
+
+    public function setLifeTimeMember( $lifetime_member = false){
+        $this->lifetime_member = $lifetime_member;
+    }
+
+    public function lifetime_member(){
+        return $this->lifetime_member;
     }
 
     public function setMembership($memberships = array()){

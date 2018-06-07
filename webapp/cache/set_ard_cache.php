@@ -14,9 +14,9 @@ $memcache = $memcache_instance->getMemcacheForCLI($argv[1]);
 
 //// Get base uri from App instance.
 
-$client = new Client(['base_uri' => $app->ardUrl() ]);
+$client = new Client(['base_uri' => "https://ardapi.uchicago.edu/api/" ]);
 
-$token = new \UChicago\AdvisoryCouncil\BearerToken($client);
+$token = new \UChicago\AdvisoryCouncil\BearerToken($client, "tommyt" , "thom$$$$1967");
 
 $bearer_token = $token->bearer_token();
 
@@ -40,6 +40,8 @@ foreach ($committees->committes() as $key=> $committee) {
 
     $chairs = $factory->chairsArray(json_decode($response->getBody())->committees);
 
+    $lifetime_members_array = $factory->lifeTimeMembersArray( json_decode($response->getBody())->committees );
+
     $promise = $client->getAsync(
         "entity/collection?" . $ids_as_query_string,
         [
@@ -48,13 +50,15 @@ foreach ($committees->committes() as $key=> $committee) {
     );
 
     $promise->then(
-        function (\GuzzleHttp\Psr7\Response $resp) use ($factory, $committee, $committee_membership, $chairs) {
+        function (\GuzzleHttp\Psr7\Response $resp) use ($factory, $committee, $committee_membership, $chairs, $lifetime_members_array) {
 
             foreach (json_decode($resp->getBody()) as $object) {
 
                 $chair = $chairs[$committee['COMMITTEE_CODE']] == $object->info->ID_NUMBER ? true : false;
 
-                $_SESSION['committees'][$committee['COMMITTEE_CODE']][$object->info->ID_NUMBER] = $factory->member($object, $chair);
+                $lifetime_member = in_array( $object->info->ID_NUMBER , $lifetime_members_array);
+
+                $_SESSION['committees'][$committee['COMMITTEE_CODE']][$object->info->ID_NUMBER] = $factory->member($object, $chair , $lifetime_member);
 
                 $committee_membership->addCommittee($object->info->ID_NUMBER, $committee['COMMITTEE_CODE']);
             }
@@ -81,6 +85,6 @@ $memcache->set('AdvisoryCouncilsMemberMembershipData', array('committee_membersh
 //
 //$results = $search->searchResults(array("first_name" => "John" , "last_name" => ""));
 
-// TODO: Wire up search
+//TODO: Grab lifetime member flag in initial payload.
 // TODO: Double check phone number, is it the preferred number?
 // TODO: Verify email report end point, what else is in the payload?
