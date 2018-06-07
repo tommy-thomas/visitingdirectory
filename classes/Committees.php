@@ -68,12 +68,22 @@ class Committees
         return "";
     }
 
+    private function sortByDesc($a, $b)
+    {
+        $a = $a['FULL_DESC'];
+        $b = $b['FULL_DESC'];
+
+        if ($a == $b) return 0;
+        return ($a < $b) ? -1 : 1;
+    }
+
+
     public function getCommitteeMemberships( $memberships = array() ){
         $return = array();
         foreach ($memberships as $key => $committee_code ){
             array_push( $return , $this->committees[$committee_code]);
         }
-        return $return;
+        return usort($return, array('Committees',' sortByDesc'));
     }
 
 }
