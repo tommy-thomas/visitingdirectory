@@ -39,6 +39,8 @@ if( !is_null($member) )
 
     $committees = $membership->getCommittees( $member->id_number() );
 
+    var_dump($committees);
+
     $TwigTemplateVariables['members'] = array($member);
 
     $TwigTemplateVariables['committees'] = $committees;
