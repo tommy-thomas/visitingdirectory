@@ -28,29 +28,29 @@
 
 						{% for m in members %}
 							<p>
-								<strong>{% m.full_name %}</strong><br />
-								{% if m.degrees %}{% m.degrees %}<br />{% endif %}
-								{% if  m.employment_job_title %}{%  m.employment_job_title %}<br />{% endif %}
-								{% if m.employment_employer_name %}{% m.employment_employer_name %}<br />{% endif %}
+								<strong>{{  m.full_name }}</strong><br />
+								{% if m.degrees %}{{  m.degrees }}<br />{% endif %}
+								{% if  m.employment_job_title %}{{  m.employment_job_title }}<br />{% endif %}
+								{% if m.employment_employer_name %}{{  m.employment_employer_name }}<br />{% endif %}
 							</p>
 				
 							<h3>Preferred Contact Information</h3>
 							<p>
-								{% if m.email %}<a href="mailto:{% m.email %}">{% m.email %}</a><br />{% endif %}
-								{% if m.phone %}Phone: <a href="tel:{%  m.phone %}">{%  m.phone %}</a>{% endif %}
+								{% if m.email %}<a href="mailto:{{  m.email }}">{{  m.email }}</a><br />{% endif %}
+								{% if m.phone %}Phone: <a href="tel:{{   m.phone }}">{{ m.phone }}</a>{% endif %}
 							</p>
 							
 							<h3>Preferred Mailing Address</h3>
 							<p>
-								{% if m.street %}{% m.street %}{% endif %}
+								{% if m.street %}{{  m.street}}{% endif %}
 								<br />
-								{% if m.city %}{% m.city %},{% endif %} {% if m.state %}{% m.State %}{% endif %} {% if m.zip %}{% m.zip %}{% endif %}</p>
+								{% if m.city %}{{   m.city  }},{% endif %} {% if m.state %}{{  m.state }}{% endif %} {% if m.zip %}{{ m.zip }}{% endif %}</p>
 
 							<h3>Committees:</h3>
 							<p>
-								{% for c in committee_list %}
-								<a href="results.php?c={% c.key %}">{% c.value %}</a><br />
-								{% endfor %}
+								{#{% for c in committee_list %}#}
+								{#<a href="results.php?c={% c.key %}">{% c.value %}</a><br />#}
+								{#{% endfor %}#}
 							</p>
 						{% endfor %}
 					</div><!-- end member data div -->
