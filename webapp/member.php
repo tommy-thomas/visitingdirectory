@@ -31,13 +31,18 @@ if (!$app->isAuthorized() || !isset($_GET['id_number']) ) {
     $TwigTemplateVariables['LoggedIn'] = true;
 }
 
-$member = $repository->getMemberByIdNumber( $_GET['id_number'] );
+$member = $repository->findMemberByIdNumber( $_GET['id_number'] );
 
 if( !is_null($member) )
 {
-    $TwigTemplateVariables['members'] = array($member);
-}
+    $membership = $repository->getCouncilMembershipData();
 
+    $committees = $membership->getCommittees( $member->id_number() );
+
+    $TwigTemplateVariables['members'] = array($member);
+
+    $TwigTemplateVariables['committees'] = $committees;
+}
 
 echo $template->render($TwigTemplateVariables);
   

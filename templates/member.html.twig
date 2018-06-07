@@ -48,9 +48,9 @@
 
 							<h3>Committees:</h3>
 							<p>
-								{#{% for c in committee_list %}#}
-								{#<a href="results.php?c={% c.key %}">{% c.value %}</a><br />#}
-								{#{% endfor %}#}
+								{% for c in committees %}
+								<a href="results.php?c={% c.COMMITTEE_CODE %}">{% c.FULL_DESC %}</a><br />
+								{% endfor %}
 							</p>
 						{% endfor %}
 					</div><!-- end member data div -->
