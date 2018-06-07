@@ -33,6 +33,7 @@ if (!$app->isAuthorized() || !isset($_GET['id_number']) ) {
 
 $member = $repository->getMemberByIdNumber( $_GET['id_number'] );
 
+var_dump($member);
 
 if( !is_null($member) )
 {
