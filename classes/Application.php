@@ -94,6 +94,10 @@ class Application extends \WS\SharedPHP\WS_Application
         }
     }
 
+    public function apiCreds(){
+        return array( "username" => "" , "password" => "");
+    }
+
     public function setUser($user = "")
     {
         $_SESSION['user'] = new User();

@@ -16,7 +16,7 @@ $memcache = $memcache_instance->getMemcacheForCLI($argv[1]);
 
 $client = new Client(['base_uri' => $app->ardUrl() ]);
 
-$token = new \UChicago\AdvisoryCouncil\BearerToken($client, "" , "");
+$token = new \UChicago\AdvisoryCouncil\BearerToken($client, $app->apiCreds()['username'],  $app->apiCreds()['password']);
 
 $bearer_token = $token->bearer_token();
 

@@ -18,7 +18,7 @@ use GuzzleHttp\Exception\RequestException;
 $client = new Client(['base_uri' => $app->ardUrl() ]);
 
 //$client = new Client(['base_uri' => 'https://ardapi-uat2015.uchicago.edu/api/']); // UAT
-$token = new UChicago\AdvisoryCouncil\BearerToken($client , "" , "");
+$token = new \UChicago\AdvisoryCouncil\BearerToken($client, $app->apiCreds()['username'],  $app->apiCreds()['password']);
 
 $_SESSION['bearer_token'] = $token->bearer_token();
 
