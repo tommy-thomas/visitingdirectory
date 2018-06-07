@@ -28,7 +28,7 @@
 
 						{% for m in CommitteeMember %}
 							<p>
-								<strong>{% var:m.FullName %}</strong><br />
+								<strong>{% var:m.full_name %}</strong><br />
 								{% if m.degrees %}{% var:m.degrees %}<br />{% endif %}
 								{% if  m.employment_job_title %}{%  m.employment_job_title %}<br />{% endif %}
 								{% if m.employment_employer_name %}{% m.employment_employer_name %}<br />{% endif %}
@@ -42,12 +42,9 @@
 							
 							<h3>Preferred Mailing Address</h3>
 							<p>
-								{% if m.StreetOne %}{% var:m.StreetOne %}{% endif %}
-								{% if m.StreetTwo %}<br />{% var:m.StreetTwo %}{% endif %}
-								{% if m.StreetThree %}<br />{% var:m.StreetThree %}{% endif %}
+								{% if m.street %}{% var:m.street %}{% endif %}
 								<br />
-								{% if m.City %}{% var:m.City %},{% endif %} {% if m.State %}{% var:m.State %}{% endif %} {% if m.Zip %}{% var:m.Zip %}{% endif %}{% if m.ForeignCityZip %}{% endif %}{% var:m.ForeignCityZip %}{% if m.CountryCode %}, {% var:m.CountryCode %}{% endif %}
-							</p>
+								{% if m.city %}{% m.city %},{% endif %} {% if m.state %}{% m.State %}{% endif %} {% if m.zip %}{% var:m.zip %}{% endif %}</p>
 
 							<h3>Committees:</h3>
 							<p>

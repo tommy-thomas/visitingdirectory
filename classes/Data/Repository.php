@@ -108,6 +108,15 @@ class Repository
         return array();
     }
 
+    public function getMemberByIdNumber( $id_number = "" ){
+        foreach ( $this->data['AdvisoryCouncilsMemberData'] as $key => $committee){
+            if( isset( $committee[$id_number])){
+                return $committee[$id_number];
+            }
+        }
+        return;
+    }
+
     public function allCouncilData()
     {
         return $this->data['AdvisoryCouncilsMemberData'];

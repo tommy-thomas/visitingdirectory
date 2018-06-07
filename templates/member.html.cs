@@ -26,7 +26,7 @@
 					
 					<div id="memberdata">
 
-						<?cs each:m=CommitteeMember ?>
+						<?cs each:m=member ?>
 							<p>
 								<strong><?cs var:m.FullName ?></strong><br />
 								<?cs if:m.DegreeInfo ?><?cs var:m.DegreeInfo ?><br /><?cs /if ?>

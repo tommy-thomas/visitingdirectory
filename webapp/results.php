@@ -17,11 +17,7 @@ $memcache = $memcache_instance->getMemcacheForCLI($app->environment());
 
 $client = new Client(['base_uri' => $app->ardUrl() ]);
 
-$token = new \UChicago\AdvisoryCouncil\BearerToken($client , "" , "");
-
-$bearer_token = $token->bearer_token();
-
-$repository = new \UChicago\AdvisoryCouncil\Data\Repository($app->environment(), $memcache, $client, $bearer_token);
+$repository = new \UChicago\AdvisoryCouncil\Data\Repository($app->environment(), $memcache, $client, $_SESSION['bearer_token']);
 
 /**
  * Start populating the CS template.
@@ -58,11 +54,8 @@ if ((isset($_POST['search_by_committee']) && !empty($_POST['committee'])) || iss
     $members_list = $repository->getCouncilData($code);
 
     foreach ($members_list as $m) {
-        if ($m->chair()) {
-            $name = $m->first_name() . ' ';
-            $name .= strlen($m->middle()) > 0 ? $m->middle() . ' ' . $m->last_name() : $m->last_name();
-            $name .= ', Chair';
-            $TwigTemplateVariables['Chairman'] = $name;
+        if ($m->chair()) {;
+            $TwigTemplateVariables['Chairman'] =  $m->full_name().', Chair';
         }
     }
     $TwigTemplateVariables['members'] = $members_list;

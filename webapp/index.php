@@ -15,10 +15,10 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\RequestException;
 
-$client = new Client(['base_uri' => 'https://ardapi.uchicago.edu/api/']);
+$client = new Client(['base_uri' => $app->ardUrl() ]);
 
 //$client = new Client(['base_uri' => 'https://ardapi-uat2015.uchicago.edu/api/']); // UAT
-$token = new UChicago\AdvisoryCouncil\BearerToken($client , "tommyt" , "thom$$$$1967");
+$token = new UChicago\AdvisoryCouncil\BearerToken($client , "" , "");
 
 $_SESSION['bearer_token'] = $token->bearer_token();
 
