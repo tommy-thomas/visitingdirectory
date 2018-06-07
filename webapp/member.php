@@ -38,6 +38,8 @@ if( !is_null($member) )
 {
     $TwigTemplateVariables['members'] = array($member);
 }
-$template->show();
+
+
+echo $template->render($TwigTemplateVariables);
   
 ?>
