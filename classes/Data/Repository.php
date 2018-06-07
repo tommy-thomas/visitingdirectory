@@ -113,10 +113,12 @@ class Repository
     }
 
     public function getMemberByIdNumber( $id_number = "" ){
-        foreach ( $this->data['AdvisoryCouncilsMemberData'] as $key => $member){
-            if( $member->id_number() == $id_number){
-                return $member;
-            }
+        foreach ( $this->data['AdvisoryCouncilsMemberData'] as $key => $committee){
+           foreach ( $committee as $member ){
+               if( $member->id_number() == $id_number ){
+                   return $member;
+               }
+           }
         }
         return;
     }
