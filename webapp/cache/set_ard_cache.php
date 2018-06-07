@@ -16,7 +16,7 @@ $memcache = $memcache_instance->getMemcacheForCLI($argv[1]);
 
 $client = new Client(['base_uri' => "https://ardapi.uchicago.edu/api/" ]);
 
-$token = new \UChicago\AdvisoryCouncil\BearerToken($client, "tommyt" , "thom$$$$1967");
+$token = new \UChicago\AdvisoryCouncil\BearerToken($client, "" , "");
 
 $bearer_token = $token->bearer_token();
 

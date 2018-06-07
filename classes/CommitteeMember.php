@@ -67,7 +67,7 @@ class CommitteeMember //extends WS_DynamicGetterSetter
     }
 
     public function last_name(){
-        return $this->last_name;
+        return $this->lifetime_member() ? $this->last_name."*" : $this->last_name;
     }
 
     public function sort_token(){
