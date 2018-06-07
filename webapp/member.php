@@ -37,9 +37,9 @@ if( !is_null($member) )
 {
     $membership = $repository->getCouncilMembershipData();
 
-    $committees = $membership->getCommittees( $member->id_number() );
+    $memberships = $membership->getCommittees( $member->id_number() );
 
-    var_dump($committees);
+    $committees = $committees->getCommitteeMemberships( $memberships );
 
     $TwigTemplateVariables['members'] = array($member);
 
