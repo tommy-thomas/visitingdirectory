@@ -26,7 +26,10 @@ $response = $client->request('GET',
         'headers' => ['Authorization' =>  $_SESSION['bearer_token'] ]
     ]
 );
-print_r($response);
+if( $response->getStatusCode() == "200"){
+
+	print_r( $response->getBody() );
+}
 
 if( $app->isShibbAuth() )
 {
