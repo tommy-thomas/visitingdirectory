@@ -25,7 +25,7 @@ if ( $app->isAuthorized() ) {
 }
 
 if (  $app->userIsFromShibb() && $app->isValidGroup() ) {
-    $_SESSION['email'] = $_SERVER['email'];
+    $_SESSION['email'] = $_SERVER['mail'];
     $app->redirect('./search.php');
 }
 
