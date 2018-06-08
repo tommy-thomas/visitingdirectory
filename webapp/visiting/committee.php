@@ -34,7 +34,7 @@ $TwigTemplateVariables = array();
 if ($app->isValid() && isset($_GET['c'])) {
     $code = $_GET['c'];
     $members_list = $repository->getCouncilData($code);
-    if (!isset($members_list) && count($members_list) > 0) {
+    if (isset($members_list) && count($members_list) > 0) {
         foreach ($members_list as $m) {
             if ($m->chair()) {
                 ;
