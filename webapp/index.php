@@ -28,7 +28,7 @@ $response = $client->request('GET',
 );
 if( $response->getStatusCode() == "200"){
 
-	print_r( $response->getBody() );
+	var_dump( $response->getBody() );
 }
 
 if( $app->isShibbAuth() )
