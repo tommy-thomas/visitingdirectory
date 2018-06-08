@@ -12,8 +12,6 @@ $soc_auth_err = false;
 
 // TODO: Do all of the validation stuff with Guzzle.
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\RequestException;
 
 $client = new Client(['base_uri' => $app->ardUrl() ]);
 
@@ -32,22 +30,14 @@ if( $app->isShibbAuth() )
 	{
 		if( $app->userIsFromSocialAuth() && isset($_SERVER['mail']) )
 		{
-//		try {
-//			$curl->setPost($_SESSION['authtoken']);
-//			$curl->createCurl( $collection->getServiceUrl('email_validation', $_SERVER['mail'] ) );
-//			if( !is_a($curl->asSimpleXML() , 'SimpleXMLElement' ) || !$collection->xmlChildExists($curl->asSimpleXML(), '//ID_NUMBER'))
-//			{
-//				$soc_auth_err = true;
-//			}
-//			else
-//			{
-//				$_SESSION['email'] =  $_SERVER['mail'];
-//				$app->redirect('./search.php');
-//			}
-//			} catch (Exception $e) {
-//				Application::handleExceptions($e);
-//			}
-		}
+            $response = $client->request('GET',
+                "/report/VC?email_address=" . $_SERVER['mail'],
+                [
+                    'headers' => ['Authorization' =>  $_SESSION['bearer_token'] ]
+                ]
+            );
+            var_dump($response); exit();
+        }
 		elseif( $app->userIsFromShibb() )
 		{
 			if( !$app->isValidGroup() )
