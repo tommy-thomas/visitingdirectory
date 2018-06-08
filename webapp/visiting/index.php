@@ -1,23 +1,12 @@
 <?php
-require('../_classes/autoload.php');
+require __DIR__ . "/../../vendor/autoload.php";
 
 /**
  * The Application object.
  */
-$app = Application::app();
+$app = new \UChicago\AdvisoryCouncil\Application();
+
 $template = $app->template('./placeholder.html.twig');
-$TwigTemplateVariables = array();
-
-$TwigTemplateVariables[ "base" ] = $app->base() ;
-/**
- * Start populating the CS template.
- * The Clear Silver template.
- */
-
-$curl = new cURL(null);
-$collection = GriffinCollection::instance($app , $curl );
-$curl->authenticate( $collection->getLoginUrl() );
-$_SESSION['authtoken'] = array( 'authtoken' => $curl->__toString());
 
 
 echo $template->render($TwigTemplateVariables);

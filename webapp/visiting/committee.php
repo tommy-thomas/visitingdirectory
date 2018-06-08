@@ -7,8 +7,6 @@ require __DIR__ . "/../../vendor/autoload.php";
  */
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\RequestException;
 
 $app = new \UChicago\AdvisoryCouncil\Application();
 
