@@ -9,5 +9,5 @@ $app = new \UChicago\AdvisoryCouncil\Application();
 $template = $app->template('./placeholder.html.twig');
 
 
-echo $template->render($TwigTemplateVariables);
+echo $template->render();
 ?>
