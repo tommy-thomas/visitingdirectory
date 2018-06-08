@@ -9,6 +9,8 @@ namespace UChicago\AdvisoryCouncil;
  *
  */
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Response;
 use Twig_Loader_Filesystem;
 use Twig_Environment;
 
@@ -67,7 +69,8 @@ class Application extends \WS\SharedPHP\WS_Application
         return $this->isProd() ? "https://ardapi.uchicago.edu/api/" : "https://ardapi-uat2015.uchicago.edu/api/";
     }
 
-    public function environment(){
+    public function environment()
+    {
         return $this->isProd() ? "prod" : "dev";
     }
 
@@ -98,8 +101,9 @@ class Application extends \WS\SharedPHP\WS_Application
         }
     }
 
-    public function apiCreds(){
-        return array( "username" => "" , "password" => "");
+    public function apiCreds()
+    {
+        return array("username" => "", "password" => "");
     }
 
     public function setUser($user = "")
@@ -172,6 +176,32 @@ class Application extends \WS\SharedPHP\WS_Application
         return count(array_intersect($this->group_white_list, $groups)) > 0 ? true : false;
     }
 
+    public function isValidSocialAuth(Client $client , $email, $bearer_token)
+    {
+
+        $response = $client->request('GET',
+            "/report/VC?email_address=" . $email,
+            [
+                'headers' => ['Authorization' => $bearer_token]
+            ]
+        );
+
+        if ($response->getStatusCode() == "200") {
+            $results = json_decode($response->getBody())->results;
+            foreach ($results as $key => $r) {
+                if (isset($r->ID_NUMBER)
+                    && isset($r->TMS_RECORD_STATUS_CODE)
+                    && isset($r->TMS_EMAIL_STATUS_CODE)
+                    && $r->TMS_RECORD_STATUS_CODE == "Active"
+                    && $r->TMS_EMAIL_STATUS_CODE == "Active") {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     /**
      * Is user using Shibb to authenticate?
      */
@@ -196,7 +226,8 @@ class Application extends \WS\SharedPHP\WS_Application
         return (isset($_SESSION['email']) && isset($_SESSION['bearer_token']));
     }
 
-    public function isValid(){
+    public function isValid()
+    {
         return isset($_SESSION['bearer_token']);
     }
 
