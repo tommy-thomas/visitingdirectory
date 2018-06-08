@@ -202,6 +202,10 @@ class Application extends \WS\SharedPHP\WS_Application
         return (isset($_SESSION['email']) && isset($_SESSION['bearer_token']));
     }
 
+    public function isValid(){
+        return isset($_SESSION['bearer_token']);
+    }
+
     /**
      * Handle any exception in the application.
      * @param object The thrown Exception object

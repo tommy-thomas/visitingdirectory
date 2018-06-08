@@ -22,12 +22,12 @@
 			<div class="span9 pull-right">
 				<div class="maincontent">
 					
-					<h2><?cs var:Chairman ?></h2>
+					<h2>{{ Chairman }}</h2>
 					<p class="small"><em>*Denotes a Life Member</em></p>
 					<ul class="list-3col">
-						
+						{% for m in members_list %}
 							<li>
-								{{ m.FirstName }} {{ m.MiddleName }} {{ m.LastName }}
+								{{ m.first_name }} {{ m.middle }} {{ m.last_name }}
 							</li>		 
 						{% endfor %}
 					</ul>
