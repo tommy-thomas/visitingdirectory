@@ -34,7 +34,7 @@ if( $response->getStatusCode() == "200"){
 		if (isset($r->ID_NUMBER)
 			&& isset($r->TMS_RECORD_STATUS_CODE)
 			&& isset($r->TMS_EMAIL_STATUS_CODE)
-			&& $r->TMS_RECORD_STATUS_CODE == "Actve"
+			&& $r->TMS_RECORD_STATUS_CODE == "Active"
 			&& $r->TMS_EMAIL_STATUS_CODE == "Active"){
 			//return true;
 			print "valid user";
