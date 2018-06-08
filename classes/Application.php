@@ -64,7 +64,6 @@ class Application extends \WS\SharedPHP\WS_Application
 
     public function ardUrl()
     {
-        //uat once it's working: "https://ardapi-uat2015.uchicago.edu/api/"
         return $this->isProd() ? "https://ardapi.uchicago.edu/api/" : "https://ardapi-uat2015.uchicago.edu/api/";
     }
 
