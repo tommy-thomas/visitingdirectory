@@ -12,18 +12,16 @@ use GuzzleHttp\Exception\RequestException;
 
 $app = new \UChicago\AdvisoryCouncil\Application();
 
-//$client = new Client(['base_uri' => 'https://ardapi-uat2015.uchicago.edu/api/']); // UAT
-$token = new \UChicago\AdvisoryCouncil\BearerToken($client, $app->apiCreds()['username'], $app->apiCreds()['password']);
-
-$_SESSION['bearer_token'] = $token->bearer_token();
-
-$committees = new \UChicago\AdvisoryCouncil\Committees();
-
 $memcache_instance = new \UChicago\AdvisoryCouncil\CLIMemcache();
 
 $memcache = $memcache_instance->getMemcacheForCLI($app->environment());
 
 $client = new Client(['base_uri' => $app->ardUrl()]);
+
+//$client = new Client(['base_uri' => 'https://ardapi-uat2015.uchicago.edu/api/']); // UAT
+$token = new \UChicago\AdvisoryCouncil\BearerToken($client, $app->apiCreds()['username'], $app->apiCreds()['password']);
+
+$_SESSION['bearer_token'] = $token->bearer_token();
 
 $repository = new \UChicago\AdvisoryCouncil\Data\Repository($app->environment(), $memcache, $client, $_SESSION['bearer_token']);
 
