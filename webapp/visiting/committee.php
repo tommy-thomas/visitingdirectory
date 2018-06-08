@@ -45,5 +45,7 @@ if ($app->isValid() && isset($_GET['c'])) {
     }
 }
 
+$TwigTemplateVariables['loggedIn'] = $app->isLoggedIn() ? true : false;
+
 echo $template->render($TwigTemplateVariables);
 ?>
