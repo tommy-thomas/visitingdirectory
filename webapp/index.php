@@ -79,7 +79,6 @@ echo $template->render([
 
         "authentication_error" => $err_msg,
         "domain" , $app->domain(),
-        "base" , $app->base()
     ]
 );
 

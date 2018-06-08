@@ -24,18 +24,18 @@
 						<div class="alert alert-block">{{ authentication_error }}</div>
 					{% endif %}	
 					
-					<p><a href="/Shibboleth.sso/Login?entityID=urn:mace:incommon:uchicago.edu&target={{ base }}/index.php"><strong>Login with CNetID / UCHADID</strong></a></p>
+					<p><a href="/Shibboleth.sso/Login?entityID=urn:mace:incommon:uchicago.edu&target={{ domain }}/index.php"><strong>Login with CNetID / UCHADID</strong></a></p>
 					
 					<p>Or log in using an existing account below*:</p>
 					<ul class="no-bullet" id="login-list">
 						<li class="facebook">
-							<a href="/Shibboleth.sso/Login?entityID=https://facebook.cirrusidentity.com/gateway&target={{ base}}">Facebook</a>
+							<a href="/Shibboleth.sso/Login?entityID=https://facebook.cirrusidentity.com/gateway&target={{ domain}}">Facebook</a>
 						</li>
 						<li class="google">
-							<a href="/Shibboleth.sso/Login?entityID=https://google.cirrusidentity.com/gateway&target={{ base }}">Google</a>
+							<a href="/Shibboleth.sso/Login?entityID=https://google.cirrusidentity.com/gateway&target={{ domain }}">Google</a>
 				        </li>
 						<li class="yahoo">
-							<a href="/Shibboleth.sso/Login?entityID=https://yahoo.cirrusidentity.com/gateway&target={{ base }}">Yahoo</a>
+							<a href="/Shibboleth.sso/Login?entityID=https://yahoo.cirrusidentity.com/gateway&target={{ domain }}">Yahoo</a>
 						</li>	
 					</ul>
 

@@ -74,9 +74,7 @@ class Application extends \WS\SharedPHP\WS_Application
 
     public function domain()
     {
-        $parts = parse_url( $this->base() );
-        $url = $parts['scheme'].'://'.$parts['host'];
-        return $url;
+        return "https://" . $_SERVER['HTTP_HOST'];
     }
 
     public function login(User $user)
