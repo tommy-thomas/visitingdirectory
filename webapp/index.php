@@ -78,7 +78,7 @@ if( $soc_auth_err )
 echo $template->render([
 
         "authentication_error" => $err_msg,
-        "domain" , $app->domain(),
+        "domain" => $app->domain(),
     ]
 );
 
