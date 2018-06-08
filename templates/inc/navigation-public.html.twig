@@ -16,7 +16,7 @@
 						<li class=""><a href="/index.php">Secure VC Directory</a></li>
 						<li class=""><a href="https://vc.uchicago.edu/page/committee-membership" class="active">Council Membership</a>
 							<ul class="menu clearfix">
-								{% for $committees %}
+								{% for c in committees %}
 								<li class="leaf"><a href="{{ base }}visiting/committee.php?c={{ c.COMMITTEE_CODE }}">{{ c.FULL_DESC }}</a></li>
 								{% endfor %}					
 							</ul>	

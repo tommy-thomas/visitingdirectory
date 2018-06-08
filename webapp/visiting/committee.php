@@ -12,6 +12,8 @@ use GuzzleHttp\Exception\RequestException;
 
 $app = new \UChicago\AdvisoryCouncil\Application();
 
+$committees = new \UChicago\AdvisoryCouncil\Committees();
+
 $memcache_instance = new \UChicago\AdvisoryCouncil\CLIMemcache();
 
 $memcache = $memcache_instance->getMemcacheForCLI($app->environment());
