@@ -26,7 +26,7 @@ $response = $client->request('GET',
         'headers' => ['Authorization' =>  $_SESSION['bearer_token'] ]
     ]
 );
-var_dump($response);
+print_r($response);
 
 if( $app->isShibbAuth() )
 {
