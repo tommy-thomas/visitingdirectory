@@ -56,7 +56,7 @@ foreach ($committees->committes() as $key=> $committee) {
 
                 $chair = $chairs[$committee['COMMITTEE_CODE']] == $object->info->ID_NUMBER ? true : false;
 
-                $lifetime_member = in_array( $object->info->ID_NUMBER , $lifetime_members_array);
+                $lifetime_member = in_array( $object->info->ID_NUMBER , $lifetime_member_array);
 
                 $_SESSION['committees'][$committee['COMMITTEE_CODE']][$object->info->ID_NUMBER] = $factory->member($object, $chair , $lifetime_member);
 
