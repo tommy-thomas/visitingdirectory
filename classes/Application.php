@@ -72,6 +72,13 @@ class Application extends \WS\SharedPHP\WS_Application
         return $this->isProd() ? "prod" : "dev";
     }
 
+    public function domain()
+    {
+        $parts = parse_url( self::$app->base() );
+        $url = $parts['scheme'].'://'.$parts['host'];
+        return $url;
+    }
+
     public function login(User $user)
     {
         $_SESSION['user'] = $user;
@@ -121,16 +128,6 @@ class Application extends \WS\SharedPHP\WS_Application
             1 => "You are not authorized to authenticate from this service."
         );
         return isset($error_message[$i]) ? $error_message[$i] : array();
-    }
-
-    /**
-     * Return url including http(s).
-     */
-    public function domain()
-    {
-        $parts = parse_url($this->base());
-        $url = $parts['scheme'] . '://' . $parts['host'];
-        return $url;
     }
 
 
