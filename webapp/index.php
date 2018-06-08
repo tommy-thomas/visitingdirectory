@@ -20,7 +20,7 @@ $token = new \UChicago\AdvisoryCouncil\BearerToken($client, $app->apiCreds()['us
 
 $_SESSION['bearer_token'] = $token->bearer_token();
 
-if ($app->isShibbAuth() && $app->isAuthorized()) {
+if (  $app->userIsFromShibb() && $app->isValidGroup() || $app->isAuthorized() ) {
     $app->redirect('./search.php');
 }
 
