@@ -5,7 +5,7 @@ require __DIR__ . "/../vendor/autoload.php";
 $app = new UChicago\AdvisoryCouncil\Application;
 
 $auth_err = false;
-$soc_auth_err = false;
+$valid_social_auth = null;
 
 /**
  * Set committee objects for side nav.
@@ -15,7 +15,6 @@ use GuzzleHttp\Client;
 
 $client = new Client(['base_uri' => $app->ardUrl()]);
 
-//$client = new Client(['base_uri' => 'https://ardapi-uat2015.uchicago.edu/api/']); // UAT
 $token = new \UChicago\AdvisoryCouncil\BearerToken($client, $app->apiCreds()['username'], $app->apiCreds()['password']);
 
 $_SESSION['bearer_token'] = $token->bearer_token();
@@ -36,6 +35,9 @@ if ($app->userIsFromShibb() && !$app->isValidGroup() ) {
 $auth_err = true;
 if ($app->userIsFromSocialAuth() && isset($_SERVER['mail'])) {
     $valid_social_auth = $app->isValidSocialAuth($client, $_SERVER['mail'], $_SESSION['bearer_token']);
+    if( $valid_social_auth ){
+        $_SESSION['email'] = $_SERVER['mail'];
+    }
 }
 
 

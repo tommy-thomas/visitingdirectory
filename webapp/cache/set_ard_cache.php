@@ -79,11 +79,3 @@ if (isset($_SESSION['committees']) && is_array($_SESSION['committees']) && count
     $memcache->set('AdvisoryCouncilsMemberData', $_SESSION['committees'], MEMCACHE_COMPRESSED, 0);
 }
 $memcache->set('AdvisoryCouncilsMemberMembershipData', array('committee_membership' => $committee_membership), MEMCACHE_COMPRESSED, 0);
-
-// Example usage for search, returns array of committee members.
-//$search = new \UChicago\AdvisoryCouncile\CommitteeSearch( $_SESSION['committees'] , $factory);
-//
-//$results = $search->searchResults(array("first_name" => "John" , "last_name" => ""));
-
-// TODO: Double check phone number, is it the preferred number?
-// TODO: Verify email report end point, what else is in the payload?
