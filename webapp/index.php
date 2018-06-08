@@ -30,7 +30,7 @@ if( $response->getStatusCode() == "200"){
 
 	$results = json_decode($response->getBody())->results;
 	foreach ($results as $r ){
-		isset($r->ID_NUMBER)
+		if (isset($r->ID_NUMBER)
 			&& isset($r->TMS_RECORD_STATUS_CODE)
 			&& isset($r->TMS_EMAIL_STATUS_CODE)
 			&& $r->TMS_RECORD_STATUS_CODE == "Actve"
