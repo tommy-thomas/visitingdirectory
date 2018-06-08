@@ -27,6 +27,8 @@ $repository = new \UChicago\AdvisoryCouncil\Data\Repository($app->environment(),
 
 $template = $app->template('./committee.html.twig');
 
+$TwigTemplateVariables = array();
+
 if ($app->isValid() && isset($_GET['c'])) {
     $code = $_GET['c'];
     $members_list = $repository->getCouncilData($code);
