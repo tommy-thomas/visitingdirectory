@@ -28,7 +28,7 @@ $response = $client->request('GET',
 );
 if( $response->getStatusCode() == "200"){
 
-	var_dump( $response->getBody() );
+	var_dump( json_decode($response->getBody()) );
 }
 
 if( $app->isShibbAuth() )
@@ -37,7 +37,8 @@ if( $app->isShibbAuth() )
 	{
 		$app->redirect('./search.php');
 	}
-	elseif( $app->isValidService()  )
+
+	if( $app->isValidService()  )
 	{
 		if( $app->userIsFromSocialAuth() && isset($_SERVER['mail']) )
 		{
