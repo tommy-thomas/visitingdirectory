@@ -28,7 +28,19 @@ $response = $client->request('GET',
 );
 if( $response->getStatusCode() == "200"){
 
-	var_dump( json_decode($response->getBody()) );
+	$results = json_decode($response->getBody())->results;
+	foreach ($results as $r ){
+		isset($r->ID_NUMBER)
+			&& isset($r->TMS_RECORD_STATUS_CODE)
+			&& isset($r->TMS_EMAIL_STATUS_CODE)
+			&& $r->TMS_RECORD_STATUS_CODE == "Actve"
+			&& $r->TMS_EMAIL_STATUS_CODE == "Active"){
+			//return true;
+			print "valid user";
+		}
+	}
+	//return false;
+	print "nope";
 }
 
 if( $app->isShibbAuth() )
