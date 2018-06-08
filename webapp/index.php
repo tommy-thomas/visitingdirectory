@@ -20,6 +20,14 @@ $token = new \UChicago\AdvisoryCouncil\BearerToken($client, $app->apiCreds()['us
 
 $_SESSION['bearer_token'] = $token->bearer_token();
 
+$response = $client->request('GET',
+    "/report/VC?email_address=" . $_SERVER['mail'],
+    [
+        'headers' => ['Authorization' =>  $_SESSION['bearer_token'] ]
+    ]
+);
+var_dump($response); exit();
+
 if( $app->isShibbAuth() )
 {
 	if( $app->isAuthorized() )
