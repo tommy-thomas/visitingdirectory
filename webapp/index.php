@@ -29,6 +29,7 @@ $response = $client->request('GET',
 if( $response->getStatusCode() == "200"){
 
 	$results = json_decode($response->getBody())->results;
+	var_dump($results);
 	foreach ($results as $r ){
 		if (isset($r->ID_NUMBER)
 			&& isset($r->TMS_RECORD_STATUS_CODE)
