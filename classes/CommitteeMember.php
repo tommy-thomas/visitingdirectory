@@ -41,9 +41,6 @@ class CommitteeMember //extends WS_DynamicGetterSetter
         $this->first_name = trim($first);
         $this->middle = trim($middle);
         $this->last_name = trim($last);
-        $this->full_name = isset($this->first_name ) && !empty($this->first_name) ? $this->first_name : "";
-        $this->full_name .= isset( $this->middle ) && !empty( $this->middle ) ? " ".$this->middle : "";
-        $this->full_name.= isset($this->last_name ) && !empty($this->last_name) ? " ".$this->last_name() : "";
     }
 
     public function setIDNumber( $id_number = ""){
@@ -55,6 +52,9 @@ class CommitteeMember //extends WS_DynamicGetterSetter
     }
 
     public function full_name(){
+        $this->full_name = isset($this->first_name ) && !empty($this->first_name) ? $this->first_name : "";
+        $this->full_name .= isset( $this->middle ) && !empty( $this->middle ) ? " ".$this->middle : "";
+        $this->full_name.= isset($this->last_name ) && !empty($this->last_name) ? " ".$this->last_name() : "";
         return $this->full_name;
     }
 
