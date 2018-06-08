@@ -20,7 +20,7 @@
 				<div class="maincontent">									
 					<p>Please log in below to use the directory. If you do not have a CNetID, you may log in with an account you already have with Google, Yahoo, or Facebook. <em>Please note that the social media account you choose should use an email address we have on file.</em> If you have any trouble logging in, please contact us at <a href="mailto:weberror@uchicago.edu?subject=Visiting Committees Directory login problem">weberror@uchicago.edu</a>.</p>
 					
-					{% if authenticationError %}
+					{% if authentication_error %}
 						<div class="alert alert-block">{{ authentication_error }}</div>
 					{% endif %}	
 					
