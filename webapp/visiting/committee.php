@@ -42,7 +42,7 @@ if ($app->isValid() && isset($_GET['c'])) {
         $TwigTemplateVariables['members_list'] = $members_list;
     }
 }
-
+$TwigTemplateVariables['Committee'] = $committees->getCommitteeName($code);
 $TwigTemplateVariables['loggedIn'] = $app->isLoggedIn() ? true : false;
 $TwigTemplateVariables['committees'] =$committees->committes();
 
