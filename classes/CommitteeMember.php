@@ -123,7 +123,7 @@ class CommitteeMember //extends WS_DynamicGetterSetter
             $date->setDate($degree->DEGREE_YEAR, 1, 1);
             $degrees_data[]= $degree->DEGREE_CODE . " '" . $date->format('y');
         }
-        return implode(" ,",$degrees_data);
+        return implode(", ",$degrees_data);
     }
 
     public function setEmploymentData( $job_title = "", $employer_name="", $org_name=""){
