@@ -29,19 +29,15 @@ if (  $app->userIsFromShibb() && $app->isValidGroup() ) {
     $app->redirect('./search.php');
 }
 
-$valid_social_auth = null;
-if ($app->isValidService() && isset($_SERVER['mail'])) {
+if ($app->userIsFromShibb() && !$app->isValidGroup() ) {
+    $auth_err = true;
+}
+
+$auth_err = true;
+if ($app->userIsFromSocialAuth() && isset($_SERVER['mail'])) {
     $valid_social_auth = $app->isValidSocialAuth($client, $_SERVER['mail'], $_SESSION['bearer_token']);
 }
 
-if ($app->userIsFromShibb()) {
-    if (!$app->isValidGroup()) {
-        $auth_err = true;
-    } else {
-        $_SESSION['email'] = $_SERVER['mail'];
-        $app->redirect('./search.php');
-    }
-}
 
 /**
  * Start Twig
@@ -55,7 +51,7 @@ if ($auth_err || (isset($_GET['error']) && $_GET['error'] == 'auth')) {
 /*
  * Add soaicl auth error if set.
  */
-if (isset($valid_social_auth) && !$valid_social_auth) {
+if (!is_null($valid_social_auth) && !$valid_social_auth) {
     $err_msg = $app->getErrorMessage(1);
 }
 
