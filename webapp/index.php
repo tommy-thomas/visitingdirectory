@@ -36,6 +36,7 @@ if ($app->userIsFromSocialAuth() && isset($_SERVER['mail'])) {
     $valid_social_auth = $app->isValidSocialAuth($client, $_SERVER['mail'], $_SESSION['bearer_token']);
     if( $valid_social_auth ){
         $_SESSION['email'] = $_SERVER['mail'];
+        $app->redirect('./search.php');
     }
 }
 
