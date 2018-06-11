@@ -22,13 +22,9 @@ class Application extends \WS\SharedPHP\WS_Application
     private $sessionTimeout = 3600;
 
     /*
-     * Whitelist for autorized social auth services.
-     */
-    private $social_auth_whitelist = array('facebook.com', 'google.com', 'yahoo.com');
-    /*
      * Whitelist for u of c user groups.
      */
-    private $group_white_list = array('uc:org:nsit:webservices:members', 'uc:org:ard:griffinusers');
+    const GROUPER_WHITE_LIST = array('uc:org:nsit:webservices:members', 'uc:org:ard:griffinusers');
     /*
      * Valid Shibb provider
      */
@@ -131,41 +127,9 @@ class Application extends \WS\SharedPHP\WS_Application
         return isset($error_message[$i]) ? $error_message[$i] : array();
     }
 
-
-    /**
-     * Return if authorization being attempted from Shibb?
-     */
-    public function isShibbAuth()
-    {
-        return isset($_SERVER['Shib-Session-ID']);
-    }
-
-    /**
-     *
-     * Return if authorization being attempted a valid service.
-     */
-    public function isValidService()
-    {
-        $is_valid_service = false;
-        if (!isset($_SESSION['email'])) {
-            $is_valid_service = false;
-            if (isset($_SERVER) && isset($_SERVER['Shib-Identity-Provider'])) {
-                if ($this->userIsFromShibb()) {
-                    $is_valid_service = true;
-                } elseif ($this->userIsFromSocialAuth()) {
-                    list($name, $domain) = explode("@", $_SERVER['PHP_AUTH_USER']);
-                    if (in_array($domain, $this->social_auth_whitelist)) {
-                        $is_valid_service = true;
-                    }
-                }
-            }
-        }
-        return $is_valid_service;
-    }
-
     /**
      * Checks to see if group in $_SERVER['ucisMemberOf']
-     * returned from Shibb is in $group_white_list.
+     * returned from Shibb is in GROUPER_WHITE_LIST.
      */
     public function isValidGroup()
     {
@@ -173,7 +137,7 @@ class Application extends \WS\SharedPHP\WS_Application
         if (isset($_SERVER['ucisMemberOf'])) {
             $groups = explode(";", $_SERVER['ucisMemberOf']);
         }
-        return count(array_intersect($this->group_white_list, $groups)) > 0 ? true : false;
+        return count(array_intersect(self::GROUPER_WHITE_LIST, $groups)) > 0 ? true : false;
     }
 
     public function isValidSocialAuth(Client $client , $email, $bearer_token)
@@ -226,10 +190,6 @@ class Application extends \WS\SharedPHP\WS_Application
         return (isset($_SESSION['email']) && isset($_SESSION['bearer_token']));
     }
 
-    public function isValid()
-    {
-        return isset($_SESSION['bearer_token']);
-    }
 
     /**
      * Handle any exception in the application.
