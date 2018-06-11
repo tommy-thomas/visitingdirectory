@@ -36,7 +36,7 @@ class Application extends \WS\SharedPHP\WS_Application
     /*
      * Social auth gateway.
      */
-    const SOCIAL_AUTH_GATEWAY_ARRAY = array('https://google.cirrusidentity.com/gateway','https://yahoo.cirrusidentity.com/gateway','https://facebook.cirrusidentity.com/gateway');
+    const SOCIAL_AUTH_IDP = array('https://google.cirrusidentity.com/gateway','https://yahoo.cirrusidentity.com/gateway','https://facebook.cirrusidentity.com/gateway');
 
     /**
      * Public constructor.
@@ -215,7 +215,7 @@ class Application extends \WS\SharedPHP\WS_Application
      */
     public function userIsFromSocialAuth()
     {
-        return (isset($_SERVER['Shib-Identity-Provider']) && in_array( $_SERVER['Shib-Identity-Provider'] , self::SOCIAL_AUTH_GATEWAY_ARRAY));
+        return (isset($_SERVER['Shib-Identity-Provider']) && in_array( $_SERVER['Shib-Identity-Provider'] , self::SOCIAL_AUTH_IDP));
     }
 
     /**
