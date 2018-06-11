@@ -1,2 +1,4 @@
 workingcopy
 vendor
+composer.lock
+.idea
