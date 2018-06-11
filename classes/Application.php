@@ -32,7 +32,7 @@ class Application extends \WS\SharedPHP\WS_Application
     /*
      * Valid Shibb provider
      */
-    const SHIBB_AUTH_PROVIDER = "urn:mace:incommon:uchicago.edu";
+    const SHIBB_IDP = "urn:mace:incommon:uchicago.edu";
     /*
      * Social auth gateway.
      */
@@ -207,7 +207,7 @@ class Application extends \WS\SharedPHP\WS_Application
      */
     public function userIsFromShibb()
     {
-        return (isset($_SERVER['Shib-Identity-Provider']) && ($_SERVER['Shib-Identity-Provider'] == self::SHIBB_AUTH_PROVIDER));
+        return (isset($_SERVER['Shib-Identity-Provider']) && ($_SERVER['Shib-Identity-Provider'] == self::SHIBB_IDP));
     }
 
     /**
