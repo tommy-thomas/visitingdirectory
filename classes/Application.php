@@ -180,7 +180,7 @@ class Application extends \WS\SharedPHP\WS_Application
     {
 
         $response = $client->request('GET',
-            "/report/VC?email_address=" . $email,
+            "report/VC?email_address=" . $email,
             [
                 'headers' => ['Authorization' => $bearer_token]
             ]
