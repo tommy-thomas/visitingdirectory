@@ -166,6 +166,11 @@ class Application extends \WS\SharedPHP\WS_Application
         return false;
     }
 
+    public function isValid()
+    {
+        return isset($_SESSION['bearer_token']);
+    }
+
     /**
      * Is user using Shibb to authenticate?
      */
