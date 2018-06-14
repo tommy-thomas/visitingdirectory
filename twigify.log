@@ -1,5 +1,0 @@
-05-24-2018 12:29:23 pm|'./composer.json' file was NOT created, already exists.
-05-24-2018 12:29:32 pm|'twig' already seems to be installed.
-05-24-2018 12:29:51 pm|Provided script runner with information on how to include 'vendor/autoload.php' manually in WS_Application file.
-05-24-2018 12:29:51 pm|Provided script runner with information on how to update 'template()' manually within WS_Application file.
-05-24-2018 12:30:16 pm|Could not find valid existing template path from script runner input.
