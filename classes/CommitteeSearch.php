@@ -43,20 +43,21 @@ class CommitteeSearch
     }
 
     private function search( CommitteeMember $member ){
+        $found = null;
         if( !empty($this->first_name) && empty($this->last_name) && (strpos(strtolower($member->first_name()) , $this->first_name) !== false) ){
-            $memberships = $this->membership->getCommittees( $member->id_number() );
-            $member->setMembership( $this->committees->getCommitteeMemberships( $memberships ) );
-            $this->addMemberToResults( $member );
+            $found = $member;
         } elseif(!empty($this->last_name) && empty($this->first_name) && (strpos(strtolower($member->last_name()) , $this->last_name) !== false)){
-            $memberships = $this->membership->getCommittees( $member->id_number() );
-            $member->setMembership( $this->committees->getCommitteeMemberships( $memberships ) );
-            $this->addMemberToResults( $member );
+            $found = $member;
         } elseif( (!empty($this->last_name) && strpos(strtolower($member->last_name()) , $this->last_name) !== false)
             || (!empty($this->first_name) && strpos(strtolower($member->first_name()) , $this->first_name) !== false)
         ){
-            $memberships = $this->membership->getCommittees( $member->id_number() );
-            $member->setMembership( $this->committees->getCommitteeMemberships( $memberships ) );
-           $this->addMemberToResults( $member );
+            $found = $member;
+        }
+
+        if($found != null && $found instanceof CommitteeMember){
+            $memberships = $this->membership->getCommittees( $found->id_number() );
+            $found->setMembership( $this->committees->getCommitteeMemberships( $memberships ) );
+            $this->addMemberToResults( $found );
         }
     }
 
