@@ -35,9 +35,9 @@ $member = $repository->findMemberByIdNumber( $_GET['id_number'] );
 
 if( !is_null($member) )
 {
-    $membership = $repository->getCouncilMembershipData();
+    $membership_data = $repository->getCouncilMembershipData();
 
-    $memberships = $membership->getCommittees( $member->id_number() );
+    $memberships = $membership_data->getCommittees( $member->id_number() );
 
     $committees = $committees->getCommitteeMemberships( $memberships );
 
