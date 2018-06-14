@@ -5,8 +5,10 @@
   "autoload": {
     "psr-4": {
       "UChicago\\AdvisoryCouncil\\": "classes"
-    }
-
+    },
+    "files": [
+      "vendor/ws/wsodbcweb-sharedphp/clean.php"
+    ]
   },
   "repositories": {
     "ws": {

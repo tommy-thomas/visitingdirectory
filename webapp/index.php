@@ -51,7 +51,7 @@ if ($auth_err || (isset($_GET['error']) && $_GET['error'] == 'auth')) {
     $err_msg = $app->getErrorMessage(0);
 }
 /*
- * Add soaicl auth error if set.
+ * Add social auth error if set.
  */
 if ( isset($valid_social_auth) && !is_null($valid_social_auth) && !$valid_social_auth) {
     $err_msg = $app->getErrorMessage(1);
