@@ -99,7 +99,8 @@ class Application extends \WS\SharedPHP\WS_Application
 
     public function apiCreds()
     {
-        return array("username" => "", "password" => "");
+        require ('/data/aliasedphp/visitingdirectory/authorization.php');
+        return array("username" => $username,  "password" => $password);
     }
 
     public function setUser($user = "")
