@@ -6,7 +6,7 @@ require __DIR__ . "/../vendor/autoload.php";
  */
 $app = new \UChicago\AdvisoryCouncil\Application();
 
-$template = $app->template('./data_error.html.twig');
+$template = $app->template('data_error.html.twig');
 $TwigTemplateVariables = array();
 
 
