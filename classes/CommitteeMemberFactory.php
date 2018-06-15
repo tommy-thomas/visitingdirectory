@@ -197,7 +197,7 @@ class CommitteeMemberFactory
     private function phone()
     {
         if (!isset($this->json_payload->telephone)) {
-            return false;
+            return $this;
         }
         $telephone_data = array_values($this->phoneFilter($this->json_payload->telephone));
         if (isset($telephone_data[0]->TELEPHONE_NUMBER) && strlen($telephone_data[0]->TELEPHONE_NUMBER) == 7) {
