@@ -1,0 +1,25 @@
+{
+  "name": "Advisory Councils",
+  "description": "A directory for searching Advisory Committee members.",
+  "license": "proprietary",
+  "autoload": {
+    "psr-4": {
+      "UChicago\\AdvisoryCouncil\\": "classes"
+    },
+    "files": [
+      "vendor/ws/wsodbcweb-sharedphp/clean.php"
+    ]
+  },
+  "repositories": {
+    "ws": {
+      "type": "composer",
+      "url": "https://wsnet.uchicago.edu/packages/"
+    }
+  },
+  "require": {
+    "guzzlehttp/guzzle": "~6.3",
+    "twig/twig": "~1.35",
+    "ws/wsodbcweb-sharedphp": "0.*",
+    "ws/outputhandler": "0.*"
+  }
+}

@@ -1,65 +1,47 @@
 <?php
-require('../_classes/autoload.php');
 
-/**
- * The Application object.
- */
-$app = Application::app();
-$template = $app->template('committee.html.cs');
-$template->add_data("base", $app->base());
-/**
- * Start populating the CS template.
- * The Clear Silver template.
- */
+require __DIR__ . "/../../vendor/autoload.php";
 
-$curl = new cURL(null);
-$collection = GriffinCollection::instance($app, $curl);
-$curl->authenticate($collection->getLoginUrl());
-$_SESSION['authtoken'] = array('authtoken' => $curl->__toString());
-$collection->checkCache($_SESSION['authtoken']);
-$collection->setAllMemberData($_SESSION['authtoken']);
-$collection->loadCommitteeTemplateData($template);
-$manager = new CommitteeMemberManager();
 
-if (isset($_SESSION['authtoken']) && isset($_GET['c'])) {
+use GuzzleHttp\Client;
+
+$app = new \UChicago\AdvisoryCouncil\Application();
+
+$committees = new \UChicago\AdvisoryCouncil\Committees();
+
+$memcache_instance = new \UChicago\AdvisoryCouncil\CLIMemcache();
+
+$memcache = $memcache_instance->getMemcacheForCLI($app->environment());
+
+$client = new Client(['base_uri' => $app->ardUrl()]);
+
+//$client = new Client(['base_uri' => 'https://ardapi-uat2015.uchicago.edu/api/']); // UAT
+$token = new \UChicago\AdvisoryCouncil\BearerToken($client, $app->apiCreds()['username'], $app->apiCreds()['password']);
+
+$_SESSION['bearer_token'] = $token->bearer_token();
+
+$repository = new \UChicago\AdvisoryCouncil\Data\Repository($app->environment(), $memcache, $client, $_SESSION['bearer_token']);
+
+$template = $app->template('./committee.html.twig');
+
+$TwigTemplateVariables = array();
+
+if ($app->isValid() && isset($_GET['c'])) {
     $code = $_GET['c'];
-    $template->add_data('Committee', $collection->getCommitteeName($code));
-    $member_list = array();
-    if (!is_null($collection->getCachedMemberList($code))) {
-        $member_list = $collection->getCachedMemberList($code);
-    } else {
-        $members_xml = $collection->getMemberData($code, $_SESSION['authtoken']);
-        $member_list = $manager->load($code, $members_xml, true)->getCommiteeMemberList();
-        $collection->setCachedMemberList($code, $member_list);
-    }
-    $chair_id = -1;
-    $chairmen = [];
-
-
-    foreach ($member_list as $m) {
-        $id_number = $m->getIdNumber();
-        if ($m->getCommitteeRoleCode() == 'CH' && $code != 'VVHM') {
-            $name = $m->getFirstName() . ' ';
-            $name .= strlen($m->getMiddleName()) > 0 ? $m->getMiddleName() . ' ' . $m->getLastName() : $m->getLastName();
-            $name .= $app->hasLifeTimeChair($code) ? "*" : "";
-            array_push($chairmen, $name);
-            $chair_id = $id_number;
-        } elseif ($id_number != $chair_id) {
-            $m->addClassDataTemplate($template, "CommitteeMember.$id_number.");
+    $members_list = $repository->getCouncilData($code);
+    if (isset($members_list) && count($members_list) > 0) {
+        foreach ($members_list as $m) {
+            if ($m->chair()) {
+                ;
+                $TwigTemplateVariables['Chairman'] = $m->full_name() . ', Chair';
+            }
         }
-    }
-
-    if ($code != 'VVHM') {
-        $names = implode(" and ", $chairmen);
-        $names .= count($chairmen) > 1 ? ', Co-Chairs' : ', Chair';
-        $template->add_data('Chairman', $names);
-
-    } elseif( $code == 'VVHM') {
-        $name = "Gay Stanek*, Chair";
-        $template->add_data('Chairman', $name);
+        $TwigTemplateVariables['members_list'] = $members_list;
     }
 }
-$template->show();
+$TwigTemplateVariables['Committee'] = $committees->getCommitteeName($code);
+$TwigTemplateVariables['loggedIn'] = $app->isLoggedIn() ? true : false;
+$TwigTemplateVariables['committees'] =$committees->committes();
+
+echo $template->render($TwigTemplateVariables);
 ?>
-
-

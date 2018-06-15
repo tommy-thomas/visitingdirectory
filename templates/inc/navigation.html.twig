@@ -20,11 +20,11 @@
 								</li>
 							</ul>				
 						</li>
-						<?cs if:LoggedIn ?>
+						{% if loggedIn %}
 							<li>
 								<a href="https://shibboleth2.uchicago.edu/idp/logout.html">Log Out</a>
 							</li>
-						<?cs /if ?>
+						{% endif %}
 					</ul>
 				</div>
 			</div>

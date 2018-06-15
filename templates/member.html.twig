@@ -9,10 +9,10 @@
 	<meta charset="utf-8">
 	<title>Secure Directory | Visiting Committees &amp; Councils | The University of Chicago</title>
 	
-	<?cs include:"inc/head.html.cs" ?>
+	{% include('inc/head.html.twig') %}
 </head>  
 <body>
-	<?cs include:"inc/header.html.cs" ?>
+	{% include('inc/header.html.twig') %}
 	<div class="container">
 		<h1 class="page-title">Secure Directory - beta</h1>
 		<div class="row">
@@ -26,48 +26,45 @@
 					
 					<div id="memberdata">
 
-						<?cs each:m=CommitteeMember ?>
+						{% for m in members %}
 							<p>
-								<strong><?cs var:m.FullName ?></strong><br />
-								<?cs if:m.DegreeInfo ?><?cs var:m.DegreeInfo ?><br /><?cs /if ?>
-								<?cs if:m.JobTitle ?><?cs var:m.JobTitle ?><br /><?cs /if ?>
-								<?cs if:m.EmployerName ?><?cs var:m.EmployerName ?><br /><?cs /if ?>
+								<strong>{{  m.full_name }}</strong><br />
+								{% if m.degrees %}{{  m.degrees }}<br />{% endif %}
+								{% if  m.employment_job_title %}{{  m.employment_job_title }}<br />{% endif %}
+								{% if m.employment_employer_name %}{{  m.employment_employer_name }}<br />{% endif %}
 							</p>
 				
 							<h3>Preferred Contact Information</h3>
 							<p>
-								<?cs if:m.Email ?><a href="mailto:<?cs var:m.Email ?>"><?cs var:m.Email ?></a><br /><?cs /if ?>
-								<?cs if:m.PhoneNumber ?>Phone: <a href="tel:<?cs var:m.PhoneNumber ?>"><?cs var:m.PhoneNumber ?></a><?cs /if ?>
+								{% if m.email %}<a href="mailto:{{  m.email }}">{{  m.email }}</a><br />{% endif %}
+								{% if m.phone %}Phone: <a href="tel:{{   m.phone }}">{{ m.phone }}</a>{% endif %}
 							</p>
 							
 							<h3>Preferred Mailing Address</h3>
 							<p>
-								<?cs if:m.StreetOne ?><?cs var:m.StreetOne ?><?cs /if ?>
-								<?cs if:m.StreetTwo ?><br /><?cs var:m.StreetTwo ?><?cs /if ?>
-								<?cs if:m.StreetThree ?><br /><?cs var:m.StreetThree ?><?cs /if ?>
+								{% if m.street %}{{  m.street}}{% endif %}
 								<br />
-								<?cs if:m.City ?><?cs var:m.City ?>,<?cs /if ?> <?cs if:m.State ?><?cs var:m.State ?><?cs /if ?> <?cs if:m.Zip ?><?cs var:m.Zip ?><?cs /if ?><?cs if:m.ForeignCityZip ?><?cs /if ?><?cs var:m.ForeignCityZip ?><?cs if:m.CountryCode ?>, <?cs var:m.CountryCode ?><?cs /if ?>
-							</p>
+								{% if m.city %}{{   m.city  }},{% endif %} {% if m.state %}{{  m.state }}{% endif %} {% if m.zip %}{{ m.zip }}{% endif %}</p>
 
 							<h3>Committees:</h3>
 							<p>
-								<?cs each:c=committee_list ?>												  
-								<a href="results.php?c=<?cs var:c.key ?>"><?cs var:c.value ?></a><br />
-								<?cs /each ?>
+								{% for c in committees %}
+								<a href="results.php?c={{ c.COMMITTEE_CODE }}">{{  c.FULL_DESC }}</a><br />
+								{% endfor %}
 							</p>
-						<?cs /each ?>
+						{% endfor %}
 					</div><!-- end member data div -->
 				</div>
 			</div>
 			<div class="span3">				
-				<?cs include:"inc/navigation.html.cs" ?> <!-- this now includes the related links as well -->
-				<?cs include:"inc/related-links.html.cs" ?>
+				{% include('inc/navigation.html.twig') %} <!-- this now includes the related links as well -->
+				{% include('inc/related-links.html.twig') %}
 			</div>					
 		</div>
 	</div><!-- /#page-wrapper -->
 	<div class="push"><!--//--></div>
 
-	<?cs include:"inc/footer.html.cs" ?>
+	{% include('inc/footer.html.twig') %}
 
 <!-- Insert all js calls here  (jquery is included in the footer inc) -->
 
