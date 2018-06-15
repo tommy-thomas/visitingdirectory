@@ -104,13 +104,6 @@ class CommitteeMemberFactory
             return $this;
         }
         $info = $this->json_payload->info;
-        //  print $info->RECORD_TYPE_CODE . "\n";
-        if ($info->TMS_RECORD_TYPE_CODE == "CH" ||
-            $info->RECORD_TYPE_CODE == "CH" ||
-            $info->PERSON_OR_ORG == "CH") {
-            print "Committee Chair\n";
-        }
-
         $this->member->setName($info->FIRST_NAME, $info->MIDDLE_NAME, $info->LAST_NAME);
         $this->member->setIDNumber($info->ID_NUMBER);
         return $this;
