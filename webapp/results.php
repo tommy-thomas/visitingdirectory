@@ -8,6 +8,9 @@ require __DIR__ . "/../vendor/autoload.php";
 use GuzzleHttp\Client;
 
 $app = new \UChicago\AdvisoryCouncil\Application();
+if (!$app->isAuthorized()) {
+    $app->redirect('./index.php?error=auth');
+}
 
 $committees = new \UChicago\AdvisoryCouncil\Committees();
 
@@ -15,23 +18,16 @@ $memcache_instance = new \UChicago\AdvisoryCouncil\CLIMemcache();
 
 $memcache = $memcache_instance->getMemcacheForCLI($app->environment());
 
-$client = new Client(['base_uri' => $app->ardUrl() ]);
+$client = new Client(['base_uri' => $app->ardUrl()]);
 
 $repository = new \UChicago\AdvisoryCouncil\Data\Repository($app->environment(), $memcache, $client, $_SESSION['bearer_token']);
 
-/**
- * Start populating the CS template.
- * The Clear Silver template.
- */
-if (!$app->isAuthorized()) {
-    $app->redirect('./index.php?error=auth');
-} else {
-    $template = $app->template('./results.html.twig');
-    $TwigTemplateVariables = array();
 
-    $TwigTemplateVariables["base"] = $app->base();
-    $TwigTemplateVariables['LoggedIn'] = true;
-}
+$template = $app->template('./results.html.twig');
+$TwigTemplateVariables = array();
+
+$TwigTemplateVariables["base"] = $app->base();
+$TwigTemplateVariables['LoggedIn'] = true;
 
 
 if ((isset($_POST['search_by_committee']) && empty($_POST['committee']))) {
@@ -54,8 +50,9 @@ if ((isset($_POST['search_by_committee']) && !empty($_POST['committee'])) || iss
     $members_list = $repository->getCouncilData($code);
 
     foreach ($members_list as $m) {
-        if ($m->chair()) {;
-            $TwigTemplateVariables['Chairman'] =  $m->full_name().', Chair';
+        if ($m->chair()) {
+            ;
+            $TwigTemplateVariables['Chairman'] = $m->full_name() . ', Chair';
         }
     }
     $TwigTemplateVariables['members'] = $members_list;
@@ -65,15 +62,15 @@ if ((isset($_POST['search_by_committee']) && !empty($_POST['committee'])) || iss
  * Search by first_name or last_name
  */
 if (isset($_POST['search_by_name'])) {
-    $search = new \UChicago\AdvisoryCouncil\CommitteeSearch( $repository->allCouncilData() ,
-        new \UChicago\AdvisoryCouncil\CommitteeMemberFactory() ,
+    $search = new \UChicago\AdvisoryCouncil\CommitteeSearch($repository->allCouncilData(),
+        new \UChicago\AdvisoryCouncil\CommitteeMemberFactory(),
         $repository->getCouncilMembershipData());
 
-    $results = $search->searchResults( array("first_name" => htmlClean($_POST['f_name']) , "last_name" => htmlClean($_POST['l_name'])) ,
+    $results = $search->searchResults(array("first_name" => htmlClean($_POST['f_name']), "last_name" => htmlClean($_POST['l_name'])),
         $committees);
 
-    if ( $search->total() > 0) {
-    	$TwigTemplateVariables['members'] = $results;
+    if ($search->total() > 0) {
+        $TwigTemplateVariables['members'] = $results;
     }
     $TwigTemplateVariables['total'] = $search->total();
     $TwigTemplateVariables['ShowSearchResults'] = true;
