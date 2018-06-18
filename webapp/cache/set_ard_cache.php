@@ -25,7 +25,7 @@ $committees = new \UChicago\AdvisoryCouncil\Committees();
 $factory = new \UChicago\AdvisoryCouncil\CommitteeMemberFactory();
 $committee_membership = new \UChicago\AdvisoryCouncil\CommitteeMemberMembership();
 
-$committee_data=null;
+$committee_data=array();
 
 foreach ($committees->committes() as $key=> $committee) {
 
