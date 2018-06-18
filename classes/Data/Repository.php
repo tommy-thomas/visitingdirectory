@@ -41,7 +41,7 @@ class Repository
 
         $factory = new \UChicago\AdvisoryCouncil\CommitteeMemberFactory();
 
-        $committee_data=null;
+        $committee_data=array();
 
         foreach ($committees->committes() as $key => $committee) {
 
