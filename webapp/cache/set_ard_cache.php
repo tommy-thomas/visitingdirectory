@@ -50,7 +50,7 @@ foreach ($committees->committes() as $key=> $committee) {
     );
 
     $promise->then(
-        function (\GuzzleHttp\Psr7\Response $resp) use ($factory, $committee, $committee_membership, $chairs, $lifetime_member_array) {
+        function (\GuzzleHttp\Psr7\Response $resp) use ($factory, $committee_data, $committee, $committee_membership, $chairs, $lifetime_member_array) {
 
             foreach (json_decode($resp->getBody()) as $object) {
 
