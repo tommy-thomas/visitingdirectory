@@ -41,7 +41,7 @@ class Repository
 
         $factory = new \UChicago\AdvisoryCouncil\CommitteeMemberFactory();
 
-        $committee_data=array();
+        $_SESSION['committee_data']=array();
 
         foreach ($committees->committes() as $key => $committee) {
 
@@ -66,7 +66,7 @@ class Repository
             );
 
             $promise->then(
-                function (\GuzzleHttp\Psr7\Response $resp) use ($factory, $committee_data, $committee, $committee_membership, $chairs, $lifetime_member_array) {
+                function (\GuzzleHttp\Psr7\Response $resp) use ($factory, $committee, $committee_membership, $chairs, $lifetime_member_array) {
 
                     foreach (json_decode($resp->getBody()) as $object) {
 
@@ -74,7 +74,7 @@ class Repository
 
                         $lifetime_member = in_array( $object->info->ID_NUMBER , $lifetime_member_array);
 
-                        $committee_data[$committee['COMMITTEE_CODE']][$object->info->ID_NUMBER] = $factory->member($object, $chair, $lifetime_member);
+                        $_SESSION['committee_data'][$committee['COMMITTEE_CODE']][$object->info->ID_NUMBER] = $factory->member($object, $chair, $lifetime_member);
 
                         $committee_membership->addCommittee($object->info->ID_NUMBER, $committee['COMMITTEE_CODE']);
                     }
@@ -88,11 +88,11 @@ class Repository
         }
 
 
-        if (isset($committee_data) && is_array($committee_data) && count($committee_data) > 0) {
-            foreach ($committee_data as $key => $committee) {
-                $committee_data[$key] = $factory->sortData($committee);
+        if (isset($_SESSION['committee_data']) && is_array($_SESSION['committee_data']) && count($_SESSION['committee_data']) > 0) {
+            foreach ($_SESSION['committee_data'] as $key => $committee) {
+                $_SESSION['committee_data'][$key] = $factory->sortData($committee);
             }
-            $this->memcache->set('AdvisoryCouncilsMemberData', $committee_data, MEMCACHE_COMPRESSED, 0);
+            $this->memcache->set('AdvisoryCouncilsMemberData', $_SESSION['committee_data'], MEMCACHE_COMPRESSED, 0);
         }
         $this->memcache->set('AdvisoryCouncilsMemberMembershipData', array('committee_membership' => $committee_membership), MEMCACHE_COMPRESSED, 0);
 
