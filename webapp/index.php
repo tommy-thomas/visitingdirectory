@@ -1,86 +1,68 @@
 <?php
-require('_classes/autoload.php');
-/**
- * The Application object.
- */
-$app = Application::app();
-$template = $app->template('index.html.cs');
-$template->add_data( "base" , $app->base() );
+require __DIR__ . "/../vendor/autoload.php";
+
+
+$app = new UChicago\AdvisoryCouncil\Application;
+
 $auth_err = false;
-$soc_auth_err = false;
+$valid_social_auth = null;
+
 /**
  * Set committee objects for side nav.
  */
-$curl = new cURL(null);
-$collection = GriffinCollection::instance($app , $curl );
-$curl->authenticate( $collection->getLoginUrl() );
-$_SESSION['authtoken'] = array( 'authtoken' => $curl->__toString());
-$collection->checkCache($_SESSION['authtoken']);
-$collection->loadCommitteeTemplateData($template);
-if( $app->isShibbAuth() )
-{
-	if( $app->isAuthorized() )
-	{
-		$app->redirect('./search.php');
-	}
-	elseif( $app->isValidService()  )
-	{
-		if( $app->userIsFromSocialAuth() && isset($_SERVER['mail']) )
-		{
-		try {
-			$curl->setPost($_SESSION['authtoken']);
-			$curl->createCurl( $collection->getServiceUrl('email_validation', $_SERVER['mail'] ) );
-			if( !is_a($curl->asSimpleXML() , 'SimpleXMLElement' ) || !$collection->xmlChildExists($curl->asSimpleXML(), '//ID_NUMBER'))
-			{
-				$soc_auth_err = true;
-			}
-			else
-			{
-				$_SESSION['email'] =  $_SERVER['mail'];
-				$app->redirect('./search.php');
-			}		
-			} catch (Exception $e) {
-				Application::handleExceptions($e);
-			}
-		}
-		elseif( $app->userIsFromShibb() )
-		{	
-			if( !$app->isValidGroup() )
-			{
-				$auth_err = true;
-			}
-			else
-			{				
-				$_SESSION['email'] =  $_SERVER['mail'];
-				$app->redirect('./search.php');
-			}
-		}
-	}
-	else
-	{
-		$soc_auth_err = true;
-	}
+
+use GuzzleHttp\Client;
+
+$client = new Client(['base_uri' => $app->ardUrl()]);
+
+$token = new \UChicago\AdvisoryCouncil\BearerToken($client, $app->apiCreds()['username'], $app->apiCreds()['password']);
+
+$_SESSION['bearer_token'] = $token->bearer_token();
+
+if ( $app->isAuthorized() ) {
+        $app->redirect('./search.php');
 }
 
+if (  $app->userIsFromShibb() && $app->isValidGroup() ) {
+    $_SESSION['email'] = $_SERVER['mail'];
+    $app->redirect('./search.php');
+}
+
+if ($app->userIsFromShibb() && !$app->isValidGroup() ) {
+    $auth_err = true;
+}
+
+if ($app->userIsFromSocialAuth() && isset($_SERVER['mail'])) {
+    $valid_social_auth = $app->isValidSocialAuth($client, $_SERVER['mail'], $_SESSION['bearer_token']);
+    if( $valid_social_auth ){
+        $_SESSION['email'] = $_SERVER['mail'];
+        $app->redirect('./search.php');
+    }
+}
+
+
 /**
- * Start populating the CS template.
- * The Clear Silver template.
+ * Start Twig
  */
-$template->add_data( "domain" , $app->domain() );
-$template->add_data( "base" , $app->base() );
-/*
- * Add authentication error if set.
- */
-if( $auth_err || ( isset($_GET['error']) && $_GET['error'] == 'auth') )
-{
-	$template->add_data( "authentication_error" , $app->get_error_message(0) );
+$template = $app->template("index.html.twig");
+
+$err_msg = "";
+if ($auth_err || (isset($_GET['error']) && $_GET['error'] == 'auth')) {
+    $err_msg = $app->getErrorMessage(0);
 }
 /*
- * Add soaicl auth error if set.
+ * Add social auth error if set.
  */
-if( $soc_auth_err )
-{
-	$template->add_data( "authentication_error" , $app->get_error_message(1) );
+if ( isset($valid_social_auth) && !is_null($valid_social_auth) && !$valid_social_auth) {
+    $err_msg = $app->getErrorMessage(1);
 }
-$template->show();
+
+echo $template->render([
+
+        "authentication_error" => $err_msg,
+        "domain" => $app->domain(),
+    ]
+);
+
 ?>
+

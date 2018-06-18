@@ -1,2 +1,4 @@
 workingcopy
-webapp/vendor
+vendor
+composer.lock
+.idea

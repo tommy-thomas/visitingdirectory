@@ -10,7 +10,7 @@
 			var raw_f_data = fData.split(":");
 			var data = $.map(raw_data, getTextNodeValue);
 			var f_data = $.map(raw_f_data,getTextNodeValue);
-			var sOut = '<table width="100%" border="0" cellspacing="3" cellpadding="3" style="margin:0;">';   
+			var sOut = '<table width="100%" border="0" cellspacing="3" cellpadding="3" style="margin:0;">';
 			sOut +='<tr>';
 			sOut +='<td width="25%" style="align:left;">'+data[0]+'</td>';
 			sOut +='<td width="25%" style="align:left;">&nbsp;</td>';
@@ -18,48 +18,24 @@
 			sOut +='<td width="25%" style="align:left;">&nbsp;</td>';
 			sOut +='</tr>';
 			sOut +='<tr>';
-			sOut +='<td>'+data[7]+'</td>';
+			sOut +='<td>'+data[5]+'</td>';
 			sOut +='<td>&nbsp;</td>';
-			sOut +='<td>'+data[1];
-			if( data[2] != null && data[2] != "")
-			{
-				sOut +='<br />'+data[2];
-			}
-			if( data[3] != null && data[3] != "")
-			{
-				sOut +='<br />'+data[3];
-			}
+			sOut +='<td>'+data[1] +'</td>';
 			sOut +='</td>';
 			sOut +='<td>&nbsp;</td>';
 			sOut +='</tr>';
 			sOut +='<tr>';
-			sOut +='<td>'+data[8]+'</td>';
-			sOut +='<td>&nbsp;</td>';
-             sOut +='<td>';
-            if( data[4] != null && data[4] != "")
-            {
-                sOut +=data[4]+', ';
-            }
-            if( data[5] != null && data[5] != "")
-            {
-            	sOut +=data[5] ;
-            }
-            if( data[6] != null && data[6] != "")
-            {
-            	sOut +='<br />'+data[6];
-            }
-            if( f_data[0] != null && f_data[0] != "")
-            {
-                sOut += f_data[0];
-            }
-            if( f_data[1] != null && f_data[1] != "")
-            {
-                sOut +=', ' + f_data[1];
-            }
-            sOut +='</td>';
-			sOut +='<td>&nbsp;</td>';
-			sOut +='</tr>';
+            sOut +='<td>'+data[6]+'</td>';
+            sOut +='<td>&nbsp;</td><td>';
+            sOut += ( data[2] != null && data[2] != "") ? data[2] : "&nbsp;";
+            sOut += ( data[3] != null && data[3] != "") ? ", " + data[3] : "&nbsp;";
+            sOut += ( data[4] != null && data[4] != "") ? "<br />" +  data[4] : "&nbsp;";
+            sOut += "</td>";
+            sOut +='<td>&nbsp;</td></tr>';
+             sOut +='<tr><td>';
 			sOut +='</table>';
+            console.log( data );
+			console.log( f_data );
 			return sOut;
 		}
 		 
