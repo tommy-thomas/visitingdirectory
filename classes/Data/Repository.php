@@ -74,8 +74,8 @@ class Repository
 
                         $lifetime_member = in_array( $object->info->ID_NUMBER , $lifetime_member_array);
 
-//                      member is not deceased
-                        if( isset( $object->RECORD_STATUS_CODE ) &&  $object->RECORD_STATUS_CODE != "D" ){
+                        //member is not deceased
+                        if( isset( $object->info->RECORD_STATUS_CODE ) &&  $object->info->RECORD_STATUS_CODE != "D" ){
                             $_SESSION['committee_data'][$committee['COMMITTEE_CODE']][$object->info->ID_NUMBER] = $factory->member($object, $chair , $lifetime_member);
                         }
 
