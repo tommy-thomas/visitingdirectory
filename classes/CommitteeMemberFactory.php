@@ -37,7 +37,7 @@ class CommitteeMemberFactory
     public static function isActive(\stdClass $member = null)
     {
         if (!is_null($member) && !is_null($member->ID_NUMBER)) {
-            return $member->TMS_COMMITTEE_STATUS_CODE == "Active" ? true : false;
+            return ($member->TMS_COMMITTEE_STATUS_CODE== "Active" && $member->COMMITTEE_ROLE_CODE != "EO") ? true : false;
         }
         return false;
     }
@@ -66,6 +66,7 @@ class CommitteeMemberFactory
 
     public function idNumbersAsQueryString($members = [])
     {
+        var_dump($members); exit();
         $id_numbers = array_map(function ($ar) {
             return self::isActive($ar) ? $ar->ID_NUMBER : null;
         }, $members);
