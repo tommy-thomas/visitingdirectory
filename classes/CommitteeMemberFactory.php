@@ -66,7 +66,6 @@ class CommitteeMemberFactory
 
     public function idNumbersAsQueryString($members = [])
     {
-        var_dump($members); exit();
         $id_numbers = array_map(function ($ar) {
             return self::isActive($ar) ? $ar->ID_NUMBER : null;
         }, $members);
