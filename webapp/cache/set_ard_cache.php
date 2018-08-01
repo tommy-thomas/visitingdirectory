@@ -78,6 +78,6 @@ if (isset($_SESSION['committee_data']) && is_array($_SESSION['committee_data']) 
     foreach ($_SESSION['committee_data'] as $key => $committee) {
         $_SESSION['committee_data'][$key] = $factory->sortData($committee);
     }
-    $memcache->set('AdvisoryCouncilsMemberData', $_SESSION['committee_data'], MEMCACHE_COMPRESSED, 5);
+    $memcache->set('AdvisoryCouncilsMemberData', $_SESSION['committee_data'], MEMCACHE_COMPRESSED, 604800 );
 }
-$memcache->set('AdvisoryCouncilsMemberMembershipData', array('committee_membership' => $committee_membership), MEMCACHE_COMPRESSED, 5);
+$memcache->set('AdvisoryCouncilsMemberMembershipData', array('committee_membership' => $committee_membership), MEMCACHE_COMPRESSED, 604800 );
