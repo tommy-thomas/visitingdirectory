@@ -74,7 +74,10 @@ class Repository
 
                         $lifetime_member = in_array( $object->info->ID_NUMBER , $lifetime_member_array);
 
-                        $_SESSION['committee_data'][$committee['COMMITTEE_CODE']][$object->info->ID_NUMBER] = $factory->member($object, $chair, $lifetime_member);
+                        //member is not deceased
+                        if( isset( $object->info->RECORD_STATUS_CODE ) &&  $object->info->RECORD_STATUS_CODE != "D" ){
+                            $_SESSION['committee_data'][$committee['COMMITTEE_CODE']][$object->info->ID_NUMBER] = $factory->member($object, $chair , $lifetime_member);
+                        }
 
                         $committee_membership->addCommittee($object->info->ID_NUMBER, $committee['COMMITTEE_CODE']);
                     }
@@ -92,9 +95,9 @@ class Repository
             foreach ($_SESSION['committee_data'] as $key => $committee) {
                 $_SESSION['committee_data'][$key] = $factory->sortData($committee);
             }
-            $this->memcache->set('AdvisoryCouncilsMemberData', $_SESSION['committee_data'], MEMCACHE_COMPRESSED, 0);
+            $this->memcache->set('AdvisoryCouncilsMemberData', $_SESSION['committee_data'], MEMCACHE_COMPRESSED, 604800 );
         }
-        $this->memcache->set('AdvisoryCouncilsMemberMembershipData', array('committee_membership' => $committee_membership), MEMCACHE_COMPRESSED, 0);
+        $this->memcache->set('AdvisoryCouncilsMemberMembershipData', array('committee_membership' => $committee_membership), MEMCACHE_COMPRESSED, 604800 );
 
         return;
     }

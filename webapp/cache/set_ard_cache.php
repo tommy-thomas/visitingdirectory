@@ -58,8 +58,10 @@ foreach ($committees->committes() as $key=> $committee) {
 
                 $lifetime_member = in_array( $object->info->ID_NUMBER , $lifetime_member_array);
 
-                $_SESSION['committee_data'][$committee['COMMITTEE_CODE']][$object->info->ID_NUMBER] = $factory->member($object, $chair , $lifetime_member);
-
+                //member is not deceased
+                if( isset( $object->info->RECORD_STATUS_CODE ) &&  $object->info->RECORD_STATUS_CODE != "D" ){
+                    $_SESSION['committee_data'][$committee['COMMITTEE_CODE']][$object->info->ID_NUMBER] = $factory->member($object, $chair , $lifetime_member);
+                }
                 $committee_membership->addCommittee($object->info->ID_NUMBER, $committee['COMMITTEE_CODE']);
             }
         },
@@ -76,6 +78,6 @@ if (isset($_SESSION['committee_data']) && is_array($_SESSION['committee_data']) 
     foreach ($_SESSION['committee_data'] as $key => $committee) {
         $_SESSION['committee_data'][$key] = $factory->sortData($committee);
     }
-    $memcache->set('AdvisoryCouncilsMemberData', $_SESSION['committee_data'], MEMCACHE_COMPRESSED, 0);
+    $memcache->set('AdvisoryCouncilsMemberData', $_SESSION['committee_data'], MEMCACHE_COMPRESSED, 604800 );
 }
-$memcache->set('AdvisoryCouncilsMemberMembershipData', array('committee_membership' => $committee_membership), MEMCACHE_COMPRESSED, 0);
+$memcache->set('AdvisoryCouncilsMemberMembershipData', array('committee_membership' => $committee_membership), MEMCACHE_COMPRESSED, 604800 );
