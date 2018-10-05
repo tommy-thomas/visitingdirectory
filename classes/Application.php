@@ -13,6 +13,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use Twig_Loader_Filesystem;
 use Twig_Environment;
+use WS\SecureHeaders\SecureHeaders;
 
 class Application extends \WS\SharedPHP\WS_Application
 {
@@ -42,6 +43,8 @@ class Application extends \WS\SharedPHP\WS_Application
         parent::__construct($requireSession, $this->sessionTimeout);
         $this->charset = "utf-8";
         $this->templatesPath = __DIR__ . "/../templates";
+        $sh = new SecureHeaders('dev');
+        $sh->sendHeaders();
     }
 
     public function template($templateFile)
