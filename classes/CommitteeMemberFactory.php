@@ -59,7 +59,7 @@ class CommitteeMemberFactory
                         $chairs[$member->COMMITTEE_CODE] = array();
                         array_push($chairs[$member->COMMITTEE_CODE], $tmp_member);
                         array_push($chairs[$member->COMMITTEE_CODE], $member->ID_NUMBER);
-                    } elseif ($tmp_member->ID_NUMBER != $member->ID_NUMBER && $member_is_object ) {
+                    } elseif ($member_is_object  && $tmp_member->ID_NUMBER != $member->ID_NUMBER ) {
                         array_push($chairs[$member->COMMITTEE_CODE], $member->ID_NUMBER);
                     }
 
