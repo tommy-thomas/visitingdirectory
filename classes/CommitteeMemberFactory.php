@@ -52,7 +52,7 @@ class CommitteeMemberFactory
                     $chairs[$member->COMMITTEE_CODE] = $member->ID_NUMBER;
                 }
 
-                if( isset( $chairs[$member->COMMITTEE_CODE] ) && ($chairs[$member->COMMITTEE_CODE])->ID_NUMBER != $member->ID_NUMBER){
+                if( isset( $chairs[$member->COMMITTEE_CODE] ) && $chairs[$member->COMMITTEE_CODE]->ID_NUMBER != $member->ID_NUMBER){
                     if( !is_array( $chairs[$member->COMMITTEE_CODE] ) ){
                         $tmp_member = $chairs[$member->COMMITTEE_CODE];
                         $chairs[$member->COMMITTEE_CODE] = array();
