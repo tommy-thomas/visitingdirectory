@@ -53,12 +53,12 @@ class CommitteeMemberFactory
                 }
 
                 if( isset( $chairs[$member->COMMITTEE_CODE] ) && $chairs[$member->COMMITTEE_CODE]->ID_NUMBER != $member->ID_NUMBER){
-                    if( !is_array( $chairs[$member->COMMITTEE_CODE] ) ){
-                        $tmp_member = $chairs[$member->COMMITTEE_CODE];
+                    $tmp_member = $chairs[$member->COMMITTEE_CODE];
+                    if( !is_array( $chairs[$member->COMMITTEE_CODE] ) && ($tmp_member->ID_NUMBER != $member->ID_NUMBER)){
                         $chairs[$member->COMMITTEE_CODE] = array();
                         array_push( $chairs[$member->COMMITTEE_CODE] , $tmp_member);
                         array_push( $chairs[$member->COMMITTEE_CODE] , $member->ID_NUMBER);
-                    } else {
+                    } elseif( $tmp_member->ID_NUMBER != $member->ID_NUMBER ) {
                         array_push( $chairs[$member->COMMITTEE_CODE] , $member->ID_NUMBER);
                     }
 
