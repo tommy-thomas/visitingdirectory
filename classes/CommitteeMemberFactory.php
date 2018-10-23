@@ -47,7 +47,23 @@ class CommitteeMemberFactory
         $chairs = array();
         foreach ($members as $key => $member) {
             if (self::isActive($member) && isset($member->COMMITTEE_ROLE_CODE) && $member->COMMITTEE_ROLE_CODE == "CH") {
-                $chairs[$member->COMMITTEE_CODE] = $member->ID_NUMBER;
+
+                if( !isset( $chairs[$member->COMMITTEE_CODE] ) ){
+                    $chairs[$member->COMMITTEE_CODE] = $member->ID_NUMBER;
+                }
+
+                if( isset( $chairs[$member->COMMITTEE_CODE] ) ){
+                    if( !is_array( $chairs[$member->COMMITTEE_CODE] ) ){
+                        $tmp_member = $chairs[$member->COMMITTEE_CODE];
+                        $chairs[$member->COMMITTEE_CODE] = array();
+                        array_push( $chairs[$member->COMMITTEE_CODE] , $tmp_member);
+                        array_push( $chairs[$member->COMMITTEE_CODE] , $member->ID_NUMBER);
+                    } else {
+                        array_push( $chairs[$member->COMMITTEE_CODE] , $member->ID_NUMBER);
+                    }
+
+                }
+
             }
         }
         return $chairs;
