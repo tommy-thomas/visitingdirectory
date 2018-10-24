@@ -30,11 +30,16 @@ if ($app->isValid() && isset($_GET['c'])) {
     $code = $_GET['c'];
     $members_list = $repository->getCouncilData($code);
     if (isset($members_list) && count($members_list) > 0) {
+        $chairs_array = array();
+
         foreach ($members_list as $m) {
             if ($m->chair()) {
-                ;
-                $TwigTemplateVariables['Chairman'] = $m->full_name() . ', Chair';
+                array_push( $chairs_array , $m->full_name() );
             }
+        }
+        if( !empty($chairs_array )){
+            asort($chairs_array);
+            $TwigTemplateVariables['Chairman'] = count($chairs_array) < 2 ? $chairs_array[0] . ', Chair' : implode(" and " , $chairs_array) . ", Co-Chairs";
         }
         $TwigTemplateVariables['members_list'] = $members_list;
     }
