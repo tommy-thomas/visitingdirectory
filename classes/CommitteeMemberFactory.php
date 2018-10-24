@@ -48,18 +48,18 @@ class CommitteeMemberFactory
         foreach ($members as $key => $member) {
             if (self::isActive($member) && isset($member->COMMITTEE_ROLE_CODE) && $member->COMMITTEE_ROLE_CODE == "CH") {
 
-                if (!isset($chairs[$member->COMMITTEE_CODE])) {
+                if ( !isset($chairs[$member->COMMITTEE_CODE])) {
                     $chairs[$member->COMMITTEE_CODE] = $member->ID_NUMBER;
+                    continue;
                 }
 
                 if ( isset($chairs[$member->COMMITTEE_CODE])  ) {
-                    $tmp_member = $chairs[$member->COMMITTEE_CODE];
-                    $member_is_object = is_object( $tmp_member );
-                    if (!is_array($chairs[$member->COMMITTEE_CODE]) && $member_is_object && ($tmp_member->ID_NUMBER != $member->ID_NUMBER)) {
+                    $tmp_member_id = $chairs[$member->COMMITTEE_CODE];
+                    if (!is_array($chairs[$member->COMMITTEE_CODE]) && $tmp_member_id != $member->ID_NUMBER ) {
                         $chairs[$member->COMMITTEE_CODE] = array();
-                        array_push($chairs[$member->COMMITTEE_CODE], $tmp_member);
+                        array_push($chairs[$member->COMMITTEE_CODE], $tmp_member_id);
                         array_push($chairs[$member->COMMITTEE_CODE], $member->ID_NUMBER);
-                    } elseif ($member_is_object  && $tmp_member->ID_NUMBER != $member->ID_NUMBER ) {
+                    } elseif ( $tmp_member_id != $member->ID_NUMBER ) {
                         array_push($chairs[$member->COMMITTEE_CODE], $member->ID_NUMBER);
                     }
 
