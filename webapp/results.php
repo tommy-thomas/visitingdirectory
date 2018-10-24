@@ -56,6 +56,7 @@ if ((isset($_POST['search_by_committee']) && !empty($_POST['committee'])) || iss
         }
     }
     if( !empty($chairs_array )){
+        asort($chairs_array);
         $TwigTemplateVariables['Chairman'] = count($chairs_array) < 2 ? $chairs_array[0] . ', Chair' : implode(" and " , $chairs_array) . ", Co-Chairs";
     }
     $TwigTemplateVariables['members'] = $members_list;
