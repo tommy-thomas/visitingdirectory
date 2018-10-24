@@ -70,7 +70,7 @@ class Repository
 
                     foreach (json_decode($resp->getBody()) as $object) {
 
-                        $chair = $chairs[$committee['COMMITTEE_CODE']] == $object->info->ID_NUMBER ? true : false;
+                        $chair = (($chairs[$committee['COMMITTEE_CODE']] == $object->info->ID_NUMBER) || (is_array($chairs[$committee['COMMITTEE_CODE']] ) && in_array($object->info->ID_NUMBER,$chairs[$committee['COMMITTEE_CODE']] )) ) ? true : false;
 
                         $lifetime_member = in_array( $object->info->ID_NUMBER , $lifetime_member_array);
 
