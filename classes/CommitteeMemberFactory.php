@@ -52,9 +52,9 @@ class CommitteeMemberFactory
                     $chairs[$member->COMMITTEE_CODE] = $member->ID_NUMBER;
                 }
 
-                if (isset($chairs[$member->COMMITTEE_CODE])) {
+                if ( isset($chairs[$member->COMMITTEE_CODE])  ) {
                     $tmp_member = $chairs[$member->COMMITTEE_CODE];
-                    $member_is_object = $tmp_member instanceof CommitteeMember ? true : false;
+                    $member_is_object = is_object( $tmp_member );
                     if (!is_array($chairs[$member->COMMITTEE_CODE]) && $member_is_object && ($tmp_member->ID_NUMBER != $member->ID_NUMBER)) {
                         $chairs[$member->COMMITTEE_CODE] = array();
                         array_push($chairs[$member->COMMITTEE_CODE], $tmp_member);
