@@ -37,7 +37,7 @@ class Committees
             'FULL_DESC' => 'The Library Council'),
         'VVIM' => array('COMMITTEE_CODE' => 'VVIM',
             'SHORT_DESC' => 'Molecular Engineering',
-            'FULL_DESC' => 'The Institute for Molecular Engineering Council'),
+            'FULL_DESC' => 'The Pritzker School of Molecular Engineering Council'),
         'VVOI' => array('COMMITTEE_CODE' => 'VVOI',
             'SHORT_DESC' => 'Oriental Institute',
             'FULL_DESC' => 'The Oriental Institute Council'),
