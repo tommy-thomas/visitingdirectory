@@ -120,7 +120,7 @@ class CommitteeMember //extends WS_DynamicGetterSetter
         date_default_timezone_set('America/Chicago');
         foreach ($this->degrees as $degree){
             $date = new \DateTime();
-            $date->setDate($degree->DEGREE_YEAR, 1, 1);
+            $date->setDate((int)$degree->DEGREE_YEAR, 1, 1);
             $degrees_data[]= $degree->DEGREE_CODE . " '" . $date->format('y');
         }
         return implode(", ",$degrees_data);
