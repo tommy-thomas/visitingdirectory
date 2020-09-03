@@ -19,7 +19,7 @@
   "require": {
     "guzzlehttp/guzzle": "~6.3",
     "twig/twig": "~1.35",
-    "ws/wsodbcweb-sharedphp": "0.*",
+    "ws/wsodbcweb-sharedphp": "2.*",
     "ws/outputhandler": "0.*"
   }
 }
