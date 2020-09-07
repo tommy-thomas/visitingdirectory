@@ -1,5 +1,5 @@
 {
-  "name": "Advisory Councils",
+  "name": "uchicago/advisory-councils",
   "description": "A directory for searching Advisory Committee members.",
   "license": "proprietary",
   "autoload": {
