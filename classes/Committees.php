@@ -52,7 +52,7 @@ class Committees
             'FULL_DESC' => 'The Division of the Social Sciences Council'),
         'VSVC' => array('COMMITTEE_CODE' => 'VSVC',
             'SHORT_DESC' => 'Social Service Administration',
-            'FULL_DESC' => 'The School of Social Service Administration Council')
+            'FULL_DESC' => 'The University of Chicago Crown Family School of Social Work, Policy, and Practice Council')
     );
 
     public function committes()
