@@ -24,7 +24,7 @@ class Application extends \WS\SharedPHP\WS_Application
     /*
      * Whitelist for u of c user groups.
      */
-    const GROUPER_WHITE_LIST = array('uc:org:nsit:webservices:members', 'uc:org:ard:griffinusers');
+    const GROUPER_WHITE_LIST = array('uc:applications:web-services:visitingdirectorydev','uc:org:nsit:webservices:members', 'uc:org:ard:griffinusers');
     /*
      * Valid Shibb provider
      */
