@@ -11,7 +11,7 @@ namespace UChicago\AdvisoryCouncil;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
-use Twig_Loader_Filesystem;
+use Twig\Loader\FilesystemLoader as FilesystemLoader;
 use Twig_Environment;
 
 class Application extends \WS\SharedPHP\WS_Application
@@ -50,7 +50,7 @@ class Application extends \WS\SharedPHP\WS_Application
     public function template($templateFile)
     {
         if (!$this->twig) {
-            $loader = new Twig_Loader_Filesystem($this->templatesPath);
+            $loader = new FilesystemLoader($this->templatesPath);
             $this->twig = new Twig_Environment($loader, [
                 "charset" => $this->charset
             ]);
