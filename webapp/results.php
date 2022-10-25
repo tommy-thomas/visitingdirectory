@@ -75,8 +75,8 @@ if (isset($_POST['search_by_name'])) {
         new CommitteeMemberFactory(),
         $repository->getCouncilMembershipData());
 
-    $results = $search->searchResults(array("first_name" => htmlClean($_POST['f_name']), "last_name" => htmlClean($_POST['l_name'])),
-        $committees);
+    $results = $search->searchResults($committees,
+        array("first_name" => htmlClean($_POST['f_name']), "last_name" => htmlClean($_POST['l_name'])));
 
     if ($search->total() > 0) {
         $TwigTemplateVariables['members'] = $results;
