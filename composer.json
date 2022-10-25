@@ -2,6 +2,9 @@
   "name": "uchicago/advisory-councils",
   "description": "A directory for searching Advisory Committee members.",
   "license": "proprietary",
+  "config": {
+    "secure-http": false
+  },
   "autoload": {
     "psr-4": {
       "UChicago\\AdvisoryCouncil\\": "classes"
@@ -17,9 +20,9 @@
     }
   },
   "require": {
-    "guzzlehttp/guzzle": "~6.3",
-    "twig/twig": "~1.35",
-    "ws/wsodbcweb-sharedphp": "2.*",
+    "guzzlehttp/guzzle": "7.*",
+    "twig/twig": "3.*",
+    "ws/wsodbcweb-sharedphp": "5.*",
     "ws/outputhandler": "0.*"
   }
 }
