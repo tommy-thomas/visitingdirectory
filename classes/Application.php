@@ -20,6 +20,9 @@ class Application extends \WS\SharedPHP\WS_Application
     private $charset;
     private $templatesPath;
     private $sessionTimeout = 3600;
+    const CREDS_PATH = "/data/credentials/visitingdirectory/authorization.php";
+    const ARD_PROD_URL = "https://ardapi.uchicago.edu/api/";
+    const ARD_QA_URL = "https://ardapi-qa.uchicago.edu/api/";
 
     /*
      * Whitelist for u of c user groups.
@@ -62,7 +65,7 @@ class Application extends \WS\SharedPHP\WS_Application
 
     public function ardUrl()
     {
-        return $this->isProd() ? "https://ardapi.uchicago.edu/api/" : "https://ardapi-qa.uchicago.edu/api/";
+        return $this->isProd() ? self::ARD_PROD_URL : self::ARD_QA_URL;
     }
 
     public function environment()
@@ -99,7 +102,7 @@ class Application extends \WS\SharedPHP\WS_Application
 
     public function apiCreds()
     {
-        require ('/data/credentials/visitingdirectory/authorization.php');
+        require (self::CREDS_PATH);
         return array("username" => $username,  "password" => $password);
     }
 
