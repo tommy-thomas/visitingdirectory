@@ -6,21 +6,26 @@ require __DIR__ . "/../vendor/autoload.php";
  */
 
 use GuzzleHttp\Client;
+use UChicago\AdvisoryCouncil\CLIMemcache;
+use UChicago\AdvisoryCouncil\CommitteeMemberFactory;
+use UChicago\AdvisoryCouncil\Committees;
+use UChicago\AdvisoryCouncil\CommitteeSearch;
+use UChicago\AdvisoryCouncil\Data\Repository;
 
 $app = new \UChicago\AdvisoryCouncil\Application();
 if (!$app->isAuthorized()) {
     $app->redirect('./index.php?error=auth');
 }
 
-$committees = new \UChicago\AdvisoryCouncil\Committees();
+$committees = new Committees();
 
-$memcache_instance = new \UChicago\AdvisoryCouncil\CLIMemcache();
+$memcache_instance = new CLIMemcache();
 
 $memcache = $memcache_instance->getMemcacheForCLI($app->environment());
 
 $client = new Client(['base_uri' => $app->ardUrl()]);
 
-$repository = new \UChicago\AdvisoryCouncil\Data\Repository($app->environment(), $memcache, $client, $_SESSION['bearer_token']);
+$repository = new Repository($memcache, $client, $_SESSION['bearer_token'], $app->environment());
 
 
 $template = $app->template('./results.html.twig');
@@ -66,8 +71,8 @@ if ((isset($_POST['search_by_committee']) && !empty($_POST['committee'])) || iss
  * Search by first_name or last_name
  */
 if (isset($_POST['search_by_name'])) {
-    $search = new \UChicago\AdvisoryCouncil\CommitteeSearch($repository->allCouncilData(),
-        new \UChicago\AdvisoryCouncil\CommitteeMemberFactory(),
+    $search = new CommitteeSearch($repository->allCouncilData(),
+        new CommitteeMemberFactory(),
         $repository->getCouncilMembershipData());
 
     $results = $search->searchResults(array("first_name" => htmlClean($_POST['f_name']), "last_name" => htmlClean($_POST['l_name'])),

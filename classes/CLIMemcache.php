@@ -9,7 +9,9 @@
 namespace UChicago\AdvisoryCouncil;
 
 
-class CLIMemcache extends  \WS\SharedPHP\WS_Memcache
+use WS\SharedPHP\WS_Memcache;
+
+class CLIMemcache extends  WS_Memcache
 {
     /**
      * Use memcache?

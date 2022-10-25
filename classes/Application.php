@@ -13,8 +13,9 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use Twig\Loader\FilesystemLoader as FilesystemLoader;
 use Twig\Environment as Environment;
+use WS\SharedPHP\WS_Application;
 
-class Application extends \WS\SharedPHP\WS_Application
+class Application extends WS_Application
 {
     private $twig;
     private $charset;

@@ -12,10 +12,11 @@ $valid_social_auth = null;
  */
 
 use GuzzleHttp\Client;
+use UChicago\AdvisoryCouncil\BearerToken;
 
 $client = new Client(['base_uri' => $app->ardUrl()]);
 
-$token = new \UChicago\AdvisoryCouncil\BearerToken($client, $app->apiCreds()['username'], $app->apiCreds()['password']);
+$token = new BearerToken($client, $app->apiCreds()['username'], $app->apiCreds()['password']);
 
 $_SESSION['bearer_token'] = $token->bearer_token();
 

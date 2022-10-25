@@ -6,18 +6,21 @@ require __DIR__ . "/../vendor/autoload.php";
  */
 
 use GuzzleHttp\Client;
+use UChicago\AdvisoryCouncil\CLIMemcache;
+use UChicago\AdvisoryCouncil\Committees;
+use UChicago\AdvisoryCouncil\Data\Repository;
 
 $app = new \UChicago\AdvisoryCouncil\Application();
 
-$committees = new \UChicago\AdvisoryCouncil\Committees();
+$committees = new Committees();
 
-$memcache_instance = new \UChicago\AdvisoryCouncil\CLIMemcache();
+$memcache_instance = new CLIMemcache();
 
 $memcache = $memcache_instance->getMemcacheForCLI($app->environment());
 
 $client = new Client(['base_uri' => $app->ardUrl()]);
 
-$repository = new \UChicago\AdvisoryCouncil\Data\Repository($app->environment(), $memcache, $client, $_SESSION['bearer_token']);
+$repository = new Repository($memcache, $client, $_SESSION['bearer_token'], $app->environment());
 
 /**
  * Start populating the CS template.

@@ -4,23 +4,26 @@ require __DIR__ . "/../../vendor/autoload.php";
 
 
 use GuzzleHttp\Client;
+use UChicago\AdvisoryCouncil\BearerToken;
+use UChicago\AdvisoryCouncil\CLIMemcache;
+use UChicago\AdvisoryCouncil\Committees;
+use UChicago\AdvisoryCouncil\Data\Repository;
 
 $app = new \UChicago\AdvisoryCouncil\Application();
 
-$committees = new \UChicago\AdvisoryCouncil\Committees();
+$committees = new Committees();
 
-$memcache_instance = new \UChicago\AdvisoryCouncil\CLIMemcache();
+$memcache_instance = new CLIMemcache();
 
 $memcache = $memcache_instance->getMemcacheForCLI($app->environment());
 
 $client = new Client(['base_uri' => $app->ardUrl()]);
 
-//$client = new Client(['base_uri' => 'https://ardapi-uat2015.uchicago.edu/api/']); // UAT
-$token = new \UChicago\AdvisoryCouncil\BearerToken($client, $app->apiCreds()['username'], $app->apiCreds()['password']);
+$token = new BearerToken($client, $app->apiCreds()['username'], $app->apiCreds()['password']);
 
 $_SESSION['bearer_token'] = $token->bearer_token();
 
-$repository = new \UChicago\AdvisoryCouncil\Data\Repository($app->environment(), $memcache, $client, $_SESSION['bearer_token']);
+$repository = new Repository($memcache, $client, $_SESSION['bearer_token'], $app->environment());
 
 $template = $app->template('./committee.html.twig');
 
