@@ -12,7 +12,7 @@ namespace UChicago\AdvisoryCouncil;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use Twig\Loader\FilesystemLoader as FilesystemLoader;
-use Twig_Environment;
+use Twig\Environment as Environment;
 
 class Application extends \WS\SharedPHP\WS_Application
 {
@@ -51,7 +51,7 @@ class Application extends \WS\SharedPHP\WS_Application
     {
         if (!$this->twig) {
             $loader = new FilesystemLoader($this->templatesPath);
-            $this->twig = new Twig_Environment($loader, [
+            $this->twig = new Environment($loader, [
                 "charset" => $this->charset
             ]);
             // Add global template vars
@@ -60,7 +60,7 @@ class Application extends \WS\SharedPHP\WS_Application
                 $this->twig->addGlobal("user", $this->getUser());
             }
         }
-        return $this->twig->loadTemplate($templateFile);
+        return $this->twig->load($templateFile);
     }
 
     public function ardUrl()
