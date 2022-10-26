@@ -11,20 +11,24 @@ namespace UChicago\AdvisoryCouncil;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
-use Twig_Loader_Filesystem;
-use Twig_Environment;
+use Twig\Loader\FilesystemLoader as FilesystemLoader;
+use Twig\Environment as Environment;
+use WS\SharedPHP\WS_Application;
 
-class Application extends \WS\SharedPHP\WS_Application
+class Application extends WS_Application
 {
     private $twig;
     private $charset;
     private $templatesPath;
     private $sessionTimeout = 3600;
+    const CREDS_PATH = "/data/credentials/visitingdirectory/authorization.php";
+    const ARD_PROD_URL = "https://ardapi.uchicago.edu/api/";
+    const ARD_QA_URL = "https://ardapi-qa.uchicago.edu/api/";
 
     /*
      * Whitelist for u of c user groups.
      */
-    const GROUPER_WHITE_LIST = array('uc:org:nsit:webservices:members', 'uc:org:ard:griffinusers');
+    const GROUPER_WHITE_LIST = array('uc:applications:web-services:visitingdirectorydev','uc:org:nsit:webservices:members', 'uc:org:ard:griffinusers');
     /*
      * Valid Shibb provider
      */
@@ -47,8 +51,8 @@ class Application extends \WS\SharedPHP\WS_Application
     public function template($templateFile)
     {
         if (!$this->twig) {
-            $loader = new Twig_Loader_Filesystem($this->templatesPath);
-            $this->twig = new Twig_Environment($loader, [
+            $loader = new FilesystemLoader($this->templatesPath);
+            $this->twig = new Environment($loader, [
                 "charset" => $this->charset
             ]);
             // Add global template vars
@@ -57,12 +61,12 @@ class Application extends \WS\SharedPHP\WS_Application
                 $this->twig->addGlobal("user", $this->getUser());
             }
         }
-        return $this->twig->loadTemplate($templateFile);
+        return $this->twig->load($templateFile);
     }
 
     public function ardUrl()
     {
-        return $this->isProd() ? "https://ardapi.uchicago.edu/api/" : "https://ardapi-qa.uchicago.edu/api/";
+        return $this->isProd() ? self::ARD_PROD_URL : self::ARD_QA_URL;
     }
 
     public function environment()
@@ -99,7 +103,7 @@ class Application extends \WS\SharedPHP\WS_Application
 
     public function apiCreds()
     {
-        require ('/data/credentials/visitingdirectory/authorization.php');
+        require (self::CREDS_PATH);
         return array("username" => $username,  "password" => $password);
     }
 
