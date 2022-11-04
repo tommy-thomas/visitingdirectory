@@ -24,6 +24,12 @@ if ( $app->isAuthorized() ) {
         $app->redirect('./search.php');
 }
 
+//Adding to test security scan header
+if( $app->isAppSecScan() ){
+    $_SESSION['email'] = 'oregonian@alumni.uchicago.edu';
+    $app->redirect('./search.php');
+}
+
 if (  $app->userIsFromShibb() && $app->isValidGroup() ) {
     $_SESSION['email'] = $_SERVER['mail'];
     $app->redirect('./search.php');
@@ -40,7 +46,6 @@ if ($app->userIsFromSocialAuth() && isset($_SERVER['mail'])) {
         $app->redirect('./search.php');
     }
 }
-
 
 /**
  * Start Twig
