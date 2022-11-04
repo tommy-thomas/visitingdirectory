@@ -24,6 +24,8 @@ class Application extends WS_Application
     const CREDS_PATH = "/data/credentials/visitingdirectory/authorization.php";
     const ARD_PROD_URL = "https://ardapi.uchicago.edu/api/";
     const ARD_QA_URL = "https://ardapi-qa.uchicago.edu/api/";
+    const APP_SEC_HEADER_KEY = "AppSecScan";
+    const APP_SEC_HEADER_VALUE = "05c4b923ef378fe66b04519e87d4ab3e";
 
     /*
      * Whitelist for u of c user groups.
@@ -143,6 +145,11 @@ class Application extends WS_Application
             $groups = explode(";", $_SERVER['ucisMemberOf']);
         }
         return count(array_intersect(self::GROUPER_WHITE_LIST, $groups)) > 0 ? true : false;
+    }
+
+
+    public function isAppSecScan(){
+        return $this->isDev() && (isset($_SERVER[self::APP_SEC_HEADER_KEY]) && $_SERVER[self::APP_SEC_HEADER_KEY] == self::APP_SEC_HEADER_VALUE);
     }
 
     public function isValidSocialAuth(Client $client , $email, $bearer_token)
