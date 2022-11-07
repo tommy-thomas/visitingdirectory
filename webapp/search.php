@@ -1,4 +1,7 @@
 <?php
+
+use UChicago\AdvisoryCouncil\Committees;
+
 require __DIR__ . "/../vendor/autoload.php";
 
 /**
@@ -6,7 +9,7 @@ require __DIR__ . "/../vendor/autoload.php";
  */
 $app = new \UChicago\AdvisoryCouncil\Application();
 
-$committees = new \UChicago\AdvisoryCouncil\Committees();
+$committees = new Committees();
 
 if( !$app->isAuthorized() )
 {
@@ -21,10 +24,6 @@ else
 	$TwigTemplateVariables[ "base" ] = $app->domain() ;
     $TwigTemplateVariables[ "committees" ] = $committees->committes();
 }
-
-//$curl = new cURL(null);
-//$collection = GriffinCollection::instance( $app , $curl , $_SESSION['authtoken'] );
-//$collection->loadCommitteeTemplateData($template);
 
 /*
  * Error messages

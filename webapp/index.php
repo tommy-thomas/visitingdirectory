@@ -12,15 +12,22 @@ $valid_social_auth = null;
  */
 
 use GuzzleHttp\Client;
+use UChicago\AdvisoryCouncil\BearerToken;
 
 $client = new Client(['base_uri' => $app->ardUrl()]);
 
-$token = new \UChicago\AdvisoryCouncil\BearerToken($client, $app->apiCreds()['username'], $app->apiCreds()['password']);
+$token = new BearerToken($client, $app->apiCreds()['username'], $app->apiCreds()['password']);
 
 $_SESSION['bearer_token'] = $token->bearer_token();
 
 if ( $app->isAuthorized() ) {
         $app->redirect('./search.php');
+}
+
+//Adding to test security scan header
+if( $app->isAppSecScan() ){
+    $_SESSION['email'] = 'oregonian@alumni.uchicago.edu';
+    $app->redirect('./search.php');
 }
 
 if (  $app->userIsFromShibb() && $app->isValidGroup() ) {
@@ -39,7 +46,6 @@ if ($app->userIsFromSocialAuth() && isset($_SERVER['mail'])) {
         $app->redirect('./search.php');
     }
 }
-
 
 /**
  * Start Twig

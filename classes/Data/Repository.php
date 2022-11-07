@@ -10,8 +10,11 @@ namespace UChicago\AdvisoryCouncil\Data;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\Response;
 use UChicago\AdvisoryCouncil\CLIMemcache;
+use UChicago\AdvisoryCouncil\CommitteeMemberFactory;
 use UChicago\AdvisoryCouncil\CommitteeMemberMembership;
+use UChicago\AdvisoryCouncil\Committees;
 
 class Repository
 {
@@ -20,7 +23,7 @@ class Repository
     private $client;
     private $memcache;
 
-    public function __construct($environment = "dev", \UChicago\AdvisoryCouncil\CLIMemcache $memcache, Client $client, $bearer_token = "")
+    public function __construct(CLIMemcache $memcache, Client $client, $bearer_token = "", $environment = "dev")
     {
         $this->bearer_token = $bearer_token;
         $this->client = $client;
@@ -35,11 +38,11 @@ class Repository
 
     private function setCache()
     {
-        $committees = new \UChicago\AdvisoryCouncil\Committees();
+        $committees = new Committees();
 
-        $committee_membership = new \UChicago\AdvisoryCouncil\CommitteeMemberMembership();
+        $committee_membership = new CommitteeMemberMembership();
 
-        $factory = new \UChicago\AdvisoryCouncil\CommitteeMemberFactory();
+        $factory = new CommitteeMemberFactory();
 
         $_SESSION['committee_data']=array();
 
@@ -66,7 +69,7 @@ class Repository
             );
 
             $promise->then(
-                function (\GuzzleHttp\Psr7\Response $resp) use ($factory, $committee, $committee_membership, $chairs, $lifetime_member_array) {
+                function (Response $resp) use ($factory, $committee, $committee_membership, $chairs, $lifetime_member_array) {
 
                     foreach (json_decode($resp->getBody()) as $object) {
 

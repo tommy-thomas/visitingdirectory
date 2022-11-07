@@ -26,7 +26,7 @@ class CommitteeSearch
         $this->membership = $membership;
     }
 
-    public function searchResults( $search = array("first_name" => "" , "last_name" => "") , Committees $committees )
+    public function searchResults(Committees $committees, $search = array("first_name" => "" , "last_name" => ""))
     {
         $this->results = array();
         $this->first_name = trim(strtolower($search['first_name']));
