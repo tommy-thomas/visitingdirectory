@@ -32,10 +32,12 @@ class CLIMemcache extends  WS_Memcache
             $this->memcache = new  CLIMemcache;
             if( $environment == "prod")
             {
-                $this->memcache->addServer('memcache01.uchicago.edu', 11211);
-                $this->memcache->addServer('memcache02.uchicago.edu', 11211);
-                $this->memcache->addServer('memcache03.uchicago.edu', 11211);
-                $this->memcache->addServer('memcache04.uchicago.edu', 11211);
+
+                $this->memcache->addServer('memcachedev01.uchicago.edu', 11211);
+//                $this->memcache->addServer('memcache01.uchicago.edu', 11211);
+//                $this->memcache->addServer('memcache02.uchicago.edu', 11211);
+//                $this->memcache->addServer('memcache03.uchicago.edu', 11211);
+//                $this->memcache->addServer('memcache04.uchicago.edu', 11211);
             }
             else
             {
