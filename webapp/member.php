@@ -8,7 +8,7 @@ require __DIR__ . "/../vendor/autoload.php";
 use GuzzleHttp\Client;
 use UChicago\AdvisoryCouncil\CLIMemcache;
 use UChicago\AdvisoryCouncil\Committees;
-use UChicago\AdvisoryCouncil\Data\Repository;
+use UChicago\AdvisoryCouncil\Data\StaticRepository;
 
 $app = new \UChicago\AdvisoryCouncil\Application();
 
@@ -20,7 +20,7 @@ $memcache = $memcache_instance->getMemcacheForCLI($app->environment());
 
 $client = new Client(['base_uri' => $app->ardUrl()]);
 
-$repository = new Repository($memcache, $client, $_SESSION['bearer_token'], $app->environment());
+$repository = new StaticRepository($memcache,  $app->environment());
 
 /**
  * Start populating the CS template.
