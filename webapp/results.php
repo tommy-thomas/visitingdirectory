@@ -10,7 +10,7 @@ use UChicago\AdvisoryCouncil\CLIMemcache;
 use UChicago\AdvisoryCouncil\CommitteeMemberFactory;
 use UChicago\AdvisoryCouncil\Committees;
 use UChicago\AdvisoryCouncil\CommitteeSearch;
-use UChicago\AdvisoryCouncil\Data\Repository;
+use UChicago\AdvisoryCouncil\Data\StaticRepository;
 
 $app = new \UChicago\AdvisoryCouncil\Application();
 if (!$app->isAuthorized()) {
@@ -23,9 +23,7 @@ $memcache_instance = new CLIMemcache();
 
 $memcache = $memcache_instance->getMemcacheForCLI($app->environment());
 
-$client = new Client(['base_uri' => $app->ardUrl()]);
-
-$repository = new Repository($memcache, $client, $_SESSION['bearer_token'], $app->environment());
+$repository = new StaticRepository($memcache, $app->environment());
 
 
 $template = $app->template('./results.html.twig');

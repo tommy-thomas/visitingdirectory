@@ -201,10 +201,15 @@ class Application extends WS_Application
 
     /**
      * If session email variable is set , user is authorized.
+     * * * original w/ token check * * *
+     *  public function isAuthorized()
+         {
+             return (isset($_SESSION['email']) && isset($_SESSION['bearer_token']));
+         }
      */
     public function isAuthorized()
     {
-        return (isset($_SESSION['email']) && isset($_SESSION['bearer_token']));
+        return (isset($_SESSION['email']) );
     }
 
 
