@@ -27,9 +27,7 @@ class StaticRepository
     {
         $this->memcache = $memcache;
 
-        if (!$this->memcache->get('AdvisoryCouncilsMemberData') || !$this->memcache->get('AdvisoryCouncilsMemberMembershipData')) {
-            $this->setData();
-        }
+        $this->setData();
     }
 
     public function setData()
