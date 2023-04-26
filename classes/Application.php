@@ -180,7 +180,8 @@ class Application extends WS_Application
 
     public function isValid()
     {
-        return isset($_SESSION['bearer_token']);
+        //return isset($_SESSION['bearer_token']);
+        return true;
     }
 
     /**
