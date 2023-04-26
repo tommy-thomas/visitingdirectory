@@ -35,6 +35,10 @@ class StaticRepository
         //set data array
         $this->data['AdvisoryCouncilsMemberData'] = $this->memcache->get('AdvisoryCouncilsMemberData');
         $this->data['AdvisoryCouncilsMemberMembershipData'] = $this->memcache->get('AdvisoryCouncilsMemberMembershipData');
+
+        $this->memcache->set('AdvisoryCouncilsMemberData', $this->data['AdvisoryCouncilsMemberData'], MEMCACHE_COMPRESSED, 0);
+        $this->memcache->set('AdvisoryCouncilsMemberMembershipData', $this->data['AdvisoryCouncilsMemberMembershipData'] , MEMCACHE_COMPRESSED, 604800 );
+
     }
 
     public function getCouncilData($code)
