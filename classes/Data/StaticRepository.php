@@ -8,13 +8,9 @@
 
 namespace UChicago\AdvisoryCouncil\Data;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\Response;
 use UChicago\AdvisoryCouncil\CLIMemcache;
-use UChicago\AdvisoryCouncil\CommitteeMemberFactory;
 use UChicago\AdvisoryCouncil\CommitteeMemberMembership;
-use UChicago\AdvisoryCouncil\Committees;
+use UChicago\AdvisoryCouncil\Data;
 
 class StaticRepository
 {
@@ -39,6 +35,10 @@ class StaticRepository
         $this->memcache->set('AdvisoryCouncilsMemberData', $this->data['AdvisoryCouncilsMemberData'], MEMCACHE_COMPRESSED, 0);
         $this->memcache->set('AdvisoryCouncilsMemberMembershipData', $this->data['AdvisoryCouncilsMemberMembershipData'] , MEMCACHE_COMPRESSED, 0 );
 
+        //PDO Backup
+        $db = new Database();
+        $db->set('member_data',$this->data['AdvisoryCouncilsMemberData']);
+        $db->set('membership_data', $this->data['AdvisoryCouncilsMemberMembershipData']);
     }
 
     public function getCouncilData($code)
