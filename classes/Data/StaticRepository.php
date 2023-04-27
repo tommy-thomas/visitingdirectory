@@ -15,8 +15,6 @@ use UChicago\AdvisoryCouncil\Data\Database as Database;
 class StaticRepository
 {
     private $data = array();
-    private $bearer_token;
-    private $client;
     private $memcache;
 
     public function __construct(CLIMemcache $memcache, $environment = "dev")
