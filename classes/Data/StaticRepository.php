@@ -10,7 +10,7 @@ namespace UChicago\AdvisoryCouncil\Data;
 
 use UChicago\AdvisoryCouncil\CLIMemcache;
 use UChicago\AdvisoryCouncil\CommitteeMemberMembership;
-use UChicago\AdvisoryCouncil\Data;
+use UChicago\AdvisoryCouncil\Data\Database as Database;
 
 class StaticRepository
 {
@@ -35,7 +35,7 @@ class StaticRepository
         $this->memcache->set('AdvisoryCouncilsMemberData', $this->data['AdvisoryCouncilsMemberData'], MEMCACHE_COMPRESSED, 0);
         $this->memcache->set('AdvisoryCouncilsMemberMembershipData', $this->data['AdvisoryCouncilsMemberMembershipData'] , MEMCACHE_COMPRESSED, 0 );
 
-        //PDO Backup
+        //SQLite Backup
         $db = new Database();
         $db->set('member_data',$this->data['AdvisoryCouncilsMemberData']);
         $db->set('membership_data', $this->data['AdvisoryCouncilsMemberMembershipData']);
