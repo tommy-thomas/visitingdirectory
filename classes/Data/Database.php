@@ -10,7 +10,8 @@ class Database
     public function __construct()
     {
         try{
-            $this->_db = new \PDO("sqlite:./db/committee_data.db");
+            $db_path = $_SERVER['DOCUMENT_ROOT']."/db/committee_data.db";
+            $this->_db = new \PDO("sqlite:".$db_path);
             $this->_db->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY , false);
         } catch (\PDOException $exception ){
             print $exception->getMessage();
