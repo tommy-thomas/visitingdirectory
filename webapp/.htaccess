@@ -1,0 +1,6 @@
+## close site temporarily to all users except program AVD
+#RewriteEngine On
+#RewriteBase /
+#RewriteCond %{REMOTE_ADDR} !^10\.54\.16\.13
+#RewriteCond %{REQUEST_URI} !^/siteclosed.php [NC]
+#RewriteRule .* /siteclosed.php
