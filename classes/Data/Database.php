@@ -1,6 +1,8 @@
 <?php
 namespace UChicago\AdvisoryCouncil\Data;
 
+use PDO;
+
 class Database
 {
     private $_db;
