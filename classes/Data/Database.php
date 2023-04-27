@@ -21,7 +21,7 @@ class Database
         $sql = "update ".$table_name." set data = ? where pk = 1";
         try {
             $sth = $this->_db->prepare($sql);
-            return $sth->execute(array($data));
+            return $sth->execute(serialize(array($data)));
         } catch ( \PDOException $exception){
             print $exception->getMessage();
         }
