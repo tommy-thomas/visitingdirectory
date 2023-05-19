@@ -47,8 +47,8 @@ class Repository
             'involvement?q=ucinn_ascendv2__Involvement_Code_Description_Formula__c in (' . $committees->committeeCodesToString() . ')',
             [
                 'headers' => [
-                    'client_id' => 'd9b29bf62e5947f38bd8ad48f562d142',
-                    'client_secret' => '6F8534f70E524Dc59C404a4D282e17ae'
+                    'client_id' => '',
+                    'client_secret' => ''
                 ]
             ]
 
@@ -64,8 +64,8 @@ class Repository
                 "contact?q=Id='".$fm->ucinn_ascendv2__Contact__c."'",
                 [
                     'headers' => [
-                        'client_id' => 'd9b29bf62e5947f38bd8ad48f562d142',
-                        'client_secret' => '6F8534f70E524Dc59C404a4D282e17ae'
+                        'client_id' => '',
+                        'client_secret' => ''
                     ]
                 ]
             );
