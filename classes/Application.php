@@ -21,9 +21,7 @@ class Application extends WS_Application
     private $charset;
     private $templatesPath;
     private $sessionTimeout = 3600;
-    const CREDS_PATH = "/data/credentials/visitingdirectory/authorization.php";
-    const ARD_PROD_URL = "https://ardapi.uchicago.edu/api/";
-    const ARD_QA_URL = "https://ardapi-qa.uchicago.edu/api/";
+    const API_URL = "https://itsapi.uchicago.edu/system/ascend/v1/api/query/";
     const APP_SEC_HEADER_KEY = "AppSecScan";
     const APP_SEC_HEADER_VALUE = "05c4b923ef378fe66b04519e87d4ab3e";
 
@@ -66,9 +64,9 @@ class Application extends WS_Application
         return $this->twig->load($templateFile);
     }
 
-    public function ardUrl()
+    public function apiUrl()
     {
-        return $this->isProd() ? self::ARD_PROD_URL : self::ARD_QA_URL;
+        return self::API_URL;
     }
 
     public function environment()

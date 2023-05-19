@@ -5,6 +5,10 @@ require __DIR__ . "/../../vendor/autoload.php";
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\Response;
+use UChicago\AdvisoryCouncil\CommitteeMemberFactory;
+use UChicago\AdvisoryCouncil\CommitteeMemberMembership;
+use UChicago\AdvisoryCouncil\Committees;
 
 $app = new \UChicago\AdvisoryCouncil\Application(false);
 
@@ -14,25 +18,24 @@ $memcache = $memcache_instance->getMemcacheForCLI($argv[1]);
 
 //// Get base uri from App instance.
 
-$client = new Client(['base_uri' => $app->ardUrl() ]);
+$client = new Client(['base_uri' => $app->apiUrl() ]);
 
-$token = new \UChicago\AdvisoryCouncil\BearerToken($client, $app->apiCreds()['username'],  $app->apiCreds()['password']);
+$committees = new Committees();
 
-$bearer_token = $token->bearer_token();
-
-$committees = new \UChicago\AdvisoryCouncil\Committees();
-
-$factory = new \UChicago\AdvisoryCouncil\CommitteeMemberFactory();
-$committee_membership = new \UChicago\AdvisoryCouncil\CommitteeMemberMembership();
+$factory = new CommitteeMemberFactory();
+$committee_membership = new CommitteeMemberMembership();
 
 $_SESSION['committee_data']=array();
 
-foreach ($committees->committes() as $key=> $committee) {
+foreach ($committees->committees() as $key=> $committee) {
 
-    $response = $client->request('GET',
-        "committee/show/" . $committee['COMMITTEE_CODE'],
+    $response = $client->getAsync('GET',
+        'involvement?q=ucinn_ascendv2__Involvement_Code_Description_Formula__c in ('.$committees->committeeCodesToString().')',
         [
-            'headers' => ['Authorization' => $bearer_token]
+            'headers' => [
+                'client_id' => $client_id,
+                'client_secret' => $client_secret
+            ]
         ]
     );
 
@@ -50,7 +53,7 @@ foreach ($committees->committes() as $key=> $committee) {
     );
 
     $promise->then(
-        function (\GuzzleHttp\Psr7\Response $resp) use ($factory, $committee, $committee_membership, $chairs, $lifetime_member_array) {
+        function (Response $resp) use ($factory, $committee, $committee_membership, $chairs, $lifetime_member_array) {
 
             foreach (json_decode($resp->getBody()) as $object) {
 

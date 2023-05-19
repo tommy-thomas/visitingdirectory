@@ -7,10 +7,12 @@
  */
 
 namespace UChicago\AdvisoryCouncil\Data;
+require __DIR__ . "/../../vendor/autoload.php";
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Response;
+use UChicago\AdvisoryCouncil\Application;
 use UChicago\AdvisoryCouncil\CLIMemcache;
 use UChicago\AdvisoryCouncil\CommitteeMemberFactory;
 use UChicago\AdvisoryCouncil\CommitteeMemberMembership;
@@ -23,20 +25,15 @@ class Repository
     private $client;
     private $memcache;
 
-    public function __construct(CLIMemcache $memcache, Client $client, $bearer_token = "", $environment = "dev")
+    public function __construct(Client $client, $environment = "dev")
     {
-        $this->bearer_token = $bearer_token;
         $this->client = $client;
-        $this->memcache = $memcache;
 
-        if (!$this->memcache->get('AdvisoryCouncilsMemberData') || !$this->memcache->get('AdvisoryCouncilsMemberMembershipData')) {
-            $this->setCache();
-        }
-        $this->setData();
+        //$this->setData();
     }
 
 
-    private function setCache()
+    public function setCache()
     {
         $committees = new Committees();
 
@@ -44,48 +41,42 @@ class Repository
 
         $factory = new CommitteeMemberFactory();
 
-        $_SESSION['committee_data']=array();
+        $_SESSION['committee_data'] = array();
 
-        foreach ($committees->committes() as $key => $committee) {
-
-            $response = $this->client->request('GET',
-                "committee/show/" . $committee['COMMITTEE_CODE'],
-                [
-                    'headers' => ['Authorization' => $this->bearer_token]
+        $response = $this->client->request('GET',
+            'involvement?q=ucinn_ascendv2__Involvement_Code_Description_Formula__c in (' . $committees->committeeCodesToString() . ')',
+            [
+                'headers' => [
+                    'client_id' => 'd9b29bf62e5947f38bd8ad48f562d142',
+                    'client_secret' => '6F8534f70E524Dc59C404a4D282e17ae'
                 ]
-            );
+            ]
 
-            $ids_as_query_string = $factory->idNumbersAsQueryString(json_decode($response->getBody())->committees);
+        );
 
-            $chairs = $factory->chairsArray(json_decode($response->getBody())->committees);
-
-            $lifetime_member_array = $factory->lifeTimeMembersArray( json_decode($response->getBody())->committees );
+        $records = json_decode($response->getBody()->getContents())->records;
+        $filtered_members = $factory->filterMembers($records);
+       // var_dump($idsToString);
+        //exit();
+        foreach ($filtered_members as $fm ){
 
             $promise = $this->client->getAsync(
-                "entity/collection?" . $ids_as_query_string,
+                "contact?q=Id='".$fm->ucinn_ascendv2__Contact__c."'",
                 [
-                    'headers' => ['Authorization' => $this->bearer_token]
+                    'headers' => [
+                        'client_id' => 'd9b29bf62e5947f38bd8ad48f562d142',
+                        'client_secret' => '6F8534f70E524Dc59C404a4D282e17ae'
+                    ]
                 ]
             );
 
+            // start building the member object
             $promise->then(
-                function (Response $resp) use ($factory, $committee, $committee_membership, $chairs, $lifetime_member_array) {
-
-                    foreach (json_decode($resp->getBody()) as $object) {
-
-                        $chair = (($chairs[$committee['COMMITTEE_CODE']] == $object->info->ID_NUMBER) || (is_array($chairs[$committee['COMMITTEE_CODE']] ) && in_array($object->info->ID_NUMBER,$chairs[$committee['COMMITTEE_CODE']] )) ) ? true : false;
-
-                        $lifetime_member = in_array( $object->info->ID_NUMBER , $lifetime_member_array);
-
-                        //member is not deceased
-                        if( isset( $object->info->RECORD_STATUS_CODE ) &&  $object->info->RECORD_STATUS_CODE != "D" ){
-                            $_SESSION['committee_data'][$committee['COMMITTEE_CODE']][$object->info->ID_NUMBER] = $factory->member($object, $chair , $lifetime_member);
-                        }
-
-                        $committee_membership->addCommittee($object->info->ID_NUMBER, $committee['COMMITTEE_CODE']);
-                    }
-                },
-                function (RequestException $e) {
+                function (Response $res){
+                    var_dump(json_decode($res->getBody()->getContents())->records); exit();
+                    //var_dump(json_decode($res->getBody()->getContents())->records); exit();
+                } ,
+                function (RequestException $e){
                     print $e->getMessage();
                 }
             );
@@ -93,16 +84,6 @@ class Repository
             $promise->wait();
         }
 
-
-        if (isset($_SESSION['committee_data']) && is_array($_SESSION['committee_data']) && count($_SESSION['committee_data']) > 0) {
-            foreach ($_SESSION['committee_data'] as $key => $committee) {
-                $_SESSION['committee_data'][$key] = $factory->sortData($committee);
-            }
-            $this->memcache->set('AdvisoryCouncilsMemberData', $_SESSION['committee_data'], MEMCACHE_COMPRESSED, 604800 );
-        }
-        $this->memcache->set('AdvisoryCouncilsMemberMembershipData', array('committee_membership' => $committee_membership), MEMCACHE_COMPRESSED, 604800 );
-
-        return;
     }
 
     public function setData()
@@ -120,13 +101,14 @@ class Repository
         return array();
     }
 
-    public function findMemberByIdNumber($id_number = "" ){
-        foreach ( $this->data['AdvisoryCouncilsMemberData'] as $key => $committee){
-           foreach ( $committee as $member ){
-               if( $member->id_number() == $id_number ){
-                   return $member;
-               }
-           }
+    public function findMemberByIdNumber($id_number = "")
+    {
+        foreach ($this->data['AdvisoryCouncilsMemberData'] as $key => $committee) {
+            foreach ($committee as $member) {
+                if ($member->id_number() == $id_number) {
+                    return $member;
+                }
+            }
         }
         return;
     }
@@ -144,3 +126,8 @@ class Repository
         return new CommitteeMemberMembership();
     }
 }
+
+$app = new Application();
+$client = new Client(['base_uri' => $app->apiUrl()]);
+$r = new Repository($client);
+$r->setCache();

@@ -18,7 +18,7 @@ $memcache_instance = new CLIMemcache();
 
 $memcache = $memcache_instance->getMemcacheForCLI($app->environment());
 
-$client = new Client(['base_uri' => $app->ardUrl()]);
+$client = new Client(['base_uri' => $app->apiUrl()]);
 
 $repository = new StaticRepository($memcache,  $app->environment());
 

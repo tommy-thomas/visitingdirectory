@@ -11,51 +11,55 @@ namespace UChicago\AdvisoryCouncil;
 class Committees
 {
     private $committees = array(
-        'VCLZ' => array('COMMITTEE_CODE' => 'VCLZ',
+        'VSC: BSD/PSOM Council' => array('COMMITTEE_CODE' => 'VSC: BSD/PSOM Council',
             'SHORT_DESC' => 'Biological Sciences and Pritzker',
             'FULL_DESC' => 'The Division of the Biological Sciences and the Pritzker School of Medicine Council'),
-        'VCLY' => array('COMMITTEE_CODE' => 'VCLY',
+        'VSC: Chicago Booth Council' => array('COMMITTEE_CODE' => 'VSC: Chicago Booth Council',
             'SHORT_DESC' => 'Chicago Booth',
             'FULL_DESC' => 'The University of Chicago Booth School of Business Council'),
-        'VCSA' => array('COMMITTEE_CODE' => 'VCSA',
+        'VSC: College Advisory Council' => array('COMMITTEE_CODE' => 'VSC: College Advisory Council',
             'SHORT_DESC' => 'College and Student Activities',
             'FULL_DESC' => 'The College Advisory Council'),
-        'VVTH' => array('COMMITTEE_CODE' => 'VVTH',
+        'VSC: Divinity School Council' => array('COMMITTEE_CODE' => 'VSC: Divinity School Council',
             'SHORT_DESC' => 'Divinity',
             'FULL_DESC' => 'The Divinity School Council'),
-        'VCGS' => array('COMMITTEE_CODE' => 'VCGS',
+        'VSC: Graham School Council' => array('COMMITTEE_CODE' => 'VSC: Graham School Council',
             'SHORT_DESC' => 'Graham School',
             'FULL_DESC' => 'The University of Chicago Graham School of Continuing Liberal and Professional Studies Council'),
-        'VVHM' => array('COMMITTEE_CODE' => 'VVHM',
+        'VSC: Humanities Division Council' => array('COMMITTEE_CODE' => 'VSC: Humanities Division Council',
             'SHORT_DESC' => 'Humanities',
             'FULL_DESC' => 'The Division of the Humanities Council'),
-        'VVLW' => array('COMMITTEE_CODE' => 'VVLW',
+        'VSC: Law School Council' => array('COMMITTEE_CODE' => 'VSC: Law School Council',
             'SHORT_DESC' => 'Law School',
             'FULL_DESC' => 'The Law School Council'),
-        'VVLB' => array('COMMITTEE_CODE' => 'VVLB',
+        'VSC: Library Council' => array('COMMITTEE_CODE' => 'VSC: Library Council',
             'SHORT_DESC' => 'Library',
             'FULL_DESC' => 'The Library Council'),
-        'VVIM' => array('COMMITTEE_CODE' => 'VVIM',
+        'VSC: Pritzker School of Mol Eng Council' => array('COMMITTEE_CODE' => 'VSC: Pritzker School of Mol Eng Council',
             'SHORT_DESC' => 'Molecular Engineering',
             'FULL_DESC' => 'The Pritzker School of Molecular Engineering Council'),
-        'VVOI' => array('COMMITTEE_CODE' => 'VVOI',
+        'VSC: Oriental Institute Council' => array('COMMITTEE_CODE' => 'VSC: Oriental Institute Council',
             'SHORT_DESC' => 'Oriental Institute',
             'FULL_DESC' => 'The Oriental Institute Council'),
-        'VVPS' => array('COMMITTEE_CODE' => 'VVPS',
+        'VSC: Physical Sciences Division Council' => array('COMMITTEE_CODE' => 'VSC: Physical Sciences Division Council',
             'SHORT_DESC' => 'Physical Sciences',
             'FULL_DESC' => 'The Division of the Physical Sciences Council'),
-        'VCLD' => array('COMMITTEE_CODE' => 'VCLD',
+        'VSC: Harris School Council' => array('COMMITTEE_CODE' => 'VSC: Harris School Council',
             'SHORT_DESC' => 'Public Policy',
             'FULL_DESC' => 'The University of Chicago Harris School of Public Policy Council'),
-        'VVSS' => array('COMMITTEE_CODE' => 'VVSS',
+        'VSC: Social Sciences Division Council' => array('COMMITTEE_CODE' => 'VSC: Social Sciences Division Council',
             'SHORT_DESC' => 'Social Sciences',
             'FULL_DESC' => 'The Division of the Social Sciences Council'),
-        'VSVC' => array('COMMITTEE_CODE' => 'VSVC',
+        'VSC: CFS Council' => array('COMMITTEE_CODE' => 'VSC: CFS Council',
             'SHORT_DESC' => 'Social Service Administration',
             'FULL_DESC' => 'The University of Chicago Crown Family School of Social Work, Policy, and Practice Council')
     );
 
-    public function committes()
+    public function committeeCodesToString(){
+        return "'".implode( "','",(array_keys($this->committees())))."'";
+    }
+
+    public function committees()
     {
         return $this->committees;
     }

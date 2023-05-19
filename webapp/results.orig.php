@@ -23,9 +23,9 @@ $memcache_instance = new CLIMemcache();
 
 $memcache = $memcache_instance->getMemcacheForCLI($app->environment());
 
-$client = new Client(['base_uri' => $app->ardUrl()]);
+$client = new Client(['base_uri' => $app->apiUrl()]);
 
-$repository = new Repository($memcache, $client, $_SESSION['bearer_token'], $app->environment());
+$repository = new Repository($client, $app->environment());
 
 
 $template = $app->template('./results.html.twig');

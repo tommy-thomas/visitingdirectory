@@ -22,7 +22,7 @@ else
 
 	$TwigTemplateVariables['LoggedIn' ] = true;
 	$TwigTemplateVariables[ "base" ] = $app->domain() ;
-    $TwigTemplateVariables[ "committees" ] = $committees->committes();
+    $TwigTemplateVariables[ "committees" ] = $committees->committees();
 }
 
 /*
