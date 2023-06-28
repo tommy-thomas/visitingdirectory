@@ -59,6 +59,10 @@ class Committees
         return "'".implode( "','",(array_keys($this->committees())))."'";
     }
 
+    public function committeeCodesToArray(){
+        return array_keys($this->committees());
+    }
+
     public function committees()
     {
         return $this->committees;

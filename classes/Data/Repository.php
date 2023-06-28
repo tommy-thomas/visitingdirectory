@@ -6,12 +6,18 @@
  * Time: 2:34 PM
  */
 
+
 namespace UChicago\AdvisoryCouncil\Data;
 require __DIR__ . "/../../vendor/autoload.php";
 
+define('CLIENT_ID','d9b29bf62e5947f38bd8ad48f562d142');
+define('CLIENT_SECRET','6F8534f70E524Dc59C404a4D282e17ae');
+
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Pool;
 use UChicago\AdvisoryCouncil\Application;
 use UChicago\AdvisoryCouncil\CLIMemcache;
 use UChicago\AdvisoryCouncil\CommitteeMemberFactory;
@@ -20,69 +26,98 @@ use UChicago\AdvisoryCouncil\Committees;
 
 class Repository
 {
-    private $data = array();
-    private $bearer_token;
-    private $client;
+    private array $data = [];
+    private $headers = [];
+    private $header = [];
+    private Client $client;
+    private string $uri;
     private $memcache;
+    private $members = [];
+    private Committees $committees;
+    private CommitteeMemberFactory $factory;
+    private $degreeIDs;
 
-    public function __construct(Client $client, $environment = "dev")
+    public function __construct(Client $client, $uri, $environment = "dev")
     {
+        $this->committees = new Committees();
+        $this->factory = new CommitteeMemberFactory();
         $this->client = $client;
-
+        $this->uri = $uri;
+        //for async main_requests
+        $this->headers = [
+            'headers' => [
+                'client_id' => CLIENT_ID,
+                'client_secret' => CLIENT_SECRET
+            ]
+        ];
+        //fetch request object
+        $this->header = [ 'client_id' => CLIENT_ID, 'client_secret' => CLIENT_SECRET ];
         //$this->setData();
     }
 
+    private function recordsAsObject( Response $response){
+        return json_decode($response->getBody()->getContents())->records[0] ?? new \stdClass();
+    }
 
+    //TODO: Flag committee chair
+    //TODO: Flag lifetime members
+    //TODO: Sort by commitee code
+    //ToDO: Search
     public function setCache()
     {
-        $committees = new Committees();
+        $this->setMainData();
+        $this->setEmploymentData();
+    }
 
-        $committee_membership = new CommitteeMemberMembership();
+    private function setMainData(){
 
-        $factory = new CommitteeMemberFactory();
+        $committee_codes = $this->committees->committeeCodesToArray();
 
         $_SESSION['committee_data'] = array();
 
-        $response = $this->client->request('GET',
-            'involvement?q=ucinn_ascendv2__Involvement_Code_Description_Formula__c in (' . $committees->committeeCodesToString() . ')',
-            [
-                'headers' => [
-                    'client_id' => '',
-                    'client_secret' => ''
-                ]
-            ]
+        $main_requests = function () use ($committee_codes){
+            foreach ($committee_codes as $c ){
+                $this->emplIDsToString = "";
+                $uri = $this->uri."involvement?q=ucinn_ascendv2__Involvement_Code_Description_Formula__c='".$c."'";
+                yield new Request('GET', $uri , $this->header );
+            }
+        };
 
-        );
+        //Loop through committee codes
+        $degreeIDs = "";
+        $main_pool = new Pool($this->client, $main_requests(), [
+            'concurrency' => 20,
+            'fulfilled' => function (Response $response, $index) {
+                //promise, main contact object
+                $contactIDsToString = $this->factory->idsToString(json_decode($response->getBody()->getContents())->records,'ucinn_ascendv2__Contact__c', true);
+                $contacts = $this->client->getAsync( $this->uri."contact?q=Id in (".$contactIDsToString.")", $this->headers);
+                $contacts->then(
+                    function (Response $response) {
+                        $contact_results = json_decode($response->getBody()->getContents())->records;
+                        foreach ( $contact_results as $result){
+                            $member = $this->factory->member($result);
+                            array_push($this->members , $member);
+                        }
+                        return true;
+                    },
+                    function (RequestException $exception){
+                        print "Error with contact main_requests:\n".$exception->getMessage();
+                    }
+                );
+            }, 'rejected' => function (RequestException $reason, $index) {
+                // this is delivered each failed request
+                print  $reason->getMessage();
+            }
+        ]); // end main_pool
 
-        $records = json_decode($response->getBody()->getContents())->records;
-        $filtered_members = $factory->filterMembers($records);
-       // var_dump($idsToString);
-        //exit();
-        foreach ($filtered_members as $fm ){
+        // Initiate the transfers and create a promise
+        $promise = $main_pool->promise();
 
-            $promise = $this->client->getAsync(
-                "contact?q=Id='".$fm->ucinn_ascendv2__Contact__c."'",
-                [
-                    'headers' => [
-                        'client_id' => '',
-                        'client_secret' => ''
-                    ]
-                ]
-            );
+        // Force the main_pool of main_requests to complete.
+        $promise->wait();
+    }
 
-            // start building the member object
-            $promise->then(
-                function (Response $res){
-                    var_dump(json_decode($res->getBody()->getContents())->records); exit();
-                    //var_dump(json_decode($res->getBody()->getContents())->records); exit();
-                } ,
-                function (RequestException $e){
-                    print $e->getMessage();
-                }
-            );
-
-            $promise->wait();
-        }
+    public function setEmploymentData(){
 
     }
 
@@ -125,9 +160,16 @@ class Repository
         }
         return new CommitteeMemberMembership();
     }
+
+    public function members(){
+        return $this->members;
+    }
+
+
 }
 
 $app = new Application();
-$client = new Client(['base_uri' => $app->apiUrl()]);
-$r = new Repository($client);
+//$client = new Client(['base_uri' => $app->apiUrl()]);
+$client = new Client();
+$r = new Repository($client, $app->apiUrl());
 $r->setCache();

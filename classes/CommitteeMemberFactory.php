@@ -8,6 +8,7 @@
 
 namespace UChicago\AdvisoryCouncil;
 
+use UChicago\AdvisoryCouncil\CommitteeMember;
 
 class CommitteeMemberFactory
 {
@@ -15,17 +16,13 @@ class CommitteeMemberFactory
     private $json_payload;
     private $member;
 
-    public function member($json_payload, $chair = false, $lifetime_member = false)
+    public function member(\stdClass $json_payload, $chair = false, $lifetime_member = false)
     {
-
-        $reflection = new \ReflectionClass($json_payload);
-        print_r($reflection->getAttributes());
-
         if (is_null($json_payload) || !is_object($json_payload)) {
             return false;
         }
-        $this->member = new CommitteeMember();
-        $this->json_payload = $json_payload;
+
+        $this->member = $this->set($json_payload);
 
         /**
          * Is_Current__c = true
@@ -42,10 +39,27 @@ class CommitteeMemberFactory
 //            ->employment()
 //            ->email()
 //            ->phone();
-//        return $this->member;
+        return $this->member;
     }
 
+    public function set(\stdClass $json_payload){
+        $member = new CommitteeMember();
+        if( isset($json_payload) ){
+            $ref = new \ReflectionClass('UChicago\AdvisoryCouncil\CommitteeMember');
+            $props = $ref->getProperties();
+            foreach ($props as $prop) {
+                $member->{$prop->getName()} = $json_payload->{$prop->getName()} ?? "";
+            }
+        }
+        return $member;
+    }
 
+    public function idsToString($data=[], $key="", $filter = false){
+        $filtered = $filter ? $this->filterMembers($data) : $data;
+        $smush = array_map(function($obj) use ($key) { return trim($obj->{$key}); }, $filtered);
+        $smush = array_filter($smush, fn($value) => !is_null($value) && $value !== '');
+        return "'".implode("','",$smush)."'";
+    }
 
     public function filterMembers($json_payload){
         return array_filter($json_payload, array($this , "valid"));
