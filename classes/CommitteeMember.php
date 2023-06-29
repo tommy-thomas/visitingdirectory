@@ -12,8 +12,8 @@ use WS\SharedPHP\WS_DynamicGetterSetter;
 
 class CommitteeMember
 {
-    public $Employment;
-    public $Degree;
+    public $employment;
+    public $degree;
     public $Donor_Has_Pledge_In_Arrears__c;
     public $hed__Citizenship__c;
     public $hed__Social_Security_Number__c;
@@ -304,10 +304,11 @@ class CommitteeMember
     public $ucinn_ascendv2__Presidential_Mailing_Street_v1__c;
 
     public function setEmployment(\stdClass $obj){
-        $this->Employment = $obj ?? new \stdClass();
+        $this->employment = $obj ?? new \stdClass();
     }
 
     public function setDegree(\stdClass $obj){
-        $this->Degree = $obj ?? new \stdClass();
+        $this->degreee = $obj ?? new \stdClass();
     }
+
 }

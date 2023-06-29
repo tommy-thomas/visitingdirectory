@@ -62,7 +62,7 @@ class Repository
     //TODO: Flag committee chair
     //TODO: Flag lifetime members
     //TODO: Sort by commitee code
-    //ToDO: Search
+    //TODO: Search
     public function setCache()
     {
         $this->setMainData();
@@ -89,15 +89,19 @@ class Repository
             'concurrency' => 20,
             'fulfilled' => function (Response $response, $index) {
                 //promise, main contact object
-                $contactIDsToString = $this->factory->idsToString(json_decode($response->getBody()->getContents())->records,'ucinn_ascendv2__Contact__c', true);
+                $records = json_decode($response->getBody()->getContents())->records;
+                $committee_membership = $this->factory->membership($records);
+                $contactIDsToString = $this->factory->idsToString($records,'ucinn_ascendv2__Contact__c', true);
                 $contacts = $this->client->getAsync( $this->uri."contact?q=Id in (".$contactIDsToString.")", $this->headers);
                 $contacts->then(
-                    function (Response $response) {
+                    function (Response $response) use ($committee_membership) {
                         $contact_results = json_decode($response->getBody()->getContents())->records;
+                        $members_array = array($committee_membership => array());
                         foreach ( $contact_results as $result){
-                            $member = $this->factory->member($result);
-                            array_push($this->members , $member);
+                            $member = $this->factory->member($result, $committee_membership);
+                            array_push( $members_array, $member);
                         }
+                        array_push($this->members , $members_array);
                         return true;
                     },
                     function (RequestException $exception){
@@ -115,10 +119,11 @@ class Repository
 
         // Force the main_pool of main_requests to complete.
         $promise->wait();
+
     }
 
     public function setEmploymentData(){
-
+        https://itsapi.uchicago.edu/system/ascend/v1/api/query/affiliation?q=Id='a281U000000mRz7QAE'
     }
 
     public function setData()
@@ -173,3 +178,5 @@ $app = new Application();
 $client = new Client();
 $r = new Repository($client, $app->apiUrl());
 $r->setCache();
+
+var_dump($r->members());

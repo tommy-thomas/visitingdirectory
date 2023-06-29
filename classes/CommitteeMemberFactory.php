@@ -54,20 +54,29 @@ class CommitteeMemberFactory
         return $member;
     }
 
-    public function idsToString($data=[], $key="", $filter = false){
+    public function idsToString($data=[], $key="", $filter = false): string
+    {
         $filtered = $filter ? $this->filterMembers($data) : $data;
         $smush = array_map(function($obj) use ($key) { return trim($obj->{$key}); }, $filtered);
         $smush = array_filter($smush, fn($value) => !is_null($value) && $value !== '');
         return "'".implode("','",$smush)."'";
     }
 
-    public function filterMembers($json_payload){
+    public function filterMembers($json_payload): array
+    {
         return array_filter($json_payload, array($this , "valid"));
     }
 
-    private function valid($data){
+    public function membership( $records ): string
+    {
+            return isset($records[0]) ? trim($records[0]->ucinn_ascendv2__Involvement_Code_Description_Formula__c) : "";
+    }
+
+    private function valid($data): bool
+    {
         return
             ($data->Is_Current__c == "true" && $data->ucinn_ascendv2__Status__c == "Current"
                 && $data->Is_Expired__c == "false" && $data->ucinn_ascendv2__Role__c != "Ex-Officio");
     }
+
 }
