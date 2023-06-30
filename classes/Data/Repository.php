@@ -37,6 +37,10 @@ class Repository
     private CommitteeMemberFactory $factory;
     private $degreeIDs;
 
+    //stuff for testing
+    public $employment_counts = [];
+    public $empl_test_obj;
+
     public function __construct(Client $client, $uri, $environment = "dev")
     {
         $this->committees = new Committees();
@@ -59,14 +63,17 @@ class Repository
         return json_decode($response->getBody()->getContents())->records[0] ?? new \stdClass();
     }
 
+    //TODO: Employment
+    //TODO: Degrees
     //TODO: Flag committee chair
     //TODO: Flag lifetime members
     //TODO: Sort by commitee code
     //TODO: Search
     public function setCache()
     {
-        $this->setMainData();
-        $this->setEmploymentData();
+        $this->setMainData()
+            ->setEmploymentData()
+            ->setDegreeData();
     }
 
     private function setMainData(){
@@ -90,18 +97,17 @@ class Repository
             'fulfilled' => function (Response $response, $index) {
                 //promise, main contact object
                 $records = json_decode($response->getBody()->getContents())->records;
-                $committee_membership = $this->factory->membership($records);
+                // committee code
+                $committee_code = $this->factory->committee_code($records);
                 $contactIDsToString = $this->factory->idsToString($records,'ucinn_ascendv2__Contact__c', true);
                 $contacts = $this->client->getAsync( $this->uri."contact?q=Id in (".$contactIDsToString.")", $this->headers);
                 $contacts->then(
-                    function (Response $response) use ($committee_membership) {
+                    function (Response $response) use ($committee_code) {
                         $contact_results = json_decode($response->getBody()->getContents())->records;
-                        $members_array = array($committee_membership => array());
                         foreach ( $contact_results as $result){
-                            $member = $this->factory->member($result, $committee_membership);
-                            array_push( $members_array, $member);
+                            $member = $this->factory->member($result);
+                            $this->members[$committee_code][$member->Id] = $member;
                         }
-                        array_push($this->members , $members_array);
                         return true;
                     },
                     function (RequestException $exception){
@@ -120,10 +126,45 @@ class Repository
         // Force the main_pool of main_requests to complete.
         $promise->wait();
 
+        return $this;
     }
 
     public function setEmploymentData(){
-        https://itsapi.uchicago.edu/system/ascend/v1/api/query/affiliation?q=Id='a281U000000mRz7QAE'
+        foreach ( $this->members() as $code => $members_array ){
+            foreach ( $members_array as $id => $member ){
+                $employment = $this->client->getAsync( $this->uri."affiliation?q=Id='".$member->Preferred_Affiliation__c."'", $this->headers);
+                $employment->then(
+                    function (Response $response) use ($code, $id, $member ){
+                        $employment_data = json_decode($response->getBody()->getContents());
+                        $this->members[$code][$id]->employment = $employment_data;
+                    },
+                    function (RequestException $exception){
+                        print "Error with employment resquest:\n".$exception->getMessage();
+                    }
+                );
+                $employment->wait();
+            }
+        }
+        return $this;
+    }
+
+    public function setDegreeData(){
+        foreach ( $this->members() as $code => $members_array ){
+            foreach ( $members_array as $id => $member ){
+                $degree = $this->client->getAsync( $this->uri."degree?q=cinn_ascendv2__Contact__c='".$member->Id."'", $this->headers);
+                $degree->then(
+                    function (Response $response) use ($code, $id, $member ){
+                        $degree_data = json_decode($response->getBody()->getContents());
+                        $this->members[$code][$id]->degree = $degree_data->records;
+                    },
+                    function (RequestException $exception){
+                        print "Error with employment resquest:\n".$exception->getMessage();
+                    }
+                );
+                $degree->wait();
+            }
+        }
+        return $this;
     }
 
     public function setData()
@@ -178,5 +219,4 @@ $app = new Application();
 $client = new Client();
 $r = new Repository($client, $app->apiUrl());
 $r->setCache();
-
 var_dump($r->members());

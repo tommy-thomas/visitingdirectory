@@ -67,7 +67,7 @@ class CommitteeMemberFactory
         return array_filter($json_payload, array($this , "valid"));
     }
 
-    public function membership( $records ): string
+    public function committee_code($records ): string
     {
             return isset($records[0]) ? trim($records[0]->ucinn_ascendv2__Involvement_Code_Description_Formula__c) : "";
     }

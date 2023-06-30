@@ -303,8 +303,8 @@ class CommitteeMember
     public $ucinn_ascendv2__Other_Email__c;
     public $ucinn_ascendv2__Presidential_Mailing_Street_v1__c;
 
-    public function setEmployment(\stdClass $obj){
-        $this->employment = $obj ?? new \stdClass();
+    public function setEmployment( $employment_data ){
+        $this->employment = $employment_data ?? new \stdClass();
     }
 
     public function setDegree(\stdClass $obj){
