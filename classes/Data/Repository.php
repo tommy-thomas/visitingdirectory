@@ -135,8 +135,7 @@ class Repository
                 $employment = $this->client->getAsync( $this->uri."affiliation?q=Id='".$member->Preferred_Affiliation__c."'", $this->headers);
                 $employment->then(
                     function (Response $response) use ($code, $id, $member ){
-                        $employment_data = json_decode($response->getBody()->getContents());
-                        $this->members[$code][$id]->employment = $employment_data;
+                        $this->members[$code][$id]->employment = json_decode($response->getBody()->getContents())->records;
                     },
                     function (RequestException $exception){
                         print "Error with employment resquest:\n".$exception->getMessage();
@@ -154,8 +153,7 @@ class Repository
                 $degree = $this->client->getAsync( $this->uri."degree?q=cinn_ascendv2__Contact__c='".$member->Id."'", $this->headers);
                 $degree->then(
                     function (Response $response) use ($code, $id, $member ){
-                        $degree_data = json_decode($response->getBody()->getContents());
-                        $this->members[$code][$id]->degree = $degree_data->records;
+                        $this->members[$code][$id]->degree = json_decode($response->getBody()->getContents());
                     },
                     function (RequestException $exception){
                         print "Error with employment resquest:\n".$exception->getMessage();
