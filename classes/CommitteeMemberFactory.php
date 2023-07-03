@@ -72,6 +72,11 @@ class CommitteeMemberFactory
             return isset($records[0]) ? trim($records[0]->ucinn_ascendv2__Involvement_Code_Description_Formula__c) : "";
     }
 
+    public function committee_role($records ): string
+    {
+        return isset($records[0]) ? trim($records[0]->ucinn_ascendv2__Involvement_Code_Description_Formula__c) : "";
+    }
+
     private function valid($data): bool
     {
         return

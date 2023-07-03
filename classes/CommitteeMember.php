@@ -14,6 +14,7 @@ class CommitteeMember
 {
     public $employment;
     public $degree;
+    public $degree_institution;
     public $Donor_Has_Pledge_In_Arrears__c;
     public $hed__Citizenship__c;
     public $hed__Social_Security_Number__c;
