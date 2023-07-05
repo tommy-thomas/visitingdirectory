@@ -121,14 +121,13 @@ class Repository
     }
 
     public function findMemberByIdNumber($id_number = "" ){
-        foreach ( $this->data['AdvisoryCouncilsMemberData'] as $key => $committee){
+        foreach ( $this->data['AdvisoryCouncilsMemberData'] as $committee){
            foreach ( $committee as $member ){
                if( $member->id_number() == $id_number ){
                    return $member;
                }
            }
         }
-        return;
     }
 
     public function allCouncilData()

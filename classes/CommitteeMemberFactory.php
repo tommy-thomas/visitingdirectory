@@ -22,24 +22,8 @@ class CommitteeMemberFactory
             return false;
         }
 
-        $this->member = $this->set($json_payload);
+        return $this->set($json_payload);
 
-        /**
-         * Is_Current__c = true
-         * ucinn_ascendv2__Status__c = Current
-         * Is_Expired__c = false
-         * ucinn_ascendv2__Role__c != Ex-Officio
-         */
-//        $this
-//            ->info()
-//            ->chair($chair)
-//            ->lifetime_member($lifetime_member)
-//            ->addresses()
-//            ->degrees()
-//            ->employment()
-//            ->email()
-//            ->phone();
-        return $this->member;
     }
 
     public function set(\stdClass $json_payload){
@@ -72,9 +56,24 @@ class CommitteeMemberFactory
             return isset($records[0]) ? trim($records[0]->ucinn_ascendv2__Involvement_Code_Description_Formula__c) : "";
     }
 
-    public function committee_role($records ): string
-    {
-        return isset($records[0]) ? trim($records[0]->ucinn_ascendv2__Involvement_Code_Description_Formula__c) : "";
+//ucinn_ascendv2__Contact__c
+//ucinn_ascendv2__Role__c
+//ucinn_ascendv2__Involvement_Code_Description_Formula__c
+
+    public function roles( $data = [] ){
+        $array = $this->filterMembers($data);
+        $roles_array = array( "life-member" => [], "chair" => [] );
+        foreach ($array as $a ){
+            if($a->ucinn_ascendv2__Role__c == "Life Member"){
+                $roles_array["life-member"] = $roles_array["life-member"] ?? [];
+                array_push($roles_array["life-member"] , $a->ucinn_ascendv2__Contact__c);
+            }
+            if($a->ucinn_ascendv2__Role__c == "Chair"){
+                $roles_array["chair"] = $roles_array["chair"] ?? [];
+                array_push($roles_array["chair"] , $a->ucinn_ascendv2__Contact__c);
+            }
+        }
+        return $roles_array;
     }
 
     private function valid($data): bool
@@ -82,6 +81,17 @@ class CommitteeMemberFactory
         return
             ($data->Is_Current__c == "true" && $data->ucinn_ascendv2__Status__c == "Current"
                 && $data->Is_Expired__c == "false" && $data->ucinn_ascendv2__Role__c != "Ex-Officio");
+    }
+
+    private function compare(CommitteeMember $a, CommitteeMember $b)
+    {
+        return strcmp($a->sortToken(), $b->sortToken());
+    }
+
+    public function sortData($data = array())
+    {
+        usort($data, array($this, "compare"));
+        return $data;
     }
 
 }

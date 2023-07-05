@@ -10,11 +10,13 @@ namespace UChicago\AdvisoryCouncil;
 
 use WS\SharedPHP\WS_DynamicGetterSetter;
 
-class CommitteeMember
+class CommitteeMember extends WS_DynamicGetterSetter
 {
     public $employment;
     public $degree;
     public $degree_institution;
+    public $chair;
+    public $life_member;
     public $Donor_Has_Pledge_In_Arrears__c;
     public $hed__Citizenship__c;
     public $hed__Social_Security_Number__c;
@@ -304,12 +306,9 @@ class CommitteeMember
     public $ucinn_ascendv2__Other_Email__c;
     public $ucinn_ascendv2__Presidential_Mailing_Street_v1__c;
 
-    public function setEmployment( $employment_data ){
-        $this->employment = $employment_data ?? new \stdClass();
-    }
 
-    public function setDegree(\stdClass $obj){
-        $this->degreee = $obj ?? new \stdClass();
+    public function sortToken(){
+        return $this->LastName.$this->FirstName.$this->MiddleName;
     }
 
 }

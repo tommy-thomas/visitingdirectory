@@ -238,7 +238,7 @@ class CommitteeMemberFactory
 
     private function compare(CommitteeMember $a, CommitteeMember $b)
     {
-        return strcmp($a->sort_token(), $b->sort_token());
+        return strcmp($a->sortToken(), $b->sortToken());
     }
 
     public function sortData($data = array())
