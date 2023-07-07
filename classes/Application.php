@@ -29,10 +29,7 @@ class Application extends WS_Application
      * Whitelist for u of c user groups.
      */
     const GROUPER_WHITE_LIST = array('uc:applications:web-services:visitingdirectorydev','uc:org:nsit:webservices:members', 'uc:org:ard:griffinusers');
-    /*
-     * Valid Shibb provider
-     */
-    const SHIBB_IDP = "urn:mace:incommon:uchicago.edu";
+
     /*
      * Social auth gateway.
      */
@@ -99,12 +96,6 @@ class Application extends WS_Application
         if (!$this->isLoggedIn()) {
             header("Location: index.php");
         }
-    }
-
-    public function apiCreds()
-    {
-        require (self::CREDS_PATH);
-        return array("username" => $username,  "password" => $password);
     }
 
     public function setUser($user = "")
@@ -180,14 +171,6 @@ class Application extends WS_Application
     {
         //return isset($_SESSION['bearer_token']);
         return true;
-    }
-
-    /**
-     * Is user using Shibb to authenticate?
-     */
-    public function userIsFromShibb()
-    {
-        return (isset($_SERVER['Shib-Identity-Provider']) && ($_SERVER['Shib-Identity-Provider'] == self::SHIBB_IDP));
     }
 
     /**

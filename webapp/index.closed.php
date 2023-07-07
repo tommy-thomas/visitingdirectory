@@ -11,15 +11,6 @@ $valid_social_auth = null;
  * Set committee objects for side nav.
  */
 
-use GuzzleHttp\Client;
-use UChicago\AdvisoryCouncil\BearerToken;
-
-$client = new Client(['base_uri' => $app->apiUrl()]);
-
-$token = new BearerToken($client, $app->apiCreds()['username'], $app->apiCreds()['password']);
-
-$_SESSION['bearer_token'] = $token->bearer_token();
-
 if ( $app->isAuthorized() ) {
         $app->redirect('./search.php');
 }
@@ -30,21 +21,13 @@ if( $app->isAppSecScan() ){
     $app->redirect('./search.php');
 }
 
-if (  $app->userIsFromShibb() && $app->isValidGroup() ) {
+if (  $app->userIsFromOKta() && $app->isValidGroup() ) {
     $_SESSION['email'] = $_SERVER['mail'];
     $app->redirect('./search.php');
 }
 
-if ($app->userIsFromShibb() && !$app->isValidGroup() ) {
+if ($app->userIsFromOKta() && !$app->isValidGroup() ) {
     $auth_err = true;
-}
-
-if ($app->userIsFromSocialAuth() && isset($_SERVER['mail'])) {
-    $valid_social_auth = $app->isValidSocialAuth($client, $_SERVER['mail'], $_SESSION['bearer_token']);
-    if( $valid_social_auth ){
-        $_SESSION['email'] = $_SERVER['mail'];
-        $app->redirect('./search.php');
-    }
 }
 
 /**

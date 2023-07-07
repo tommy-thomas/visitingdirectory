@@ -14,28 +14,55 @@ class CommitteeMemberFactory
 {
 
     private $json_payload;
-    private $member;
+    private $roles_array;
+    private CommitteeMember $member;
+    private $employment_id;
 
-    public function member(\stdClass $json_payload, $chair = false, $lifetime_member = false)
+    public function member(\stdClass $json_payload)
     {
         if (is_null($json_payload) || !is_object($json_payload)) {
             return false;
         }
-
-        return $this->set($json_payload);
+        $this->json_payload = $json_payload;
+        return $this->set();
 
     }
 
-    public function set(\stdClass $json_payload){
-        $member = new CommitteeMember();
-        if( isset($json_payload) ){
-            $ref = new \ReflectionClass('UChicago\AdvisoryCouncil\CommitteeMember');
-            $props = $ref->getProperties();
-            foreach ($props as $prop) {
-                $member->{$prop->getName()} = $json_payload->{$prop->getName()} ?? "";
-            }
+    public function set(){
+        $this->member = new CommitteeMember();
+        $this->member->setIDNumber( $this->json_payload->Id );
+        $this->member->setFirstName($this->json_payload->FirstName);
+        $this->member->setMiddle($this->json_payload->MiddleName);
+        $this->member->setLastName($this->json_payload->LastName);
+        $this->member->setFullName($this->json_payload->Name);
+        $this->member->setStreet($this->json_payload->MailingAddress->street ?? "");
+        $this->member->setCity($this->json_payload->MailingAddress->city ?? "");
+        $this->member->setState($this->json_payload->MailingAddress->state ?? "");
+        $this->member->setZip($this->json_payload->MailingAddress->postalCode ?? "");
+        $this->member->setCountryCode($this->json_payload->MailingAddress->countryCode ?? "");
+        $this->member->setEmail($this->json_payload->Email ?? "");
+        $this->member->setPhone($this->phone($this->json_payload->HomePhone ?? ""));
+        $this->member->setChair( $this->isChair() );
+        $this->member->setLifeTimeMember( $this->isLifeMember() );
+        $this->member->setEmploymentId($this->json_payload->Preferred_Affiliation__c);
+        return $this->member;
+    }
+    
+    private function isChair() {
+        return (isset($this->roles_array['chair']) && in_array($this->member->id_number(), $this->roles_array["chair"]));
+    }
+
+    private function isLifeMember() {
+        return (isset($this->roles_array['chair']) && in_array($this->member->id_number(), $this->roles_array["life-member"]));
+    }
+
+    private function phone( $phoneString = "" ){
+        $valid_number = "/^\\d+$/";
+        $phone = "";
+        if(!empty($phoneString) && (strlen($phoneString) == 10) && (preg_match($valid_number, $phoneString) == 1 )){
+            return substr($phoneString, 0, 3)."-".substr($phoneString, 3, 3)."-".substr($phoneString, 6, 4);
         }
-        return $member;
+        return $phone;
     }
 
     public function idsToString($data=[], $key="", $filter = false): string
@@ -46,9 +73,9 @@ class CommitteeMemberFactory
         return "'".implode("','",$smush)."'";
     }
 
-    public function filterMembers($json_payload): array
+    public function filterMembers( $data = []): array
     {
-        return array_filter($json_payload, array($this , "valid"));
+        return array_filter($data, array($this , "valid"));
     }
 
     public function committee_code($records ): string
@@ -60,20 +87,19 @@ class CommitteeMemberFactory
 //ucinn_ascendv2__Role__c
 //ucinn_ascendv2__Involvement_Code_Description_Formula__c
 
-    public function roles( $data = [] ){
+    public function setRoles($data = [] ){
         $array = $this->filterMembers($data);
-        $roles_array = array( "life-member" => [], "chair" => [] );
+        $this->roles_array = array( "life-member" => [], "chair" => [] );
         foreach ($array as $a ){
             if($a->ucinn_ascendv2__Role__c == "Life Member"){
-                $roles_array["life-member"] = $roles_array["life-member"] ?? [];
-                array_push($roles_array["life-member"] , $a->ucinn_ascendv2__Contact__c);
+                $this->roles_array["life-member"] = $this->roles_array["life-member"] ?? [];
+                array_push($this->roles_array["life-member"] , $a->ucinn_ascendv2__Contact__c);
             }
             if($a->ucinn_ascendv2__Role__c == "Chair"){
-                $roles_array["chair"] = $roles_array["chair"] ?? [];
-                array_push($roles_array["chair"] , $a->ucinn_ascendv2__Contact__c);
+                $this->roles_array["chair"] = $this->roles_array["chair"] ?? [];
+                array_push($this->roles_array["chair"] , $a->ucinn_ascendv2__Contact__c);
             }
         }
-        return $roles_array;
     }
 
     private function valid($data): bool
@@ -85,7 +111,7 @@ class CommitteeMemberFactory
 
     private function compare(CommitteeMember $a, CommitteeMember $b)
     {
-        return strcmp($a->sortToken(), $b->sortToken());
+        return strcmp($a->sort_token(), $b->sort_token());
     }
 
     public function sortData($data = array())

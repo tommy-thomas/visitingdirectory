@@ -5,12 +5,12 @@ require __DIR__ . "/../vendor/autoload.php";
  * The Application object.
  */
 
-use GuzzleHttp\Client;
+use GuzzleHttp\Client as Client;
 use UChicago\AdvisoryCouncil\CLIMemcache;
 use UChicago\AdvisoryCouncil\CommitteeMemberFactory;
 use UChicago\AdvisoryCouncil\Committees;
 use UChicago\AdvisoryCouncil\CommitteeSearch;
-use UChicago\AdvisoryCouncil\Data\StaticRepository;
+use UChicago\AdvisoryCouncil\Data\Repository;
 
 $app = new \UChicago\AdvisoryCouncil\Application();
 if (!$app->isAuthorized()) {
@@ -23,7 +23,7 @@ $memcache_instance = new CLIMemcache();
 
 $memcache = $memcache_instance->getMemcacheForCLI($app->environment());
 
-$repository = new StaticRepository($memcache, $app->environment());
+$repository = new Repository(new Client(), $app->environment());
 
 
 $template = $app->template('./results.html.twig');

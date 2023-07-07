@@ -8,307 +8,295 @@
 
 namespace UChicago\AdvisoryCouncil;
 
-use WS\SharedPHP\WS_DynamicGetterSetter;
 
-class CommitteeMember extends WS_DynamicGetterSetter
+class CommitteeMember //extends WS_DynamicGetterSetter
 {
-    public $employment;
-    public $degree;
-    public $degree_institution;
-    public $chair;
-    public $life_member;
-    public $Donor_Has_Pledge_In_Arrears__c;
-    public $hed__Citizenship__c;
-    public $hed__Social_Security_Number__c;
-    public $ucinn_ascendv2__Presidential_Mailing_Postal_Code__c;
-    public $Unconfirmed_Deceased__c;
-    public $HasOptedOutOfFax;
-    public $Primary_Student_Organization__c;
-    public $Department;
-    public $AURA_ORG_ID__c;
-    public $ucinn_ascendv2__Presidential_Preferred_Country__c;
-    public $PhotoUrl;
-    public $ucinn_ascendv2__Presidential_Mailing_Country__c;
-    public $Chicago_Bio_Demo_Last_Changed_Date__c;
-    public $hed__WorkEmail__c;
-    public $Raisers_Edge_ID__c;
-    public $IsDeleted;
-    public $ucinn_ascendv2__Presidential_Home_City__c;
-    public $ucinn_ascendv2__Preferred_Address_Country__c;
-    public $ucinn_ascendv2__Amount_of_Most_Recent_Gift__c;
-    public $AIS_Parent_ID__c;
-    public $ucinn_ascendv2__Is_Deceased__c;
-    public $ucinn_ascendv2__Preferred_Address_Line_4__c;
-    public $OtherLatitude;
-    public $ucinn_ascendv2__Preferred_Address_Geolocation__Longitude__s;
-    public $hed__UniversityEmail__c;
-    public $ucinn_ascendv2__Wealth_Rating_Days_Diff_Formula__c;
-    public $ucinn_ascendv2__Amount_of_First_Pledge__c;
-    public $DoNotCall;
-    public $ucinn_ascendv2__Unit_of_First_Gift__c;
-    public $FAS_ID__c;
-    public $ucinn_ascendv2__Amount_of_First_Pledge_Payment__c;
-    public $MailingState;
-    public $ucinn_ascendv2__Wealth_Rating__c;
-    public $ucinn_ascendv2__Salutation_No_Trustee_Formula__c;
-    public $ucinn_ascendv2__Annual_Giving_Group_Formula__c;
-    public $Birth_Place__c;
-    public $OtherCountry;
-    public $ucinn_ascendv2__Wealth_Rating_Formula__c;
-    public $EmailBouncedReason;
-    public $ucinn_ascendv2__Subscription_ID__c;
-    public $FirstName;
-    public $ucinn_ascendv2__Earliest_UG_Degree_Info__c;
-    public $OtherPostalCode;
-    public $ucinn_ascendv2__Top_25_Prospect__c;
-    public $ucinn_ascendv2__Presidential_Business_State__c;
-    public $ucinn_ascendv2__Top_Visited_Dept_2__c;
-    public $ucinn_ascendv2__Undergrad_Grad_Degree_Formula__c;
-    public $Preferred_Social_Media_Type__c;
-    public $SystemModstamp;
-    public $Special_Handling__c;
-    public $ucinn_ascendv2__Earliest_Grad_Degree_Info__c;
-    public $Griffin_Operator_Name__c;
-    public $ucinn_ascendv2__PRM_No_Trustee_Formula__c;
-    public $Preferred_Social_Media_URL__c;
-    public $hed__Primary_Organization__c;
-    public $ucinn_ascendv2__Distance_From_Target__c;
-    public $University_Affiliation__c;
-    public $ucinn_ascendv2__Presidential_Other_State__c;
-    public $AccountId;
-    public $Email;
-    public $ucinn_ascendv2__Marital_Status__c;
-    public $ucinn_ascendv2__Is_Possible_Duplicate_Checked__c;
-    public $ucinn_ascendv2__Enrollment_Status__c;
-    public $Name;
-    public $ucinn_ascendv2__Unit_of_First_Pledge__c;
-    public $ucinn_ascendv2__Amount_of_Largest_Pledge__c;
-    public $ucinn_ascendv2__Suffix_No_Trustee_Formula__c;
-    public $ucinn_ascendv2__Contact_Type__c;
-    public $Gargoyle_ID__c;
-    public $ucinn_ascendv2__Total_Number_of_Encounters__c;
-    public $ucinn_ascendv2__Is_Confidential__c;
-    public $ucinn_ascendv2__Patient_ID__c;
-    public $ucinn_ascendv2__Do_Not_Solicit__c;
-    public $Account_Record_Type_Id__c;
-    public $MasterRecordId;
-    public $ucinn_ascendv2__Preferred_Address_Line_3__c;
-    public $ucinn_ascendv2__Presidential_Business_Street__c;
-    public $ucinn_ascendv2__Personal_Email__c;
-    public $LastViewedDate;
-    public $hed__Deceased__c;
-    public $ucinn_ascendv2__Top_Visited_Dept_4__c;
-    public $hed__Secondary_Address_Type__c;
-    public $Contact_ID_18_digit__c;
-    public $ucinn_ascendv2__Presidential_Mailing_State__c;
-    public $ucinn_ascendv2__Amount_of_Most_Recent_Pledge_Payment__c;
-    public $ucinn_ascendv2__Religious_Preference__c;
-    public $ucinn_ascendv2__Source__c;
-    public $hed__HIPAA_Detail__c;
-    public $ucinn_ascendv2__Presidential_Business_City__c;
-    public $ucinn_ascendv2__Presidential_Other_Country__c;
-    public $ucinn_ascendv2__Unit_of_Most_Recent_Pledge_Payment__c;
-    public $ucinn_ascendv2__Do_Not_Call__c;
-    public $ucinn_ascendv2__Recognition_Name__c;
-    public $CFP_ID__c;
-    public $LastName;
-    public $ucinn_ascendv2__Amount_of_Largest_Pledge_Payment__c;
-    public $ucinn_ascendv2__Preferred_Spouse__c;
-    public $MailingStreet;
-    public $ucinn_ascendv2__School_Grateful_Patient_ID__c;
-    public $hed__Dual_Citizenship__c;
-    public $ucinn_ascendv2__Preferred_Address_County__c;
-    public $ucinn_ascendv2__Number_of_Consecutive_Giving__c;
-    public $ucinn_ascendv2__Unit_of_Most_Recent_Pledge__c;
-    public $LastReferencedDate;
-    public $ucinn_ascendv2__Business_Email__c;
-    public $ucinn_ascendv2__Top_Visited_Dept_3__c;
-    public $Marketo_Lead_ID__c;
-    public $OtherState;
-    public $of_time_devoted_to_fundraising__c;
-    public $MailingLongitude;
-    public $MailingPostalCode;
-    public $ucinn_ascendv2__Professional_Designation__c;
-    public $ucinn_ascendv2__Preferred_Address_Type__c;
-    public $hed__Work_Address__c;
-    public $hed__Military_Service__c;
-    public $ucinn_ascendv2__Preferred_Address_City__c;
-    public $About_Me__c;
-    public $Anonymous_Donor__c;
-    public $Title;
-    public $ucinn_ascendv2__Presidential_Business_Country__c;
-    public $ucinn_ascendv2__Preferred_Address_Postal_Code__c;
-    public $ucinn_ascendv2__Presidential_Preferred_Postal_Code__c;
-    public $hed__Primary_Language__c;
-    public $ucinn_ascendv2__Physician_ID__c;
-    public $ucinn_ascendv2__Deceased_Source__c;
-    public $ReportsToId;
-    public $Business_Phone__c;
-    public $Preferred_Affiliation__c;
-    public $ucinn_ascendv2__Home_Postal_Code_No_Trustee_Formula__c;
-    public $hed__Country_of_Origin__c;
-    public $ucinn_ascendv2__Picture_Record_ID__c;
-    public $ucinn_ascendv2__Presidential_Business_Postal_Code__c;
-    public $Fax;
-    public $JigsawContactId;
-    public $Constituent_Type_Formula_Field__c;
-    public $hed__HIPAA__c;
-    public $ucinn_ascendv2__Total_Campaign_Fundraising__c;
-    public $type;
-    public $ucinn_ascendv2__Presidential_Home_Street__c;
-    public $ucinn_ascendv2__PRM__c;
-    public $ucinn_ascendv2__Action_Center_News_Topics_Subscription__c;
-    public $OtherLongitude;
-    public $Chicago_ID__c;
-    public $OtherCity;
-    public $ucinn_ascendv2__Presidential_Home_Country__c;
-    public $ucinn_ascendv2__Wealth_Last_Rating_Date_Time__c;
-    public $ucinn_ascendv2__Unit__c;
-    public $hed__Race__c;
-    public $ucinn_ascendv2__Cancer_Center_Physician_CMM_Code__c;
-    public $ucinn_ascendv2__Undergrad_Grad_Degree_No_Trustee_Formula__c;
-    public $CNet_ID__c;
-    public $Home_Email__c;
-    public $OtherGeocodeAccuracy;
-    public $ucinn_ascendv2__Unit_of_Largest_Gift__c;
-    public $ucinn_ascendv2__Preferred_Phone_Type__c;
-    public $hed__Financial_Aid_Applicant__c;
-    public $ucinn_ascendv2__Age_Formula__c;
-    public $MailingCity;
-    public $Primary_Department__c;
-    public $Change_Type__c;
-    public $Court_Theatre_ID__c;
-    public $ucinn_ascendv2__Presidential_Other_Street_v1__c;
-    public $OtherStreet;
-    public $ucinn_ascendv2__Designation_of_Largest_Pledge_Payment__c;
-    public $ucinn_ascendv2__American_Medical_Association_ID__c;
-    public $Suffix;
-    public $ucinn_ascendv2__Designation_of_Most_Recent_PP_Lookup__c;
-    public $ucinn_ascendv2__Amount_of_First_Gift__c;
-    public $ucinn_ascendv2__Deceased_Year__c;
-    public $Id;
-    public $ucinn_ascendv2__Donor_ID__c;
-    public $Purgable__c;
-    public $ucinn_ascendv2__Profile_Image__c;
-    public $OtherPhone;
-    public $Description;
-    public $ucinn_ascendv2__Primary_Contact_Type_No_Trustee_Formula__c;
-    public $AssistantName;
-    public $Primary_Educational_Institution__c;
-    public $MailingCountry;
-    public $hed__Chosen_Full_Name__c;
-    public $Salutation;
-    public $OwnerId;
-    public $ucinn_ascendv2__Campus_Email__c;
-    public $Citizen_Country_Code__c;
-    public $ucinn_ascendv2__Preferred_Address_State__c;
-    public $Spouse_Name__c;
-    public $ucinn_ascendv2__Do_Receive_Action_Center_Notification__c;
-    /**
-     * @stdClass
-     * country;
-     * city;
-     * countryCode;
-     * street;
-     * latitude;
-     * postalCode;
-     * geocodeAccuracy;
-     * stateCode;
-     * state;
-     * longitude;
-     */
-    public $MailingAddress;
-    public $ucinn_ascendv2__Preferred_Address_Geolocation__Latitude__s;
-    public $ucinn_ascendv2__Presidential_Other_Postal_Code__c;
-    public $hed__Current_Address__c;
-    public $hed__Primary_Address_Type__c;
-    public $ucinn_ascendv2__Is_Business_Preferred__c;
-    public $ucinn_ascendv2__Unit_of_Most_Recent_Gift__c;
-    public $ucinn_ascendv2__External_System_ID__c;
-    public $ucinn_ascendv2__Preferred_Pronouns__c;
-    public $ucinn_ascendv2__Top_Visited_Dept_5__c;
-    public $HomePhone;
-    public $ucinn_ascendv2__Salutation_Preference__c;
-    public $hed__Ethnicity__c;
-    public $LastActivityDate;
-    public $ucinn_ascendv2__Deceased_Month__c;
-    public $ucinn_ascendv2__Deceased_Date__c;
-    public $ucinn_ascendv2__Preferred_Address_Line_2__c;
-    public $ucinn_ascendv2__Online_Payment_Customer_ID__c;
-    public $Primary_Academic_Program__c;
-    public $ucinn_ascendv2__Presidential_Mailing_City__c;
-    public $ucinn_ascendv2__Amount_of_Most_Recent_Pledge__c;
-    public $ucinn_ascendv2__Student_Information_System_ID__c;
-    public $ucinn_ascendv2__Top_Visited_Dept_1__c;
-    public $ucinn_ascendv2__Presidential_Home_Postal_Code__c;
-    public $ucinn_ascendv2__Do_Not_Email__c;
-    public $MobilePhone;
-    public $ucinn_ascendv2__Business_Unit__c;
-    public $MailingLatitude;
-    public $ucinn_ascendv2__Presidential_Preferred_Street__c;
-    public $IndividualId;
-    public $ucinn_ascendv2__Presidential_Preferred_City__c;
-    public $IsEmailBounced;
-    public $ucinn_ascendv2__Preferred_Class_Year__c;
-    public $HasOptedOutOfEmail;
-    public $hed__Do_Not_Contact__c;
-    public $ucinn_ascendv2__Presidential_Preferred_State__c;
-    public $Birthdate;
-    public $hed__PreferredPhone__c;
-    public $hed__Preferred_Email__c;
-    public $Report_Name__c;
-    public $ucinn_ascendv2__Do_Receive_Household_Soft_Credit__c;
-    public $Primary_Employment__c;
-    /**
-     * @stdClass
-     * country;
-     * city;
-     * countryCode;
-     * street;
-     * latitude;
-     * postalCode;
-     * geocodeAccuracy;
-     * stateCode;
-     * state;
-     * longitude;
-     */
-    public $OtherAddress;
-    public $hed__is_Address_Override__c;
-    public $Griffin_ID__c;
-    public $AssistantPhone;
-    public $ucinn_ascendv2__Unit_of_First_Pledge_Payment__c;
-    public $EmailBouncedDate;
-    /**
-     * @stdClass
-     *  latitude;
-     * longitude;
-     */
+    private $id_number;
+    private $employment_id;
+    private $full_name;
+    private $first_name;
+    private $middle;
+    private $last_name;
+    private $street;
+    private $city;
+    private $state;
+    private $zip;
+    private $foreign_zip;
+    private $country_code;
+    private $degrees = [];
+    private $employment_job_title;
+    private $employment_employer_name;
+    private $employment_org_name;
+    private $email;
+    private $phone;
+    private $chair = false;
+    private $lifetime_member = false;
+    private $memberships = array();
+    private $membership_display;
 
-    public $ucinn_ascendv2__Preferred_Address_Geolocation__c;
-    public $ucinn_ascendv2__Payroll_ID__c;
-    public $hed__Gender__c;
-    public $ucinn_ascendv2__BIO_Changed_Since_Date__c;
-    public $ucinn_ascendv2__School_ID__c;
-    public $UChicago_WISRNetwork_ID__c;
-    public $Phone;
-    public $ucinn_ascendv2__Do_Not_Mail__c;
-    public $MailingGeocodeAccuracy;
-    public $hed__WorkPhone__c;
-    public $ucinn_ascendv2__School_Radio_Station_ID__c;
-    public $ucinn_ascendv2__Unit_of_Largest_Pledge__c;
-    public $ucinn_ascendv2__Preferred_Address_Line_1__c;
-    public $Primary_Sports_Organization__c;
-    public $ucinn_ascendv2__Presidential_Other_City__c;
-    public $ucinn_ascendv2__Amount_of_Largest_Gift__c;
-    public $ucinn_ascendv2__Presidential_Home_State__c;
-    public $MiddleName;
-    public $ucinn_ascendv2__Primary_Contact_Type__c;
-    public $ucinn_ascendv2__Other_Email__c;
-    public $ucinn_ascendv2__Presidential_Mailing_Street_v1__c;
-
-
-    public function sortToken(){
-        return $this->LastName.$this->FirstName.$this->MiddleName;
+    /**
+     * @param mixed $employment_id
+     */
+    public function setEmploymentId($employment_id): void
+    {
+        $this->employment_id = $employment_id;
     }
 
+    /**
+     * @param mixed $country_code
+     */
+    public function setCountryCode($country_code): void
+    {
+        $this->country_code = $country_code;
+    }
+
+    /**
+     * @param mixed $employment_job_title
+     */
+    public function setEmploymentJobTitle($employment_job_title): void
+    {
+        $this->employment_job_title = $employment_job_title;
+    }
+
+    /**
+     * @param mixed $employment_employer_name
+     */
+    public function setEmploymentEmployerName($employment_employer_name): void
+    {
+        $this->employment_employer_name = $employment_employer_name;
+    }
+
+    /**
+     * @param mixed $employment_org_name
+     */
+    public function setEmploymentOrgName($employment_org_name): void
+    {
+        $this->employment_org_name = $employment_org_name;
+    }
+
+    /**
+     * @param mixed $city
+     */
+    public function setCity($city): void
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @param mixed $state
+     */
+    public function setState($state): void
+    {
+        $this->state = $state;
+    }
+
+    /**
+     * @param mixed $zip
+     */
+    public function setZip($zip): void
+    {
+        $this->zip = $zip;
+    }
+
+    /**
+     * @param mixed $street
+     */
+    public function setStreet($street): void
+    {
+        $this->street = $street;
+    }
+
+    /**
+     * @param mixed $first_name
+     */
+    public function setFirstName($first_name): void
+    {
+        $this->first_name = $first_name;
+    }
+
+    /**
+     * @param mixed $middle
+     */
+    public function setMiddle($middle): void
+    {
+        $this->middle = $middle;
+    }
+
+    /**
+     * @param mixed $last_name
+     */
+    public function setLastName($last_name): void
+    {
+        $this->last_name = $last_name;
+    }
+
+
+
+    public function setInfo($info=""){
+        $this->info = $info;
+    }
+
+    public function setName($first, $middle,$last){
+        $this->first_name = trim($first);
+        $this->middle = trim($middle);
+        $this->last_name = trim($last);
+    }
+
+    public function setIDNumber( $id_number = ""){
+        $this->id_number = $id_number;
+    }
+
+    public function id_number(){
+        return $this->id_number;
+    }
+
+    public function employment_id(){
+        return $this->employment_id;
+    }
+
+    public function setFullName( $FullName ){
+        $this->full_name = $FullName;
+    }
+
+    public function first_name(){
+        return $this->first_name;
+    }
+
+    public function middle(){
+        return $this->middle;
+    }
+
+    public function last_name(){
+        return $this->lifetime_member() ? $this->last_name."*" : $this->last_name;
+    }
+
+    public function sort_token(){
+        return $this->last_name.$this->first_name.$this->middle;
+    }
+
+    public function setAddress( $street="", $city="", $state="", $zip="", $foreignZip="", $countryCode=""){
+        $this->street = trim($street);
+        $this->city = trim($city);
+        $this->state = trim($state);
+        $this->zip = trim($zip);
+        $this->foreign_zip = trim($foreignZip);
+        $this->country_code = trim($countryCode);
+    }
+
+    public function street(){
+        return $this->street;
+    }
+
+    public function city(){
+        return $this->city;
+    }
+
+    public function state(){
+        return $this->state;
+    }
+
+    public function zip(){
+        return $this->zip;
+    }
+
+    public function foreign_zip(){
+        return $this->foreign_zip;
+    }
+
+    public function country_code(){
+        return $this->country_code;
+    }
+
+    public function adresses(){
+        return $this->addresses;
+    }
+
+    public function setDegrees($degrees=[]){
+        if( !empty($degrees )){
+            foreach ($degrees as $degree ){
+                $d = new \stdClass();
+                $d->year = $degree->ucinn_ascendv2__Conferred_Degree_Year__c;
+                $d->type = $degree->ucinn_ascendv2__Degree__c;
+                array_push($degree, $this->degrees);
+            }
+        }
+    }
+
+    public function degrees(){
+        $degrees_data = [];
+        date_default_timezone_set('America/Chicago');
+        foreach ($this->degrees as $degree){
+            $date = new \DateTime();
+            $date->setDate((int)$degree->year, 1, 1);
+            $degrees_data[]= $degree->type . " '" . $date->format('y');
+        }
+        return implode(", ",$degrees_data);
+    }
+
+    public function setEmploymentData( $data = [] ){
+        if( isset($data) && is_array($data) && isset($data[0])){
+            $this->employment_job_title = $data[0]->ucinn_ascendv2__Job_Title__c;
+            $this->employment_employer_name = $data[0]->ucinn_ascendv2__Related_Account_Name_Formula__c;
+            $this->employment_org_name = "";
+        }
+
+    }
+
+    public function employment_job_title(){
+        return ucwords($this->employment_job_title);
+    }
+
+    public function employment_employer_name(){
+        return ucwords($this->employment_employer_name);
+    }
+
+    public function employment_org_name(){
+        return ucwords($this->employment_org_name);
+    }
+
+    public function setEmail($email){
+        $this->email = $email;
+    }
+
+    public function email(){
+        return $this->email;
+    }
+
+    public function setPhone($phone=""){
+        $this->phone = $phone;
+    }
+
+    public function phone(){
+        return $this->phone;
+    }
+
+    public function setChair( $chair = false ){
+        $this->chair = $chair;
+    }
+
+    public function chair(){
+        return $this->chair;
+    }
+
+    public function setLifeTimeMember( $lifetime_member = false){
+        $this->lifetime_member = $lifetime_member;
+    }
+
+    public function lifetime_member(){
+        return $this->lifetime_member;
+    }
+
+    public function setMembership($memberships = array()){
+         array_push( $this->memberships , $memberships);
+         $display= array();
+         $data = $this->memberships[0];
+         for ($i=0; $i<count($data); $i++){
+             isset( $data[$i]['SHORT_DESC'] ) && !in_array($data[$i]['SHORT_DESC'] , $display) ? array_push( $display , $data[$i]['SHORT_DESC']) : "";
+         }
+        $this->membership_display = implode( ", "  , $display);
+    }
+
+    public function membership_display(){
+        return $this->membership_display;
+    }
 }

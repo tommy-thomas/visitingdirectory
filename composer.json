@@ -11,6 +11,7 @@
     },
     "files": [
       "vendor/ws/wsodbcweb-sharedphp/clean.php",
+      "/data/credentials/visitingdirectory/authorization.php"
     ]
   },
   "repositories": {
