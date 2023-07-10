@@ -19,7 +19,7 @@ if( $app->isAppSecScan() ){
 }
 
 if (  $app->isValidGroup() ) {
-    $_SESSION['email'] = $_SERVER['OIDC_CLAIM_email'];
+    $_SESSION['email'] = $_SERVER['mail'];
     $app->redirect('./search.php');
 }
 
