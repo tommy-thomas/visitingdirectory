@@ -170,6 +170,15 @@ class CommitteeMember //extends WS_DynamicGetterSetter
         return $this->lifetime_member() ? $this->last_name."*" : $this->last_name;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getFullName()
+    {
+        return $this->full_name;
+    }
+
+
     public function sort_token(){
         return $this->last_name.$this->first_name.$this->middle;
     }
