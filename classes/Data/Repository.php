@@ -194,12 +194,11 @@ class Repository
     {
         foreach ($this->data['AdvisoryCouncilsMemberData'] as $key => $committee) {
             foreach ($committee as $member) {
-                if ($member->Id == $id_number) {
+                if ($member->id_number() == $id_number) {
                     return $member;
                 }
             }
         }
-        return;
     }
 
     public function allCouncilData()
