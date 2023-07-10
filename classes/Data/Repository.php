@@ -9,10 +9,8 @@
 
 namespace UChicago\AdvisoryCouncil\Data;
 require __DIR__ . "/../../vendor/autoload.php";
-
 define('CLIENT_ID', 'd9b29bf62e5947f38bd8ad48f562d142');
 define('CLIENT_SECRET', '6F8534f70E524Dc59C404a4D282e17ae');
-
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
@@ -35,15 +33,17 @@ class Repository
     private Committees $committees;
     public CommitteeMemberMembership $committee_membership;
     private CommitteeMemberFactory $factory;
+    private Database $database;
 
 
-    public function __construct(Client $client, $uri, $environment = "dev")
+    public function __construct(Client $client, $uri = "", $environment = "dev")
     {
         $this->committees = new Committees();
         $this->factory = new CommitteeMemberFactory();
         $this->committee_membership = new CommitteeMemberMembership();
         $this->client = $client;
         $this->uri = $uri;
+        $this->database = new Database();
         //for async main_requests
         $this->headers_array = [
             'headers' => [
@@ -54,12 +54,7 @@ class Repository
         //fetch request object
         $this->header = ['client_id' => CLIENT_ID, 'client_secret' => CLIENT_SECRET];
 
-        $this->setCache();
-
-        //SQLite Backup
-        $db = new Database();
-        $db->set('member_data',$this->data['AdvisoryCouncilsMemberData']);
-        $db->set('membership_data', $this->data['AdvisoryCouncilsMemberMembershipData']);
+        $this->setData();
 
     }
 
@@ -69,17 +64,19 @@ class Repository
         $this->setMainData()
             ->setEmploymentData()
             ->setDegreeData()
-            ->sortData()
-            ->setData();
-
-        return $this;
+            ->setDBData();
 
     }
 
+    public function setDBData(){
+        $this->database->set('member_data', $this->members());
+        $this->database->set('membership_data', array('committee_membership' => $this->committee_membership() ));
+    }
+
     public function setData(){
-        $db = new Database();
-        $db->set('member_data', $this->members());
-        $db->set('membership_data', array('committee_membership' => $this->committee_membership() ));
+        //set data array
+        $this->data['AdvisoryCouncilsMemberData'] = $this->database->get('member_data');
+        $this->data['AdvisoryCouncilsMemberMembershipData'] =$this->database->get('membership_data');
     }
 
     private function setMainData()
@@ -164,7 +161,6 @@ class Repository
     {
         foreach ($this->members() as $committee_code => $members_array) {
             foreach ($members_array as $id => $member) {
-                //https://itsapi.uchicago.edu/system/ascend/v1/api/query/degree?q=ucinn_ascendv2__Contact__c='0031U00001Q7l0EQAR'
                 $degree = $this->client->getAsync($this->uri . "degree?q=ucinn_ascendv2__Contact__c='" . $member->id_number() . "'", $this->headers_array);
                 $degree->then(
                     function (Response $response) use ($committee_code, $id, $member) {
@@ -179,34 +175,6 @@ class Repository
         }
         return $this;
     }
-
-
-//    public function setDegreeInstitutionData()
-//    {
-//        foreach ($this->members() as $committee_code => $members_array) {
-//            foreach ($members_array as $id => $member) {
-//                $degrees = $member->degree->records;
-//                foreach ($degrees as $degree) {
-//                    if (isset($degree->ucinn_ascendv2__Degree_Institution__c) && !empty($degree->ucinn_ascendv2__Degree_Institution__c)) {
-//                        $institution_id = $degree->ucinn_ascendv2__Degree_Institution__c;
-//                        https://itsapi.uchicago.edu/system/ascend/v1/api/query/account?q=Id='0011U00001PTMSKQA5'
-//                        $degree = $this->client->getAsync($this->uri . "account?q=Id='" . $institution_id . "'", $this->headers_array);
-//                        $degree->then(
-//                            function (Response $response) use ($committee_code, $id, $member, $institution_id) {
-//                                $this->members[$committee_code][$id]->degree_institution = json_decode($response->getBody()->getContents())->records;
-//                            },
-//                            function (RequestException $exception) use ($member) {
-//                                print "Error with degree resquest:\n" . $exception->getMessage();
-//                            }
-//                        );
-//                        $degree->wait();
-//                    }
-//                }
-//            }
-//
-//        }
-//        return $this;
-//    }
 
     public function sortData(){
         foreach ($this->members() as $key => $committee) {
@@ -240,7 +208,7 @@ class Repository
         return $this->data['AdvisoryCouncilsMemberData'];
     }
 
-    public function getCouncilMembershipData()
+    public function councilMembershipData()
     {
         if (isset($this->data['AdvisoryCouncilsMemberMembershipData']['committee_membership'])) {
             return $this->data['AdvisoryCouncilsMemberMembershipData']['committee_membership'];
@@ -256,10 +224,5 @@ class Repository
     public function committee_membership(){
         return $this->committee_membership;
     }
+
 }
-$app = new Application();
-//$client = new Client(['base_uri' => $app->apiUrl()]);
-$client = new Client();
-$r = new Repository($client, $app->apiUrl());
-$r->setCache();
-var_dump($r->members());

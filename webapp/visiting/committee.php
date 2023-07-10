@@ -7,23 +7,19 @@ use GuzzleHttp\Client;
 use UChicago\AdvisoryCouncil\BearerToken;
 use UChicago\AdvisoryCouncil\CLIMemcache;
 use UChicago\AdvisoryCouncil\Committees;
-use UChicago\AdvisoryCouncil\Data\StaticRepository;
+use UChicago\AdvisoryCouncil\Data\Repository;
 
 $app = new \UChicago\AdvisoryCouncil\Application();
 
 $committees = new Committees();
-
-$memcache_instance = new CLIMemcache();
-
-$memcache = $memcache_instance->getMemcacheForCLI($app->environment());
-
-$repository = new StaticRepository($memcache,  $app->environment());
+$client = new Client();
+$repository = new Repository($client,  $app->apiUrl(), $app->environment());
 
 $template = $app->template('./committee.html.twig');
 
 $TwigTemplateVariables = array();
 
-if ($app->isValid() && isset($_GET['c'])) {
+if ( isset($_GET['c']) ) {
     $code = $_GET['c'];
     $members_list = $repository->getCouncilData($code);
     if (isset($members_list) && count($members_list) > 0) {

@@ -73,7 +73,7 @@ if ((isset($_POST['search_by_committee']) && !empty($_POST['committee'])) || iss
 if (isset($_POST['search_by_name'])) {
     $search = new CommitteeSearch($repository->allCouncilData(),
         new CommitteeMemberFactory(),
-        $repository->getCouncilMembershipData());
+        $repository->councilMembershipData());
 
     $results = $search->searchResults($committees,
         array("first_name" => htmlClean($_POST['f_name']), "last_name" => htmlClean($_POST['l_name'])));

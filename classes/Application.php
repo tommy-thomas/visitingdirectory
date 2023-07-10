@@ -141,44 +141,20 @@ class Application extends WS_Application
         return $this->isDev() && (isset($_SERVER[self::APP_SEC_HEADER_KEY]) && $_SERVER[self::APP_SEC_HEADER_KEY] == self::APP_SEC_HEADER_VALUE);
     }
 
-    public function isValidSocialAuth(Client $client , $email, $bearer_token)
+    public function isValidSocialAuth(Client $client , $email)
     {
-
-        $response = $client->request('GET',
-            "report/VC?email_address=" . $email,
-            [
-                'headers' => ['Authorization' => $bearer_token]
+        $headers_array = [
+            'headers' => [
+                'client_id' => CLIENT_ID,
+                'client_secret' => CLIENT_SECRET
             ]
-        );
+        ];
+        $response = $client->request('GET', $this->apiUrl() . "contact?q=Email='".$email."'", $headers_array);
 
         if ($response->getStatusCode() == "200") {
-            $results = json_decode($response->getBody())->results;
-            foreach ($results as $key => $r) {
-                if (isset($r->ID_NUMBER)
-                    && isset($r->TMS_RECORD_STATUS_CODE)
-                    && isset($r->TMS_EMAIL_STATUS_CODE)
-                    && $r->TMS_RECORD_STATUS_CODE == "Active"
-                    && $r->TMS_EMAIL_STATUS_CODE == "Active") {
-                    return true;
-                }
-            }
+            return json_decode($response->getBody())->totalSize > 0;
         }
-
         return false;
-    }
-
-    public function isValid()
-    {
-        //return isset($_SESSION['bearer_token']);
-        return true;
-    }
-
-    /**
-     * Is user using social auth gateway to authenticate?
-     */
-    public function userIsFromSocialAuth()
-    {
-        return (isset($_SERVER['Shib-Identity-Provider']) && in_array( $_SERVER['Shib-Identity-Provider'] , self::SOCIAL_AUTH_IDP));
     }
 
     /**

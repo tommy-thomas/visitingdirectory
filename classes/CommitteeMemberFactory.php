@@ -9,6 +9,7 @@
 namespace UChicago\AdvisoryCouncil;
 
 use UChicago\AdvisoryCouncil\CommitteeMember;
+use UChicago\AdvisoryCouncil\Data\Repository;
 
 class CommitteeMemberFactory
 {
@@ -119,5 +120,7 @@ class CommitteeMemberFactory
         usort($data, array($this, "compare"));
         return $data;
     }
+
+
 
 }

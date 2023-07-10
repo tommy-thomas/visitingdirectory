@@ -27,13 +27,13 @@ if ( !$app->isValidGroup() ) {
     $auth_err = true;
 }
 
-//if ($app->userIsFromSocialAuth() && isset($_SERVER['mail'])) {
-//    $valid_social_auth = $app->isValidSocialAuth($client, $_SERVER['mail'], $_SESSION['bearer_token']);
-//    if( $valid_social_auth ){
-//        $_SESSION['email'] = $_SERVER['mail'];
-//        $app->redirect('./search.php');
-//    }
-//}
+if ($app->userIsFromSocialAuth() && isset($_SERVER['mail'])) {
+    $valid_social_auth = $app->isValidSocialAuth($_SERVER['mail']);
+    if( $valid_social_auth ){
+        $_SESSION['email'] = $_SERVER['mail'];
+        $app->redirect('./search.php');
+    }
+}
 
 /**
  * Start Twig
