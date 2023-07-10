@@ -9,11 +9,13 @@
 
 namespace UChicago\AdvisoryCouncil\Data;
 
+
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Pool;
+use UChicago\AdvisoryCouncil\Application;
 use UChicago\AdvisoryCouncil\CommitteeMemberFactory;
 use UChicago\AdvisoryCouncil\CommitteeMemberMembership;
 use UChicago\AdvisoryCouncil\Committees;
@@ -55,7 +57,7 @@ class Repository
         $this->setData();
     }
 
-    public function setCache()
+    public function cache()
     {
 
         $this->setMainData()
@@ -90,8 +92,6 @@ class Repository
         };
 
         //Loop through committee codes
-        $degreeIDs = "";
-        $test = 3;
         $main_pool = new Pool($this->client, $main_requests(), [
             'concurrency' => 20,
             'fulfilled' => function (Response $response, $index) {

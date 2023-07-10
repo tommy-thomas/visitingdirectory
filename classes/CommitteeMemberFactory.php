@@ -84,10 +84,6 @@ class CommitteeMemberFactory
             return isset($records[0]) ? trim($records[0]->ucinn_ascendv2__Involvement_Code_Description_Formula__c) : "";
     }
 
-//ucinn_ascendv2__Contact__c
-//ucinn_ascendv2__Role__c
-//ucinn_ascendv2__Involvement_Code_Description_Formula__c
-
     public function setRoles($data = [] ){
         $array = $this->filterMembers($data);
         $this->roles_array = array( "life-member" => [], "chair" => [] );
