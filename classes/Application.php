@@ -141,6 +141,14 @@ class Application extends WS_Application
         return $this->isDev() && (isset($_SERVER[self::APP_SEC_HEADER_KEY]) && $_SERVER[self::APP_SEC_HEADER_KEY] == self::APP_SEC_HEADER_VALUE);
     }
 
+    /**
+     * @return bool
+     */
+    public function userIsFromSocialAuth()
+    {
+        return (isset($_SERVER['OIDC_CLAIM_iss']) && in_array( $_SERVER['OIDC_CLAIM_iss'] , self::SOCIAL_AUTH_IDP));
+    }
+
     public function isValidSocialAuth(Client $client , $email)
     {
         $headers_array = [
