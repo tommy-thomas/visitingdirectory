@@ -9,8 +9,7 @@
 
 namespace UChicago\AdvisoryCouncil\Data;
 require __DIR__ . "/../../vendor/autoload.php";
-define('CLIENT_ID', 'd9b29bf62e5947f38bd8ad48f562d142');
-define('CLIENT_SECRET', '6F8534f70E524Dc59C404a4D282e17ae');
+
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
