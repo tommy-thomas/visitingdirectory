@@ -8,13 +8,13 @@
 
 
 namespace UChicago\AdvisoryCouncil\Data;
-require __DIR__ . "/../../vendor/autoload.php";
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Pool;
+use UChicago\AdvisoryCouncil\Application;
 use UChicago\AdvisoryCouncil\CommitteeMemberFactory;
 use UChicago\AdvisoryCouncil\CommitteeMemberMembership;
 use UChicago\AdvisoryCouncil\Committees;
@@ -34,26 +34,26 @@ class Repository
     private Database $database;
 
 
-    public function __construct(Client $client, $uri = "", $environment = "dev")
+    public function __construct(Client $client = null, $uri = null, $environment = "dev")
     {
-        $this->committees = new Committees();
-        $this->factory = new CommitteeMemberFactory();
-        $this->committee_membership = new CommitteeMemberMembership();
-        $this->client = $client;
-        $this->uri = $uri;
         $this->database = new Database();
-        //for async main_requests
-        $this->headers_array = [
-            'headers' => [
-                'client_id' => CLIENT_ID,
-                'client_secret' => CLIENT_SECRET
-            ]
-        ];
-        //fetch request object
-        $this->header = ['client_id' => CLIENT_ID, 'client_secret' => CLIENT_SECRET];
-
+        if( !is_null($client) && !is_null($uri)){
+            $this->committees = new Committees();
+            $this->factory = new CommitteeMemberFactory();
+            $this->committee_membership = new CommitteeMemberMembership();
+            $this->client = $client;
+            $this->uri = $uri;
+            //for async main_requests
+            $this->headers_array = [
+                'headers' => [
+                    'client_id' => CLIENT_ID,
+                    'client_secret' => CLIENT_SECRET
+                ]
+            ];
+            //fetch request object
+            $this->header = ['client_id' => CLIENT_ID, 'client_secret' => CLIENT_SECRET];
+        }
         $this->setData();
-
     }
 
     public function setCache()
@@ -191,7 +191,7 @@ class Repository
 
     public function findMemberByIdNumber($id_number = "")
     {
-        foreach ($this->data['AdvisoryCouncilsMemberData'] as $key => $committee) {
+        foreach ($this->data['AdvisoryCouncilsMemberData'] as $committee) {
             foreach ($committee as $member) {
                 if ($member->id_number() == $id_number) {
                     return $member;
@@ -223,3 +223,8 @@ class Repository
     }
 
 }
+
+$client = new Client();
+$app = new Application();
+$repo = new Repository($client, $app->apiUrl());
+$repo->getCouncilMembershipData();
