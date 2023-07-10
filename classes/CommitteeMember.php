@@ -173,7 +173,7 @@ class CommitteeMember //extends WS_DynamicGetterSetter
     /**
      * @return mixed
      */
-    public function getFullName()
+    public function full_name()
     {
         return $this->full_name;
     }
