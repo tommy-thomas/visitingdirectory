@@ -198,7 +198,7 @@ class CommitteeMember //extends WS_DynamicGetterSetter
     }
 
     public function city(){
-        return $this->cit ?? "";
+        return $this->city ?? "";
     }
 
     public function state(){
