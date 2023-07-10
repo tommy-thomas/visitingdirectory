@@ -9,7 +9,6 @@
 
 namespace UChicago\AdvisoryCouncil\Data;
 
-
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
@@ -63,6 +62,7 @@ class Repository
         $this->setMainData()
             ->setEmploymentData()
             ->setDegreeData()
+            ->sortData()
             ->setDBData();
 
     }

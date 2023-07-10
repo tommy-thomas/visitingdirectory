@@ -223,11 +223,16 @@ class CommitteeMember //extends WS_DynamicGetterSetter
 
     public function setDegrees($degrees=[]){
         if( !empty($degrees )){
+            $count = 0;
             foreach ($degrees as $degree ){
-                $d = new \stdClass();
-                $d->year = $degree->ucinn_ascendv2__Conferred_Degree_Year__c;
-                $d->type = $degree->ucinn_ascendv2__Degree__c;
-                array_push($degree, $this->degrees);
+                if( isset( $degree->ucinn_ascendv2__Conferred_Degree_Year__c ) && !empty($degree->ucinn_ascendv2__Conferred_Degree_Year__c)
+                    && isset($degree->ucinn_ascendv2__Degree__c) && !empty($degree->ucinn_ascendv2__Degree__c)){
+                    $this->degrees[$count] = new \stdClass();
+                    $this->degrees[$count]->year = $degree->ucinn_ascendv2__Conferred_Degree_Year__c;
+                    $this->degrees[$count]->type = $degree->ucinn_ascendv2__Degree__c;
+                    $count++;
+                }
+
             }
         }
     }
