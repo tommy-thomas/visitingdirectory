@@ -14,7 +14,6 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Pool;
-use UChicago\AdvisoryCouncil\Application;
 use UChicago\AdvisoryCouncil\CommitteeMemberFactory;
 use UChicago\AdvisoryCouncil\CommitteeMemberMembership;
 use UChicago\AdvisoryCouncil\Committees;
@@ -223,8 +222,3 @@ class Repository
     }
 
 }
-
-$client = new Client();
-$app = new Application();
-$repo = new Repository($client, $app->apiUrl());
-$repo->getCouncilMembershipData();
