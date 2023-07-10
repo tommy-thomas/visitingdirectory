@@ -29,7 +29,10 @@ class Application extends WS_Application
      * Whitelist for u of c user groups.
      */
     const GROUPER_WHITE_LIST = array('uc:applications:web-services:visitingdirectorydev','uc:org:nsit:webservices:members', 'uc:org:ard:griffinusers');
-
+    /*
+     * Valid Shibb provider
+     */
+    const SHIBB_IDP = "urn:mace:incommon:uchicago.edu";
     /*
      * Social auth gateway.
      */
@@ -144,9 +147,17 @@ class Application extends WS_Application
     /**
      * @return bool
      */
+    public function userIsFromShibb()
+    {
+        return (isset($_SERVER['Shib-Identity-Provider']) && ($_SERVER['Shib-Identity-Provider'] == self::SHIBB_IDP));
+    }
+
+    /**
+     * @return bool
+     */
     public function userIsFromSocialAuth()
     {
-        return (isset($_SERVER['OIDC_CLAIM_iss']) && in_array( $_SERVER['OIDC_CLAIM_iss'] , self::SOCIAL_AUTH_IDP));
+        return (isset($_SERVER['Shib-Identity-Provider']) && in_array( $_SERVER['Shib-Identity-Provider'] , self::SOCIAL_AUTH_IDP));
     }
 
     public function isValidSocialAuth(Client $client , $email)
