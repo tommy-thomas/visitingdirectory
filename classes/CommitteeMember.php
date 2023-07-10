@@ -146,24 +146,34 @@ class CommitteeMember //extends WS_DynamicGetterSetter
         $this->id_number = $id_number;
     }
 
-    public function id_number(){
-        return $this->id_number;
-    }
-
-    public function employment_id(){
-        return $this->employment_id;
-    }
-
     public function setFullName( $FullName ){
         $this->full_name = $FullName;
     }
+
+    public function setAddress( $street="", $city="", $state="", $zip="", $foreignZip="", $countryCode=""){
+        $this->street = trim($street);
+        $this->city = trim($city);
+        $this->state = trim($state);
+        $this->zip = trim($zip);
+        $this->foreign_zip = trim($foreignZip);
+        $this->country_code = trim($countryCode);
+    }
+
+    public function id_number(){
+        return $this->id_number ?? "";
+    }
+
+    public function employment_id(){
+        return $this->employment_id ?? "";
+    }
+
 
     public function first_name(){
         return $this->first_name;
     }
 
     public function middle(){
-        return $this->middle;
+        return $this->middle ?? "";
     }
 
     public function last_name(){
@@ -183,37 +193,28 @@ class CommitteeMember //extends WS_DynamicGetterSetter
         return $this->last_name.$this->first_name.$this->middle;
     }
 
-    public function setAddress( $street="", $city="", $state="", $zip="", $foreignZip="", $countryCode=""){
-        $this->street = trim($street);
-        $this->city = trim($city);
-        $this->state = trim($state);
-        $this->zip = trim($zip);
-        $this->foreign_zip = trim($foreignZip);
-        $this->country_code = trim($countryCode);
-    }
-
     public function street(){
-        return $this->street;
+        return $this->street ?? "";
     }
 
     public function city(){
-        return $this->city;
+        return $this->cit ?? "";
     }
 
     public function state(){
-        return $this->state;
+        return $this->state ?? "";
     }
 
     public function zip(){
-        return $this->zip;
+        return $this->zip ?? "";
     }
 
     public function foreign_zip(){
-        return $this->foreign_zip;
+        return $this->foreign_zip ?? "";
     }
 
     public function country_code(){
-        return $this->country_code;
+        return $this->country_code ?? "";
     }
 
     public function adresses(){
@@ -252,15 +253,15 @@ class CommitteeMember //extends WS_DynamicGetterSetter
     }
 
     public function employment_job_title(){
-        return ucwords($this->employment_job_title);
+        return ucwords($this->employment_job_title) ?? "";
     }
 
     public function employment_employer_name(){
-        return ucwords($this->employment_employer_name);
+        return ucwords($this->employment_employer_name)  ?? "";
     }
 
     public function employment_org_name(){
-        return ucwords($this->employment_org_name);
+        return ucwords($this->employment_org_name) ?? "";
     }
 
     public function setEmail($email){
