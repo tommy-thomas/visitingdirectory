@@ -253,15 +253,15 @@ class CommitteeMember //extends WS_DynamicGetterSetter
     }
 
     public function employment_job_title(){
-        return ucwords($this->employment_job_title) ?? "";
+        return isset($this->employment_job_title ) ? ucwords($this->employment_job_title) : "";
     }
 
     public function employment_employer_name(){
-        return ucwords($this->employment_employer_name)  ?? "";
+        return isset($this->employment_employer_name) ? ucwords($this->employment_employer_name)  : "";
     }
 
     public function employment_org_name(){
-        return ucwords($this->employment_org_name) ?? "";
+        return isset($this->employment_org_name) ? ucwords($this->employment_org_name) : "";
     }
 
     public function setEmail($email){
