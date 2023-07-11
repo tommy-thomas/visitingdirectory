@@ -29,7 +29,7 @@ class Repository
     private string $uri;
     private $members = [];
     private Committees $committees;
-    public CommitteeMemberMembership $committee_membership;
+    private CommitteeMemberMembership $committee_membership;
     private CommitteeMemberFactory $factory;
     private Database $database;
 
@@ -37,7 +37,7 @@ class Repository
     public function __construct(Client $client = null, $uri = null, $environment = "dev")
     {
         $this->database = new Database();
-        if( !is_null($client) && !is_null($uri)){
+        if (!is_null($client) && !is_null($uri)) {
             $this->committees = new Committees();
             $this->factory = new CommitteeMemberFactory();
             $this->committee_membership = new CommitteeMemberMembership();
@@ -67,15 +67,21 @@ class Repository
 
     }
 
-    public function setDBData(){
-        $this->database->set('member_data', $this->members());
-        $this->database->set('membership_data', array('committee_membership' => $this->committee_membership() ));
+    public function setDBData()
+    {
+        if( !empty($this->members()) && !empty($this->committee_membership())){
+            $this->database->set('member_data', $this->members());
+            $this->database->set('membership_data', array('committee_membership' => $this->committee_membership()));
+            return true;
+        }
+        return false;
     }
 
-    public function setData(){
+    public function setData()
+    {
         //set data array
         $this->data['AdvisoryCouncilsMemberData'] = $this->database->get('member_data');
-        $this->data['AdvisoryCouncilsMemberMembershipData'] =$this->database->get('membership_data');
+        $this->data['AdvisoryCouncilsMemberMembershipData'] = $this->database->get('membership_data');
     }
 
     private function setMainData()
@@ -136,7 +142,7 @@ class Repository
     {
         foreach ($this->members() as $committee_code => $members_array) {
             foreach ($members_array as $id => $member) {
-                if( !empty(  $member->employment_id() )){
+                if (!empty($member->employment_id())) {
                     $employment = $this->client->getAsync($this->uri . "affiliation?q=Id='" . $member->employment_id() . "'", $this->headers_array);
                     $employment->then(
                         function (Response $response) use ($committee_code, $id, $member) {
@@ -173,7 +179,8 @@ class Repository
         return $this;
     }
 
-    public function sortData(){
+    public function sortData()
+    {
         foreach ($this->members() as $key => $committee) {
             $this->members[$key] = $this->factory->sortData($committee);
         }
@@ -217,7 +224,8 @@ class Repository
         return $this->members;
     }
 
-    public function committee_membership(){
+    public function committee_membership()
+    {
         return $this->committee_membership;
     }
 
