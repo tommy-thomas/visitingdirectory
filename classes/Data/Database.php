@@ -10,7 +10,7 @@ class Database
     public function __construct()
     {
         try{
-            $db_path =  __DIR__ . "db/committee_data.db";
+            $db_path =  __DIR__ . "webapp/db/committee_data.db";
             //$db_path = "committee_data.db";
             $this->_db = new \PDO("sqlite:".$db_path);
             $this->_db->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY , false);
