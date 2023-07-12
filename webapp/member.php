@@ -15,7 +15,7 @@ $committees = new Committees();
 
 $client = new Client();
 
-$repository = new Repository($client, $app->apiUrl(), $app->environment());
+$repository = new Repository();
 
 /**
  * Start populating the CS template.

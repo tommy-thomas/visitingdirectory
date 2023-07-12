@@ -23,8 +23,7 @@ class Database
         $sql = "update ".$table_name." set data = ? where pk = 1";
         try {
             $sth = $this->_db->prepare($sql);
-            $serialized_data = serialize($data);
-            return $sth->execute(array($serialized_data));
+            return $sth->execute(array(serialize($data)));
         } catch ( \PDOException $exception){
             print $exception->getMessage();
         }

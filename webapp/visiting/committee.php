@@ -13,7 +13,7 @@ $app = new \UChicago\AdvisoryCouncil\Application();
 
 $committees = new Committees();
 $client = new Client();
-$repository = new Repository($client,  $app->apiUrl(), $app->environment());
+$repository = new Repository();
 
 $template = $app->template('./committee.html.twig');
 

@@ -19,7 +19,7 @@ if (!$app->isAuthorized()) {
 
 $committees = new Committees();
 
-$repository = new Repository(new Client(), $app->environment());
+$repository = new Repository();
 
 $template = $app->template('./results.html.twig');
 $TwigTemplateVariables = array();

@@ -8,16 +8,12 @@
 
 namespace UChicago\AdvisoryCouncil;
 
-use UChicago\AdvisoryCouncil\CommitteeMember;
-use UChicago\AdvisoryCouncil\Data\Repository;
-
 class CommitteeMemberFactory
 {
 
     private $json_payload;
     private $roles_array;
     private CommitteeMember $member;
-    private $employment_id;
 
     public function member(\stdClass $json_payload)
     {
