@@ -9,4 +9,7 @@ use UChicago\AdvisoryCouncil\Data\Repository;
 $app = new Application();
 $client = new Client();
 $repo = new Repository($client, $app->apiUrl());
+
+error_log("New cache build started: ".date("g:i a") );
 $repo->cache();
+error_log("New cache build completed: ".date("g:i a") );
