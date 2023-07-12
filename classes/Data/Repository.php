@@ -36,7 +36,7 @@ class Repository
     public function __construct(Client $client = null, $uri = null, $environment = "dev")
     {
         $this->database = new Database();
-        // If no $client or api uri then instance read only status...
+        // If no $client or api uri then instance is in read only status...
         if (!is_null($client) && !is_null($uri)) {
             $this->committees = new Committees();
             $this->factory = new CommitteeMemberFactory();
