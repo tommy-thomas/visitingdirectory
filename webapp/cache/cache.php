@@ -10,6 +10,6 @@ $app = new Application();
 $client = new Client();
 $repo = new Repository($client, $app->apiUrl());
 
-error_log("New cache build started: ".date("g:i a") );
+error_log("New cache build started: ".date("F j, Y, g:i a")  );
 $repo->cache();
-error_log("New cache build completed: ".date("g:i a") );
+error_log("New cache build completed: ".date("F j, Y, g:i a") );
