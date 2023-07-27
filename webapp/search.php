@@ -11,7 +11,7 @@ $app = new \UChicago\AdvisoryCouncil\Application();
 
 $committees = new Committees();
 
-if( !$app->isAuthorized() )
+if( !$app->authorized() )
 {
 	$app->redirect('./index.php?error=auth');
 }

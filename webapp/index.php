@@ -8,7 +8,7 @@ $auth_err = false;
 $valid_social_auth = null;
 
 
-if ( $app->isAuthorized() ) {
+if ( $app->authorized() ) {
         $app->redirect('./search.php');
 }
 

@@ -21,7 +21,7 @@ $repository = new Repository();
  * Start populating the CS template.
  * The Clear Silver template.
  */
-if (!$app->isAuthorized() || !isset($_GET['id_number'])) {
+if (!$app->authorized() || !isset($_GET['id_number'])) {
     $app->redirect('./index.php?error=auth');
 }
 

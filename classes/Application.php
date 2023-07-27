@@ -94,19 +94,6 @@ class Application extends WS_Application
         return isset($_SESSION['user']);
     }
 
-    public function requireLogIn()
-    {
-        if (!$this->isLoggedIn()) {
-            header("Location: index.php");
-        }
-    }
-
-    public function setUser($user = "")
-    {
-        $_SESSION['user'] = new User();
-        $_SESSION['user']->setUserName($user);
-    }
-
     public function getUser()
     {
         return isset($_SESSION['user']) ? $_SESSION['user']->getUserName() : "";
@@ -176,15 +163,7 @@ class Application extends WS_Application
         return false;
     }
 
-    /**
-     * If session email variable is set , user is authorized.
-     * * * original w/ token check * * *
-     *  public function isAuthorized()
-         {
-             return (isset($_SESSION['email']) && isset($_SESSION['bearer_token']));
-         }
-     */
-    public function isAuthorized()
+    public function authorized()
     {
         return (isset($_SESSION['email']) );
     }

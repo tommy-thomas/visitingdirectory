@@ -11,7 +11,7 @@ $valid_social_auth = null;
  * Set committee objects for side nav.
  */
 
-if ( $app->isAuthorized() ) {
+if ( $app->authorized() ) {
         $app->redirect('./search.php');
 }
 
