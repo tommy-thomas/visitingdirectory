@@ -33,7 +33,7 @@ class Application extends WS_Application
         parent::__construct($requireSession, $this->sessionTimeout);
         $this->charset = "utf-8";
         $this->templatesPath = __DIR__ . "/../templates";
-        $_SESSION['email'] = $_SERVER['email'];
+        $_SESSION['email'] = $_SERVER['OIDC_CLAIM_email'];
     }
 
     public function template($templateFile)
