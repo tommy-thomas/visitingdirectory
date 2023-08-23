@@ -25,19 +25,6 @@ class Application extends WS_Application
     const APP_SEC_HEADER_KEY = "AppSecScan";
     const APP_SEC_HEADER_VALUE = "05c4b923ef378fe66b04519e87d4ab3e";
 
-    /*
-     * Whitelist for u of c user groups.
-     */
-    const GROUPER_WHITE_LIST = array('uc:applications:web-services:visitingdirectorydev','uc:org:nsit:webservices:members', 'uc:org:ard:griffinusers');
-    /*
-     * Valid Shibb provider
-     */
-    const SHIBB_IDP = "urn:mace:incommon:uchicago.edu";
-    /*
-     * Social auth gateway.
-     */
-    const SOCIAL_AUTH_IDP = array('https://google.cirrusidentity.com/gateway','https://yahoo.cirrusidentity.com/gateway','https://facebook.cirrusidentity.com/gateway');
-
     /**
      * Public constructor.
      */
@@ -46,6 +33,7 @@ class Application extends WS_Application
         parent::__construct($requireSession, $this->sessionTimeout);
         $this->charset = "utf-8";
         $this->templatesPath = __DIR__ . "/../templates";
+        $_SESSION['email'] = $_SERVER['email'];
     }
 
     public function template($templateFile)
@@ -113,61 +101,14 @@ class Application extends WS_Application
         return isset($error_message[$i]) ? $error_message[$i] : array();
     }
 
-    /**
-     * Checks to see if group in $_SERVER['ucisMemberOf']
-     * returned from Shibb is in GROUPER_WHITE_LIST.
-     */
-    public function isValidGroup()
-    {
-        $groups = array();
-        if (isset($_SERVER['ucisMemberOf'])) {
-            $groups = explode(";", $_SERVER['ucisMemberOf']);
-        }
-        return count(array_intersect(self::GROUPER_WHITE_LIST, $groups)) > 0 ? true : false;
-    }
-
-
     public function isAppSecScan(){
         return $this->isDev() && (isset($_SERVER[self::APP_SEC_HEADER_KEY]) && $_SERVER[self::APP_SEC_HEADER_KEY] == self::APP_SEC_HEADER_VALUE);
-    }
-
-    /**
-     * @return bool
-     */
-    public function userIsFromShibb()
-    {
-        return (isset($_SERVER['Shib-Identity-Provider']) && ($_SERVER['Shib-Identity-Provider'] == self::SHIBB_IDP));
-    }
-
-    /**
-     * @return bool
-     */
-    public function userIsFromSocialAuth()
-    {
-        return (isset($_SERVER['Shib-Identity-Provider']) && in_array( $_SERVER['Shib-Identity-Provider'] , self::SOCIAL_AUTH_IDP));
-    }
-
-    public function isValidSocialAuth(Client $client , $email)
-    {
-        $headers_array = [
-            'headers' => [
-                'client_id' => CLIENT_ID,
-                'client_secret' => CLIENT_SECRET
-            ]
-        ];
-        $response = $client->request('GET', $this->apiUrl() . "contact?q=Email='".$email."'", $headers_array);
-
-        if ($response->getStatusCode() == "200") {
-            return json_decode($response->getBody())->totalSize > 0;
-        }
-        return false;
     }
 
     public function authorized()
     {
         return (isset($_SESSION['email']) );
     }
-
 
     /**
      * Handle any exception in the application.
