@@ -11,8 +11,7 @@ class Database
     public function __construct()
     {
         try{
-            $db_path =  Application::DB_PATH;
-            $this->_db = new \PDO("sqlite:".$db_path);
+            $this->_db = new \PDO("sqlite:".Application::DB_PATH);
             $this->_db->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY , false);
         } catch (\PDOException $exception ){
             print $exception->getMessage();
