@@ -6,129 +6,204 @@
  * Time: 2:34 PM
  */
 
+
 namespace UChicago\AdvisoryCouncil\Data;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use UChicago\AdvisoryCouncil\CLIMemcache;
+use GuzzleHttp\Pool;
 use UChicago\AdvisoryCouncil\CommitteeMemberFactory;
 use UChicago\AdvisoryCouncil\CommitteeMemberMembership;
 use UChicago\AdvisoryCouncil\Committees;
+use UChicago\AdvisoryCouncil\Data\Database as Database;
 
 class Repository
 {
-    private $data = array();
-    private $bearer_token;
-    private $client;
-    private $memcache;
+    private array $data = [];
+    private $headers_array;
+    private $header;
+    private Client $client;
+    private string $uri;
+    private $members = [];
+    private Committees $committees;
+    private CommitteeMemberMembership $committee_membership;
+    private CommitteeMemberFactory $factory;
+    private Database $database;
 
-    public function __construct(CLIMemcache $memcache, Client $client, $bearer_token = "", $environment = "dev")
+
+    public function __construct(Client $client = null, $uri = null, $environment = "dev")
     {
-        $this->bearer_token = $bearer_token;
-        $this->client = $client;
-        $this->memcache = $memcache;
-
-        if (!$this->memcache->get('AdvisoryCouncilsMemberData') || !$this->memcache->get('AdvisoryCouncilsMemberMembershipData')) {
-            $this->setCache();
+        $this->database = new Database();
+        // If no $client or api uri then instance is in read only status...
+        if (!is_null($client) && !is_null($uri)) {
+            $this->committees = new Committees();
+            $this->factory = new CommitteeMemberFactory();
+            $this->committee_membership = new CommitteeMemberMembership();
+            $this->client = $client;
+            $this->uri = $uri;
+            //for async main_requests
+            $this->headers_array = [
+                'headers' => [
+                    'client_id' => CLIENT_ID,
+                    'client_secret' => CLIENT_SECRET
+                ]
+            ];
+            //fetch request object
+            $this->header = ['client_id' => CLIENT_ID, 'client_secret' => CLIENT_SECRET];
         }
         $this->setData();
     }
 
-
-    private function setCache()
+    public function cache()
     {
-        $committees = new Committees();
 
-        $committee_membership = new CommitteeMemberMembership();
+        $this->setMainData()
+            ->setEmploymentData()
+            ->setDegreeData()
+            ->sortData()
+            ->setDBData();
 
-        $factory = new CommitteeMemberFactory();
+    }
 
-        $_SESSION['committee_data']=array();
-
-        foreach ($committees->committes() as $key => $committee) {
-
-            $response = $this->client->request('GET',
-                "committee/show/" . $committee['COMMITTEE_CODE'],
-                [
-                    'headers' => ['Authorization' => $this->bearer_token]
-                ]
-            );
-
-            $ids_as_query_string = $factory->idNumbersAsQueryString(json_decode($response->getBody())->committees);
-
-            $chairs = $factory->chairsArray(json_decode($response->getBody())->committees);
-
-            $lifetime_member_array = $factory->lifeTimeMembersArray( json_decode($response->getBody())->committees );
-
-            $promise = $this->client->getAsync(
-                "entity/collection?" . $ids_as_query_string,
-                [
-                    'headers' => ['Authorization' => $this->bearer_token]
-                ]
-            );
-
-            $promise->then(
-                function (Response $resp) use ($factory, $committee, $committee_membership, $chairs, $lifetime_member_array) {
-
-                    foreach (json_decode($resp->getBody()) as $object) {
-
-                        $chair = (($chairs[$committee['COMMITTEE_CODE']] == $object->info->ID_NUMBER) || (is_array($chairs[$committee['COMMITTEE_CODE']] ) && in_array($object->info->ID_NUMBER,$chairs[$committee['COMMITTEE_CODE']] )) ) ? true : false;
-
-                        $lifetime_member = in_array( $object->info->ID_NUMBER , $lifetime_member_array);
-
-                        //member is not deceased
-                        if( isset( $object->info->RECORD_STATUS_CODE ) &&  $object->info->RECORD_STATUS_CODE != "D" ){
-                            $_SESSION['committee_data'][$committee['COMMITTEE_CODE']][$object->info->ID_NUMBER] = $factory->member($object, $chair , $lifetime_member);
-                        }
-
-                        $committee_membership->addCommittee($object->info->ID_NUMBER, $committee['COMMITTEE_CODE']);
-                    }
-                },
-                function (RequestException $e) {
-                    print $e->getMessage();
-                }
-            );
-
-            $promise->wait();
+    public function setDBData()
+    {
+        if( !empty($this->members()) && !empty($this->committee_membership())){
+            $this->database->set('member_data', $this->members());
+            $this->database->set('membership_data', array('committee_membership' => $this->committee_membership()));
+            return true;
         }
-
-
-        if (isset($_SESSION['committee_data']) && is_array($_SESSION['committee_data']) && count($_SESSION['committee_data']) > 0) {
-            foreach ($_SESSION['committee_data'] as $key => $committee) {
-                $_SESSION['committee_data'][$key] = $factory->sortData($committee);
-            }
-            $this->memcache->set('AdvisoryCouncilsMemberData', $_SESSION['committee_data'], MEMCACHE_COMPRESSED, 604800 );
-        }
-        $this->memcache->set('AdvisoryCouncilsMemberMembershipData', array('committee_membership' => $committee_membership), MEMCACHE_COMPRESSED, 604800 );
-
-        return;
+        return false;
     }
 
     public function setData()
     {
         //set data array
-        $this->data['AdvisoryCouncilsMemberData'] = $this->memcache->get('AdvisoryCouncilsMemberData');
-        $this->data['AdvisoryCouncilsMemberMembershipData'] = $this->memcache->get('AdvisoryCouncilsMemberMembershipData');
+        $this->data['AdvisoryCouncilsMemberData'] = $this->database->get('member_data');
+        $this->data['AdvisoryCouncilsMemberMembershipData'] = $this->database->get('membership_data');
     }
 
-    public function getCouncilData($code)
+    private function setMainData()
     {
-        if (isset($this->data['AdvisoryCouncilsMemberData'][$code])) {
-            return $this->data['AdvisoryCouncilsMemberData'][$code];
+
+        $committee_codes = $this->committees->committeeCodesToArray();
+
+        $main_requests = function () use ($committee_codes) {
+            foreach ($committee_codes as $c) {
+                $this->emplIDsToString = "";
+                $uri = $this->uri . "involvement?q=ucinn_ascendv2__Involvement_Code_Description_Formula__c='" . $c . "'";
+                yield new Request('GET', $uri, $this->header);
+            }
+        };
+
+        //Loop through committee codes
+        $main_pool = new Pool($this->client, $main_requests(), [
+            'concurrency' => 20,
+            'fulfilled' => function (Response $response, $index) {
+                //promise, main contact object
+                $records = json_decode($response->getBody()->getContents())->records;
+                // committee code
+                $committee_code = $this->factory->committee_code($records);
+                // committee role
+                $this->factory->setRoles($records);
+                $contactIDsToString = $this->factory->idsToString($records, 'ucinn_ascendv2__Contact__c', true);
+                $contacts = $this->client->getAsync($this->uri . "contact?q=Id in (" . $contactIDsToString . ")", $this->headers_array);
+                $contacts->then(
+                    function (Response $response) use ($committee_code) {
+                        $contact_results = json_decode($response->getBody()->getContents())->records;
+                        foreach ($contact_results as $result) {
+                            $member = $this->factory->member($result);
+                            $this->members[$committee_code][$member->id_number()] = $member;
+                            $this->committee_membership->addCommittee($member->id_number(), $committee_code);
+                        }
+                        return true;
+                    },
+                    function (RequestException $exception) {
+                        print "Error with contact main_requests:\n" . $exception->getMessage();
+                    }
+                );
+            }, 'rejected' => function (RequestException $reason, $index) {
+                // this is delivered each failed request
+                print  $reason->getMessage();
+            }
+        ]); // end main_pool
+
+        // Initiate the transfers and create a promise
+        $promise = $main_pool->promise();
+
+        // Force the main_pool of main_requests to complete.
+        $promise->wait();
+
+        return $this;
+    }
+
+    public function setEmploymentData()
+    {
+        foreach ($this->members() as $committee_code => $members_array) {
+            foreach ($members_array as $id => $member) {
+                if (!empty($member->employment_id())) {
+                    $employment = $this->client->getAsync($this->uri . "affiliation?q=Id='" . $member->employment_id() . "'", $this->headers_array);
+                    $employment->then(
+                        function (Response $response) use ($committee_code, $id, $member) {
+                            $this->members[$committee_code][$id]->setEmploymentData(json_decode($response->getBody()->getContents())->records);
+                        },
+                        function (RequestException $exception) {
+                            print "Error with employment resquest:\n" . $exception->getMessage();
+                        }
+                    );
+                    $employment->wait();
+                }
+
+            }
+        }
+        return $this;
+    }
+
+    public function setDegreeData()
+    {
+        foreach ($this->members() as $committee_code => $members_array) {
+            foreach ($members_array as $id => $member) {
+                $degree = $this->client->getAsync($this->uri . "degree?q=ucinn_ascendv2__Contact__c='" . $member->id_number() . "'", $this->headers_array);
+                $degree->then(
+                    function (Response $response) use ($committee_code, $id, $member) {
+                        $this->members[$committee_code][$id]->setDegrees(json_decode($response->getBody()->getContents())->records);
+                    },
+                    function (RequestException $exception) use ($member) {
+                        print "Error with degree resquest:\n" . $exception->getMessage();
+                    }
+                );
+                $degree->wait();
+            }
+        }
+        return $this;
+    }
+
+    public function sortData()
+    {
+        foreach ($this->members() as $key => $committee) {
+            $this->members[$key] = $this->factory->sortData($committee);
+        }
+        return $this;
+    }
+
+    public function getCouncilData($committee_code)
+    {
+        if (isset($this->data['AdvisoryCouncilsMemberData'][$committee_code])) {
+            return $this->data['AdvisoryCouncilsMemberData'][$committee_code];
         }
         return array();
     }
 
-    public function findMemberByIdNumber($id_number = "" ){
-        foreach ( $this->data['AdvisoryCouncilsMemberData'] as $key => $committee){
-           foreach ( $committee as $member ){
-               if( $member->id_number() == $id_number ){
-                   return $member;
-               }
-           }
+    public function findMemberByIdNumber($id_number = "")
+    {
+        foreach ($this->data['AdvisoryCouncilsMemberData'] as $committee) {
+            foreach ($committee as $member) {
+                if ($member->id_number() == $id_number) {
+                    return $member;
+                }
+            }
         }
-        return;
     }
 
     public function allCouncilData()
@@ -136,11 +211,22 @@ class Repository
         return $this->data['AdvisoryCouncilsMemberData'];
     }
 
-    public function getCouncilMembershipData()
+    public function councilMembershipData()
     {
         if (isset($this->data['AdvisoryCouncilsMemberMembershipData']['committee_membership'])) {
             return $this->data['AdvisoryCouncilsMemberMembershipData']['committee_membership'];
         }
         return new CommitteeMemberMembership();
     }
+
+    public function members()
+    {
+        return $this->members;
+    }
+
+    public function committee_membership()
+    {
+        return $this->committee_membership;
+    }
+
 }

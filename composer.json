@@ -10,7 +10,8 @@
       "UChicago\\AdvisoryCouncil\\": "classes"
     },
     "files": [
-      "vendor/ws/wsodbcweb-sharedphp/clean.php"
+      "vendor/ws/wsodbcweb-sharedphp/clean.php",
+      "/data/credentials/visitingdirectory/authorization.php"
     ]
   },
   "repositories": {

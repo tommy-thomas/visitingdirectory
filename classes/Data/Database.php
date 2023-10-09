@@ -10,7 +10,8 @@ class Database
     public function __construct()
     {
         try{
-            $db_path = $_SERVER['DOCUMENT_ROOT']."/db/committee_data.db";
+            $db_path =  "/data/aliasedphp/visitingdirectory/webapp/db/committee_data.db";
+            //$db_path = "committee_data.db";
             $this->_db = new \PDO("sqlite:".$db_path);
             $this->_db->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY , false);
         } catch (\PDOException $exception ){
@@ -22,8 +23,18 @@ class Database
         $sql = "update ".$table_name." set data = ? where pk = 1";
         try {
             $sth = $this->_db->prepare($sql);
-            $serialized_data = serialize($data);
-            return $sth->execute(array($serialized_data));
+            return $sth->execute(array(serialize($data)));
+        } catch ( \PDOException $exception){
+            print $exception->getMessage();
+        }
+    }
+
+    public function get( $table_name){
+        $sql = "select data from ".$table_name." where pk = 1";
+        try {
+            $sth = $this->_db->prepare($sql);
+            $sth->execute();
+            return unserialize($sth->fetchAll()[0]['data']);
         } catch ( \PDOException $exception){
             print $exception->getMessage();
         }

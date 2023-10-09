@@ -7,11 +7,8 @@ $app = new UChicago\AdvisoryCouncil\Application;
 $auth_err = false;
 $valid_social_auth = null;
 
-/**
- * Set committee objects for side nav.
- */
 
-if ( $app->isAuthorized() ) {
+if ( $app->authorized() ) {
         $app->redirect('./search.php');
 }
 
@@ -19,15 +16,6 @@ if ( $app->isAuthorized() ) {
 if( $app->isAppSecScan() ){
     $_SESSION['email'] = 'oregonian@alumni.uchicago.edu';
     $app->redirect('./search.php');
-}
-
-if (  $app->userIsFromShibb() && $app->isValidGroup() ) {
-    $_SESSION['email'] = $_SERVER['mail'];
-    $app->redirect('./search.php');
-}
-
-if ($app->userIsFromShibb() && !$app->isValidGroup() ) {
-    $auth_err = true;
 }
 
 /**

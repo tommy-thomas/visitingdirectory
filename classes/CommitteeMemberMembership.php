@@ -23,8 +23,10 @@ class CommitteeMemberMembership
         if( array_key_exists($id_number , $this->committee_members))
         {
             $committees = $this->committee_members[$id_number];
-            array_push( $committees , $committee_code);
-            $this->committee_members[$id_number] = $committees;
+            if( !in_array($committee_code, $this->committee_members[$id_number] )){
+                array_push( $committees , $committee_code);
+                $this->committee_members[$id_number] = $committees;
+            }
         } else {
             $this->committee_members[$id_number]= array( $committee_code );
         }
