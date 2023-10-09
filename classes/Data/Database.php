@@ -7,6 +7,7 @@ use UChicago\AdvisoryCouncil\Application;
 class Database
 {
     private $_db;
+    private $tables = array('member_data','membership_data');
 
     public function __construct()
     {
@@ -19,7 +20,7 @@ class Database
     }
 
     public function set( $table_name, $data ){
-        $sql = "update ".$table_name." set data = ? where pk = 1";
+        $sql = "update ".$this->cleanTable($table_name)." set data = ? where pk = 1";
         try {
             $sth = $this->_db->prepare($sql);
             return $sth->execute(array(serialize($data)));
@@ -29,7 +30,7 @@ class Database
     }
 
     public function get( $table_name){
-        $sql = "select data from ".$table_name." where pk = 1";
+        $sql = "select data from ".$this->cleanTable($table_name)." where pk = 1";
         try {
             $sth = $this->_db->prepare($sql);
             $sth->execute();
@@ -37,5 +38,9 @@ class Database
         } catch ( \PDOException $exception){
             print $exception->getMessage();
         }
+    }
+
+    public function cleanTable($table){
+        return in_array($table, $this->tables) ? sqlClean($table) : "";
     }
 }

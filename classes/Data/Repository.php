@@ -92,7 +92,7 @@ class Repository
         $main_requests = function () use ($committee_codes) {
             foreach ($committee_codes as $c) {
                 $this->emplIDsToString = "";
-                $uri = $this->uri . "involvement?q=ucinn_ascendv2__Involvement_Code_Description_Formula__c='" . $c . "'";
+                $uri = $this->uri . "involvement?q=ucinn_ascendv2__Involvement_Code_Description_Formula__c='" . urlencode($c) . "'";
                 yield new Request('GET', $uri, $this->header);
             }
         };
@@ -108,7 +108,7 @@ class Repository
                 // committee role
                 $this->factory->setRoles($records);
                 $contactIDsToString = $this->factory->idsToString($records, 'ucinn_ascendv2__Contact__c', true);
-                $contacts = $this->client->getAsync($this->uri . "contact?q=Id in (" . $contactIDsToString . ")", $this->headers_array);
+                $contacts = $this->client->getAsync($this->uri . "contact?q=Id in (" . urlencode($contactIDsToString) . ")", $this->headers_array);
                 $contacts->then(
                     function (Response $response) use ($committee_code) {
                         $contact_results = json_decode($response->getBody()->getContents())->records;
@@ -120,7 +120,7 @@ class Repository
                         return true;
                     },
                     function (RequestException $exception) {
-                        print "Error with contact main_requests:\n" . $exception->getMessage();
+                        error_log( "Error with contact main_requests:\n" . $exception->getMessage());
                     }
                 );
             }, 'rejected' => function (RequestException $reason, $index) {
@@ -149,7 +149,7 @@ class Repository
                             $this->members[$committee_code][$id]->setEmploymentData(json_decode($response->getBody()->getContents())->records);
                         },
                         function (RequestException $exception) {
-                            print "Error with employment resquest:\n" . $exception->getMessage();
+                            error_log( "Error with employment resquest:\n" . $exception->getMessage());
                         }
                     );
                     $employment->wait();
@@ -164,7 +164,7 @@ class Repository
     {
         foreach ($this->members() as $committee_code => $members_array) {
             foreach ($members_array as $id => $member) {
-                $degree = $this->client->getAsync($this->uri . "degree?q=ucinn_ascendv2__Contact__c='" . $member->id_number() . "'", $this->headers_array);
+                $degree = $this->client->getAsync($this->uri . "degree?q=ucinn_ascendv2__Contact__c='" . urlencode($member->id_number()) . "'", $this->headers_array);
                 $degree->then(
                     function (Response $response) use ($committee_code, $id, $member) {
                         $this->members[$committee_code][$id]->setDegrees(json_decode($response->getBody()->getContents())->records);
