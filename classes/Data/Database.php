@@ -2,6 +2,7 @@
 namespace UChicago\AdvisoryCouncil\Data;
 
 use PDO;
+use UChicago\AdvisoryCouncil\Application;
 
 class Database
 {
@@ -10,8 +11,7 @@ class Database
     public function __construct()
     {
         try{
-            $db_path =  "/data/aliasedphp/visitingdirectory/webapp/db/committee_data.db";
-            //$db_path = "committee_data.db";
+            $db_path =  Application::DB_PATH;
             $this->_db = new \PDO("sqlite:".$db_path);
             $this->_db->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY , false);
         } catch (\PDOException $exception ){
