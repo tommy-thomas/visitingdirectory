@@ -5,26 +5,21 @@ require __DIR__ . "/../vendor/autoload.php";
  * The Application object.
  */
 
-use GuzzleHttp\Client;
+use GuzzleHttp\Client as Client;
 use UChicago\AdvisoryCouncil\CLIMemcache;
 use UChicago\AdvisoryCouncil\CommitteeMemberFactory;
 use UChicago\AdvisoryCouncil\Committees;
 use UChicago\AdvisoryCouncil\CommitteeSearch;
-use UChicago\AdvisoryCouncil\Data\StaticRepository;
+use UChicago\AdvisoryCouncil\Data\Repository;
 
 $app = new \UChicago\AdvisoryCouncil\Application();
-if (!$app->isAuthorized()) {
+if (!$app->authorized()) {
     $app->redirect('./index.php?error=auth');
 }
 
 $committees = new Committees();
 
-$memcache_instance = new CLIMemcache();
-
-$memcache = $memcache_instance->getMemcacheForCLI($app->environment());
-
-$repository = new StaticRepository($memcache, $app->environment());
-
+$repository = new Repository();
 
 $template = $app->template('./results.html.twig');
 $TwigTemplateVariables = array();
@@ -71,7 +66,7 @@ if ((isset($_POST['search_by_committee']) && !empty($_POST['committee'])) || iss
 if (isset($_POST['search_by_name'])) {
     $search = new CommitteeSearch($repository->allCouncilData(),
         new CommitteeMemberFactory(),
-        $repository->getCouncilMembershipData());
+        $repository->councilMembershipData());
 
     $results = $search->searchResults($committees,
         array("first_name" => htmlClean($_POST['f_name']), "last_name" => htmlClean($_POST['l_name'])));

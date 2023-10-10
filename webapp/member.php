@@ -6,27 +6,22 @@ require __DIR__ . "/../vendor/autoload.php";
  */
 
 use GuzzleHttp\Client;
-use UChicago\AdvisoryCouncil\CLIMemcache;
 use UChicago\AdvisoryCouncil\Committees;
-use UChicago\AdvisoryCouncil\Data\StaticRepository;
+use UChicago\AdvisoryCouncil\Data\Repository;
 
 $app = new \UChicago\AdvisoryCouncil\Application();
 
 $committees = new Committees();
 
-$memcache_instance = new CLIMemcache();
+$client = new Client();
 
-$memcache = $memcache_instance->getMemcacheForCLI($app->environment());
-
-$client = new Client(['base_uri' => $app->ardUrl()]);
-
-$repository = new StaticRepository($memcache,  $app->environment());
+$repository = new Repository();
 
 /**
  * Start populating the CS template.
  * The Clear Silver template.
  */
-if (!$app->isAuthorized() || !isset($_GET['id_number'])) {
+if (!$app->authorized() || !isset($_GET['id_number'])) {
     $app->redirect('./index.php?error=auth');
 }
 
@@ -40,7 +35,7 @@ $member = $repository->findMemberByIdNumber($_GET['id_number']);
 
 if (!is_null($member)) {
 
-    $membership_data = $repository->getCouncilMembershipData();
+    $membership_data = $repository->councilMembershipData();
 
     $memberships = $membership_data->getCommittees($member->id_number());
 

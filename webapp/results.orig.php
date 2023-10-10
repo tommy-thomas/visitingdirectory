@@ -13,7 +13,7 @@ use UChicago\AdvisoryCouncil\CommitteeSearch;
 use UChicago\AdvisoryCouncil\Data\Repository;
 
 $app = new \UChicago\AdvisoryCouncil\Application();
-if (!$app->isAuthorized()) {
+if (!$app->authorized()) {
     $app->redirect('./index.php?error=auth');
 }
 
@@ -23,9 +23,9 @@ $memcache_instance = new CLIMemcache();
 
 $memcache = $memcache_instance->getMemcacheForCLI($app->environment());
 
-$client = new Client(['base_uri' => $app->ardUrl()]);
+$client = new Client(['base_uri' => $app->apiUrl()]);
 
-$repository = new Repository($memcache, $client, $_SESSION['bearer_token'], $app->environment());
+$repository = new Repository($client, $app->environment());
 
 
 $template = $app->template('./results.html.twig');
@@ -73,7 +73,7 @@ if ((isset($_POST['search_by_committee']) && !empty($_POST['committee'])) || iss
 if (isset($_POST['search_by_name'])) {
     $search = new CommitteeSearch($repository->allCouncilData(),
         new CommitteeMemberFactory(),
-        $repository->getCouncilMembershipData());
+        $repository->councilMembershipData());
 
     $results = $search->searchResults($committees,
         array("first_name" => htmlClean($_POST['f_name']), "last_name" => htmlClean($_POST['l_name'])));

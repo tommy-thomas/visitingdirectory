@@ -12,6 +12,7 @@ namespace UChicago\AdvisoryCouncil;
 class CommitteeMember //extends WS_DynamicGetterSetter
 {
     private $id_number;
+    private $employment_id;
     private $full_name;
     private $first_name;
     private $middle;
@@ -33,6 +34,104 @@ class CommitteeMember //extends WS_DynamicGetterSetter
     private $memberships = array();
     private $membership_display;
 
+    /**
+     * @param mixed $employment_id
+     */
+    public function setEmploymentId($employment_id): void
+    {
+        $this->employment_id = $employment_id;
+    }
+
+    /**
+     * @param mixed $country_code
+     */
+    public function setCountryCode($country_code): void
+    {
+        $this->country_code = $country_code;
+    }
+
+    /**
+     * @param mixed $employment_job_title
+     */
+    public function setEmploymentJobTitle($employment_job_title): void
+    {
+        $this->employment_job_title = $employment_job_title;
+    }
+
+    /**
+     * @param mixed $employment_employer_name
+     */
+    public function setEmploymentEmployerName($employment_employer_name): void
+    {
+        $this->employment_employer_name = $employment_employer_name;
+    }
+
+    /**
+     * @param mixed $employment_org_name
+     */
+    public function setEmploymentOrgName($employment_org_name): void
+    {
+        $this->employment_org_name = $employment_org_name;
+    }
+
+    /**
+     * @param mixed $city
+     */
+    public function setCity($city): void
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @param mixed $state
+     */
+    public function setState($state): void
+    {
+        $this->state = $state;
+    }
+
+    /**
+     * @param mixed $zip
+     */
+    public function setZip($zip): void
+    {
+        $this->zip = $zip;
+    }
+
+    /**
+     * @param mixed $street
+     */
+    public function setStreet($street): void
+    {
+        $this->street = $street;
+    }
+
+    /**
+     * @param mixed $first_name
+     */
+    public function setFirstName($first_name): void
+    {
+        $this->first_name = $first_name;
+    }
+
+    /**
+     * @param mixed $middle
+     */
+    public function setMiddle($middle): void
+    {
+        $this->middle = $middle;
+    }
+
+    /**
+     * @param mixed $last_name
+     */
+    public function setLastName($last_name): void
+    {
+        $this->last_name = $last_name;
+    }
+
+
+
     public function setInfo($info=""){
         $this->info = $info;
     }
@@ -47,31 +146,8 @@ class CommitteeMember //extends WS_DynamicGetterSetter
         $this->id_number = $id_number;
     }
 
-    public function id_number(){
-        return $this->id_number;
-    }
-
-    public function full_name(){
-        $this->full_name = isset($this->first_name ) && !empty($this->first_name) ? $this->first_name : "";
-        $this->full_name .= isset( $this->middle ) && !empty( $this->middle ) ? " ".$this->middle : "";
-        $this->full_name.= isset($this->last_name ) && !empty($this->last_name) ? " ".$this->last_name() : "";
-        return $this->full_name;
-    }
-
-    public function first_name(){
-        return $this->first_name;
-    }
-
-    public function middle(){
-        return $this->middle;
-    }
-
-    public function last_name(){
-        return $this->lifetime_member() ? $this->last_name."*" : $this->last_name;
-    }
-
-    public function sort_token(){
-        return $this->last_name.$this->first_name.$this->middle;
+    public function setFullName( $FullName ){
+        $this->full_name = $FullName;
     }
 
     public function setAddress( $street="", $city="", $state="", $zip="", $foreignZip="", $countryCode=""){
@@ -83,28 +159,62 @@ class CommitteeMember //extends WS_DynamicGetterSetter
         $this->country_code = trim($countryCode);
     }
 
+    public function id_number(){
+        return $this->id_number ?? "";
+    }
+
+    public function employment_id(){
+        return $this->employment_id ?? "";
+    }
+
+
+    public function first_name(){
+        return $this->first_name;
+    }
+
+    public function middle(){
+        return $this->middle ?? "";
+    }
+
+    public function last_name(){
+        return $this->lifetime_member() ? $this->last_name."*" : $this->last_name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function full_name()
+    {
+        return $this->full_name;
+    }
+
+
+    public function sort_token(){
+        return $this->last_name.$this->first_name.$this->middle;
+    }
+
     public function street(){
-        return $this->street;
+        return $this->street ?? "";
     }
 
     public function city(){
-        return $this->city;
+        return $this->city ?? "";
     }
 
     public function state(){
-        return $this->state;
+        return $this->state ?? "";
     }
 
     public function zip(){
-        return $this->zip;
+        return $this->zip ?? "";
     }
 
     public function foreign_zip(){
-        return $this->foreign_zip;
+        return $this->foreign_zip ?? "";
     }
 
     public function country_code(){
-        return $this->country_code;
+        return $this->country_code ?? "";
     }
 
     public function adresses(){
@@ -112,7 +222,19 @@ class CommitteeMember //extends WS_DynamicGetterSetter
     }
 
     public function setDegrees($degrees=[]){
-        $this->degrees =  $degrees;
+        if( !empty($degrees )){
+            $count = 0;
+            foreach ($degrees as $degree ){
+                if( isset( $degree->ucinn_ascendv2__Conferred_Degree_Year__c ) && !empty($degree->ucinn_ascendv2__Conferred_Degree_Year__c)
+                    && isset($degree->ucinn_ascendv2__Degree__c) && !empty($degree->ucinn_ascendv2__Degree__c)){
+                    $this->degrees[$count] = new \stdClass();
+                    $this->degrees[$count]->year = $degree->ucinn_ascendv2__Conferred_Degree_Year__c;
+                    $this->degrees[$count]->type = $degree->ucinn_ascendv2__Degree__c;
+                    $count++;
+                }
+
+            }
+        }
     }
 
     public function degrees(){
@@ -120,28 +242,31 @@ class CommitteeMember //extends WS_DynamicGetterSetter
         date_default_timezone_set('America/Chicago');
         foreach ($this->degrees as $degree){
             $date = new \DateTime();
-            $date->setDate((int)$degree->DEGREE_YEAR, 1, 1);
-            $degrees_data[]= $degree->DEGREE_CODE . " '" . $date->format('y');
+            $date->setDate((int)$degree->year, 1, 1);
+            $degrees_data[]= $degree->type . " '" . $date->format('y');
         }
         return implode(", ",$degrees_data);
     }
 
-    public function setEmploymentData( $job_title = "", $employer_name="", $org_name=""){
-        $this->employment_job_title = $job_title;
-        $this->employment_employer_name = $employer_name;
-        $this->employment_org_name = $org_name;
+    public function setEmploymentData( $data = [] ){
+        if( isset($data) && is_array($data) && isset($data[0])){
+            $this->employment_job_title = $data[0]->ucinn_ascendv2__Job_Title__c;
+            $this->employment_employer_name = $data[0]->ucinn_ascendv2__Related_Account_Name_Formula__c;
+            $this->employment_org_name = "";
+        }
+
     }
 
     public function employment_job_title(){
-        return ucwords($this->employment_job_title);
+        return isset($this->employment_job_title ) ? ucwords($this->employment_job_title) : "";
     }
 
     public function employment_employer_name(){
-        return ucwords($this->employment_employer_name);
+        return isset($this->employment_employer_name) ? ucwords($this->employment_employer_name)  : "";
     }
 
     public function employment_org_name(){
-        return ucwords($this->employment_org_name);
+        return isset($this->employment_org_name) ? ucwords($this->employment_org_name) : "";
     }
 
     public function setEmail($email){

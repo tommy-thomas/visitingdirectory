@@ -23,24 +23,7 @@
 					{% if authentication_error %}
 						<div class="alert alert-block">{{ authentication_error }}</div>
 					{% endif %}	
-					
-					<p><a href="/Shibboleth.sso/Login?entityID=urn:mace:incommon:uchicago.edu&target={{ domain }}/index.php"><strong>Login with CNetID / UCHADID</strong></a></p>
-					
-					<p>Or log in using an existing account below*:</p>
-					<ul class="no-bullet" id="login-list">
-						<li class="facebook">
-							<a href="/Shibboleth.sso/Login?entityID=https://facebook.cirrusidentity.com/gateway&target={{ domain}}">Facebook</a>
-						</li>
-						<li class="google">
-							<a href="/Shibboleth.sso/Login?entityID=https://google.cirrusidentity.com/gateway&target={{ domain }}">Google</a>
-				        </li>
-						<li class="yahoo">
-							<a href="/Shibboleth.sso/Login?entityID=https://yahoo.cirrusidentity.com/gateway&target={{ domain }}">Yahoo</a>
-						</li>	
-					</ul>
 
-					<p>* <em>Please note that the account you choose should use an email address we have on file.</em> </p>
-					
 					<h2>Need Help?</h2>
 					<ul>
 						<li>I have an account above, but it's not linked to an email address on file.
