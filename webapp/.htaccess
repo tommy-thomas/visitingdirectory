@@ -1,5 +1,5 @@
 ## redirect temporarily to all users except program AVD
-# RewriteEngine On
-# RewriteBase /
-# RewriteCond %{REMOTE_ADDR} !^10\.54\.16\.13
-# Redirect 302 / https://ac.uchicago.edu/
+#RewriteEngine On
+#RewriteBase /
+#RewriteCond %{REMOTE_ADDR} !^10.54.16.13
+#RewriteRule .* https://ac.uchicago.edu/ [R=302,L]
