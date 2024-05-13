@@ -34,7 +34,7 @@ class CommitteeMemberFactory
         $this->member->setFullName($this->json_payload->Name);
         $this->member->setStreet($this->json_payload->MailingAddress->street ?? "");
         $this->member->setCity($this->json_payload->MailingAddress->city ?? "");
-        $this->member->setState($this->json_payload->MailingAddress->state ?? "");
+        $this->member->setState($this->json_payload->MailinwgAddress->state ?? "");
         $this->member->setZip($this->json_payload->MailingAddress->postalCode ?? "");
         $this->member->setCountryCode($this->json_payload->MailingAddress->countryCode ?? "");
         $this->member->setEmail($this->json_payload->Email ?? "");

@@ -170,7 +170,7 @@ class Repository
                         $this->members[$committee_code][$id]->setDegrees(json_decode($response->getBody()->getContents())->records);
                     },
                     function (RequestException $exception) use ($member) {
-                        print "Error with degree resquest:\n" . $exception->getMessage();
+                        error_log("Error with degree resquest:\n" . $exception->getMessage());
                     }
                 );
                 $degree->wait();
