@@ -1,18 +1,9 @@
-<!doctype html>
-<!--[if lt IE 7]><html class="no-js ie lt-ie10 lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
-<!--[if IE 7]><html class="no-js ie ie7 lt-ie9 lt-ie8" lang="en"><![endif]-->
-<!--[if IE 8]><html class="no-js ie ie8 lt-ie9 lt-ie10" lang="en"><![endif]-->
-<!--[if IE 9]><html class="no-js ie ie9  lt-ie10" lang="en"><![endif]-->
-<!--[if IE 10]><html class="no-js ie ie10 lt-ie11" lang="en"><![endif]-->
-<!--[if gt IE 10]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-	<meta charset="utf-8">
-	<title>Secure Directory | Visiting Committees &amp; Councils | The University of Chicago</title>
-	
-	{{ include('inc/head.html.twig') }}
-</head>  
-<body>
-	{{ include('inc/header.html.twig') }}
+{% extends "layout.twig" %}
+
+{% block title %}Secure Directory{% endblock %}
+
+{% block content %}
+
 	<div class="container">
 		<h1 class="page-title">Secure Directory</h1>
 			<div class="row">
@@ -95,13 +86,6 @@
 					{{ include('inc/related-links.html.twig') }}
 				</div>					
 			</div>
-		</div><!-- /#page-wrapper -->
-		<div class="push"><!--//--></div>
+		</div>
 
-		{{ include('inc/footer.html.twig') }}
-
-<!-- Insert all js calls here  (jquery is included in the footer inc) -->
-
-</body>
-</html>
-	
+{% endblock content %}
