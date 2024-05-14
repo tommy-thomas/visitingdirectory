@@ -15,47 +15,13 @@
 
     <title>{% block title %}{% endblock %} {% if block('title') is not empty %} | {% endif %}{{ WebAppName }} | The University of Chicago</title>
     <meta name='robots' content='noindex, nofollow'/>
-    <script type="text/javascript">
-    let jqueryParams = [],
-        jQuery = function(r) {
-            return jqueryParams = [...jqueryParams, r], jQuery
-        },
-        $ = function(r) {
-            return jqueryParams = [...jqueryParams, r], $
-        };
-    window.jQuery = jQuery,
-    window.$ = jQuery;
-    let customHeadScripts = !1;
-    jQuery.fn = jQuery.prototype = {},
-    $.fn = jQuery.prototype = {},
-    jQuery.noConflict = function(r) {
-        if (window.jQuery)
-            return jQuery = window.jQuery, $ = window.jQuery, customHeadScripts = !0, jQuery.noConflict
-    },
-    jQuery.ready = function(r) {
-        jqueryParams = [...jqueryParams, r]
-    },
-    $.ready = function(r) {
-        jqueryParams = [...jqueryParams, r]
-    },
-    jQuery.load = function(r) {
-        jqueryParams = [...jqueryParams, r]
-    },
-    $.load = function(r) {
-        jqueryParams = [...jqueryParams, r]
-    },
-    jQuery.fn.ready = function(r) {
-        jqueryParams = [...jqueryParams, r]
-    },
-    $.fn.ready = function(r) {
-        jqueryParams = [...jqueryParams, r]
-    };
-    </script>
+
     <link rel='dns-prefetch' href='//fonts.googleapis.com'/>
     <link rel="alternate" type="application/rss+xml" title="Advisory Councils &raquo; Feed" href="https://voices.uchicago.edu/advisorycouncils/feed/"/>
     <link rel="alternate" type="application/rss+xml" title="Advisory Councils &raquo; Comments Feed" href="https://voices.uchicago.edu/advisorycouncils/comments/feed/"/>
     <meta content="University of Chicago Theme v.3.0.0" name="generator"/>
     <link rel='stylesheet' id='formidable-css' href='https://voices.uchicago.edu/advisorycouncils?load_frmpro_css=true&#038;ver=341721' type='text/css' media='all'/>
+    <link rel='stylesheet'  href='/c/demo_table_jui.css' type='text/css' media='all'/>
     <style id='formidable-inline-css' type='text/css'>
     .da11y-submenu-show, .menu li.et-hover > ul, .nav li.et-hover > ul {
         opacity: 1 !important;
