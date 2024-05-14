@@ -4,8 +4,8 @@
 
 {% block content %}
 
-	<div class="container">
-		<h1 class="page-title">Secure Directory</h1>
+	<div class="">
+		
 			<div class="row">
 				<div class="span9 pull-right">
 					<div class="maincontent">
@@ -13,7 +13,7 @@
 						
 						<p>Didn't find what you were looking for?  <a href="search.php">Browse again or start a new search.</a></p>
 						
-						<h2 id="cmtname">{{ Committee }}</h2>
+						<h3 id="cmtname">{{ Committee }}</h3>
 						
 						<p>
 							<ul>
@@ -24,7 +24,7 @@
 						</p>
 						<p><strong>Please Note:</strong> Member data is not available for printing at this time. Please contact Alumni Relations &amp; Development if you need a copy of this information.</p>
 						<div>
-							<h3>{{ Chairman }}</h3>
+							<h4>{{ Chairman }}</h4>
 							<p class="small"><em>*Denotes a Life Member.</em></p>
 						</div>
                         <div class="table-toggle">
@@ -57,7 +57,7 @@
 						{% endif %}
 
 						{% if ShowSearchResults %}
-					  	<h2>Name Search Results</h2>
+					  	<h3>Name Search Results</h3>
 						<p><strong>{{ total }} results found.</strong> Click on a member's name to see additional information.</br>Didn't find what you were looking for? <a href="search.php">Start a new search.</a></p>
 						<p><strong>Please Note:</strong> Member data is not available for printing at this time. Please contact Alumni Relations &amp; Development if you need a copy of this information.</p>
 						<div class="memberdata">
@@ -81,10 +81,7 @@
 						{% endif %}
 					</div>
 				</div>
-				<div class="span3">				
-					{{ include('inc/navigation.html.twig') }} <!-- this now includes the related links as well -->
-					{{ include('inc/related-links.html.twig') }}
-				</div>					
+				
 			</div>
 		</div>
 

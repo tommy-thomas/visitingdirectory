@@ -45,7 +45,7 @@ class Application extends WS_Application
                 "charset" => $this->charset
             ]);
             // Add global template vars
-            $this->twig->addGlobal("title", "Advisory Councils");
+            $this->twig->addGlobal("WebAppName", "Advisory Councils");
             if ($this->isLoggedIn()) {
                 $this->twig->addGlobal("user", $this->getUser());
             }
