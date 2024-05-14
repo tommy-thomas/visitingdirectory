@@ -614,44 +614,8 @@ a.text-success:focus {
 .text-center {
   text-align: center;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 10px 0;
-  font: inherit;
-  font-family: "ProximaNova-Regular", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: bold;
-  line-height: 20px;
-  color: inherit;
-  text-rendering: optimizelegibility;
-}
-h1 small,
-h2 small,
-h3 small,
-h4 small,
-h5 small,
-h6 small {
-  font-weight: normal;
-  line-height: 1;
-  color: #999999;
-}
-h1 small {
-  font-size: 28px;
-}
-h2 small {
-  font-size: 20px;
-}
-h3 small {
-  font-size: 16px;
-}
-h4 small {
-  font-size: 16px;
-}
 
-h2 {}
+
 .page-header {
   padding-bottom: 9px;
   margin: 20px 0 30px;
@@ -5391,8 +5355,7 @@ p.lead {
   margin: 0 !important;
   padding: 0 !important;
 }
-.dropdown-menu,
-.nav {
+.dropdown-menu{
   margin-left: 0 !important;
 }
 .dropdown-menu,
@@ -5805,49 +5768,13 @@ footer .row-fluid:last-child {
 }
 
 /* MAIN CONTENT */
-.maincontent h1,
-h1.page-title {
-  font: normal 2.25em 'ProximaNova-Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  line-height: 1em;
-  color: #670a0a;
-  margin: .833em 0;
-}
+
 .maincontent {
   margin-bottom: 10em;
 }
-.maincontent h2,
-.maincontent h3,
-.maincontent h4,
-.maincontent h5,
-.maincontent h6 {
-  font-weight: normal;
-  line-height: 1.25em;
-  font-family: 'ProximaNova-Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  
-  clear: both;
-}
-.maincontent h2 {
-  font-size: 1.5em;
-  color: #896137;
-}
-.maincontent h3,
-.maincontent h4,
-.maincontent h5,
-.maincontent h6 {
-  color: #484747;
-}
-.maincontent h3 {
-  font-size: 1.375em;
-}
-.maincontent h4 {
-  font-size: 1.25em;
-}
-.maincontent h5 {
-  font-size: 1.125em;
-}
-.maincontent h6 {
-  font-size: 1em;
-}
+
+
+
 .maincontent ol {
   line-height: 1.5em;
   margin: 0 0 1.875em 1em;
