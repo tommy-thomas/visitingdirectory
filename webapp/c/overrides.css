@@ -2,9 +2,24 @@ p {
     padding-bottom: 20px !important;
 }
 
+h1 {
+    font-family: "Gotham SSm A", "Gotham SSm B", Helvetica, Arial, sans-serif !important;
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    line-height: 27.2px !important;
+}
+
 h3 {
     color: #800000 !important;
     font-family: 'EB Garamond',Georgia,"Times New Roman",serif;
     font-size: 26px;
     font-weight: 500px;
+}
+
+.btn {
+    margin-top: 5px;
+}
+
+input[type=text] {
+    padding: 12px !important;
 }

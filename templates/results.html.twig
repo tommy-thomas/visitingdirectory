@@ -23,10 +23,12 @@
 							</ul>
 						</p>
 						<p><strong>Please Note:</strong> Member data is not available for printing at this time. Please contact Alumni Relations &amp; Development if you need a copy of this information.</p>
-						<div>
-							<h4>{{ Chairman }}</h4>
-							<p class="small"><em>*Denotes a Life Member.</em></p>
-						</div>
+						{% if Chairman %}
+							<div>
+								<h4>{{ Chairman }}</h4>
+								<p class="small"><em>*Denotes a Life Member.</em></p>
+							</div>
+						{% endif %}
                         <div class="table-toggle">
                         	<a href="#" id="oButton">+ expand all</a> / <a href="#" id="cButton">- collapse all</a>
                         </div>  
@@ -48,7 +50,7 @@
 										</td>
 										<td>{{ m.first_name }} {{ m.middle }}</td>
 										<td><a href="mailto:{{ m.email }}">{{ m.email }}</a></td>
-										<td><a href="tel:{{ m.phone }}">{{ m.phone }}</a></td>
+										<td>{% if m.phone %}<a href="tel:{{ m.phone }}">{{ m.phone }}{% endif %}</a></td>
 									</tr>
 								{% endfor %}
 								</tbody>

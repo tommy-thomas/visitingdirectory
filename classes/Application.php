@@ -46,6 +46,7 @@ class Application extends WS_Application
             ]);
             // Add global template vars
             $this->twig->addGlobal("WebAppName", "Advisory Councils");
+            $this->twig->addGlobal("CacheBuster", "20240515");
             if ($this->isLoggedIn()) {
                 $this->twig->addGlobal("user", $this->getUser());
             }
