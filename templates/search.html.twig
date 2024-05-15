@@ -14,8 +14,9 @@
 								<h3>Browse by Committee</h3>
 								<form action="results.php" method="post" name="by_committee">
 									<div>
-										<select name="committee" size="1">
-											<option value="" selected>-- Select -- </option>
+										<label for="committee">Select a committee</label>
+										<select name="committee" size="1" id="committee">
+											<option value="" selected></option>
 											{% for c in committees %}
 											<option value="{{ c.COMMITTEE_CODE }}">{{ c.SHORT_DESC }}</option>
 											{% endfor %}
@@ -31,11 +32,11 @@
 								<form action="results.php" method="post" name="by_name">
 									<div class="w50 first" id="">
 										<label for="f_name">First Name</label>
-										<input name="f_name" type="text" />
+										<input name="f_name" type="text" id="f_name" />
 									</div>
 									<div class="w50 first" id="">
 										<label for="l_name">Last Name</label>
-										<input name="l_name" type="text" />
+										<input name="l_name" type="text" id="l_name" />
 									</div>
 									<div>
 										<input class="btn" type="submit" name="search_by_name" value="Search" />
