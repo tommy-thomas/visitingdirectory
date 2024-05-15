@@ -49,7 +49,7 @@
 											<div class="infodiv" style="display:none;">{{ m.degrees }}:{{ m.street }}:{{ m.city }}:{{ m.state }}:{{ m.zip }}:{{ m.employment_job_title }}:{{ m.employment_employer_name}}</div>
 										</td>
 										<td>{{ m.first_name }} {{ m.middle }}</td>
-										<td><a href="mailto:{{ m.email }}">{{ m.email }}</a></td>
+										<td>{% if m.email %}<a href="mailto:{{ m.email }}">{{ m.email }}</a>{% endif %}</td>
 										<td>{% if m.phone %}<a href="tel:{{ m.phone }}">{{ m.phone }}{% endif %}</a></td>
 									</tr>
 								{% endfor %}
