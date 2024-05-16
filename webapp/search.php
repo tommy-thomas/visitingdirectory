@@ -11,19 +11,14 @@ $app = new \UChicago\AdvisoryCouncil\Application();
 
 $committees = new Committees();
 
-if( !$app->authorized() )
-{
-	$app->redirect('./index.php?error=auth');
-}
-else
-{
+
 	$template = $app->template('./search.html.twig');
 	$TwigTemplateVariables = array();
 
 	$TwigTemplateVariables['LoggedIn' ] = true;
 	$TwigTemplateVariables[ "base" ] = $app->domain() ;
     $TwigTemplateVariables[ "committees" ] = $committees->committees();
-}
+
 
 /*
  * Error messages

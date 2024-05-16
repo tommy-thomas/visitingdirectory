@@ -69,16 +69,6 @@ class Application extends WS_Application
         return "https://" . $_SERVER['HTTP_HOST'];
     }
 
-    public function login(User $user)
-    {
-        $_SESSION['user'] = $user;
-    }
-
-    public function logout()
-    {
-        session_destroy();
-    }
-
     public function isLoggedIn()
     {
         return isset($_SESSION['user']);
@@ -89,28 +79,6 @@ class Application extends WS_Application
         return isset($_SESSION['user']) ? $_SESSION['user']->getUserName() : "";
     }
 
-
-    /**
-     * @param $i
-     * @return array|mixed
-     */
-    public function getErrorMessage($i)
-    {
-        $error_message = array(
-            0 => "You are not authorized to log into this site.",
-            1 => "You are not authorized to authenticate from this service."
-        );
-        return isset($error_message[$i]) ? $error_message[$i] : array();
-    }
-
-    public function isAppSecScan(){
-        return $this->isDev() && (isset($_SERVER[self::APP_SEC_HEADER_KEY]) && $_SERVER[self::APP_SEC_HEADER_KEY] == self::APP_SEC_HEADER_VALUE);
-    }
-
-    public function authorized()
-    {
-        return (isset($_SESSION['email']) );
-    }
 
     /**
      * Handle any exception in the application.

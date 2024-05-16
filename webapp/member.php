@@ -17,13 +17,6 @@ $client = new Client();
 
 $repository = new Repository();
 
-/**
- * Start populating the CS template.
- * The Clear Silver template.
- */
-if (!$app->authorized() || !isset($_GET['id_number'])) {
-    $app->redirect('./index.php?error=auth');
-}
 
 $template = $app->template('./member.html.twig');
 $TwigTemplateVariables = array();

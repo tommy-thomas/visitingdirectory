@@ -13,9 +13,7 @@ use UChicago\AdvisoryCouncil\CommitteeSearch;
 use UChicago\AdvisoryCouncil\Data\Repository;
 
 $app = new \UChicago\AdvisoryCouncil\Application();
-if (!$app->authorized()) {
-    $app->redirect('./index.php?error=auth');
-}
+
 
 $committees = new Committees();
 
