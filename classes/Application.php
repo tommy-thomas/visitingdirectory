@@ -23,8 +23,6 @@ class Application extends WS_Application
     private $sessionTimeout = 3600;
     const API_URL = "https://itsapi.uchicago.edu/system/ascend/v1/api/query/";
     const DB_PATH = "/data/aliasedphp/visitingdirectory/webapp/db/committee_data.db";
-    const APP_SEC_HEADER_KEY = "AppSecScan";
-    const APP_SEC_HEADER_VALUE = "05c4b923ef378fe66b04519e87d4ab3e";
 
     /**
      * Public constructor.
@@ -34,7 +32,6 @@ class Application extends WS_Application
         parent::__construct($requireSession, $this->sessionTimeout);
         $this->charset = "utf-8";
         $this->templatesPath = __DIR__ . "/../templates";
-        $_SESSION['email'] = $_SERVER['OIDC_CLAIM_email'];
     }
 
     public function template($templateFile)
@@ -47,9 +44,6 @@ class Application extends WS_Application
             // Add global template vars
             $this->twig->addGlobal("WebAppName", "Advisory Councils");
             $this->twig->addGlobal("CacheBuster", "20240515");
-            if ($this->isLoggedIn()) {
-                $this->twig->addGlobal("user", $this->getUser());
-            }
         }
         return $this->twig->load($templateFile);
     }
@@ -69,16 +63,6 @@ class Application extends WS_Application
         return "https://" . $_SERVER['HTTP_HOST'];
     }
 
-    public function isLoggedIn()
-    {
-        return isset($_SESSION['user']);
-    }
-
-    public function getUser()
-    {
-        return isset($_SESSION['user']) ? $_SESSION['user']->getUserName() : "";
-    }
-
 
     /**
      * Handle any exception in the application.
@@ -90,5 +74,3 @@ class Application extends WS_Application
         throw new Exception ($exceptionMessage);
     }
 }
-
-?>
