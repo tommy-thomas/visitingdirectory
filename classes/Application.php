@@ -22,7 +22,7 @@ class Application extends WS_Application
     private $templatesPath;
     private $sessionTimeout = 3600;
     const API_URL = "https://itsapi.uchicago.edu/system/ascend/v1/api/query/";
-    const DB_PATH = "/data/aliasedphp/visitingdirectory/webapp/db/committee_data.db";
+    const DB_PATH = "/data/aliasedphp/visitingdirectory/db/committee_data.db";
 
     /**
      * Public constructor.

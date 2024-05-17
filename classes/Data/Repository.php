@@ -69,11 +69,13 @@ class Repository
 
     public function setDBData()
     {
+        error_log('setDBData start ');
         if( !empty($this->members()) && !empty($this->committee_membership())){
             $this->database->set('member_data', $this->members());
             $this->database->set('membership_data', array('committee_membership' => $this->committee_membership()));
             return true;
         }
+        error_log('setDBData end ');
         return false;
     }
 
@@ -86,7 +88,7 @@ class Repository
 
     private function setMainData()
     {
-
+        error_log('setMainData start ');
         $committee_codes = $this->committees->committeeCodesToArray();
 
         $main_requests = function () use ($committee_codes) {
@@ -135,11 +137,13 @@ class Repository
         // Force the main_pool of main_requests to complete.
         $promise->wait();
 
+        error_log('setMainData end ');
         return $this;
     }
 
     public function setEmploymentData()
     {
+        error_log('setEmploymentData start ');
         foreach ($this->members() as $committee_code => $members_array) {
             foreach ($members_array as $id => $member) {
                 if (!empty($member->employment_id())) {
@@ -157,11 +161,13 @@ class Repository
 
             }
         }
+        error_log('setEmploymentData end ');
         return $this;
     }
 
     public function setDegreeData()
     {
+        error_log('setDegreeData start');
         foreach ($this->members() as $committee_code => $members_array) {
             foreach ($members_array as $id => $member) {
                 $degree = $this->client->getAsync($this->uri . "degree?q=ucinn_ascendv2__Contact__c='" . urlencode($member->id_number()) . "'", $this->headers_array);
@@ -176,14 +182,17 @@ class Repository
                 $degree->wait();
             }
         }
+        error_log('setDegreeData end');
         return $this;
     }
 
     public function sortData()
     {
+        error_log('sortData start ');
         foreach ($this->members() as $key => $committee) {
             $this->members[$key] = $this->factory->sortData($committee);
         }
+        error_log('sortData end ');
         return $this;
     }
 
